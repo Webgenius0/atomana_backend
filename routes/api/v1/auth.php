@@ -23,8 +23,8 @@ Route::middleware('guest:api')->group(function ($router) {
 
     // OTP-related routes
     Route::prefix('/forget-password')->name('forgetpassword.')->controller(OTPController::class)->group(function () {
-        Route::post('/oto-send', 'otpSend')->name('otp.send');
-        Route::post('/oto-match', 'otpMatch')->name('otp.match');
+        Route::post('/otp-send', 'otpSend')->name('otp.send');
+        Route::post('/otp-match', 'otpMatch')->name('otp.match');
     });
 
     Route::prefix('/forget-password')->name('forgetpassword.')->controller(ForgerPasswordController::class)->group(function () {

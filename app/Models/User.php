@@ -28,6 +28,7 @@ class User extends Authenticatable implements JWTSubject
      * @var list<string>
      */
     protected $hidden = [
+        'email_verified_at',
         'password',
         'remember_token',
         'created_at',

@@ -4,6 +4,7 @@ use App\Http\Controllers\API\V1\Auth\AuthController;
 use App\Http\Controllers\API\V1\Auth\ForgerPasswordController;
 use App\Http\Controllers\API\V1\Auth\OTPController;
 use App\Http\Controllers\API\V1\Auth\PasswordController;
+use App\Http\Controllers\API\V1\Auth\SocialLoginController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,6 +31,12 @@ Route::middleware('guest:api')->group(function ($router) {
     Route::prefix('/forget-password')->name('forgetpassword.')->controller(ForgerPasswordController::class)->group(function () {
         Route::post('/reset-password', 'resetPassword')->name('reset.password');
     });
+
+    Route::prefix('/social')->name('social.')->controller(SocialLoginController::class)->group(
+        function () {
+            Route::post('/login', 'socialLogin')->name('login');
+        }
+    );
 });
 
 
@@ -47,9 +54,3 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/otp-match', 'otpMatch')->name('otp.match');
     });
 });
-
-
-
-
-
-

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('licence');
             $table->string('ecar_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

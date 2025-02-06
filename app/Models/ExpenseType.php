@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExpenseType extends Model
 {
@@ -35,5 +36,17 @@ class ExpenseType extends Model
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
+    }
+
+    // ------------------------------------
+    // ------------------------------------
+
+    /**
+     * Model relationship with Expense
+     * @return HasMany<Expense, ExpenseType>
+     */
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class);
     }
 }

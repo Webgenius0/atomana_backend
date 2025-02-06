@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Expense extends Model
 {
@@ -35,5 +36,64 @@ class Expense extends Model
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
+    }
+
+
+    // ------------------------------------
+    // ------------------------------------
+
+    /**
+     * belongs to expenseCategory
+     * @return BelongsTo<ExpenseCategory, Expense>
+     */
+    public function category():BelongsTo
+    {
+        return $this->belongsTo(ExpenseCategory::class);
+    }
+
+
+    /**
+     * belongs to expenseSubCategory
+     * @return BelongsTo<ExpenseSubCategory, Expense>
+     */
+    public function subCategory():BelongsTo
+    {
+        return $this->belongsTo(ExpenseSubCategory::class);
+    }
+
+    /**
+     * belongs to expenseFor
+     * @return BelongsTo<ExpenseFor, Expense>
+     */
+    public function for():BelongsTo
+    {
+        return $this->belongsTo(ExpenseFor::class);
+    }
+
+    /**
+     * belongs to expensetype
+     * @return BelongsTo<ExpenseType, Expense>
+     */
+    public function type():BelongsTo
+    {
+        return $this->belongsTo(ExpenseType::class);
+    }
+
+    /**
+     * belongs to paymentMethord
+     * @return BelongsTo<PaymentMethord, Expense>
+     */
+    public function paymentMethord():BelongsTo
+    {
+        return $this->belongsTo(PaymentMethord::class);
+    }
+
+    /**
+     * belongs to vendor
+     * @return BelongsTo<Vendor, Expense>
+     */
+    public function vendor():BelongsTo
+    {
+        return $this->belongsTo(Vendor::class);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExpenseSubCategory extends Model
 {
@@ -35,5 +37,27 @@ class ExpenseSubCategory extends Model
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
+    }
+
+    // ------------------------------------
+    // ------------------------------------
+
+    /**
+     * Model relationship with Expense
+     * @return HasMany<Expense, ExpenseSubCategory>
+     */
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+
+    /**
+     * Model relationship with Expense
+     * @return BelongsTo<ExpenseCategory, ExpenseSubCategory>
+     */
+    public function expenseCategory():BelongsTo
+    {
+        return $this->belongsTo(ExpenseCategory::class);
     }
 }

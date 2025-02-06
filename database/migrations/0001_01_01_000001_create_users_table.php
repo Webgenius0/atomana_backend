@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('avatar')->nullable();
 
             $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete();
-            $table->foreignId('business_id')->constrained('businesses')->nullable()->cascadeOnDelete();
 
             $table->boolean('status')->default(true);
 

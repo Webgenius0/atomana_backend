@@ -25,6 +25,8 @@ class OTP extends Model
     {
         return [
             'number' => 'integer',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
         ];
     }
 

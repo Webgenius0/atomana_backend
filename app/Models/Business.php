@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Business extends Model
 {
@@ -35,5 +36,20 @@ class Business extends Model
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
+    }
+
+
+    // ------------------------------------
+    // ------------------------------------
+
+    /**
+     * Business can have multiple users.
+     * Getting all user of the Business.
+     *
+     * @return BelongsToMany<User, Business>
+     */
+    public function users():BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
     }
 }

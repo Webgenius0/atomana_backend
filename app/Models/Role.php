@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Role extends Model
 {
@@ -35,5 +36,18 @@ class Role extends Model
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
+    }
+
+
+    // ------------------------------------
+    // ------------------------------------
+
+    /**
+     * All users belongs to the role
+     * @return HasMany<User, Role>
+     */
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
     }
 }

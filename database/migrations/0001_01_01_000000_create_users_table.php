@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('name');
 
             $table->string('handle')->unique();
 
@@ -24,7 +23,10 @@ return new class extends Migration
             $table->string('password');
 
             $table->string('avatar')->nullable();
-            $table->enum('role', ['user', 'admin'])->default('user');
+
+            $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete();
+            $table->foreignId('business_id')->constrained('businesses')->nullable()->cascadeOnDelete();
+
             $table->boolean('status')->default(true);
 
             $table->rememberToken();

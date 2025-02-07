@@ -3,6 +3,7 @@
 namespace App\Repositories\API\V1\Auth;
 
 use App\Helpers\Helper;
+use App\Models\Business;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -25,20 +26,28 @@ class UserRepository implements UserRepositoryInterface
      *
      * @throws Exception If user creation fails.
      */
-    public function createUser(array $credentials, $role = 'user'):User
+    public function createUser(array $credentials, $role = 2): User
     {
         try {
             // creating user
             $user = User::create([
                 'first_name' => $credentials['first_name'],
-                'last_name' => $credentials['last_name'],
-                'handle' => Helper::generateUniqueSlug($credentials['first_name'], 'users', 'handle'),
-                'email' => $credentials['email'],
-                'password' => Hash::make($credentials['password']),
-                'role' => $role,
+                'last_name'  => $credentials['last_name'],
+                'handle'     => Helper::generateUniqueSlug($credentials['first_name'], 'users', 'handle'),
+                'email'      => $credentials['email'],
+                'password'   => Hash::make($credentials['password']),
+                'role_id'       => $role,
             ]);
             // creating user profile
             $user->profile()->create([]);
+
+            $business = Business::create([
+                'licence' => $credentials['licence'],
+                'ecar_id' => $credentials['ecar_id'],
+            ]);
+
+            $user->businesses()->attach($business->id);
+
             return $user;
         } catch (Exception $e) {
             Log::error('UserRepository::createUser', ['error' => $e->getMessage()]);
@@ -59,7 +68,7 @@ class UserRepository implements UserRepositoryInterface
      *
      * @throws Exception If there is an error during the query.
      */
-    public function login(array $credentials):User|null
+    public function login(array $credentials): User|null
     {
         try {
             return User::where('email', $credentials['email'])->first();

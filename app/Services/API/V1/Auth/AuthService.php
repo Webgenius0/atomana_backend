@@ -54,8 +54,8 @@ class AuthService
             }
             DB::commit();
             $user->load(['profile' => function ($query) {
-                $query->select('id', 'user_id', 'gender', 'phone', 'address', 'date_of_birth', 'bio');
-            }]);
+                $query->select('id', 'user_id', 'phone', 'address', 'date_of_birth', 'bio');
+            }, 'role']);
             return ['token' => $token, 'user' => $user, 'verify' => false];
         } catch (Exception $e) {
             DB::rollBack();
@@ -93,8 +93,8 @@ class AuthService
             }
 
             $user->load(['profile' => function ($query) {
-                $query->select('id', 'user_id', 'gender', 'phone', 'address', 'date_of_birth', 'bio');
-            }]);
+                $query->select('id', 'user_id', 'phone', 'address', 'date_of_birth', 'bio');
+            }, 'role']);
 
             return ['token' => $token, 'user' => $user, 'verify' => $verify];
         } catch (Exception $e) {

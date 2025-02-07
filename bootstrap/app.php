@@ -1,9 +1,13 @@
 <?php
 
 use App\Helpers\Helper;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\Agent;
+use App\Http\Middleware\Authorized;
 use App\Http\Middleware\EnsureGuestJwt;
 use App\Http\Middleware\HelperMiddleware;
 use App\Http\Middleware\IsVerifyed;
+use App\Http\Middleware\SuperAdmin;
 use App\Http\Middleware\UserMiddleware;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -57,8 +61,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'guest.api' => EnsureGuestJwt::class,
             'helper' => HelperMiddleware::class,
-            'user' => UserMiddleware::class,
             'verified' => IsVerifyed::class,
+            'super_admin' => SuperAdmin::class,
+            'admin' => Admin::class,
+            'agent' => Agent::class,
+            'authorized' => Authorized::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

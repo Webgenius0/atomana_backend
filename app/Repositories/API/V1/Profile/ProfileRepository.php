@@ -1,8 +1,45 @@
 <?php
-        
+
 namespace App\Repositories\API\V1\Profile;
+
+use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ProfileRepository implements ProfileRepositoryInterface
 {
-    // Your Repository logic goes here
+    /**
+     * geth the profile info a business user
+     *
+     * @param int $userId
+     * @return User
+     */
+    public function getBusinessProfileData(int $userId): User
+    {
+        try {
+            $user = User::with(['businesses', 'profile'])->findOrFail($userId);
+            return $user;
+        } catch (Exception $e) {
+            Log::error('ProfileRepository::getProfileData', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * geth the profile info a agent user
+     *
+     * @param int $userId
+     * @return User
+     */
+    public function getAgentProfileData(int $userId): User
+    {
+        try {
+            $user = User::with(['profile'])->findOrFail($userId);
+            return $user;
+        } catch (Exception $e) {
+            Log::error('ProfileRepository::getProfileData', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

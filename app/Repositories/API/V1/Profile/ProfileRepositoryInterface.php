@@ -1,8 +1,24 @@
 <?php
-    
+
 namespace App\Repositories\API\V1\Profile;
+
+use App\Models\User;
 
 interface ProfileRepositoryInterface
 {
-    // Define the methods your repository should implement
+    /**
+     * geth the profile info a business user
+     *
+     * @param int $userId
+     * @return User
+     */
+    public function getBusinessProfileData(int $userId);
+
+    /**
+     * geth the profile info a agent user
+     *
+     * @param int $userId
+     * @return User
+     */
+    public function getAgentProfileData(int $userId);
 }

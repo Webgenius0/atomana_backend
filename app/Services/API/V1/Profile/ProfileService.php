@@ -2,7 +2,7 @@
     
 namespace App\Services\API\V1\Profile;
 
-class Profile
+class ProfileService
 {
     // Your service logic goes here
 }

@@ -59,7 +59,7 @@ class AuthController extends Controller
 
             return $this->success(200, 'Registration Successfully', $response);
         } catch (Exception $e) {
-            Log::error('AuthService::register', ['error' => $e->getMessage()]);
+            Log::error('AuthController::register', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
@@ -85,7 +85,7 @@ class AuthController extends Controller
 
             return $this->success(200, 'Login Successfully', $response);
         } catch (Exception $e) {
-            Log::error('AuthService::login', ['error' => $e->getMessage()]);
+            Log::error('AuthController::login', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
@@ -107,7 +107,7 @@ class AuthController extends Controller
             $this->authService->logout();
             return $this->success(200, 'Logout Successfully');
         } catch (Exception $e) {
-            Log::error('AuthService::logout', ['error' => $e->getMessage()]);
+            Log::error('AuthController::logout', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
@@ -129,7 +129,7 @@ class AuthController extends Controller
             $token = JWTAuth::refresh(JWTAuth::getToken());
             return $this->success(200, 'Token Updated', ['token' => $token]);
         } catch (Exception $e) {
-            Log::error('AuthService::refresh', ['error' => $e->getMessage()]);
+            Log::error('AuthController::refresh', ['error' => $e->getMessage()]);
             return $this->error(500, 'server Error', $e->getMessage());
         }
     }

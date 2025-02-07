@@ -6,6 +6,7 @@ use App\Traits\V1\ApiResponse;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class Authorized
@@ -19,7 +20,7 @@ class Authorized
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        if ($user && in_array(optional($user->role)->name, ['agent', 'super admin'])) {
+        if ($user && in_array(optional($user->role)->name, ['agent', 'admin'])) {
             return $next($request);
         }
         return $this->error(403, 'Only Admins & Agents are Allowed to Access');

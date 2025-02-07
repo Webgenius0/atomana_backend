@@ -20,10 +20,16 @@ class ProfileController extends Controller
         $this->profileService = $profileService;
     }
 
+    /**
+     * returning the profile of a user
+     *
+     * @return JsonResponse
+     */
     public function show():JsonResponse
     {
         try{
-            return $this->success();
+            $response = $this->profileService->getProfile();
+            return $this->success(200, 'Profile Data Seuccessfully Retrived', $response);
         }catch(Exception $e) {
             Log::error('ProfileController::show', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

@@ -12,7 +12,7 @@ interface ProfileRepositoryInterface
      * @param int $userId
      * @return User
      */
-    public function getBusinessProfileData(int $userId);
+    public function getAdminProfileData(int $userId);
 
     /**
      * geth the profile info a agent user

@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Log;
 class ProfileRepository implements ProfileRepositoryInterface
 {
     /**
-     * geth the profile info a business user
+     * geth the profile info a admin user
      *
      * @param int $userId
      * @return User
      */
-    public function getBusinessProfileData(int $userId): User
+    public function getAdminProfileData(int $userId): User
     {
         try {
             $user = User::with(['businesses', 'profile'])->findOrFail($userId);

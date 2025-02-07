@@ -59,13 +59,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'guest.api' => EnsureGuestJwt::class,
-            'helper' => HelperMiddleware::class,
-            'verified' => IsVerifyed::class,
-            'super_admin' => SuperAdmin::class,
-            'admin' => Admin::class,
-            'agent' => Agent::class,
-            'authorized' => Authorized::class,
+            'guest.api' => EnsureGuestJwt::class, // only for guest users
+            'verified' => IsVerifyed::class, // is user verified
+            'super_admin' => SuperAdmin::class, // only super admin
+            'admin' => Admin::class, // only admin
+            'agent' => Agent::class, // only agent
+            'authorized' => Authorized::class, // bouth agent and admin
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

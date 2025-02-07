@@ -33,7 +33,7 @@ class ProfileService
         try{
             $userRole = $this->user->role->name;
             if ($userRole == 'admin') {
-                $data = $this->profileRepository->getBusinessProfileData($this->user->id);
+                $data = $this->profileRepository->getAdminProfileData($this->user->id);
             }
             else if ($userRole == 'agent') {
                 $data = $this->profileRepository->getAgentProfileData($this->user->id);

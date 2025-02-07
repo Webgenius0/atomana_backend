@@ -6,4 +6,4 @@ use Illuminate\Support\Facades\Route;
 /**
  * V1 API Routes:
  */
-require 'auth/auth.php';    // All Auth routes
+require 'v1/auth/auth.php';    // All Auth routes

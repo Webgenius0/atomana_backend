@@ -45,7 +45,7 @@ use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
-        api: __DIR__ . '/../routes/api/v1/api.php',
+        api: __DIR__ . '/../routes/api/api.php',
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
 

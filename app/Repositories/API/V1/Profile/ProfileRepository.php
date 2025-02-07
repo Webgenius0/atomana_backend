@@ -17,7 +17,12 @@ class ProfileRepository implements ProfileRepositoryInterface
     public function getAdminProfileData(int $userId): User
     {
         try {
-            $user = User::with(['businesses', 'profile'])->findOrFail($userId);
+            $user = User::with([
+                'profile',
+                'businesses' => function ($query) {
+                    $query->limit(1);
+                },
+            ])->findOrFail($userId);
             return $user;
         } catch (Exception $e) {
             Log::error('ProfileRepository::getProfileData', ['error' => $e->getMessage()]);

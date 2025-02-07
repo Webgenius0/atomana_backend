@@ -25,7 +25,7 @@ class ProfileController extends Controller
         try{
             return $this->success();
         }catch(Exception $e) {
-            Log::error('ProfileController::register', ['error' => $e->getMessage()]);
+            Log::error('ProfileController::show', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
@@ -35,7 +35,7 @@ class ProfileController extends Controller
         try{
             return $this->success();
         }catch(Exception $e) {
-            Log::error('ProfileController::register', ['error' => $e->getMessage()]);
+            Log::error('ProfileController::update', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
@@ -45,7 +45,7 @@ class ProfileController extends Controller
         try{
             return $this->success();
         }catch(Exception $e) {
-            Log::error('ProfileController::register', ['error' => $e->getMessage()]);
+            Log::error('ProfileController::destory', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

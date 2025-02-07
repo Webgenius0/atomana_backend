@@ -10,6 +10,8 @@ use App\Repositories\API\V1\Auth\PasswordRepository;
 use App\Repositories\API\V1\Auth\PasswordRepositoryInterface;
 use App\Repositories\API\V1\Auth\UserRepository;
 use App\Repositories\API\V1\Auth\UserRepositoryInterface;
+use App\Repositories\API\V1\Profile\ProfileRepository;
+use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,10 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // auth
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(ForgetPasswordRepositoryInterface::class, ForgetPasswordRepository::class);
         $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
         $this->app->bind(PasswordRepositoryInterface::class, PasswordRepository::class);
+
+        // profile
+        $this->app->bind(ProfileRepositoryInterface::class, ProfileRepository::class);
     }
 
     /**

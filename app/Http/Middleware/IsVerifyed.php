@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Traits\ApiResponse;
+use App\Traits\V1\ApiResponse as V1ApiResponse;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IsVerifyed
 {
-    use ApiResponse;
+    use V1ApiResponse;
     /**
      * Handle an incoming request.
      *

@@ -19,6 +19,7 @@ class ProfileRepository implements ProfileRepositoryInterface
         try {
             $user = User::with([
                 'profile',
+                'role',
                 'businesses' => function ($query) {
                     $query->limit(1);
                 },
@@ -40,7 +41,7 @@ class ProfileRepository implements ProfileRepositoryInterface
     public function getAgentProfileData(int $userId): User
     {
         try {
-            $user = User::with(['profile'])->findOrFail($userId);
+            $user = User::with(['profile', 'role'])->findOrFail($userId);
             return $user;
         } catch (Exception $e) {
             Log::error('ProfileRepository::getProfileData', ['error' => $e->getMessage()]);

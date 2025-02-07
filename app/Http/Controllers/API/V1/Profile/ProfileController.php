@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\V1\Profile\ShowProfileResource;
 use App\Services\API\V1\Profile\ProfileService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -29,7 +30,7 @@ class ProfileController extends Controller
     {
         try{
             $response = $this->profileService->getProfile();
-            return $this->success(200, 'Profile Data Seuccessfully Retrived', $response);
+            return $this->success(200, 'Profile Data Seuccessfully Retrived', new ShowProfileResource($response));
         }catch(Exception $e) {
             Log::error('ProfileController::show', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

@@ -18,7 +18,6 @@ class ShowProfileResource extends JsonResource
     {
         try {
             $data = parent::toArray($request);
-            Log::info($data);
             if (isset($data['businesses'])) {
                 return $this->responseForAdmin($data);
             } else {

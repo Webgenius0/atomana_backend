@@ -15,7 +15,7 @@ Route::prefix('/v1/auth')->name('api.auth.')->group(function () {
         // Authentication-related routes
         Route::controller(AuthController::class)->group(function () {
             Route::post('/login', 'login')->name('login');
-            Route::post('/register-business', 'register')->name('register.business');
+            Route::post('/register-admin', 'register')->name('register.admin');
         });
 
         // Password-related routes

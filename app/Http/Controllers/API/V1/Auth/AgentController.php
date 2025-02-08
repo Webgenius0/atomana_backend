@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Auth\RegisterAgentRequest;
+use App\Http\Resources\API\V1\Auth\RegisterAgentResource;
 use App\Services\API\V1\Auth\AgentService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -23,7 +24,7 @@ class AgentController extends Controller
 
     /**
      * Registering an agent
-     * 
+     *
      * @param \App\Http\Requests\API\V1\Auth\RegisterAgentRequest $registerAgentRequest
      * @return \Illuminate\Http\JsonResponse
      */
@@ -34,7 +35,7 @@ class AgentController extends Controller
 
             $response = $this->agentService->register($validatedData);
 
-            return $this->success(200, 'Registration Successful', $response);
+            return $this->success(200, 'Registration Successful', new RegisterAgentResource($response));
         } catch (Exception $e) {
             Log::error('AgentController::register', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

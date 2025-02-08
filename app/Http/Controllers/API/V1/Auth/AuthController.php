@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1\Auth;
 
+use App\Http\Resources\API\V1\Auth\RegisterUserResource;
 use App\Services\API\V1\Auth\AuthService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Auth\LoginRequest;
@@ -57,7 +58,7 @@ class AuthController extends Controller
 
             $response = $this->authService->register($validatedData);
 
-            return $this->success(200, 'Registration Successful', $response);
+            return $this->success(200, 'Registration Successful', new RegisterUserResource($response));
         } catch (Exception $e) {
             Log::error('AuthController::register', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

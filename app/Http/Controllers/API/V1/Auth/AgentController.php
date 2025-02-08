@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Controllers\API\V1\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\Auth\RegisterAgentRequest;
+use App\Services\API\V1\Auth\AgentService;
+use App\Traits\V1\ApiResponse;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+class AgentController extends Controller
+{
+    use ApiResponse;
+    private AgentService $agentService;
+
+    public function __construct(AgentService $agentService)
+    {
+        $this->agentService = $agentService;
+    }
+
+
+    /**
+     * Registering an agent
+     * 
+     * @param \App\Http\Requests\API\V1\Auth\RegisterAgentRequest $registerAgentRequest
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(RegisterAgentRequest $registerAgentRequest)
+    {
+        try {
+            $validatedData = $registerAgentRequest->validated();
+
+            $response = $this->agentService->register($validatedData);
+
+            return $this->success(200, 'Registration Successful', $response);
+        } catch (Exception $e) {
+            Log::error('AgentController::register', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+}

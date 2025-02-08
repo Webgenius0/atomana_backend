@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Services\API\V1\Auth;
+
+use App\Repositories\API\V1\Auth\OTPRepositoryInterface;
+use App\Repositories\API\V1\Auth\UserRepositoryInterface;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
+class AgentService
+{
+    protected UserRepositoryInterface $userRepository;
+    protected OTPRepositoryInterface $otpRepository;
+
+    /**
+     * Constructor for initializing the class with UserRepository and OTPRepository dependencies.
+     *
+     * @param UserRepositoryInterface $userRepository The repository used for user-related data operations.
+     * @param OTPRepositoryInterface $otpRepository The repository used for OTP-related data operations.
+     */
+    public function __construct(UserRepositoryInterface $userRepository, OTPRepositoryInterface $otpRepository)
+    {
+        $this->userRepository = $userRepository;
+        $this->otpRepository = $otpRepository;
+    }
+
+
+    /**
+     * Registers a new user and generates an authentication token.
+     *
+     * Creates a user using the provided credentials, sends an OTP to the user's email,
+     * and attempts to generate a JWT token. If successful, it returns the token and user details.
+     * If an error occurs, it rolls back the transaction and logs the error.
+     *
+     * @param array $credentials The user's registration details, including email and password.
+     *
+     * @return array The registration result, including the generated token, user's role, OTP status, and verification status.
+     */
+    public function register(array $credentials): array
+    {
+        try {
+            DB::beginTransaction();
+            $user = $this->userRepository->createUser($credentials);
+            $otp = $this->otpRepository->sendOtp($user, 'email');
+
+            $token = $token = JWTAuth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']]);
+
+            if (!$token) {
+                throw new Exception('Token generation failed.', 500);
+            }
+            DB::commit();
+            $user->load(['profile' => function ($query) {
+                $query->select('id', 'user_id', 'phone', 'address', 'date_of_birth', 'bio');
+            }, 'role']);
+            return ['token' => $token, 'user' => $user, 'verify' => false];
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('AgentService::register', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+}

@@ -42,19 +42,16 @@ class AgentService
     {
         try {
             DB::beginTransaction();
-            $user = $this->userRepository->createUser($credentials);
+            // create user with role 3 (Agent)
+            $user = $this->userRepository->createUser($credentials, 3);
             $otp = $this->otpRepository->sendOtp($user, 'email');
 
-            $token = $token = JWTAuth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']]);
 
-            if (!$token) {
-                throw new Exception('Token generation failed.', 500);
-            }
             DB::commit();
             $user->load(['profile' => function ($query) {
                 $query->select('id', 'user_id', 'phone', 'address', 'date_of_birth', 'bio');
             }, 'role']);
-            return ['token' => $token, 'user' => $user, 'verify' => false];
+            return ['user' => $user, 'verify' => false];
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('AgentService::register', ['error' => $e->getMessage()]);

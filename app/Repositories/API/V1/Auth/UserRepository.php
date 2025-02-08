@@ -26,7 +26,7 @@ class UserRepository implements UserRepositoryInterface
      *
      * @throws Exception If user creation fails.
      */
-    public function createUser(array $credentials, $role = 2): User
+    public function createUser(array $credentials, int $role = 2): User
     {
         try {
             // creating user
@@ -41,12 +41,15 @@ class UserRepository implements UserRepositoryInterface
             // creating user profile
             $user->profile()->create([]);
 
-            $business = Business::create([
-                'licence' => $credentials['licence'],
-                'ecar_id' => $credentials['ecar_id'],
-            ]);
-
-            $user->businesses()->attach($business->id);
+            if ($role == 2) {
+                $business = Business::create([
+                    'licence' => $credentials['licence'],
+                    'ecar_id' => $credentials['ecar_id'],
+                ]);
+                $user->businesses()->attach($business->id);
+            } else if ($role == 3) {
+                $user->businesses()->attach($credentials['business_id']);
+            }
 
             return $user;
         } catch (Exception $e) {

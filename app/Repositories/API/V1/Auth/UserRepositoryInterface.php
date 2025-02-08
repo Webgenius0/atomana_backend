@@ -14,7 +14,7 @@ interface UserRepositoryInterface
      *
      * @return User The created user object.
      */
-    public function createUser(array $credentials):User;
+    public function createUser(array $credentials, int $role):User;
 
     /**
      * Attempts to retrieve a user by their login credentials.

@@ -19,14 +19,15 @@ class AgentService
     }
 
 
-    public function getAgents()
+    public function getAgents():mixed
     {
         try{
             $perPage = request()->query('per_page', 10);
-            $data = $this->agentRepository->fetchAgentsOfAdmin($this->user->id, $perPage);
+            $business = $this->user->business();
+            $data = $this->agentRepository->fetchAgentsOfAdmin($business->id, $perPage);
             return $data;
         }catch(Exception $e) {
-            Log::error('AgentService::getAgents', ['error' => $e->getMessage()]);
+            Log::error('App\Services\API\V1\Admin\AgentService::getAgents', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\API\V1\Agent\AgentRepository;
+use App\Repositories\API\V1\Agent\AgentRepositoryInterface;
 use App\Repositories\API\V1\Auth\ForgetPasswordRepository;
 use App\Repositories\API\V1\Auth\ForgetPasswordRepositoryInterface;
 use App\Repositories\API\V1\Auth\OTPRepository;
@@ -29,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
 
         // profile
         $this->app->bind(ProfileRepositoryInterface::class, ProfileRepository::class);
+
+        // agent
+        $this->app->bind(AgentRepositoryInterface::class, AgentRepository::class);
+
     }
 
     /**

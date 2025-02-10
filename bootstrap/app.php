@@ -41,6 +41,7 @@ use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -119,6 +120,8 @@ return Application::configure(basePath: dirname(__DIR__))
                     return Helper::error(500, 'HTTP Exception Interface', $e->getMessage());
                 } else if ($e instanceof ControllerDoesNotReturnResponseException) {
                     return Helper::error(500, 'Server Error', $e->getMessage());
+                } else if ($e instanceof RouteNotFoundException) {
+                    return Helper::error(500, 'Route Not Found', $e->getMessage());
                 } else if ($e instanceof ServiceUnavailableHttpException) {
                     return Helper::error(503, 'Service Unavailable', $e->getMessage());
                 } else if (!$e instanceof ValidationException) {

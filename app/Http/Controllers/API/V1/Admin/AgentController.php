@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\API\V1\Agent\AgentIndexResource;
+use App\Http\Resources\API\V1\Admin\AgentIndexResource;
 use App\Services\API\V1\Admin\AgentService;
 use App\Traits\V1\ApiResponse;
 use Exception;

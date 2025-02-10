@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\API\V1\Agent\AgentRepository;
-use App\Repositories\API\V1\Agent\AgentRepositoryInterface;
+use App\Repositories\API\V1\Admin\AgentRepository;
+use App\Repositories\API\V1\Admin\AgentRepositoryInterface;
 use App\Repositories\API\V1\Auth\ForgetPasswordRepository;
 use App\Repositories\API\V1\Auth\ForgetPasswordRepositoryInterface;
 use App\Repositories\API\V1\Auth\OTPRepository;

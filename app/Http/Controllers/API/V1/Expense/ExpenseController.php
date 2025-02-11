@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Expense;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
+use App\Models\ExpenseFor;
 use App\Services\API\V1\Expense\ExpenseService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -18,6 +19,11 @@ class ExpenseController extends Controller
     public function __construct(ExpenseService $expenseService)
     {
         $this->expenseService = $expenseService;
+    }
+
+    public function index(ExpenseFor $expenseFor)
+    {
+
     }
 
     public function store(CreateExpenseRequest $createExpenseRequest)

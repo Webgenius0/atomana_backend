@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\V1\Expences\Type;
+namespace App\Http\Controllers\API\V1\Expense\Type;
 
 use App\Http\Controllers\Controller;
 use App\Services\API\V1\Expense\Type\ExpenseTypeService;

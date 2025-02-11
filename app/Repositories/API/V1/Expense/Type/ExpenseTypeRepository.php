@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Log;
 
 class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
 {
+
+    /**
+     * gets all the data form the expense type table
+     * @return \Illuminate\Database\Eloquent\Collection<int, ExpenseType>
+     */
     public function getExpenseTypes()
     {
         try {
             $types = ExpenseType::all();
             return $types;
         }catch (Exception $e) {
-            Log::error('TypeRepository::getTypes', ['error' => $e->getMessage()]);
+            Log::error('TypeRepository::getExpenseTypes', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

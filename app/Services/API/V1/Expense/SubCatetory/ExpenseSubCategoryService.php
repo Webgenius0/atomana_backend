@@ -20,14 +20,14 @@ class ExpenseSubCategoryService
     }
 
     /**
-     * get all the subcagegoryes of the cagegory $categoryId
+     * get all the subcagegoryes of $expenseCategory
      * @param mixed $categoryId
      * @return \Illuminate\Database\Eloquent\Collection<int, \App\Models\ExpenseSubCategory>
      */
-    public function getSubCagegories($categoryId):mixed
+    public function getSubCagegories($expenseCategory):mixed
     {
         try {
-            $data = $this->expenseSubCategoryRepository->getExpenseSubCategories($categoryId);
+            $data = $this->expenseSubCategoryRepository->getExpenseSubCategories($expenseCategory->id);
             return $data;
         } catch (Exception $e) {
             Log::error('ExpenseSubCategoryService::getSubCagegories', ['error' => $e->getMessage()]);

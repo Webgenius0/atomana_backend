@@ -39,7 +39,7 @@ class OTPMail extends Mailable
      */
     public function content(): Content
     {
-        Log::info('email');
+        // Log::info('email');
         return new Content(
             view: 'emails.otp',
             with: [

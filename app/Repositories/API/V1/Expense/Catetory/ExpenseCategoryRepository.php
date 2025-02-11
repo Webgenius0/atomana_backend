@@ -19,7 +19,7 @@ class ExpenseCategoryRepository implements ExpenseCategoryRepositoryInterface
             $categories = ExpenseCategory::all();
             return $categories;
         }catch (Exception $e) {
-            Log::error('ExpenseCategoryRepository::getExpenseTypes', ['error' => $e->getMessage()]);
+            Log::error('ExpenseCategoryRepository::getExpenseCategories', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

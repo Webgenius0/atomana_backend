@@ -26,11 +26,17 @@ class ExpenseController extends Controller
 
     }
 
+    /**
+     * Storing an Expnese
+     * @param \App\Http\Requests\API\V1\Expense\CreateExpenseRequest $createExpenseRequest
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(CreateExpenseRequest $createExpenseRequest)
     {
         try{
             $validatedData = $createExpenseRequest->validated();
             $response = $this->expenseService->storeExpense($validatedData);
+            return $this->success(200, 'Expense Created Successfully', $response);
         }catch(Exception $e) {
             Log::error('ExpenseController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

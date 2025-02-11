@@ -24,8 +24,6 @@ class ExpenseTypeController extends Controller
         $this->expenseTypeService = $expenseTypeService;
     }
 
-
-
     /**
      * list of all expense types
      * @return JsonResponse

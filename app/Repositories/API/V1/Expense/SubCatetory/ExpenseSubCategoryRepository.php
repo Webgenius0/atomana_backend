@@ -16,7 +16,7 @@ class ExpenseSubCategoryRepository implements ExpenseSubCategoryRepositoryInterf
     public function getExpenseSubCategories(int $categoryId):Collection
     {
         try {
-            $subCategories = ExpenseSubCategory::whereCategoryId($categoryId)->get();
+            $subCategories = ExpenseSubCategory::whereExpenseCategoryId($categoryId)->get();
             return $subCategories;
         }catch (Exception $e) {
             Log::error('ExpenseCategoryRepository::getExpenseCategories', ['error' => $e->getMessage()]);

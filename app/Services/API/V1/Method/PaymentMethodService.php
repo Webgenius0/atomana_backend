@@ -6,7 +6,7 @@ use App\Repositories\API\V1\Method\PaymentMethodRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class PriceMethodService
+class PaymentMethodService
 {
     protected PaymentMethodRepositoryInterface $paymentMethodRepository;
 

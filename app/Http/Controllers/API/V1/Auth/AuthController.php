@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1\Auth;
 
+use App\Http\Resources\API\V1\Auth\LoginResponce;
 use App\Http\Resources\API\V1\Auth\RegisterUserResource;
 use App\Services\API\V1\Auth\AuthService;
 use App\Http\Controllers\Controller;
@@ -84,7 +85,7 @@ class AuthController extends Controller
 
             $response = $this->authService->login($validatedData);
 
-            return $this->success(200, 'Login Successfully', $response);
+            return $this->success(200, 'Login Successfully', new LoginResponce($response));
         } catch (Exception $e) {
             Log::error('AuthController::login', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

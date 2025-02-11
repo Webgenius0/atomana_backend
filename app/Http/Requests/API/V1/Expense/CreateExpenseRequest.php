@@ -22,7 +22,20 @@ class CreateExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
+            'expense_for_id' => 'required|exists:expense_fors,id',
+            'expense_type_id' => 'required|exists:expense_types,id',
+            'expense_category_id' => 'required|exists:expense_categories,id',
+            'expense_sub_category_id' => 'required|exists:expense_sub_categories,id',
+            'description' => 'required|string',
+            'amount' => 'required|numeric',
+            'payment_method_id' => 'required|exists:payment_methods,id',
+            'vendor_id' => 'required|exists:vendors,id',
+            'recept_name' => 'required|string',
+            // 'recept_name_url' => 'nullable|string',
+            'owner' => 'required|string',
+            'reimbursable' => 'required|boolean',
+            'listing' => 'required|string',
+            'note' => 'required|string',
         ];
     }
 }

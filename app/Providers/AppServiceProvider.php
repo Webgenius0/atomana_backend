@@ -12,6 +12,8 @@ use App\Repositories\API\V1\Auth\PasswordRepository;
 use App\Repositories\API\V1\Auth\PasswordRepositoryInterface;
 use App\Repositories\API\V1\Auth\UserRepository;
 use App\Repositories\API\V1\Auth\UserRepositoryInterface;
+use App\Repositories\API\V1\Expense\Type\ExpenseTypeRepository;
+use App\Repositories\API\V1\Expense\Type\ExpenseTypeRepositoryInterface;
 use App\Repositories\API\V1\Profile\ProfileRepository;
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
         // agent
         $this->app->bind(AgentRepositoryInterface::class, AgentRepository::class);
 
+        // expences
+        $this->app->bind(ExpenseTypeRepositoryInterface::class, ExpenseTypeRepository::class);
     }
 
     /**

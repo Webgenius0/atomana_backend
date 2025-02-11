@@ -31,7 +31,7 @@ class ExpenseCategoryController extends Controller
     {
         try {
             $response = $this->expenseCategoryService->getCategories();
-            return $this->success(200, 'All Expense Types', $response);
+            return $this->success(200, 'All Expense Categoryes', $response);
         } catch (Exception $e) {
             Log::error('ExpenseCategoryController::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

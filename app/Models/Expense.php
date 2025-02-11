@@ -81,11 +81,11 @@ class Expense extends Model
 
     /**
      * belongs to paymentMethord
-     * @return BelongsTo<PaymentMethord, Expense>
+     * @return BelongsTo<PaymentMethod, Expense>
      */
     public function paymentMethord():BelongsTo
     {
-        return $this->belongsTo(PaymentMethord::class);
+        return $this->belongsTo(PaymentMethod::class);
     }
 
     /**

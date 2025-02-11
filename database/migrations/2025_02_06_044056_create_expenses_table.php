@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('expense_sub_category_id')->constrained('expense_sub_categories')->cascadeOnDelete();
             $table->longText('description');
             $table->float('amount');
-            $table->foreignId('payment_methord_id')->constrained('payment_methords')->cascadeOnDelete();
+            $table->foreignId('payment_method_id')->constrained('payment_methods')->cascadeOnDelete();
             $table->foreignId('vendor_id')->constrained('vendors')->cascadeOnDelete();
             $table->string('recept_name');
             $table->string('recept_name_url')->nullable();

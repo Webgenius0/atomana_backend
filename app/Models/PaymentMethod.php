@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PaymentMethord extends Model
+class PaymentMethod extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -43,7 +43,7 @@ class PaymentMethord extends Model
 
     /**
      * Model relationship with Expense
-     * @return HasMany<Expense, PaymentMethord>
+     * @return HasMany<Expense, PaymentMethod>
      */
     public function expenses(): HasMany
     {

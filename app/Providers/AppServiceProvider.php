@@ -18,6 +18,8 @@ use App\Repositories\API\V1\Expense\SubCatetory\ExpenseSubCategoryRepository;
 use App\Repositories\API\V1\Expense\SubCatetory\ExpenseSubCategoryRepositoryInterface;
 use App\Repositories\API\V1\Expense\Type\ExpenseTypeRepository;
 use App\Repositories\API\V1\Expense\Type\ExpenseTypeRepositoryInterface;
+use App\Repositories\API\V1\Method\PaymentMethodRepository;
+use App\Repositories\API\V1\Method\PaymentMethodRepositoryInterface;
 use App\Repositories\API\V1\Profile\ProfileRepository;
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -45,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ExpenseTypeRepositoryInterface::class, ExpenseTypeRepository::class);
         $this->app->bind(ExpenseCategoryRepositoryInterface::class, ExpenseCategoryRepository::class);
         $this->app->bind(ExpenseSubCategoryRepositoryInterface::class, ExpenseSubCategoryRepository::class);
+
+        // moetod
+        $this->app->bind(PaymentMethodRepositoryInterface::class, PaymentMethodRepository::class);
     }
 
     /**

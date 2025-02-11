@@ -7,7 +7,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 
-class PriceMethodRepository implements PriceMethodRepositoryInterface
+class PaymentMethodRepository implements PaymentMethodRepositoryInterface
 {
     /**
      * gets all payment methord

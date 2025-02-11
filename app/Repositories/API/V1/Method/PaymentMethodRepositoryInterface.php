@@ -4,7 +4,7 @@ namespace App\Repositories\API\V1\Method;
 
 use Illuminate\Database\Eloquent\Collection;
 
-interface PriceMethodRepositoryInterface
+interface PaymentMethodRepositoryInterface
 {
     /**
      * gets all payment methord

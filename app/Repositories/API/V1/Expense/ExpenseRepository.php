@@ -24,10 +24,16 @@ class ExpenseRepository implements ExpenseRepositoryInterface
         }
     }
 
-    public function createExpense(array $credentials)
+    /**
+     * creating an expense
+     * @param array $credentials
+     * @return mixed
+     */
+    public function createExpense(array $credentials):mixed
     {
         try {
-
+            $data = Expense::create($credentials);
+            return $data;
         }catch (Exception $e) {
             Log::error('ExpenseRepository::createExpense', ['error' => $e->getMessage()]);
             throw $e;

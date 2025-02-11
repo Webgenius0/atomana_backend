@@ -23,7 +23,8 @@ class ExpenseController extends Controller
     public function store(CreateExpenseRequest $createExpenseRequest)
     {
         try{
-            
+            $validatedData = $createExpenseRequest->validated();
+            $response = $this->expenseService->storeExpense($validatedData);
         }catch(Exception $e) {
             Log::error('ExpenseController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

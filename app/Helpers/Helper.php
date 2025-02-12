@@ -15,11 +15,11 @@ class Helper
      * @param  string  $directory
      * @return string
      */
-    public static function uploadFile($image, $directory)
+    public static function uploadFile($file, $directory)
     {
         try {
-            $imageFileName = uniqid('image_') . '.' . $image->getClientOriginalExtension();
-            $image->storeAs($directory, $imageFileName, 'public');
+            $imageFileName = uniqid('image_') . '.' . $file->getClientOriginalExtension();
+            $file->storeAs($directory, $imageFileName, 'public');
             return $directory . '/' . $imageFileName;
         } catch (Exception $e) {
             return redirect()->back()->with('t-error', 'Something went wrong');

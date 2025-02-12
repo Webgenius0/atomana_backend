@@ -16,5 +16,5 @@ interface ExpenseRepositoryInterface
      * @param array $credentials
      * @return mixed
      */
-    public function createExpense(array $credentials);
+    public function createExpense(array $credentials, string $receptUrl, string $recept, int $businessId, int $expenseForId);
 }

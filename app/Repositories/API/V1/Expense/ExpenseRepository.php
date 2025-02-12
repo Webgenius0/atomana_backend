@@ -29,10 +29,26 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param array $credentials
      * @return mixed
      */
-    public function createExpense(array $credentials):mixed
+    public function createExpense(array $credentials, string $receptUrl, string $recept, int $businessId, int $expenseForId):mixed
     {
         try {
-            $data = Expense::create($credentials);
+            $data = Expense::create([
+                'business_id' => $businessId,
+                'expense_for_id' => $expenseForId,
+                'expense_type_id' => $credentials['expense_type_id'],
+                'expense_category_id' => $credentials['expense_category_id'],
+                'expense_sub_category_id' => $credentials['expense_sub_category_id'],
+                'description' => $credentials['description'],
+                'amount' => $credentials['amount'],
+                'payment_method_id' => $credentials['payment_method_id'],
+                'vendor_id' => $credentials['vendor_id'],
+                'recept_name' => $recept,
+                'recept_url' => $receptUrl,
+                'owner' => $credentials['owner'],
+                'reimbursable' => $credentials['reimbursable'],
+                'listing' => $credentials['listing'],
+                'note' => $credentials['note'],
+            ]);
             return $data;
         }catch (Exception $e) {
             Log::error('ExpenseRepository::createExpense', ['error' => $e->getMessage()]);

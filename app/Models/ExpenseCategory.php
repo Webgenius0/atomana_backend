@@ -38,6 +38,16 @@ class ExpenseCategory extends Model
         ];
     }
 
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     // ------------------------------------
     // ------------------------------------
 
@@ -53,10 +63,10 @@ class ExpenseCategory extends Model
 
     /**
      * Modelk relsaton with ExpenseSubCategory
-     * 
+     *
      * @return HasMany<ExpenseSubCategory, ExpenseCategory>
      */
-    public function expenseSubCategory():HasMany
+    public function expenseSubCategory(): HasMany
     {
         return $this->hasMany(ExpenseSubCategory::class);
     }

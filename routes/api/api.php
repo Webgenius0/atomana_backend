@@ -10,4 +10,5 @@ require 'v1/auth/auth.php';        // All Auth routes
 require 'v1/profile/profile.php';  // All Auth routes
 require 'v1/admin/admin.php';      // All admin routes
 require 'v1/expense/expense.php';  // All for Expense
-require 'v1/method/method.php';     // payment method
+require 'v1/method/method.php';    // payment method
+require 'v1/command/command.php';  // command routes

@@ -16,7 +16,7 @@ class ExpenseCategoryRepository implements ExpenseCategoryRepositoryInterface
     public function getExpenseCategories():Collection
     {
         try {
-            $categories = ExpenseCategory::all();
+            $categories = ExpenseCategory::select('id', 'name')->get();
             return $categories;
         }catch (Exception $e) {
             Log::error('ExpenseCategoryRepository::getExpenseCategories', ['error' => $e->getMessage()]);

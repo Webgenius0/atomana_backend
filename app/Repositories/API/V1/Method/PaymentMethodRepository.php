@@ -16,7 +16,7 @@ class PaymentMethodRepository implements PaymentMethodRepositoryInterface
     public function getPaymentMethod(): Collection
     {
         try {
-            $categories = PaymentMethod::all();
+            $categories = PaymentMethod::select('id', 'name')->get();
             return $categories;
         } catch (Exception $e) {
             Log::error('PriceMethodRepository::getPaymentMethod', ['error' => $e->getMessage()]);

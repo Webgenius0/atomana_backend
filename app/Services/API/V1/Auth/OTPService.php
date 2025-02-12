@@ -99,7 +99,7 @@ class OTPService
                 }
 
                 DB::commit();
-                return ['role' => $user->role];
+                return ['role' => $user->role->name];
             }
 
             return null;

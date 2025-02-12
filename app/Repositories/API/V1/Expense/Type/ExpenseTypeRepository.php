@@ -17,7 +17,7 @@ class ExpenseTypeRepository implements ExpenseTypeRepositoryInterface
     public function getExpenseTypes():Collection
     {
         try {
-            $types = ExpenseType::all();
+            $types = ExpenseType::select('id', 'name')->get();
             return $types;
         }catch (Exception $e) {
             Log::error('TypeRepository::getExpenseTypes', ['error' => $e->getMessage()]);

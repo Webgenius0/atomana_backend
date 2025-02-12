@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Expense;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
+use App\Http\Resources\API\V1\Expense\CreateExpenseResource;
 use App\Models\ExpenseFor;
 use App\Services\API\V1\Expense\ExpenseService;
 use App\Traits\V1\ApiResponse;
@@ -35,7 +36,8 @@ class ExpenseController extends Controller
         try {
             $validatedData = $createExpenseRequest->validated();
             $response = $this->expenseService->storeExpense($validatedData, $expense_for);
-            return $this->success(200, 'Expense Created Successfully', $response);
+            // return $this->success(200, 'Expense Created Successfully',  $response);
+            return $this->success(200, 'Expense Created Successfully',  new CreateExpenseResource($response));
         } catch (Exception $e) {
             Log::error('ExpenseController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

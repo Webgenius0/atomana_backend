@@ -33,6 +33,16 @@ class Expense extends Model
     protected function casts(): array
     {
         return [
+            'id' => 'integer',
+            'business_id' => 'integer',
+            'expense_for_id' => 'integer',
+            'expense_type_id' => 'integer',
+            'expense_category_id' => 'integer',
+            'expense_sub_category_id' => 'integer',
+            'amount' => 'float',
+            'payment_method_id' => 'integer',
+            'vendor_id' => 'integer',
+            'reimbursable' => 'boolean',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];
@@ -46,7 +56,7 @@ class Expense extends Model
      * belongs to expenseCategory
      * @return BelongsTo<ExpenseCategory, Expense>
      */
-    public function category():BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(ExpenseCategory::class);
     }
@@ -56,7 +66,7 @@ class Expense extends Model
      * belongs to expenseSubCategory
      * @return BelongsTo<ExpenseSubCategory, Expense>
      */
-    public function subCategory():BelongsTo
+    public function subCategory(): BelongsTo
     {
         return $this->belongsTo(ExpenseSubCategory::class);
     }
@@ -65,7 +75,7 @@ class Expense extends Model
      * belongs to expenseFor
      * @return BelongsTo<ExpenseFor, Expense>
      */
-    public function for():BelongsTo
+    public function for(): BelongsTo
     {
         return $this->belongsTo(ExpenseFor::class);
     }
@@ -74,7 +84,7 @@ class Expense extends Model
      * belongs to expensetype
      * @return BelongsTo<ExpenseType, Expense>
      */
-    public function type():BelongsTo
+    public function type(): BelongsTo
     {
         return $this->belongsTo(ExpenseType::class);
     }
@@ -83,7 +93,7 @@ class Expense extends Model
      * belongs to paymentMethord
      * @return BelongsTo<PaymentMethod, Expense>
      */
-    public function paymentMethord():BelongsTo
+    public function paymentMethord(): BelongsTo
     {
         return $this->belongsTo(PaymentMethod::class);
     }
@@ -92,8 +102,26 @@ class Expense extends Model
      * belongs to vendor
      * @return BelongsTo<Vendor, Expense>
      */
-    public function vendor():BelongsTo
+    public function vendor(): BelongsTo
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+
+    /**
+     * acccessor for recept_url attribute
+     * @param string
+     */
+    public function getReceptUrlAttribute($url): string
+    {
+        if ($url) {
+            if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
+                return $url;
+            } else {
+                return asset('storage/' . $url);
+            }
+        } else {
+            return asset('assets/img/404.png');
+        }
     }
 }

@@ -25,8 +25,12 @@ class ExpenseRepository implements ExpenseRepositoryInterface
     }
 
     /**
-     * creating an expense
+     * create Expense
      * @param array $credentials
+     * @param string $receptUrl
+     * @param string $recept
+     * @param int $businessId
+     * @param int $expenseForId
      * @return mixed
      */
     public function createExpense(array $credentials, string $receptUrl, string $recept, int $businessId, int $expenseForId):mixed

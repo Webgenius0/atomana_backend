@@ -18,6 +18,10 @@ class ExpenseController extends Controller
     use ApiResponse;
     protected ExpenseService $expenseService;
 
+    /**
+     * __construct
+     * @param \App\Services\API\V1\Expense\ExpenseService $expenseService
+     */
     public function __construct(ExpenseService $expenseService)
     {
         $this->expenseService = $expenseService;

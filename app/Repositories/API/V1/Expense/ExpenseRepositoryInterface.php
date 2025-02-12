@@ -12,8 +12,12 @@ interface ExpenseRepositoryInterface
     public function getAllExpense(int $type, int $perPage);
 
     /**
-     * creating an expense
+     * create Expense
      * @param array $credentials
+     * @param string $receptUrl
+     * @param string $recept
+     * @param int $businessId
+     * @param int $expenseForId
      * @return mixed
      */
     public function createExpense(array $credentials, string $receptUrl, string $recept, int $businessId, int $expenseForId);

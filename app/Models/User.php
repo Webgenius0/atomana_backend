@@ -75,6 +75,25 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+
+    /**
+     * sccessor for avater attribute
+     * @param mixed $url
+     * @return string
+     */
+    public function getAvatarAttribute($url): string
+    {
+        if ($url) {
+            if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
+                return $url;
+            } else {
+                return asset('storage/' . $url);
+            }
+        } else {
+            return asset('assets/img/user_placeholder.png');
+        }
+    }
+
     /**
      * Define the relationship between the current model and the Profile model.
      *

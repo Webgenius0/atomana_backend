@@ -16,6 +16,10 @@ class ExpenseService extends ExpenseRepository
     protected $user;
     protected ExpenseRepositoryInterface $expenseRepository;
 
+    /**
+     * construct
+     * @param \App\Repositories\API\V1\Expense\ExpenseRepositoryInterface $expenseRepository
+     */
     public function __construct(ExpenseRepositoryInterface $expenseRepository)
     {
         $this->user = Auth::user();
@@ -23,8 +27,9 @@ class ExpenseService extends ExpenseRepository
     }
 
     /**
-     * creating an Expense
+     * store Expense
      * @param array $credentials
+     * @param mixed $expenseFor
      * @return mixed
      */
     public function storeExpense(array $credentials, $expenseFor): mixed

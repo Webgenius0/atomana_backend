@@ -126,8 +126,6 @@ return Application::configure(basePath: dirname(__DIR__))
                     return Helper::error(503, 'Service Unavailable', $e->getMessage());
                 } else if (!$e instanceof ValidationException) {
                     return Helper::error(422, 'Validation Error', $e->getMessage());
-                } else {
-                    return Helper::error($e->getCode() ?? 500, 'Server Error', $e->getMessage());
                 }
             }
         });

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('expense_fors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('slug')->unique();
+            $table->string('name')->unique();
             $table->softDeletes();
             $table->timestamps();
         });

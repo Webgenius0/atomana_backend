@@ -23,7 +23,7 @@ Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'authoriz
 
     // all route for expense
     Route::controller(ExpenseController::class)->group(function () {
-        Route::get('/{expenseFor}', 'index')->name('index');
-        Route::post('/store', 'store')->name('store');
+        Route::post('/store/{expense_for}', 'store')->name('store');
+        Route::get('/{expense_for}', 'index')->name('index');
     });
 });

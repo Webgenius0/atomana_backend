@@ -25,22 +25,22 @@ class SubCategorySeeder extends Seeder
             DB::table('expense_sub_categories')->insert([
                 [
                     'expense_category_id' => $i,
-                    'slug' => Helper::generateUniqueSlug($randomWord1, 'expense_sub_categories'), // Using the random word for slug
-                    'name' => $randomWord1, // Using the same random word for name
+                    'slug' => Helper::generateUniqueSlug($randomWord1, 'expense_sub_categories'),
+                    'name' => $randomWord1,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
                 [
                     'expense_category_id' => $i,
-                    'slug' => Helper::generateUniqueSlug($randomWord2, 'expense_sub_categories'), // Same random word for slug
-                    'name' => $randomWord2, // Same random word for name
+                    'slug' => Helper::generateUniqueSlug($randomWord2, 'expense_sub_categories'),
+                    'name' => $randomWord2,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
                 [
                     'expense_category_id' => $i,
-                    'slug' => Helper::generateUniqueSlug($randomWord3, 'expense_sub_categories'), // Same random word for slug
-                    'name' => $randomWord3, // Same random word for name
+                    'slug' => Helper::generateUniqueSlug($randomWord3, 'expense_sub_categories'),
+                    'name' => $randomWord3, 
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],

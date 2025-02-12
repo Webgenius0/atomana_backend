@@ -20,7 +20,7 @@ class Authorized
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        if ($user && in_array(optional($user->role)->name, ['agent', 'admin'])) {
+        if ($user && in_array(optional($user->role)->slug, ['agent', 'admin'])) {
             return $next($request);
         }
         return $this->error(403, 'Only Admins & Agents are Allowed to Access');

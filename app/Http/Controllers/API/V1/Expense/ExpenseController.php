@@ -27,7 +27,8 @@ class ExpenseController extends Controller
     /**
      * Storing an Expnese
      * @param \App\Http\Requests\API\V1\Expense\CreateExpenseRequest $createExpenseRequest
-     * @return \Illuminate\Http\JsonResponse
+     * @param \App\Models\ExpenseFor $expense_for
+     * @return JsonResponse
      */
     public function store(CreateExpenseRequest $createExpenseRequest, ExpenseFor $expense_for): JsonResponse
     {

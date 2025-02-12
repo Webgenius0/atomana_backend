@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('payment_method_id')->constrained('payment_methods')->cascadeOnDelete();
             $table->foreignId('vendor_id')->constrained('vendors')->cascadeOnDelete();
             $table->string('recept_name');
-            $table->string('recept_name_url')->nullable();
+            $table->string('recept_url')->nullable();
             $table->string('owner');
             $table->boolean('reimbursable');
             $table->string('listing');

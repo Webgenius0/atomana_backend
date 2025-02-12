@@ -31,7 +31,7 @@ class ProfileService
     public function getProfile():mixed
     {
         try{
-            $userRole = $this->user->role->name;
+            $userRole = $this->user->role->slug;
             if ($userRole == 'admin') {
                 $data = $this->profileRepository->getAdminProfileData($this->user->id);
             }

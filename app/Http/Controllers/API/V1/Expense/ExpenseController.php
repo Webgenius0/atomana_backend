@@ -8,6 +8,7 @@ use App\Models\ExpenseFor;
 use App\Services\API\V1\Expense\ExpenseService;
 use App\Traits\V1\ApiResponse;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -21,26 +22,22 @@ class ExpenseController extends Controller
         $this->expenseService = $expenseService;
     }
 
-    public function index(ExpenseFor $expenseFor)
-    {
-
-    }
+    public function index(ExpenseFor $expenseFor) {}
 
     /**
      * Storing an Expnese
      * @param \App\Http\Requests\API\V1\Expense\CreateExpenseRequest $createExpenseRequest
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateExpenseRequest $createExpenseRequest)
+    public function store(CreateExpenseRequest $createExpenseRequest, ExpenseFor $expense_for): JsonResponse
     {
-        try{
+        try {
             $validatedData = $createExpenseRequest->validated();
-            $response = $this->expenseService->storeExpense($validatedData);
+            $response = $this->expenseService->storeExpense($validatedData, $expense_for);
             return $this->success(200, 'Expense Created Successfully', $response);
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('ExpenseController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-
 }

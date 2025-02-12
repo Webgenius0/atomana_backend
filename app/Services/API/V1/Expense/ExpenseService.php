@@ -2,6 +2,7 @@
 
 namespace App\Services\API\V1\Expense;
 
+use App\Models\ExpenseFor;
 use App\Repositories\API\V1\Expense\ExpenseRepository;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -13,7 +14,7 @@ class ExpenseService extends ExpenseRepository
      * @param array $credentials
      * @return mixed
      */
-    public function storeExpense(array $credentials):mixed
+    public function storeExpense(array $credentials, $expenseFor):mixed
     {
         try {
             $data = $this->createExpense($credentials);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -20,7 +21,6 @@ class Expense extends Model
      * @var list<string>
      */
     protected $hidden = [
-        'created_at',
         'updated_at',
         'deleted_at',
     ];
@@ -130,8 +130,18 @@ class Expense extends Model
      * @param mixed $value
      * @return string
      */
-    protected function getAmountAttribute($value)
+    protected function getAmountAttribute($value):string
     {
         return number_format($value, 2, '.', '');
+    }
+
+    /**
+     * accessor for created_at
+     * @param mixed $value
+     * @return string
+     */
+    protected function getCreatedAtAttribute($value):string
+    {
+        return Carbon::parse($value)->format('d/m/Y');
     }
 }

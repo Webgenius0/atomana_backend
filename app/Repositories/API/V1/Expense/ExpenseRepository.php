@@ -34,6 +34,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
                 'reimbursable',
                 'listing',
                 'note',
+                'created_at',
             ])->whereBusinessId($businessId)
                 ->whereExpenseForId($expenseForId)
                 ->whereArchive(false)

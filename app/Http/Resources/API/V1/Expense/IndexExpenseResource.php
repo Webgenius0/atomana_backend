@@ -34,6 +34,7 @@ class IndexExpenseResource extends JsonResource
                 'listing'                 => $data['listing'],
                 'note'                    => $data['note'],
                 'description'             => $data['description'],
+                'date'                    => $data['created_at'],
             ];
 
             $modifyedData[] = $tempArray;

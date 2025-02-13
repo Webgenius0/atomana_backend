@@ -4,6 +4,7 @@ use App\Http\Controllers\API\V1\Expense\Catetory\ExpenseCategoryController;
 use App\Http\Controllers\API\V1\Expense\ExpenseController;
 use App\Http\Controllers\API\V1\Expense\SubCatetory\ExpenseSubCategoryController;
 use App\Http\Controllers\API\V1\Expense\Type\ExpenseTypeController;
+use App\Http\Controllers\API\V1\Expense\Vendor\VendorController;
 use Illuminate\Support\Facades\Route;
 
 // all profile route of expense for bouth admin and agents
@@ -20,6 +21,12 @@ Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'authoriz
     Route::prefix('/sub-category')->name('sub.category')->controller(ExpenseSubCategoryController::class)->group(function () {
         Route::get('/{expenseCategory}', 'index')->name('index');
     });
+    // routes for Expense Vendor controller
+    Route::prefix('/vendor')->name('vendor')->controller(VendorController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+    });
+
+
 
     // all route for expense
     Route::controller(ExpenseController::class)->group(function () {

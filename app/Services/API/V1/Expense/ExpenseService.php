@@ -55,8 +55,15 @@ class ExpenseService extends ExpenseRepository
     {
         try {
             $businessId = $this->user->business()->id;
-            $recept_url = Helper::uploadFile($credentials['recept'], 'business/' . $businessId . '/recept');
-            $recetp = $credentials['recept']->getClientOriginalName();
+            
+            $recetp = null;
+            $recept_url = null;
+
+            if ($credentials['recept'] != null) {
+                $recept_url = Helper::uploadFile($credentials['recept'], 'business/' . $businessId . '/recept');
+                $recetp = $credentials['recept']->getClientOriginalName();
+            }
+
             $data = $this->expenseRepository->createExpense(
                 $credentials,
                 $recept_url,

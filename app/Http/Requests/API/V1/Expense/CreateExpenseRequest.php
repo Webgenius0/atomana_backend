@@ -26,18 +26,18 @@ class CreateExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'expense_type_id' => 'required|exists:expense_types,id',
-            'expense_category_id' => 'required|exists:expense_categories,id',
-            'expense_sub_category_id' => 'required|exists:expense_sub_categories,id',
-            'description' => 'required|string',
-            'amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'payment_method_id' => 'required|exists:payment_methods,id',
-            'vendor_id' => 'required|exists:vendors,id',
-            'recept' => 'required|file|mimes:jpg,jpeg,png,webp,pdf',
-            'owner' => 'required|string',
-            'reimbursable' => 'required|boolean',
-            'listing' => 'required|string',
-            'note' => 'required|string',
+            'expense_type_id' => 'nullable|exists:expense_types,id',
+            'expense_category_id' => 'nullable|exists:expense_categories,id',
+            'expense_sub_category_id' => 'nullable|exists:expense_sub_categories,id',
+            'description' => 'nullable|string',
+            'amount' => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'payment_method_id' => 'nullable|exists:payment_methods,id',
+            'vendor_id' => 'nullable|exists:vendors,id',
+            'recept' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf',
+            'owner' => 'nullable|string',
+            'reimbursable' => 'nullable|boolean',
+            'listing' => 'nullable|string',
+            'note' => 'nullable|string',
         ];
     }
 
@@ -48,42 +48,42 @@ class CreateExpenseRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'expense_type_id.required' => 'The expense type is required.',
+            // 'expense_type_id.required' => 'The expense type is required.',
             'expense_type_id.exists' => 'The selected expense type is invalid.',
 
-            'expense_category_id.required' => 'The expense category is required.',
+            // 'expense_category_id.required' => 'The expense category is required.',
             'expense_category_id.exists' => 'The selected expense category is invalid.',
 
-            'expense_sub_category_id.required' => 'The expense sub-category is required.',
+            // 'expense_sub_category_id.required' => 'The expense sub-category is required.',
             'expense_sub_category_id.exists' => 'The selected expense sub-category is invalid.',
 
-            'description.required' => 'The description is required.',
+            // 'description.required' => 'The description is required.',
             'description.string' => 'The description must be a string.',
 
-            'amount.required' => 'The amount is required.',
+            // 'amount.required' => 'The amount is required.',
             'amount.numeric' => 'The amount must be a numeric value.',
             'amount.regex' => 'The amount must be a valid number with up to two decimal places.',
 
-            'payment_method_id.required' => 'The payment method is required.',
+            // 'payment_method_id.required' => 'The payment method is required.',
             'payment_method_id.exists' => 'The selected payment method is invalid.',
 
-            'vendor_id.required' => 'The vendor is required.',
+            // 'vendor_id.required' => 'The vendor is required.',
             'vendor_id.exists' => 'The selected vendor is invalid.',
 
-            'recept.required' => 'The receipt is required.',
+            // 'recept.required' => 'The receipt is required.',
             'recept.file' => 'The receipt must be a valid file.',
             'recept.mimes' => 'The receipt must be a JPG, JPEG, PNG, WEBP, or PDF file.',
 
-            'owner.required' => 'The owner is required.',
+            // 'owner.required' => 'The owner is required.',
             'owner.string' => 'The owner must be a string.',
 
-            'reimbursable.required' => 'Reimbursement status is required.',
+            // 'reimbursable.required' => 'Reimbursement status is required.',
             'reimbursable.boolean' => 'Reimbursement status must be a boolean.',
 
-            'listing.required' => 'The listing is required.',
+            // 'listing.required' => 'The listing is required.',
             'listing.string' => 'The listing must be a string.',
 
-            'note.required' => 'The note is required.',
+            // 'note.required' => 'The note is required.',
             'note.string' => 'The note must be a string.',
         ];
     }

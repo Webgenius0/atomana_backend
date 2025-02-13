@@ -15,19 +15,26 @@ return new class extends Migration
             $table->id();
             $table->foreignId('business_id')->constrained('businesses')->cascadeOnDelete();
             $table->foreignId('expense_for_id')->constrained('expense_fors')->cascadeOnDelete();
-            $table->foreignId('expense_type_id')->constrained('expense_types')->cascadeOnDelete();
-            $table->foreignId('expense_category_id')->constrained('expense_categories')->cascadeOnDelete();
-            $table->foreignId('expense_sub_category_id')->constrained('expense_sub_categories')->cascadeOnDelete();
-            $table->longText('description');
-            $table->float('amount');
-            $table->foreignId('payment_method_id')->constrained('payment_methods')->cascadeOnDelete();
-            $table->foreignId('vendor_id')->constrained('vendors')->cascadeOnDelete();
-            $table->string('recept_name');
+
+            // Use nullable and nullOnDelete for these foreign keys
+            $table->foreignId('expense_type_id')->nullable()->constrained('expense_types')->nullOnDelete();
+            $table->foreignId('expense_category_id')->nullable()->constrained('expense_categories')->nullOnDelete();
+            $table->foreignId('expense_sub_category_id')->nullable()->constrained('expense_sub_categories')->nullOnDelete();
+
+
+            $table->longText('description')->nullable();
+            $table->float('amount')->nullable();
+
+            // Nullable and cascadeOnDelete for payment_method_id and vendor_id
+            $table->foreignId('payment_method_id')->nullable()->constrained('payment_methods')->cascadeOnDelete();
+            $table->foreignId('vendor_id')->nullable()->constrained('vendors')->cascadeOnDelete();
+
+            $table->string('recept_name')->nullable();
             $table->string('recept_url')->nullable();
-            $table->string('owner');
-            $table->boolean('reimbursable');
-            $table->string('listing');
-            $table->longText('note');
+            $table->string('owner')->nullable();
+            $table->boolean('reimbursable')->nullable();
+            $table->string('listing')->nullable();
+            $table->longText('note')->nullable();
             $table->boolean('status')->default(true);
             $table->boolean('archive')->default(false);
             $table->softDeletes();

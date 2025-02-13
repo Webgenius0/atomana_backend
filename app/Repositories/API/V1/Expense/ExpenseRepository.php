@@ -18,7 +18,22 @@ class ExpenseRepository implements ExpenseRepositoryInterface
     public function getAllExpense(int $expenseForId, int $perPage, int $businessId):mixed
     {
         try {
-            $expenses = Expense::whereBusinessId($businessId)
+            $expenses = Expense::select(
+                'id',
+                'expense_for_id',
+                'expense_type_id',
+                'expense_category_id',
+                'expense_sub_category_id',
+                'description',
+                'amount',
+                'payment_method_id',
+                'vendor_id',
+                'recept_name',
+                'recept_url',
+                'owner',
+                'listing',
+                'note',
+            )->whereBusinessId($businessId)
                 ->whereExpenseForId($expenseForId)
                 ->whereArchive(false)
                 ->latest()->paginate($perPage);

@@ -27,6 +27,11 @@ class ExpenseService extends ExpenseRepository
     }
 
 
+    /**
+     * get perpage and business->id and based on that,
+     * get expenses
+     * @param mixed $expenseFor
+     */
     public function getExpenses($expenseFor)
     {
         try{

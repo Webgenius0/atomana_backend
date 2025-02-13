@@ -27,6 +27,11 @@ class ExpenseController extends Controller
         $this->expenseService = $expenseService;
     }
 
+    /**
+     * index of expenses
+     * @param \App\Models\ExpenseFor $expenseFor
+     * @return JsonResponse
+     */
     public function index(ExpenseFor $expenseFor) {
         try {
             $response = $this->expenseService->getExpenses($expenseFor);

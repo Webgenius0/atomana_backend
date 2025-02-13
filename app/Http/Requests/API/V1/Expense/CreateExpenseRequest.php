@@ -30,7 +30,7 @@ class CreateExpenseRequest extends FormRequest
             'expense_category_id' => 'required|exists:expense_categories,id',
             'expense_sub_category_id' => 'required|exists:expense_sub_categories,id',
             'description' => 'required|string',
-            'amount' => 'required|numeric',
+            'amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'payment_method_id' => 'required|exists:payment_methods,id',
             'vendor_id' => 'required|exists:vendors,id',
             'recept' => 'required|file|mimes:jpg,jpeg,png,webp,pdf',
@@ -62,6 +62,7 @@ class CreateExpenseRequest extends FormRequest
 
             'amount.required' => 'The amount is required.',
             'amount.numeric' => 'The amount must be a numeric value.',
+            'amount.regex' => 'The amount must be a valid number with up to two decimal places.',
 
             'payment_method_id.required' => 'The payment method is required.',
             'payment_method_id.exists' => 'The selected payment method is invalid.',

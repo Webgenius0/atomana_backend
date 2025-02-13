@@ -112,7 +112,7 @@ class Expense extends Model
      * acccessor for recept_url attribute
      * @param string
      */
-    public function getReceptUrlAttribute($url): string
+    protected function getReceptUrlAttribute($url): string
     {
         if ($url) {
             if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
@@ -123,5 +123,15 @@ class Expense extends Model
         } else {
             return asset('assets/img/404.png');
         }
+    }
+
+    /**
+     *  acccessor for Amount Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getAmountAttribute($value)
+    {
+        return number_format($value, 2, '.', '');
     }
 }

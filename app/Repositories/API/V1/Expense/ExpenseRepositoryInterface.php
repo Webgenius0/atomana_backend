@@ -5,11 +5,13 @@ namespace App\Repositories\API\V1\Expense;
 interface ExpenseRepositoryInterface
 {
     /**
-     * creating an Expense
-     * @param array $credentials
+     * get all expenses of the business based on type in paginated way
+     * @param int $expenseForId
+     * @param int $perPage
+     * @param int $businessId
      * @return mixed
      */
-    public function getAllExpense(int $type, int $perPage);
+    public function getAllExpense(int $expenseForId, int $perPage, int $businessId);
 
     /**
      * create Expense

@@ -9,14 +9,19 @@ use Illuminate\Support\Facades\Log;
 class ExpenseRepository implements ExpenseRepositoryInterface
 {
     /**
-     * getting all expenses of a perticuler type
-     * @param int $type
+     * get all expenses of the business based on type in paginated way
+     * @param int $expenseForId
      * @param int $perPage
+     * @param int $businessId
+     * @return mixed
      */
-    public function getAllExpense(int $type, int $perPage = 25):mixed
+    public function getAllExpense(int $expenseForId, int $perPage, int $businessId):mixed
     {
         try {
-            $expenses = Expense::whereExpenseTypeId($type)->latest()->paginate($perPage);
+            $expenses = Expense::whereBusinessId($businessId)
+                ->whereExpenseForId($expenseForId)
+                ->whereArchive(false)
+                ->latest()->paginate($perPage);
             return $expenses;
         }catch (Exception $e) {
             Log::error('ExpenseRepository::getAllExpense', ['error' => $e->getMessage()]);

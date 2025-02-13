@@ -26,6 +26,20 @@ class ExpenseService extends ExpenseRepository
         $this->expenseRepository = $expenseRepository;
     }
 
+
+    public function getExpenses($expenseFor)
+    {
+        try{
+            $perPage = request()->query('per_page', 25);
+            $businessId = $this->user->business()->id;
+            $data = $this->expenseRepository->getAllExpense($expenseFor->id, $perPage, $businessId);
+            return $data;
+        }catch(Exception $e) {
+            Log::error("ExpenseService::getExpenses", ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
     /**
      * store Expense
      * @param array $credentials
@@ -35,7 +49,7 @@ class ExpenseService extends ExpenseRepository
     public function storeExpense(array $credentials, $expenseFor): mixed
     {
         try {
-            $businessId = $this->user->business()->id;;
+            $businessId = $this->user->business()->id;
             $recept_url = Helper::uploadFile($credentials['recept'], 'business/' . $businessId . '/recept');
             $recetp = $credentials['recept']->getClientOriginalName();
             $data = $this->expenseRepository->createExpense(

@@ -27,7 +27,15 @@ class ExpenseController extends Controller
         $this->expenseService = $expenseService;
     }
 
-    public function index(ExpenseFor $expenseFor) {}
+    public function index(ExpenseFor $expenseFor) {
+        try {
+            $response = $this->expenseService->getExpenses($expenseFor);
+            return $this->success(200, 'Expense Created Successfully',  $response);
+        } catch (Exception $e) {
+            Log::error('ExpenseController::index', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
 
     /**
      * Storing an Expnese
@@ -40,7 +48,6 @@ class ExpenseController extends Controller
         try {
             $validatedData = $createExpenseRequest->validated();
             $response = $this->expenseService->storeExpense($validatedData, $expense_for);
-            // return $this->success(200, 'Expense Created Successfully',  $response);
             return $this->success(200, 'Expense Created Successfully',  new CreateExpenseResource($response));
         } catch (Exception $e) {
             Log::error('ExpenseController::store', ['error' => $e->getMessage()]);

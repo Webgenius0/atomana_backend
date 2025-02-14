@@ -8,7 +8,7 @@ use App\Http\Controllers\API\V1\Expense\Vendor\VendorController;
 use Illuminate\Support\Facades\Route;
 
 // all profile route of expense for bouth admin and agents
-Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'authorized'])->group(function () {
+Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'verified', 'authorized'])->group(function () {
     // routes for ExpenseType controller
     Route::prefix('/type')->name('type.')->controller(ExpenseTypeController::class)->group(function () {
         Route::get('/', 'index')->name('index');
@@ -25,9 +25,6 @@ Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'authoriz
     Route::prefix('/vendor')->name('vendor')->controller(VendorController::class)->group(function () {
         Route::get('/', 'index')->name('index');
     });
-
-
-
     // all route for expense
     Route::controller(ExpenseController::class)->group(function () {
         Route::post('/store/{expense_for}', 'store')->name('store');

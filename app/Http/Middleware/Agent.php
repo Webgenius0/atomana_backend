@@ -18,7 +18,7 @@ class Agent
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role->name == 'agent') {
+        if (Auth::check() && Auth::user()->role->slug == 'agent') {
             return $next($request);
         }
         return $this->error(403, 'Only Agents are Allowed to Access');

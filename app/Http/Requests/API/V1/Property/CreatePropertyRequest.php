@@ -29,7 +29,7 @@ class CreatePropertyRequest extends FormRequest
             'email' => 'required|email',
             'address' => 'required|string',
             'price' => 'required|numeric',
-            'expiration_date' => 'required|date',
+            'expiration_date' => 'required|date|after:today',
             'development' => 'required|boolean',
             'co_listing' => 'required|boolean',
             'source' => 'required|string',
@@ -49,6 +49,7 @@ class CreatePropertyRequest extends FormRequest
 
             'expiration_date.required' => 'The expiration date is required.',
             'expiration_date.date' => 'The expiration date must be a valid date format.',
+            'expiration_date.after' => 'The expiration date must be a feture date.',
 
             'development.required' => 'Please specify if it is a development.',
             'development.boolean' => 'The development field must be true or false.',

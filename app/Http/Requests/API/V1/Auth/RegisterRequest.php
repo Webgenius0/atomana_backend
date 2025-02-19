@@ -32,8 +32,8 @@ class RegisterRequest extends FormRequest
             'last_name'  => "required|string",
             'email'      => "required|email|unique:users",
             'password'   => "required|confirmed",
-            'licence'    => "required|string",
-            'ecar_id'    => "required|string",
+            'licence'    => "required|string|unique:businesses,licence",
+            'ecar_id'    => "required|string|unique:businesses,ecar_id",
         ];
     }
 

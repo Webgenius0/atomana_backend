@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('properties', function (Blueprint $table) {
+        Schema::create('properties', callback: function (Blueprint $table) {
             $table->id();
             $table->foreignId('business_id')->constrained('businesses')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('expiration_date');
             $table->boolean('development');
             $table->boolean('co_listing');
-            $table->string('source');
+            $table->string('');
             $table->softDeletes();
             $table->timestamps();
         });

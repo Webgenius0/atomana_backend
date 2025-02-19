@@ -8,5 +8,5 @@ interface PropertyRepositoryInterface
 
     public function propertiesOfTheAgent();
 
-    public function createProperty($credentials, $userId, $businessId);
+    public function createProperty(array $credentials, int $userId, int $businessId);
 }

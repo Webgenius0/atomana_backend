@@ -72,7 +72,7 @@ class OTPController extends Controller
         try {
             $response = $this->otpService->matchOtp($request->email, $request->operation, $request->otp);
             if ($response) {
-                return $this->success(200, 'OTP Verified', $response);
+                return $this->success(202, 'OTP Verified', $response);
             }
             throw new Exception('Server Error', 500);
         } catch (ModelNotFoundException $e) {

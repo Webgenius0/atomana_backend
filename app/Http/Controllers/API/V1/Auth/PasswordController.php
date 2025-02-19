@@ -46,7 +46,7 @@ class PasswordController extends Controller
     {
         try {
             $this->passwordService->changePassword($request->email, $request->password);
-            return $this->success(200, 'Password Changed Successfully', []);
+            return $this->success(202, 'Password Changed Successfully', []);
         } catch (Exception $e) {
             Log::error('PasswordController::changePassword', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

@@ -35,7 +35,7 @@ class AgentController extends Controller
 
             $response = $this->agentService->register($validatedData);
 
-            return $this->success(200, 'Registration Successful', new RegisterAgentResource($response));
+            return $this->success(201, 'Registration Successful', new RegisterAgentResource($response));
         } catch (Exception $e) {
             Log::error('AgentController::register', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

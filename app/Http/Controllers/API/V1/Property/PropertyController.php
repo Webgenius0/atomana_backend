@@ -35,7 +35,7 @@ class PropertyController extends Controller
         try {
             $validatedData = $createPropertyRequest->validated();
             $response = $this->propertyService->storeProperty($validatedData);
-            return $this->success(202, 'property created', $response);
+            return $this->success(201, 'property created', $response);
         }catch (Exception $e) {
             Log::error('PropertyController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

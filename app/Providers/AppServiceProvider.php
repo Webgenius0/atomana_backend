@@ -26,6 +26,8 @@ use App\Repositories\API\V1\Method\PaymentMethodRepository;
 use App\Repositories\API\V1\Method\PaymentMethodRepositoryInterface;
 use App\Repositories\API\V1\Profile\ProfileRepository;
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
+use App\Repositories\API\V1\Property\PropertyRepository;
+use App\Repositories\API\V1\Property\PropertyRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -53,6 +55,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ExpenseSubCategoryRepositoryInterface::class, ExpenseSubCategoryRepository::class);
         $this->app->bind(VendorRepositoryInterface::class, VendorRepository::class);
         $this->app->bind(ExpenseRepositoryInterface::class, ExpenseRepository::class);
+
+        // product
+        $this->app->bind(PropertyRepositoryInterface::class, PropertyRepository::class);
 
         // moetod
         $this->app->bind(PaymentMethodRepositoryInterface::class, PaymentMethodRepository::class);

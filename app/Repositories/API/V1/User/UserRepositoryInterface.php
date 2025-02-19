@@ -1,8 +1,18 @@
 <?php
-    
+
 namespace App\Repositories\API\V1\User;
 
 interface UserRepositoryInterface
 {
-    // Define the methods your repository should implement
+    /**
+     * get Name And Id
+     * @param int $userId
+     */
+    public function getNameAndId(int $userId);
+
+    /**
+     * return agents of same business
+     * @param mixed $businessId
+     */
+    public function getAgentsNameAndId(int $businessId);
 }

@@ -1,8 +1,41 @@
 <?php
-        
+
 namespace App\Repositories\API\V1\User;
+
+use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class UserRepository implements UserRepositoryInterface
 {
-    // Your Repository logic goes here
+    /**
+     * get Name And Id
+     * @param int $userId
+     */
+    public function getNameAndId(int $userId)
+    {
+        try {
+            return User::select('id', 'first_name', 'last_name')->whenId($userId)->get();
+        } catch (Exception $e) {
+            Log::error('UserRepository::selfInfo', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * return agents of same business
+     * @param mixed $businessId
+     */
+    public function getAgentsNameAndId($businessId)
+    {
+        try {
+            return User::select('id', 'first_name', 'last_name')
+                ->wherehas('businesses', function ($query) use ($businessId) {
+                    $query->where('businesses.id', $businessId);
+                })->whereRoleId(3)->get();
+        } catch (Exception $e) {
+            Log::error('UserRepository::allAgents', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

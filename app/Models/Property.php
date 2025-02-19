@@ -37,7 +37,6 @@ class Property extends Model
             'business_id'     => 'integer',
             'user_id'         => 'integer',
             'price'           => 'float',
-            'expiration_date' => 'date',
             'created_at'      => 'datetime',
             'updated_at'      => 'datetime',
         ];

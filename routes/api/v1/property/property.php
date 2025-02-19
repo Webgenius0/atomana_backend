@@ -9,4 +9,9 @@ Route::prefix('v1/property')->name('property.')->middleware(['auth:api', 'verifi
     Route::middleware(['agent'])->controller(PropertyController::class)->group(function () {
         Route::post('/store', 'store')->name('show');
     });
+
+
+    Route::middleware(['authorized'])->controller(PropertyController::class)->group(function () {
+        Route::get('/dropdown', 'dropdown')->name('dropdown');
+    });
 });

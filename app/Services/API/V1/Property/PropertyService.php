@@ -24,6 +24,25 @@ class PropertyService
     }
 
     /**
+     * showDropdown of properties
+     */
+    public function showDropdown()
+    {
+        try {
+            $properties = null;
+            if ($this->user->role->id == 2) {
+                $properties = $this->propertyRepository->propertiesOftheBusiness($this->user->business()->id);
+            }else {
+                $properties = $this->propertyRepository->propertiesOfTheAgent($this->user->id);
+            }
+            return $properties;
+        } catch (Exception $e) {
+            Log::error('PropertyService::showDropdown', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
      * storing the property
      * @param array $credentials
      * @return Property

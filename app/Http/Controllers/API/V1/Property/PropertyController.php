@@ -27,6 +27,21 @@ class PropertyController extends Controller
     }
 
     /**
+     * dropdown
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function dropdown(): JsonResponse
+    {
+        try {
+            $response = $this->propertyService->showDropdown();
+            return $this->success(200, 'properties dropdown', $response);
+        }catch (Exception $e) {
+            Log::error('PropertyController::dropdown', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
      * store properties
      * @param \App\Http\Requests\API\V1\Property\CreatePropertyRequest $createPropertyRequest
      * @return \Illuminate\Http\JsonResponse

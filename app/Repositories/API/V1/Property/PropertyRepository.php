@@ -8,18 +8,30 @@ use Illuminate\Support\Facades\Log;
 
 class PropertyRepository implements PropertyRepositoryInterface
 {
-    public function propertiesOftheBusiness()
+    /**
+     * properties Of the Business
+     * @param int $businessId
+     */
+    public function propertiesOftheBusiness(int $businessId)
     {
         try {
+            $properties = Property::select('id', 'address')->whereBusinessId($businessId)->get();
+            return $properties;
         } catch (Exception $e) {
             Log::error('PropertyRepository::propertiesOftheBusiness', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
 
-    public function propertiesOfTheAgent()
+    /**
+     * properties Of The Agent
+     * @param int $userId
+     */
+    public function propertiesOfTheAgent(int $userId)
     {
         try {
+            $properties = Property::select('id', 'address')->whereUserId($userId)->get();
+            return $properties;
         } catch (Exception $e) {
             Log::error('PropertyRepository::propertiesOfTheAgent', ['error' => $e->getMessage()]);
             throw $e;

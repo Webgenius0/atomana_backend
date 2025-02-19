@@ -6,9 +6,9 @@ use App\Models\Property;
 
 interface PropertyRepositoryInterface
 {
-    public function propertiesOftheBusiness();
+    public function propertiesOftheBusiness(int $businessId);
 
-    public function propertiesOfTheAgent();
+    public function propertiesOfTheAgent(int $userId);
 
     /**
      * Creating a property

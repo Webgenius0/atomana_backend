@@ -81,19 +81,13 @@ class CreatePropertyRequest extends FormRequest
         $errors = $validator->errors()->getMessages();
         $message = null;
         $fields = [
-            'expense_type_id',
-            'expense_category_id',
-            'expense_sub_category_id',
-            'description',
-            'amount',
-            'payment_method_id',
-            'vendor_id',
-            'recept',
-            // 'recept_name_url',
-            'owner',
-            'reimbursable',
-            'listing',
-            'note',
+            'email',
+            'address',
+            'price',
+            'expiration_date',
+            'development',
+            'co_listing',
+            'source',
         ];
 
         foreach ($fields as $field) {

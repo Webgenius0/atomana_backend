@@ -26,7 +26,14 @@ class PropertyRepository implements PropertyRepositoryInterface
         }
     }
 
-    public function createProperty(array $credentials, int $userId, int $businessId)
+    /**
+     * Creating a property
+     * @param array $credentials
+     * @param int $userId
+     * @param int $businessId
+     * @return Property
+     */
+    public function createProperty(array $credentials, int $userId, int $businessId):Property
     {
         try {
             return Property::create([

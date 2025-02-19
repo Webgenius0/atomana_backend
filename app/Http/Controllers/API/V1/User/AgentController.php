@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\API\V1\Admin\AgentService;
 use App\Traits\V1\ApiResponse;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -27,7 +28,7 @@ class AgentController extends Controller
      * agent Drop Down
      * @return \Illuminate\Http\JsonResponse
      */
-    public function agentDropDown()
+    public function getAgent(): JsonResponse
     {
         try {
             $response = $this->agentService->getAgents();

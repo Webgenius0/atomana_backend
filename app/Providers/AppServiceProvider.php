@@ -28,6 +28,8 @@ use App\Repositories\API\V1\Profile\ProfileRepository;
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
 use App\Repositories\API\V1\Property\PropertyRepository;
 use App\Repositories\API\V1\Property\PropertyRepositoryInterface;
+use App\Repositories\API\V1\User\UserRepository as UserRepo;
+use App\Repositories\API\V1\User\UserRepositoryInterface as UserRepoInter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -42,6 +44,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ForgetPasswordRepositoryInterface::class, ForgetPasswordRepository::class);
         $this->app->bind(OTPRepositoryInterface::class, OTPRepository::class);
         $this->app->bind(PasswordRepositoryInterface::class, PasswordRepository::class);
+
+        // user
+        $this->app->bind(UserRepoInter::class, UserRepo::class);
 
         // profile
         $this->app->bind(ProfileRepositoryInterface::class, ProfileRepository::class);

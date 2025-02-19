@@ -26,8 +26,6 @@ class CreatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'business_id' => 'required|exists:businesses,id',
-            'user_id' => 'required|exists:users,id',
             'email' => 'required|email',
             'address' => 'required|string',
             'price' => 'required|numeric',
@@ -41,12 +39,6 @@ class CreatePropertyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'business_id.required' => 'The business ID is required.',
-            'business_id.exists' => 'The selected business ID is invalid.',
-
-            'user_id.required' => 'The user ID is required.',
-            'user_id.exists' => 'The selected user ID is invalid.',
-
             'email.required' => 'Please provide an email address.',
             'email.email' => 'The email address must be a valid email format.',
 

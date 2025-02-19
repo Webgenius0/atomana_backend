@@ -1,8 +1,41 @@
 <?php
-    
+
 namespace App\Services\API\V1\Property;
+
+use App\Models\Property;
+use App\Repositories\API\V1\Property\PropertyRepositoryInterface;
+use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PropertyService
 {
-    // Your service logic goes here
+    protected PropertyRepositoryInterface $propertyRepository;
+    protected $user;
+
+    /**
+     * Summary of __construct
+     * @param \App\Repositories\API\V1\Property\PropertyRepositoryInterface $propertyRepository
+     */
+    public function __construct(PropertyRepositoryInterface $propertyRepository)
+    {
+        $this->propertyRepository = $propertyRepository;
+        $this->user = Auth::user();
+    }
+
+    /**
+     * storing the property
+     * @param array $credentials
+     * @return Property
+     */
+    public function storeProperty(array $credentials):Property
+    {
+        try {
+            $property = $this->propertyRepository->createProperty($credentials, $this->user->id, $this->user->business()->id);
+            return $property;
+        } catch (Exception $e) {
+            Log::error('PropertyService::storeProperty', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

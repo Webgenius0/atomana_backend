@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\V1\User;
 
 use App\Http\Controllers\Controller;
-use App\Services\API\V1\Admin\AgentService;
+use App\Services\API\V1\User\AgentService;
 use App\Traits\V1\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -17,7 +17,7 @@ class AgentController extends Controller
 
     /**
      * construct
-     * @param \App\Services\API\V1\Admin\AgentService $agentService
+     * @param \App\Services\API\V1\User\AgentService $agentService
      */
     public function __construct(AgentService $agentService)
     {
@@ -31,7 +31,7 @@ class AgentController extends Controller
     public function getAgent(): JsonResponse
     {
         try {
-            $response = $this->agentService->getAgents();
+            $response = $this->agentService->getAgentsDropdown();
             return $this->success(200, 'Agent Id and Name', $response);
         } catch (Exception $e) {
             Log::error('AgentController::agentDropDown', ['error' => $e->getMessage()]);

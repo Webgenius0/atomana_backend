@@ -15,7 +15,7 @@ class UserRepository implements UserRepositoryInterface
     public function getNameAndId(int $userId)
     {
         try {
-            return User::select('id', 'first_name', 'last_name')->whenId($userId)->get();
+            return User::select('id', 'first_name', 'last_name')->whereId($userId)->get();
         } catch (Exception $e) {
             Log::error('UserRepository::selfInfo', ['error' => $e->getMessage()]);
             throw $e;

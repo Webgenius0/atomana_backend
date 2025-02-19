@@ -144,7 +144,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Business::class);
     }
 
-
     /**
      * retunring the business of the user;
      * @return mixed
@@ -152,5 +151,14 @@ class User extends Authenticatable implements JWTSubject
     public function business(): mixed
     {
         return $this->businesses->first();
+    }
+
+    /**
+     * relstion with Proerty Model.
+     * @return HasMany<Property, User>
+     */
+    public function properties():HasMany
+    {
+        return $this->hasMany(Property::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\API\V1\Property;
 
+use App\Models\Property;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -28,6 +29,17 @@ class PropertyRepository implements PropertyRepositoryInterface
     public function createProperty(array $credentials, int $userId, int $businessId)
     {
         try {
+            return Property::create([
+                'business_id' => $businessId,
+                'user_id' => $userId,
+                'email' => $credentials['email'],
+                'address' => $credentials['address'],
+                'price' => $credentials['price'],
+                'expiration_date' => $credentials['expiration_date'],
+                'development' => $credentials['development'],
+                'co_listing' => $credentials['co_listing'],
+                'source' => $credentials['source'],
+            ]);
         } catch (Exception $e) {
             Log::error('PropertyRepository::createProperty', ['error' => $e->getMessage()]);
             throw $e;

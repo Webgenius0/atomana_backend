@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('expiration_date');
             $table->boolean('development');
             $table->boolean('co_listing');
-            $table->string('');
+            $table->string('source');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -28,6 +28,8 @@ use App\Repositories\API\V1\Profile\ProfileRepository;
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
 use App\Repositories\API\V1\Property\PropertyRepository;
 use App\Repositories\API\V1\Property\PropertyRepositoryInterface;
+use App\Repositories\API\V1\SalesTrake\SalesTrackRepository;
+use App\Repositories\API\V1\SalesTrake\SalesTrackRepositoryInterface;
 use App\Repositories\API\V1\User\UserRepository as UserRepo;
 use App\Repositories\API\V1\User\UserRepositoryInterface as UserRepoInter;
 use Illuminate\Support\ServiceProvider;
@@ -53,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
 
         // agent
         $this->app->bind(AgentRepositoryInterface::class, AgentRepository::class);
+        $this->app->bind(SalesTrackRepositoryInterface::class, SalesTrackRepository::class);
 
         // expences
         $this->app->bind(ExpenseTypeRepositoryInterface::class, ExpenseTypeRepository::class);
@@ -66,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
 
         // moetod
         $this->app->bind(PaymentMethodRepositoryInterface::class, PaymentMethodRepository::class);
+
     }
 
     /**

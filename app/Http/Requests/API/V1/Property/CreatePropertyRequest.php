@@ -28,7 +28,7 @@ class CreatePropertyRequest extends FormRequest
         return [
             'email' => 'required|email',
             'address' => 'required|string',
-            'price' => 'required|numeric',
+            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'expiration_date' => 'required|date|after:today',
             'development' => 'required|boolean',
             'co_listing' => 'required|boolean',
@@ -46,6 +46,7 @@ class CreatePropertyRequest extends FormRequest
 
             'price.required' => 'The price is required to complete this action.',
             'price.numeric' => 'The price must be a numeric value.',
+            'price.regex' => 'The price must be a valid number with up to two decimal places.',
 
             'expiration_date.required' => 'The expiration date is required.',
             'expiration_date.date' => 'The expiration date must be a valid date format.',

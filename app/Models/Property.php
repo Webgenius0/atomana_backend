@@ -33,9 +33,24 @@ class Property extends Model
     protected function casts(): array
     {
         return [
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime',
+            'id'              => 'integer',
+            'business_id'     => 'integer',
+            'user_id'         => 'integer',
+            'price'           => 'float',
+            'expiration_date' => 'date',
+            'created_at'      => 'datetime',
+            'updated_at'      => 'datetime',
         ];
+    }
+
+    /**
+     *  acccessor for Price Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getPriceAttribute($value): string
+    {
+        return  number_format($value, 2, '.', '');
     }
 
     // ------------------------------------

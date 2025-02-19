@@ -17,16 +17,16 @@ class CreatePropertyResource extends JsonResource
         $data = parent::toArray($request);
 
         return [
-            'id' => $data['id'],
-            'business_id' => $data['business_id'],
-            'user_id' => $data['user_id'],
-            'email' => $data['email'],
-            'address' => $data['address'],
-            'price' => $data['price'],
+            'id'              => $data['id'],
+            'business_id'     => $data['business_id'],
+            'user_id'         => $data['user_id'],
+            'email'           => $data['email'],
+            'address'         => $data['address'],
+            'price'           => $data['price'],
             'expiration_date' => $data['expiration_date'],
-            'development' => $data['development'],
-            'co_listing' => $data['co_listing'],
-            'source' => $data['source'],
+            'development'     => $data['development'],
+            'co_listing'      => $data['co_listing'],
+            'source'          => $data['source'],
         ];
     }
 }

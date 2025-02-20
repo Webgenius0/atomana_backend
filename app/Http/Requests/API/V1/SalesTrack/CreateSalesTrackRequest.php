@@ -45,7 +45,7 @@ class CreateSalesTrackRequest extends FormRequest
             'property_id.exists' => 'The selected property is not available.',
             'price.required' => 'Please provide a price.',
             'price.numeric' => 'The price must be a valid number.',
-            'price.regex' => 'The price format must be a valid number with up to two decimal places.',
+            'price.regex' => 'The price format must be a valid number with no more than two decimal places.',
             'status.required' => 'The status field is mandatory.',
             'status.boolean' => 'The status must be either true or false.',
             'expiration_date.required' => 'The expiration date is required.',

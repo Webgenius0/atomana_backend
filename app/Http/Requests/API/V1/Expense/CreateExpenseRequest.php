@@ -30,7 +30,7 @@ class CreateExpenseRequest extends FormRequest
             'expense_category_id' => 'nullable|exists:expense_categories,id',
             'expense_sub_category_id' => 'nullable|exists:expense_sub_categories,id',
             'description' => 'nullable|string',
-            'amount' => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'payment_method_id' => 'nullable|exists:payment_methods,id',
             'vendor_id' => 'nullable|exists:vendors,id',
             'recept' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf',
@@ -62,7 +62,7 @@ class CreateExpenseRequest extends FormRequest
 
             // 'amount.required' => 'The amount is required.',
             'amount.numeric' => 'The amount must be a numeric value.',
-            'amount.regex' => 'The amount must be a valid number with up to two decimal places.',
+            'price.regex' => 'The price format must be a valid number with no more than two decimal places.',
 
             // 'payment_method_id.required' => 'The payment method is required.',
             'payment_method_id.exists' => 'The selected payment method is invalid.',

@@ -30,6 +30,7 @@ class CreateSalesTrackRequest extends FormRequest
             'property_id' => 'required|exists:properties,id',
             'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'status' => 'required|boolean',
+            'expiration_date' => 'required|date|after:today',
             'note' => 'required|string',
         ];
     }
@@ -47,6 +48,9 @@ class CreateSalesTrackRequest extends FormRequest
             'price.regex' => 'The price format must be a valid number with up to two decimal places.',
             'status.required' => 'The status field is mandatory.',
             'status.boolean' => 'The status must be either true or false.',
+            'expiration_date.required' => 'The expiration date is required.',
+            'expiration_date.date' => 'The expiration date must be a valid date format.',
+            'expiration_date.after' => 'The expiration date must be a feture date.',
             'note.required' => 'A note is required.',
             'note.string' => 'The note must be a valid string.',
         ];
@@ -77,6 +81,7 @@ class CreateSalesTrackRequest extends FormRequest
             'property_id',
             'price',
             'status',
+            'expiration_date',
             'note',
         ];
 

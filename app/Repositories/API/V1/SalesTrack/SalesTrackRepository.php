@@ -46,6 +46,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
                 'property_id' => $credentials['property_id'],
                 'price' => $credentials['price'],
                 'status' => $credentials['status'],
+                'expiration_date' => $credentials['expiration_date'],
                 'note' => $credentials['note'],
             ]);
         } catch (Exception $e) {

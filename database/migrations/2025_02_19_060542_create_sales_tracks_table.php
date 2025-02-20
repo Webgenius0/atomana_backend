@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('property_id')->constrained('properties')->cascadeOnDelete();
             $table->float('price');
             $table->boolean('status')->default(true);
+            $table->date('expiration_date');
             $table->text('note');
             $table->softDeletes();
             $table->timestamps();

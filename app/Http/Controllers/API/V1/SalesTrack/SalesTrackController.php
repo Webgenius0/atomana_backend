@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\SalesTrack;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\SalesTrack\CreateSalesTrackRequest;
 use App\Http\Resources\API\V1\SalesTrack\CreateSalesTrackResource;
+use App\Http\Resources\API\V1\SalesTrack\IndexSalesTrackResource;
 use App\Services\API\V1\SalesTrack\SalesTrackService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -35,7 +36,7 @@ class SalesTrackController extends Controller
     {
         try {
             $response = $this->salesTrackService->getSalesTrack();
-            return $this->success(201, 'Sales Tracks of the Business', $response);
+            return $this->success(201, 'Sales Tracks of the Business', new IndexSalesTrackResource($response));
         } catch (Exception $e) {
             Log::error('SalesTrackController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

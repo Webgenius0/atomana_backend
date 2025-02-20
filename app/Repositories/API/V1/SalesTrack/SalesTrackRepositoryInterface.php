@@ -12,7 +12,7 @@ interface SalesTrackRepositoryInterface
      * @param int $businessId
      * @param int $per_page
      */
-    public function getSalesTrackByBusiness(int $businessId, int $per_page = 25);
+    public function getSalesTrackByBusiness(int $businessId, int $perPage = 25);
 
     /**
      * Create salesTrack

@@ -13,9 +13,9 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     /**
      * get Sales Track By Business
      * @param int $businessId
-     * @param int $per_page
+     * @param int $perPage
      */
-    public function getSalesTrackByBusiness(int $businessId, int $per_page = 25)
+    public function getSalesTrackByBusiness(int $businessId, int $perPage = 25)
     {
         try {
             // return SalesTrack::select([
@@ -25,11 +25,11 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
             //     'price',
             //     'status',
             //     'note',
-            // ])->with(['user:id,first_name,last_name', 'property:id,address'])->whereBusinessId($businessId)->latest()->paginate($per_page);
+            // ])->with(['user:id,first_name,last_name', 'property:id,address'])->whereBusinessId($businessId)->latest()->paginate($perPage);
 
             return SalesTrackView::where('business_id', $businessId)
                 ->orderBy('id', 'desc')
-                ->paginate($per_page);
+                ->paginate($perPage);
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::getSalesTrackByBusiness', ['error' => $e->getMessage()]);
             throw $e;

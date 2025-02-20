@@ -15,36 +15,35 @@ class SubCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Factory::create();
+        // Fetch category IDs dynamically
+        $categories = DB::table('expense_categories')->pluck('id', 'slug');
 
-        for ($i = 1; $i <= 6; $i++) {
-            $randomWord1 = $faker->word;
-            $randomWord2 = $faker->word;
-            $randomWord3 = $faker->word;
+        // Define subcategories for each category
+        $subCategories = [
+            'office' => ['Administration', 'Human Resources', 'IT Support', 'Procurement', 'Finance & Accounting'],
+            'travel' => ['Business Travel', 'Leisure Travel', 'Budget Travel', 'Luxury Travel', 'Travel Insurance'],
+            'marketing' => ['Digital Marketing', 'Content Marketing', 'Social Media Marketing', 'Email Marketing', 'SEO & SEM'],
+            'training' => ['Corporate Training', 'Technical Training', 'Soft Skills Development', 'Leadership Training', 'Industry-Specific Training'],
+        ];
 
-            DB::table('expense_sub_categories')->insert([
-                [
-                    'expense_category_id' => $i,
-                    'slug' => Helper::generateUniqueSlug($randomWord1, 'expense_sub_categories'),
-                    'name' => $randomWord1,
+        $data = [];
+        foreach ($subCategories as $slug => $subCategoryNames) {
+            if (!isset($categories[$slug])) {
+                continue; // Skip if category does not exist
+            }
+
+            foreach ($subCategoryNames as $subCategory) {
+                $data[] = [
+                    'expense_category_id' => $categories[$slug], // Assign category ID
+                    'slug' => Helper::generateUniqueSlug($subCategory, 'expense_sub_categories'),
+                    'name' => $subCategory,
                     'created_at' => now(),
                     'updated_at' => now(),
-                ],
-                [
-                    'expense_category_id' => $i,
-                    'slug' => Helper::generateUniqueSlug($randomWord2, 'expense_sub_categories'),
-                    'name' => $randomWord2,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-                [
-                    'expense_category_id' => $i,
-                    'slug' => Helper::generateUniqueSlug($randomWord3, 'expense_sub_categories'),
-                    'name' => $randomWord3, 
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ],
-            ]);
+                ];
+            }
         }
+
+        // Insert subcategories
+        DB::table('expense_sub_categories')->insert($data);
     }
 }

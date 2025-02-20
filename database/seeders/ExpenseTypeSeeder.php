@@ -15,23 +15,17 @@ class ExpenseTypeSeeder extends Seeder
     {
         DB::table('expense_types')->insert([
             [
-                'slug' => 'my-expense-list',
-                'name' => 'My Expense List',
+                'slug' => 'income',
+                'name' => 'Income',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'slug' => 'my-business-expenses',
-                'name' => 'My Business Expenses',
+                'slug' => 'expense',
+                'name' => 'Expense',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'slug' => 'my-agent-earnings',
-                'name' => 'My Agent Earnings',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
         ]);
     }
 }

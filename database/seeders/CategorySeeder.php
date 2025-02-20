@@ -15,38 +15,26 @@ class CategorySeeder extends Seeder
     {
         DB::table('expense_categories')->insert([
             [
-                'slug' => 'commission-income',
-                'name' => 'Commision Income',
+                'slug' => 'office',
+                'name' => 'Office',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'slug' => 'cost-of-sales',
-                'name' => 'Cost Of Sales',
+                'slug' => 'travel',
+                'name' => 'Travel',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'slug' => 'referral-fee',
-                'name' => 'Referral Fee',
+                'slug' => 'marketing',
+                'name' => 'Marketing',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'slug' => 'operating-expenses',
-                'name' => 'Operating Expenses',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'slug' => 'gross-profit',
-                'name' => 'Gross Profit',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'slug' => 'net-income',
-                'name' => 'Net Income',
+                'slug' => 'training',
+                'name' => 'Training',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

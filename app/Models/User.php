@@ -94,6 +94,9 @@ class User extends Authenticatable implements JWTSubject
         }
     }
 
+    // _____________________________
+    // _____________________________
+
     /**
      * Define the relationship between the current model and the Profile model.
      *
@@ -157,8 +160,17 @@ class User extends Authenticatable implements JWTSubject
      * relstion with Proerty Model.
      * @return HasMany<Property, User>
      */
-    public function properties():HasMany
+    public function properties(): HasMany
     {
         return $this->hasMany(Property::class);
+    }
+
+    /**
+     * Model may have multipel SalesTrack
+     * @return HasMany<SalesTrack, User>
+     */
+    public function SalesTrack(): HasMany
+    {
+        return $this->hasMany(SalesTrack::class);
     }
 }

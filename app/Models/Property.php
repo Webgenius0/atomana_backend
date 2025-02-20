@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Property extends Model
 {
@@ -71,5 +72,14 @@ class Property extends Model
     public function business(): BelongsTo
     {
         return $this->belongsTo(Business::class);
+    }
+
+    /**
+     * Model may have one SalesTrack
+     * @return HasOne<SalesTrack, User>
+     */
+    public function SalesTrack(): HasOne
+    {
+        return $this->hasOne(SalesTrack::class);
     }
 }

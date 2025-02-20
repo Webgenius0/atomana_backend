@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SalesTrack extends Model
 {
@@ -36,4 +37,35 @@ class SalesTrack extends Model
             'updated_at' => 'datetime',
         ];
     }
+
+    // ------------------------------------
+    // ------------------------------------
+
+    /**
+     * Model belongs to User Model.
+     * @return BelongsTo<User, SalesTrack>
+     */
+    public function user():BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Model belongs to Business Model.
+     * @return BelongsTo<Business, SalesTrack>
+     */
+    public function business():BelongsTo
+    {
+        return $this->belongsTo(Business::class);
+    }
+
+    /**
+     * Model belongs to Property Model.
+     * @return BelongsTo<Property, SalesTrack>
+     */
+    public function property():BelongsTo
+    {
+        return $this->belongsTo(Property::class);
+    }
+
 }

@@ -62,4 +62,13 @@ class Business extends Model
     {
         return $this->hasMany(Property::class);
     }
+
+    /**
+     * Model may have multipel SalesTrack
+     * @return HasMany<SalesTrack, User>
+     */
+    public function SalesTrack(): HasMany
+    {
+        return $this->hasMany(SalesTrack::class);
+    }
 }

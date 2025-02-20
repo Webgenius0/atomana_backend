@@ -126,7 +126,7 @@ class Expense extends Model
     }
 
     /**
-     *  acccessor for Amount Attribute
+     * acccessor for Amount Attribute
      * @param mixed $value
      * @return string
      */

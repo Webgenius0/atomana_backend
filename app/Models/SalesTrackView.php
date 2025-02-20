@@ -26,4 +26,14 @@ class SalesTrackView extends Model
         'expiration_date',
         'note',
     ];
+
+    /**
+     * acccessor for Price Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getPriceAttribute($value):string
+    {
+        return number_format($value, 2, '.', '');
+    }
 }

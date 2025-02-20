@@ -8,6 +8,29 @@ use Illuminate\Support\Facades\Log;
 
 class SalesTrackRepository implements SalesTrackRepositoryInterface
 {
+
+    /**
+     * get Sales Track By Business
+     * @param int $businessId
+     * @param int $per_page
+     */
+    public function getSalesTrackByBusiness(int $businessId, int $per_page = 25)
+    {
+        try {
+            return SalesTrack::select([
+                'id',
+                'user_id',
+                'property_id',
+                'price',
+                'status',
+                'note',
+            ])->with(['user:id,first_name,last_name', 'property:id,address'])->whereBusinessId($businessId)->latest()->paginate($per_page);
+        } catch (Exception $e) {
+            Log::error('SalesTrakeRepository::getSalesTrackByBusiness', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
     /**
      * Create salesTrack
      * @param array $credentials

@@ -6,7 +6,13 @@ use App\Models\SalesTrack;
 
 interface SalesTrackRepositoryInterface
 {
-    // public function getSalesTrackByBusiness(int $businessId);
+
+    /**
+     * get Sales Track By Business
+     * @param int $businessId
+     * @param int $per_page
+     */
+    public function getSalesTrackByBusiness(int $businessId, int $per_page = 25);
 
     /**
      * Create salesTrack

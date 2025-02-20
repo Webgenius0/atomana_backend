@@ -34,12 +34,14 @@ class Property extends Model
     protected function casts(): array
     {
         return [
-            'id'              => 'integer',
-            'business_id'     => 'integer',
-            'user_id'         => 'integer',
-            'price'           => 'float',
-            'created_at'      => 'datetime',
-            'updated_at'      => 'datetime',
+            'id'          => 'integer',
+            'business_id' => 'integer',
+            'user_id'     => 'integer',
+            'price'       => 'float',
+            'co_listing'  => 'boolean',
+            'development' => 'boolean',
+            'created_at'  => 'datetime',
+            'updated_at'  => 'datetime',
         ];
     }
 

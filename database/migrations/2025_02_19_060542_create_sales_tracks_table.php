@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sales_tracks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('business_id')->constrained('businesses')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('property_id')->constrained('properties')->cascadeOnDelete();
             $table->float('price');

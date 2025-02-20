@@ -6,5 +6,13 @@ use App\Models\SalesTrack;
 
 interface SalesTrackRepositoryInterface
 {
-    public function create(array $credentials): SalesTrack;
+    // public function getSalesTrackByBusiness(int $businessId);
+
+    /**
+     * Create salesTrack
+     * @param array $credentials
+     * @param int $businessId
+     * @return SalesTrack
+     */
+    public function create(array $credentials, int $businessId): SalesTrack;
 }

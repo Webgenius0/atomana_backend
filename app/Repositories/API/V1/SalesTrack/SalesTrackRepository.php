@@ -8,17 +8,24 @@ use Illuminate\Support\Facades\Log;
 
 class SalesTrackRepository implements SalesTrackRepositoryInterface
 {
-    public function create(array $credentials): SalesTrack
+    /**
+     * Create salesTrack
+     * @param array $credentials
+     * @param int $businessId
+     * @return SalesTrack
+     */
+    public function create(array $credentials, int $businessId): SalesTrack
     {
         try {
             return SalesTrack::create([
+                'business_id' => $businessId,
                 'user_id' => $credentials['user_id'],
                 'property_id' => $credentials['property_id'],
                 'price' => $credentials['price'],
                 'status' => $credentials['status'],
                 'note' => $credentials['note'],
             ]);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('SalesTrakeRepository::create', ['error' => $e->getMessage()]);
             throw $e;
         }

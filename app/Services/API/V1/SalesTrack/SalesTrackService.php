@@ -24,6 +24,20 @@ class SalesTrackService
     }
 
     /**
+     * get Sales Track
+     */
+    public function getSalesTrack()
+    {
+        try {
+            $perPage = request()->query('per_page', 25);
+            return $this->salesTrackRepository->getSalesTrackByBusiness($this->businessId, $perPage);
+        } catch (Exception $e) {
+            Log::error('SalesTrackService::getSalesTrack', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
      * store Sales Track
      * @param array $credentials
      * @return SalesTrack
@@ -31,7 +45,7 @@ class SalesTrackService
     public function storeSalesTrack(array $credentials):SalesTrack
     {
         try {
-            return $this->salesTrackRepository->create($credentials, $this->businessId );
+            return $this->salesTrackRepository->create($credentials, $this->businessId);
         } catch (Exception $e) {
             Log::error('SalesTrackService::storeSalesTrack', ['error' => $e->getMessage()]);
             throw $e;

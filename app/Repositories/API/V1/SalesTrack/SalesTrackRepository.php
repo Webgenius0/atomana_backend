@@ -3,6 +3,7 @@
 namespace App\Repositories\API\V1\SalesTrack;
 
 use App\Models\SalesTrack;
+use App\Models\SalesTrackView;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -17,14 +18,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     public function getSalesTrackByBusiness(int $businessId, int $per_page = 25)
     {
         try {
-            return SalesTrack::select([
-                'id',
-                'user_id',
-                'property_id',
-                'price',
-                'status',
-                'note',
-            ])->with(['user:id,first_name,last_name', 'property:id,address'])->whereBusinessId($businessId)->latest()->paginate($per_page);
+            // return SalesTrack::select([
+            //     'id',
+            //     'user_id',
+            //     'property_id',
+            //     'price',
+            //     'status',
+            //     'note',
+            // ])->with(['user:id,first_name,last_name', 'property:id,address'])->whereBusinessId($businessId)->latest()->paginate($per_page);
+
+            return SalesTrackView::where('business_id', $businessId)
+                ->orderBy('id', 'desc')
+                ->paginate($per_page);
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::getSalesTrackByBusiness', ['error' => $e->getMessage()]);
             throw $e;

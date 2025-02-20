@@ -14,16 +14,17 @@ return new class extends Migration
     {
         DB::statement("CREATE VIEW sales_tracks_view AS
                    SELECT
+                        sales_tracks.id,
                         users.first_name,
                         users.last_name,
                         properties.address,
-                        sales_tracks.id,
                         sales_tracks.user_id,
                         sales_tracks.property_id,
                         sales_tracks.price,
                         sales_tracks.status,
                         sales_tracks.expiration_date,
-                        sales_tracks.note
+                        sales_tracks.note,
+                        sales_tracks.business_id
                    FROM sales_tracks
                    JOIN users ON users.id = sales_tracks.user_id
                    JOIN properties ON properties.id = sales_tracks.property_id");

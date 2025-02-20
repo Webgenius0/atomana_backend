@@ -27,6 +27,20 @@ class SalesTrackView extends Model
         'note',
     ];
 
+
+      /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'id'          => 'integer',
+            'status'      => 'boolean',
+        ];
+    }
+
     /**
      * acccessor for Price Attribute
      * @param mixed $value

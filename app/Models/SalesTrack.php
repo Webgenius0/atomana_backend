@@ -33,8 +33,12 @@ class SalesTrack extends Model
     protected function casts(): array
     {
         return [
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime',
+            'id'          => 'integer',
+            'user_id'     => 'integer',
+            'property_id' => 'integer',
+            'status'      => 'boolean',
+            'created_at'  => 'datetime',
+            'updated_at'  => 'datetime',
         ];
     }
 

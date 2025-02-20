@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API\V1\SalesTrake;
+namespace App\Http\Controllers\API\V1\SalesTrack;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\SalesTrack\CreateSalesTrackRequest;
-use App\Services\API\V1\SalesTrake\SalesTrackService;
+use App\Services\API\V1\SalesTrack\SalesTrackService;
 use App\Traits\V1\ApiResponse;
 use Exception;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class SalesTrackController extends Controller
 
     /**
      * construct
-     * @param \App\Services\API\V1\SalesTrake\SalesTrackService $salesTrackService
+     * @param SalesTrackService $salesTrackService
      */
     public function __construct(SalesTrackService $salesTrackService)
     {

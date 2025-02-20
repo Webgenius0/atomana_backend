@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\API\V1\SalesTrake;
+namespace App\Repositories\API\V1\SalesTrack;
 
 use App\Models\SalesTrack;
 

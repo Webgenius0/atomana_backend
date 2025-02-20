@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\API\V1\SalesTrake;
+namespace App\Services\API\V1\SalesTrack;
 
 use App\Models\SalesTrack;
-use App\Repositories\API\V1\SalesTrake\SalesTrackRepositoryInterface;
+use App\Repositories\API\V1\SalesTrack\SalesTrackRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -13,7 +13,7 @@ class SalesTrackService
 
     /**
      * construct
-     * @param \App\Repositories\API\V1\SalesTrake\SalesTrackRepositoryInterface $salesTrackRepository
+     * @param SalesTrackRepositoryInterface $salesTrackRepository
      */
     public function __construct(SalesTrackRepositoryInterface $salesTrackRepository)
     {

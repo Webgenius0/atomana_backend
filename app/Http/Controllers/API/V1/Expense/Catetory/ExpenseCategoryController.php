@@ -41,11 +41,11 @@ class ExpenseCategoryController extends Controller
 
 
     /**
-     * create
-     * @param \App\Http\Requests\API\V1\Expense\Category\CreateRequest $createRequest
+     * store
+     * @param CreateRequest $createRequest
      * @return JsonResponse
      */
-    public function create(CreateRequest $createRequest): JsonResponse
+    public function store(CreateRequest $createRequest): JsonResponse
     {
         try {
             $validatedData = $createRequest->validated();

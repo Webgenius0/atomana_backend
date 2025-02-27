@@ -36,12 +36,10 @@ class Expense extends Model
             'id' => 'integer',
             'business_id' => 'integer',
             'expense_for_id' => 'integer',
-            // 'expense_type_id' => 'integer',
             'expense_category_id' => 'integer',
             'expense_sub_category_id' => 'integer',
             'amount' => 'float',
             'payment_method_id' => 'integer',
-            // 'vendor_id' => 'integer',
             'reimbursable' => 'boolean',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
@@ -80,15 +78,6 @@ class Expense extends Model
         return $this->belongsTo(ExpenseFor::class);
     }
 
-    // /**
-    //  * belongs to expensetype
-    //  * @return BelongsTo<ExpenseType, Expense>
-    //  */
-    // public function type(): BelongsTo
-    // {
-    //     return $this->belongsTo(ExpenseType::class);
-    // }
-
     /**
      * belongs to paymentMethord
      * @return BelongsTo<PaymentMethod, Expense>
@@ -97,15 +86,6 @@ class Expense extends Model
     {
         return $this->belongsTo(PaymentMethod::class);
     }
-
-    // /**
-    //  * belongs to vendor
-    //  * @return BelongsTo<Vendor, Expense>
-    //  */
-    // public function vendor(): BelongsTo
-    // {
-    //     return $this->belongsTo(Vendor::class);
-    // }
 
 
     /**

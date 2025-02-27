@@ -34,7 +34,7 @@ class ExpenseCategoryRepository implements ExpenseCategoryRepositoryInterface
     {
         try {
             return ExpenseCategory::create([
-                'name' => $categories['name'],
+                'name' => strtolower($categories['name']),
                 'slug' => Helper::generateUniqueSlug($categories['name'], 'expense_categories'),
             ]);
         } catch (Exception $e) {

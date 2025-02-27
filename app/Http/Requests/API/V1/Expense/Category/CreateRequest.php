@@ -27,7 +27,7 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|unique:expense_categories,name',
         ];
     }
 

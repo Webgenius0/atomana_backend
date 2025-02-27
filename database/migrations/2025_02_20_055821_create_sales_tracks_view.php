@@ -12,6 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::statement('DROP VIEW IF EXISTS sales_tracks_view');
+
         DB::statement("CREATE VIEW sales_tracks_view AS
                    SELECT
                         sales_tracks.id,
@@ -35,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sales_tracks_view');
+        DB::statement('DROP VIEW IF EXISTS sales_tracks_view');
     }
 };

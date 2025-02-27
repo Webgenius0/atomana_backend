@@ -21,13 +21,12 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             $expenses = Expense::select([
                 'id',
                 'expense_for_id',
-                'expense_type_id',
                 'expense_category_id',
                 'expense_sub_category_id',
                 'description',
                 'amount',
                 'payment_method_id',
-                'vendor_id',
+                'payee',
                 'recept_name',
                 'recept_url',
                 'owner',
@@ -61,7 +60,6 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             $data = Expense::create([
                 'business_id' => $businessId,
                 'expense_for_id' => $expenseForId,
-                // 'expense_type_id' => $credentials['expense_type_id'],
                 'expense_category_id' => $credentials['expense_category_id'],
                 'expense_sub_category_id' => $credentials['expense_sub_category_id'],
                 'description' => $credentials['description'],

@@ -19,7 +19,6 @@ class CreateExpenseResource extends JsonResource
         return [
             'id'                      => $data['id'],
             'business_id'             => $data['business_id'],
-            // 'expense_type_id'         => $data['expense_type_id'],
             'expense_category_id'     => $data['expense_category_id'],
             'expense_sub_category_id' => $data['expense_sub_category_id'],
             'amount'                  => $data['amount'],

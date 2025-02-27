@@ -3,8 +3,6 @@
 use App\Http\Controllers\API\V1\Expense\Catetory\ExpenseCategoryController;
 use App\Http\Controllers\API\V1\Expense\ExpenseController;
 use App\Http\Controllers\API\V1\Expense\SubCatetory\ExpenseSubCategoryController;
-use App\Http\Controllers\API\V1\Expense\Type\ExpenseTypeController;
-use App\Http\Controllers\API\V1\Expense\Vendor\VendorController;
 use Illuminate\Support\Facades\Route;
 
 // all profile route of expense for bouth admin and agents

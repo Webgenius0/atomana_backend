@@ -26,13 +26,12 @@ class CreateExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'expense_type_id' => 'nullable|exists:expense_types,id',
             'expense_category_id' => 'nullable|exists:expense_categories,id',
             'expense_sub_category_id' => 'nullable|exists:expense_sub_categories,id',
             'description' => 'nullable|string',
             'amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'payment_method_id' => 'nullable|exists:payment_methods,id',
-            'vendor_id' => 'nullable|exists:vendors,id',
+            'payee' => 'nullable|string',
             'recept' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf',
             'owner' => 'nullable|string',
             'reimbursable' => 'nullable|boolean',
@@ -49,7 +48,6 @@ class CreateExpenseRequest extends FormRequest
     {
         return [
             // 'expense_type_id.required' => 'The expense type is required.',
-            'expense_type_id.exists' => 'The selected expense type is invalid.',
 
             // 'expense_category_id.required' => 'The expense category is required.',
             'expense_category_id.exists' => 'The selected expense category is invalid.',
@@ -67,8 +65,8 @@ class CreateExpenseRequest extends FormRequest
             // 'payment_method_id.required' => 'The payment method is required.',
             'payment_method_id.exists' => 'The selected payment method is invalid.',
 
-            // 'vendor_id.required' => 'The vendor is required.',
-            'vendor_id.exists' => 'The selected vendor is invalid.',
+            // 'payee.required' => 'The vendor is required.',
+            'payee.string' => 'The payee must be a string.',
 
             // 'recept.required' => 'The receipt is required.',
             'recept.file' => 'The receipt must be a valid file.',

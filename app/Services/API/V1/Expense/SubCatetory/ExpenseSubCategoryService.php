@@ -34,4 +34,9 @@ class ExpenseSubCategoryService
             throw $e;
         }
     }
+
+
+    public function storeSubCategory(array $credential) {
+        return [];
+    }
 }

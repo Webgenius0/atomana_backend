@@ -1,13 +1,17 @@
 <?php
 
 use App\Http\Controllers\API\V1\User\AgentController;
+use App\Http\Controllers\API\V1\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 // all profile route of profile
 Route::prefix('v1/user')->name('user.')->middleware(['auth:api', 'verified',])->group(function () {
+
     // routes for bouth admin and agents
-    Route::prefix('/agent')->name('agent.')->middleware(['authorized'])
-    ->controller(AgentController::class)->group(function () {
-        Route::get('/get-agent', 'getAgent')->name('get-agent');
+    Route::middleware(['authorized'])->group(function () {
+        // landing page
+        Route::get('/data', [UserController::class, 'userData'])->name('data');
+        // dropdown
+        Route::get('/agent/get-agent', [AgentController::class, 'getAgent'])->name('agent.get-agent');
     });
 });

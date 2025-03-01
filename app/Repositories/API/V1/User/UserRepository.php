@@ -15,7 +15,7 @@ class UserRepository implements UserRepositoryInterface
     public function getNameAndId(int $userId)
     {
         try {
-            return User::select('id', 'first_name', 'last_name' , 'handle')->whereId($userId)->get();
+            return User::select('id', 'first_name', 'last_name', 'handle')->whereId($userId)->get();
         } catch (Exception $e) {
             Log::error('UserRepository::selfInfo', ['error' => $e->getMessage()]);
             throw $e;
@@ -35,6 +35,26 @@ class UserRepository implements UserRepositoryInterface
                 })->whereRoleId(3)->get();
         } catch (Exception $e) {
             Log::error('UserRepository::allAgents', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    public function agentData($userId): array
+    {
+        try {
+            return [];
+        } catch (Exception $e) {
+            Log::error('UserRepository::agentData', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    public function businessData($userId): array
+    {
+        try {
+            return [];
+        } catch (Exception $e) {
+            Log::error('UserRepository::businessData', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

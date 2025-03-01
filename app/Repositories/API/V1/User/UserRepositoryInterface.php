@@ -15,4 +15,9 @@ interface UserRepositoryInterface
      * @param mixed $businessId
      */
     public function getAgentsNameAndId(int $businessId);
+
+
+    public function agentData($userId): array;
+
+    public function businessData($userId):array;
 }

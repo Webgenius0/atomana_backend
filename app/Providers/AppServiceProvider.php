@@ -58,10 +58,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SalesTrackRepositoryInterface::class, SalesTrackRepository::class);
 
         // expences
-        $this->app->bind(ExpenseTypeRepositoryInterface::class, ExpenseTypeRepository::class);
         $this->app->bind(ExpenseCategoryRepositoryInterface::class, ExpenseCategoryRepository::class);
         $this->app->bind(ExpenseSubCategoryRepositoryInterface::class, ExpenseSubCategoryRepository::class);
-        $this->app->bind(VendorRepositoryInterface::class, VendorRepository::class);
         $this->app->bind(ExpenseRepositoryInterface::class, ExpenseRepository::class);
 
         // product

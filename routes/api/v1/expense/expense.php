@@ -15,6 +15,7 @@ Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'verified
     });
     // routes for Expense sub-category controller
     Route::prefix('/sub-category')->name('sub.category')->controller(ExpenseSubCategoryController::class)->group(function () {
+        Route::post('/store', 'store')->name('store');
         Route::get('/{expenseCategory}', 'index')->name('index');
     });
     // all route for expense

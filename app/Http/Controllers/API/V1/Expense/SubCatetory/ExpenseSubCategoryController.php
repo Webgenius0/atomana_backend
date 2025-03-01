@@ -65,7 +65,7 @@ class ExpenseSubCategoryController extends Controller
                 'Sub Category Created Successfully.',
                 $response
             );
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('ExpenseSubCategoryController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }

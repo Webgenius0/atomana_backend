@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Expense\SubCatetory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\SubCategory\CreateRequest;
+use App\Http\Resources\API\V1\Expense\SubCategory\CreateResponse;
 use App\Http\Resources\API\V1\Expense\SubCategory\ExpenseSubCategoryResource;
 use App\Models\ExpenseCategory;
 use App\Services\API\V1\Expense\SubCatetory\ExpenseSubCategoryService;
@@ -63,7 +64,7 @@ class ExpenseSubCategoryController extends Controller
             return $this->success(
                 200,
                 'Sub Category Created Successfully.',
-                $response
+                new CreateResponse($response)
             );
         } catch (Exception $e) {
             Log::error('ExpenseSubCategoryController::store', ['error' => $e->getMessage()]);

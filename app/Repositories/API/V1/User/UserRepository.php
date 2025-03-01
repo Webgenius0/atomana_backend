@@ -42,7 +42,7 @@ class UserRepository implements UserRepositoryInterface
     public function agentData($userId): array
     {
         try {
-            return [];
+            return ['agent user id' => $userId];
         } catch (Exception $e) {
             Log::error('UserRepository::agentData', ['error' => $e->getMessage()]);
             throw $e;
@@ -52,7 +52,7 @@ class UserRepository implements UserRepositoryInterface
     public function businessData($userId): array
     {
         try {
-            return [];
+            return ['business user id' => $userId];
         } catch (Exception $e) {
             Log::error('UserRepository::businessData', ['error' => $e->getMessage()]);
             throw $e;

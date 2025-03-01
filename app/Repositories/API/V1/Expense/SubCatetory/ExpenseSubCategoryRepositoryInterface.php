@@ -11,5 +11,13 @@ interface ExpenseSubCategoryRepositoryInterface
      * gets all the data form the expense sub category table
      * @return \Illuminate\Database\Eloquent\Collection<int, ExpenseSubCategory>
      */
-    public function getExpenseSubCategories(int $categoryId):Collection;
+    public function getExpenseSubCategories(int $categoryId): Collection;
+
+
+    /**
+     * storeExpenseSubCaregory
+     * @param array $credential
+     * @return ExpenseSubCategory
+     */
+    public function storeExpenseSubCaregory(array $credential): ExpenseSubCategory;
 }

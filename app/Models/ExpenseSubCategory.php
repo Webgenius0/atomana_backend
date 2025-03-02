@@ -34,8 +34,9 @@ class ExpenseSubCategory extends Model
     protected function casts(): array
     {
         return [
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime',
+            'created_at'          => 'datetime',
+            'updated_at'          => 'datetime',
+            'expense_category_id' => 'integer',
         ];
     }
 

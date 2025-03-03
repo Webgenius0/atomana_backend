@@ -15,3 +15,4 @@ require 'v1/command/command.php';          // command routes
 require 'v1/property/property.php';        // property routes
 require 'v1/user/user.php';                // user routes
 require 'v1/sales_track/sales_track.php';  // user sales_track
+require 'v1/open_house/open_house.php';    // user open_hours

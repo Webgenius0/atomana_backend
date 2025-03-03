@@ -81,7 +81,7 @@ class CreateRequest extends FormRequest
             'date',
             'start_time',
             'end_time',
-            'wavy_nam',
+            'wavy_man',
             'sign_number',
         ];
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\OpenHouse;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\OpenHouse\CreateRequest;
+use App\Http\Resources\API\V1\OpenHouse\CreateResource;
 use App\Services\API\V1\OpenHouse\OpenHouseService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -31,7 +32,7 @@ class OpenHouseController extends Controller
             // Log::info($createRequest->all());
             $validatedData = $createRequest->validated();
             $response = $this->openHouseService->store($validatedData);
-            return $this->success(201, 'Open House Created Successfully', $response);
+            return $this->success(201, 'Open House Created Successfully', new CreateResource($response));
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\OpenHouse::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -20,6 +21,7 @@ class OpenHouse extends Model
      * @var list<string>
      */
     protected $hidden = [
+        'created_at',
         'updated_at',
         'deleted_at',
     ];
@@ -38,11 +40,30 @@ class OpenHouse extends Model
             'date'        => 'date',
             'start_time'  => 'datetime',
             'end_time'    => 'datetime',
-            'wavy_nam'    => 'boolean',
+            'wavy_man'    => 'boolean',
             'sign_number' => 'integer',
             'created_at'  => 'datetime',
             'updated_at'  => 'datetime',
         ];
+    }
+
+
+    // accessor for `date`
+    public function getDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    // accessor for `start_time`
+    public function getStartTimeAttribute($value)
+    {
+        return Carbon::parse($value)->format('h:i A');
+    }
+
+    // accessor for `end_time`
+    public function getEndTimeAttribute($value)
+    {
+        return Carbon::parse($value)->format('h:i A');
     }
 
 

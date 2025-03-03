@@ -1,8 +1,37 @@
 <?php
-    
+
 namespace App\Services\API\V1\OpenHouse;
+
+use App\Models\OpenHouse;
+use App\Repositories\API\V1\OpenHouse\OpenHouseRepositoryInterface;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class OpenHouseService
 {
-    // Your service logic goes here
+    protected OpenHouseRepositoryInterface $openHouseRepository;
+
+    /**
+     * construct
+     * @param \App\Repositories\API\V1\OpenHouse\OpenHouseRepositoryInterface $openHouseRepository
+     */
+    public function __construct(OpenHouseRepositoryInterface $openHouseRepository)
+    {
+        $this->openHouseRepository = $openHouseRepository;
+    }
+
+    /**
+     * store
+     * @param array $credential
+     * @return OpenHouse
+     */
+    public function store(array $credential): OpenHouse
+    {
+        try {
+            return $this->openHouseRepository->storeOpenHourse($credential);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:store');
+            throw $e;
+        }
+    }
 }

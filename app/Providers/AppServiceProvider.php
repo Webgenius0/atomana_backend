@@ -24,6 +24,8 @@ use App\Repositories\API\V1\Expense\Vendor\VendorRepository;
 use App\Repositories\API\V1\Expense\Vendor\VendorRepositoryInterface;
 use App\Repositories\API\V1\Method\PaymentMethodRepository;
 use App\Repositories\API\V1\Method\PaymentMethodRepositoryInterface;
+use App\Repositories\API\V1\OpenHouse\OpenHouseRepository;
+use App\Repositories\API\V1\OpenHouse\OpenHouseRepositoryInterface;
 use App\Repositories\API\V1\Profile\ProfileRepository;
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
 use App\Repositories\API\V1\Property\PropertyRepository;
@@ -67,6 +69,9 @@ class AppServiceProvider extends ServiceProvider
 
         // moetod
         $this->app->bind(PaymentMethodRepositoryInterface::class, PaymentMethodRepository::class);
+
+        // open house
+        $this->app->bind(OpenHouseRepositoryInterface::class, OpenHouseRepository::class);
 
     }
 

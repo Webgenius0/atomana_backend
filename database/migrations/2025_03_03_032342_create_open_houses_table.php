@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
-            $table->boolean('wavy_nam')->default(false);
+            $table->boolean('wavy_man')->default(false);
             $table->integer('sign_number')->default(0);
             $table->timestamps();
         });

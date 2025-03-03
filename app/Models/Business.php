@@ -72,7 +72,6 @@ class Business extends Model
         return $this->hasMany(SalesTrack::class);
     }
 
-
     /**
      * Model may have many OpenHouse
      * @return HasMany<OpenHouse, Property>

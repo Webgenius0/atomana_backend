@@ -29,10 +29,10 @@ class CreateRequest extends FormRequest
             'business_id' => 'required|exists:businesses,id',
             'email' => 'required|email',
             'property_id' => 'required|exists:properties,id',
-            'date' => 'required|date|after_or_equal:' . now()->toDateString(), // Date must be today or in the future
-            'start_time' => 'required|date_format:H:i|after:' . now()->toTimeString(), // Start time must be in the future
+            'date' => 'required|date|after:' . now()->toDateString(), // Date must be today or in the future
+            'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time', // End time must be strictly after start time
-            'wavy_nam' => 'required|boolean',
+            'wavy_man' => 'required|boolean',
             'sign_number' => 'required|integer',
         ];
     }

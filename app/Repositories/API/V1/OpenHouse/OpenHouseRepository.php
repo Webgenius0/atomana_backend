@@ -18,6 +18,7 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
         try {
             return OpenHouse::create([
                 'business_id' => $credentials['business_id'],
+                'property_id' => $credentials['property_id'],
                 'email'       => $credentials['email'],
                 'date'        => $credentials['date'],
                 'start_time'  => $credentials['start_time'],

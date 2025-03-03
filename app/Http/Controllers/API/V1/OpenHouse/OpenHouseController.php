@@ -28,6 +28,7 @@ class OpenHouseController extends Controller
     public function store(CreateRequest $createRequest)
     {
         try {
+            // Log::info($createRequest->all());
             $validatedData = $createRequest->validated();
             $response = $this->openHouseService->store($validatedData);
             return $this->success(201, 'Open House Created Successfully', $response);

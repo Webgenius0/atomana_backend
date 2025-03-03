@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Property extends Model
@@ -83,5 +84,14 @@ class Property extends Model
     public function SalesTrack(): HasOne
     {
         return $this->hasOne(SalesTrack::class);
+    }
+
+    /**
+     * Model may have many OpenHouse
+     * @return HasMany<OpenHouse, Property>
+     */
+    public function openHouses():HasMany
+    {
+        return $this->hasMany(OpenHouse::class);
     }
 }

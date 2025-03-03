@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OpenHouse extends Model
 {
@@ -38,9 +39,31 @@ class OpenHouse extends Model
             'start_time'  => 'time',
             'end_time'    => 'time',
             'wavy_nam'    => 'boolean',
+            'sign_number' => 'integer',
             'created_at'  => 'datetime',
             'updated_at'  => 'datetime',
         ];
     }
 
+
+    // _____________________________
+    // _____________________________
+
+    /**
+     * belongs to Property Model.
+     * @return BelongsTo<Business, Property>
+     */
+    public function business(): BelongsTo
+    {
+        return $this->belongsTo(Business::class);
+    }
+
+    /**
+     * belongs to Property Model.
+     * @return BelongsTo<Property, OpenHouse>
+     */
+    public function property(): BelongsTo
+    {
+        return $this->belongsTo(Property::class);
+    }
 }

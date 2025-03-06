@@ -31,7 +31,8 @@ class CreatePropertyRequest extends FormRequest
             'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'expiration_date' => 'required|date|after:today',
             'development' => 'required|boolean',
-            'co_listing' => 'required|boolean',
+            'co_agent' => 'required|exists:users,id,',
+            'co_list_percentage' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0', 'max:100'],
             'source' => 'required|string',
         ];
     }
@@ -40,7 +41,7 @@ class CreatePropertyRequest extends FormRequest
     {
         return [
             'email.required' => 'Please provide an email address.',
-            'email.email' => 'The email address must be a valid email format.',
+            'email.email' => 'The email address must be in a valid email format.',
 
             'address.required' => 'The address field cannot be empty.',
 
@@ -49,14 +50,20 @@ class CreatePropertyRequest extends FormRequest
             'price.regex' => 'The price must be a valid number with up to two decimal places.',
 
             'expiration_date.required' => 'The expiration date is required.',
-            'expiration_date.date' => 'The expiration date must be a valid date format.',
-            'expiration_date.after' => 'The expiration date must be a feture date.',
+            'expiration_date.date' => 'The expiration date must be in a valid date format.',
+            'expiration_date.after' => 'The expiration date must be a future date.',
 
-            'development.required' => 'Please specify if it is a development.',
+            'development.required' => 'Please specify if it is a development property.',
             'development.boolean' => 'The development field must be true or false.',
 
-            'co_listing.required' => 'Please indicate whether there is a co-listing.',
-            'co_listing.boolean' => 'The co-listing field must be true or false.',
+            'co_agent.required' => 'Please select a co-agent for the listing.',
+            'co_agent.exists' => 'The selected co-agent must be a valid user.',
+
+            'co_list_percentage.required' => 'Please provide the co-listing percentage.',
+            'co_list_percentage.numeric' => 'The co-listing percentage must be a numeric value.',
+            'co_list_percentage.regex' => 'The co-listing percentage must be a valid number with up to two decimal places.',
+            'co_list_percentage.min' => 'The co-listing percentage must be at least 0.',
+            'co_list_percentage.max' => 'The co-listing percentage must not exceed 100.',
 
             'source.required' => 'The source of the listing is required.',
             'source.string' => 'The source must be a valid string.',
@@ -88,7 +95,8 @@ class CreatePropertyRequest extends FormRequest
             'price',
             'expiration_date',
             'development',
-            'co_listing',
+            'co_agent',
+            'co_list_percentage',
             'source',
         ];
 

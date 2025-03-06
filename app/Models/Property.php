@@ -60,12 +60,22 @@ class Property extends Model
     // ------------------------------------
 
     /**
-     * Belongs to User Model.
+     * belong to an User Model
      * @return BelongsTo<User, Property>
      */
-    public function user(): BelongsTo
+    public function agent(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'agent');
+    }
+
+
+    /**
+     * belong to an User Model
+     * @return BelongsTo<User, Property>
+     */
+    public function coAgent(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'co_agent');
     }
 
     /**

@@ -58,7 +58,7 @@ class Property extends Model
     }
 
     /**
-     *  acccessor for Price Attribute
+     *  acccessor for CoListPercentage Attribute
      * @param mixed $value
      * @return string
      */

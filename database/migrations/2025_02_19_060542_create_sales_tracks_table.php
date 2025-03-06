@@ -24,9 +24,8 @@ return new class extends Migration
             $table->string('buyer_seller')->nullable();
             $table->decimal('referral_fee_pct', 5,2);
             $table->decimal('commission_on_sale', 5,2);
-            $table->string('lead_source');
             $table->longText('note');
-            
+
             $table->softDeletes();
             $table->timestamps();
         });

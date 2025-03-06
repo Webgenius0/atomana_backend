@@ -2,6 +2,7 @@
 
 namespace App\Repositories\API\V1\Property;
 
+use App\Helpers\Helper;
 use App\Models\Property;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -51,6 +52,7 @@ class PropertyRepository implements PropertyRepositoryInterface
             return Property::create([
                 'business_id' => $businessId,
                 'agent' => $userId,
+                'sku' => Helper::generateUniqueId('properties', 'sku'),
                 'email' => $credentials['email'],
                 'address' => $credentials['address'],
                 'price' => $credentials['price'],

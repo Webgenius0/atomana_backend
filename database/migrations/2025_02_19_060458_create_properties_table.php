@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('business_id')->constrained('businesses')->cascadeOnDelete();
             $table->unsignedBigInteger('agent');
+            $table->string('sku')->unique();
             $table->string('email');
             $table->string('address');
             $table->decimal('price', 15, 2);

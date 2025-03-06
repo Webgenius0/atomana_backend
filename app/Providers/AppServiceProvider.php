@@ -34,6 +34,8 @@ use App\Repositories\API\V1\SalesTrack\SalesTrackRepository;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepositoryInterface;
 use App\Repositories\API\V1\User\UserRepository as UserRepo;
 use App\Repositories\API\V1\User\UserRepositoryInterface as UserRepoInter;
+use App\Repositories\API\V1\VendorCategory\VendorCategoryRepository;
+use App\Repositories\API\V1\VendorCategory\VendorCategoryRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -72,6 +74,9 @@ class AppServiceProvider extends ServiceProvider
 
         // open house
         $this->app->bind(OpenHouseRepositoryInterface::class, OpenHouseRepository::class);
+
+        // vendors
+        $this->app->bind(VendorCategoryRepository::class, VendorCategoryRepositoryInterface::class);
 
     }
 

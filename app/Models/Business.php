@@ -80,4 +80,22 @@ class Business extends Model
     {
         return $this->hasMany(OpenHouse::class);
     }
+
+    /**
+     * Model may have multiple vendorCategory
+     * @return HasMany<VendorCategory, Business>
+     */
+    public function vendorCategories():HasMany
+    {
+        return $this->hasMany(VendorCategory::class);
+    }
+
+    /**
+     * Model may have multipe vendors
+     * @return HasMany<Vendor, Business>
+     */
+    public function vendors(): HasMany
+    {
+        return $this->hasMany(Vendor::class);
+    }
 }

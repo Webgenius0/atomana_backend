@@ -173,4 +173,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(SalesTrack::class);
     }
+
+    /**
+     * Model may have multiple vendor review
+     * @return HasMany<VendorReview, User>
+     */
+    public function vendorReviews():HasMany
+    {
+        return $this->hasMany(VendorReview::class);
+    }
 }

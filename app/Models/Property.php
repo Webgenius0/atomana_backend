@@ -37,9 +37,10 @@ class Property extends Model
         return [
             'id'          => 'integer',
             'business_id' => 'integer',
-            'user_id'     => 'integer',
+            'agent'     => 'integer',
             'price'       => 'float',
-            'co_listing'  => 'boolean',
+            'co_agent'  => 'integer',
+            'co_list_percentage'  => 'float',
             'development' => 'boolean',
             'created_at'  => 'datetime',
             'updated_at'  => 'datetime',
@@ -52,6 +53,16 @@ class Property extends Model
      * @return string
      */
     protected function getPriceAttribute($value): string
+    {
+        return  number_format($value, 2, '.', '');
+    }
+
+    /**
+     *  acccessor for Price Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getCoListPercentageAttribute($value): string
     {
         return  number_format($value, 2, '.', '');
     }

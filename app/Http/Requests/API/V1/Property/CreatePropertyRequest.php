@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\API\V1\Property;
 
+use App\Rules\API\V1\Property\CoAgentNotAuthenticated;
+use App\Rules\API\V1\Property\CoAgentPercentage;
 use App\Traits\V1\ApiResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,47 +28,45 @@ class CreatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'address' => 'required|string',
-            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'expiration_date' => 'required|date|after:today',
-            'development' => 'required|boolean',
-            'co_agent' => 'required|exists:users,id,',
-            'co_list_percentage' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0', 'max:100'],
-            'source' => 'required|string',
+            'email'              => 'required|email',
+            'address'            => 'required|string',
+            'price'              => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'expiration_date'    => 'required|date|after:today',
+            'development'        => 'required|boolean',
+            'co_agent'           => ['nullable', new CoAgentNotAuthenticated],
+            'co_list_percentage' => [
+                new CoAgentPercentage
+            ],
+            'source'             => 'required|string',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required' => 'Please provide an email address.',
-            'email.email' => 'The email address must be in a valid email format.',
+            'email.required'                 => 'Please provide an email address.',
+            'email.email'                    => 'The email address must be in a valid email format.',
 
-            'address.required' => 'The address field cannot be empty.',
+            'address.required'               => 'The address field cannot be empty.',
 
-            'price.required' => 'The price is required to complete this action.',
-            'price.numeric' => 'The price must be a numeric value.',
-            'price.regex' => 'The price must be a valid number with up to two decimal places.',
+            'price.required'                 => 'The price is required to complete this action.',
+            'price.numeric'                  => 'The price must be a numeric value.',
+            'price.regex'                    => 'The price must be a valid number with up to two decimal places.',
 
-            'expiration_date.required' => 'The expiration date is required.',
-            'expiration_date.date' => 'The expiration date must be in a valid date format.',
-            'expiration_date.after' => 'The expiration date must be a future date.',
+            'expiration_date.required'       => 'The expiration date is required.',
+            'expiration_date.date'           => 'The expiration date must be in a valid date format.',
+            'expiration_date.after'          => 'The expiration date must be a future date.',
 
-            'development.required' => 'Please specify if it is a development property.',
-            'development.boolean' => 'The development field must be true or false.',
+            'development.required'           => 'Please specify if it is a development property.',
+            'development.boolean'            => 'The development field must be true or false.',
 
-            'co_agent.required' => 'Please select a co-agent for the listing.',
-            'co_agent.exists' => 'The selected co-agent must be a valid user.',
+            'co_list_percentage.numeric'     => 'The co-listing percentage must be a numeric value.',
+            'co_list_percentage.regex'       => 'The co-listing percentage must be a valid number with up to two decimal places.',
+            'co_list_percentage.min'         => 'The co-listing percentage must be at least 0.',
+            'co_list_percentage.max'         => 'The co-listing percentage must not exceed 100.',
 
-            'co_list_percentage.required' => 'Please provide the co-listing percentage.',
-            'co_list_percentage.numeric' => 'The co-listing percentage must be a numeric value.',
-            'co_list_percentage.regex' => 'The co-listing percentage must be a valid number with up to two decimal places.',
-            'co_list_percentage.min' => 'The co-listing percentage must be at least 0.',
-            'co_list_percentage.max' => 'The co-listing percentage must not exceed 100.',
-
-            'source.required' => 'The source of the listing is required.',
-            'source.string' => 'The source must be a valid string.',
+            'source.required'                => 'The source of the listing is required.',
+            'source.string'                  => 'The source must be a valid string.',
         ];
     }
 

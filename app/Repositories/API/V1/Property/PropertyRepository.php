@@ -50,13 +50,14 @@ class PropertyRepository implements PropertyRepositoryInterface
         try {
             return Property::create([
                 'business_id' => $businessId,
-                'user_id' => $userId,
+                'agent' => $userId,
                 'email' => $credentials['email'],
                 'address' => $credentials['address'],
                 'price' => $credentials['price'],
                 'expiration_date' => $credentials['expiration_date'],
                 'development' => $credentials['development'],
-                'co_listing' => $credentials['co_listing'],
+                'co_agent' => $credentials['co_agent'],
+                'co_list_percentage' => $credentials['co_list_percentage'],
                 'source' => $credentials['source'],
             ]);
         } catch (Exception $e) {

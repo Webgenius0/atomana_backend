@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('expiration_date');
             $table->boolean('development');
             $table->unsignedBigInteger('co_agent')->nullable();
-            $table->decimal('co_list_percentage', 5, 2);
+            $table->decimal('co_list_percentage', 5, 2)->nullable();;
             $table->string('source');
             $table->softDeletes();
             $table->timestamps();

@@ -14,22 +14,48 @@ return new class extends Migration
     {
         DB::statement('DROP VIEW IF EXISTS sales_tracks_view');
 
-        // DB::statement("CREATE VIEW sales_tracks_view AS
-        //            SELECT
-        //                 sales_tracks.id,
-        //                 users.first_name,
-        //                 users.last_name,
-        //                 properties.address,
-        //                 sales_tracks.user_id,
-        //                 sales_tracks.property_id,
-        //                 sales_tracks.price,
-        //                 sales_tracks.status,
-        //                 sales_tracks.expiration_date,
-        //                 sales_tracks.note,
-        //                 sales_tracks.business_id
-        //            FROM sales_tracks
-        //            JOIN users ON users.id = sales_tracks.user_id
-        //            JOIN properties ON properties.id = sales_tracks.property_id");
+        DB::statement("CREATE VIEW sales_tracks_view AS
+        SELECT
+            sales_tracks.id,
+            users.first_name AS user_first_name,
+            users.last_name AS user_last_name,
+            properties.address,
+            properties.created_at,
+            properties.price,
+            properties.expiration_date,
+            properties.source,
+
+            sales_tracks.user_id,
+            sales_tracks.property_id,
+
+            sales_tracks.status,
+            sales_tracks.date_under_contract,
+            sales_tracks.closing_date,
+            sales_tracks.purchase_price,
+            sales_tracks.buyer_seller,
+            sales_tracks.referral_fee_pct,
+            sales_tracks.commission_on_sale,
+            sales_tracks.note,
+
+            sales_tracks.business_id,
+
+            -- Agent Details
+            -- agent_user.first_name AS agent_first_name,
+            -- agent_user.last_name AS agent_last_name,
+
+            -- Co-Agent Details (if any)
+            co_agent_user.first_name AS co_agent_first_name,
+            co_agent_user.last_name AS co_agent_last_name
+
+        FROM sales_tracks
+        JOIN users ON users.id = sales_tracks.user_id
+        JOIN properties ON properties.id = sales_tracks.property_id
+
+        -- Join for Agent
+        LEFT JOIN users AS agent_user ON agent_user.id = properties.agent
+
+        -- Join for Co-Agent (if exists)
+        LEFT JOIN users AS co_agent_user ON co_agent_user.id = properties.co_agent");
     }
 
     /**

@@ -97,7 +97,7 @@ class SalesTrackService
                 // Determine the start and end of the current quarter
                 $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                 $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
-                $averagePrice = $this->salesTrackRepository->agentCurrentQuarterColseSalesTrack($this->user->id, $quarterStart, $quarterEnd);
+                $averagePrice = $this->salesTrackRepository->businessCurrentQuarterColseSalesTrack($this->businessId, $quarterStart, $quarterEnd);
             }
             return [
                 'target' => 55623450.32,

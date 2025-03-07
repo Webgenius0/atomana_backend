@@ -17,7 +17,7 @@ return new class extends Migration
         DB::statement("CREATE VIEW sales_tracks_view AS
         SELECT
             sales_tracks.id,
-            users.user_name AS user_first_name,
+            users.first_name AS user_first_name,
             users.last_name AS user_last_name,
             properties.address,
             properties.created_at,
@@ -40,6 +40,7 @@ return new class extends Migration
             sales_tracks.referral_fee_pct,
             sales_tracks.commission_on_sale,
             sales_tracks.note,
+            sales_tracks.close_date,
 
             sales_tracks.business_id
 

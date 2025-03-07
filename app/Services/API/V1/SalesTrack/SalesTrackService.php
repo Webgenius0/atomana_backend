@@ -85,10 +85,14 @@ class SalesTrackService
      * @param string $filter
      *
      */
-    protected function adminCurrentStatus(string $filter)
+    protected function adminCurrentStatus(string $filter):array
     {
         try {
-            return $this->salesTrackRepository->businessColseSalesTrack($this->businessId);
+            $averagePrice = $this->salesTrackRepository->businessColseSalesTrack($this->businessId);
+            return [
+                'target' => 55623450.32,
+                'price' => (float) $averagePrice,
+            ];
         }catch(Exception $e) {
             Log::error('SalesTrackService::adminCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;
@@ -100,10 +104,14 @@ class SalesTrackService
      * @param string $filter
      *
      */
-    protected function agentCurrentStatus(string $filter)
+    protected function agentCurrentStatus(string $filter):array
     {
         try {
-            return $this->salesTrackRepository->agentColseSalesTrack($this->user->id);
+            $averagePrice = $this->salesTrackRepository->agentColseSalesTrack($this->user->id);
+            return [
+                'target' => 5450.32,
+                'price' => (float) $averagePrice,
+            ];
         }catch(Exception $e) {
             Log::error('SalesTrackService::agentCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;

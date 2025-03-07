@@ -71,7 +71,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
             return SalesTrackView::where('user_id', $userId)
                 ->where('status', 'close')
                 ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
-                ->avg('price');
+                ->avg('purchase_price');
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
             throw $e;
@@ -90,7 +90,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
             return SalesTrackView::where('business_id', $businessId)->where('status', 'close')
             ->where('status', 'close')
             ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
-            ->avg('price');
+            ->avg('purchase_price');
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
             throw $e;

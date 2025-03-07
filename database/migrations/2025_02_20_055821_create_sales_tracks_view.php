@@ -21,7 +21,7 @@ return new class extends Migration
             users.last_name AS user_last_name,
             properties.address,
             properties.created_at,
-            properties.price,
+            properties.price AS list_price,
             properties.expiration_date,
             properties.source,
 

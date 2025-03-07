@@ -58,7 +58,6 @@ class SalesTrackService
     /**
      * currentSalesStatistics
      * @param string $filter filter operation monthly|quarterly|yearly
-     * @return array
      */
     public function currentSalesStatistics(string $filter)
     {
@@ -84,12 +83,14 @@ class SalesTrackService
     /**
      * adminCurrentStatus
      * @param string $filter
-     * @return void
+     *
      */
     protected function adminCurrentStatus(string $filter)
     {
         try {
+            return [
 
+            ];
         }catch(Exception $e) {
             Log::error('SalesTrackService::adminCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;
@@ -99,12 +100,14 @@ class SalesTrackService
     /**
      * agentCurrentStatus
      * @param string $filter
-     * @return void
+     *
      */
     protected function agentCurrentStatus(string $filter)
     {
         try {
+            return [
 
+            ];
         }catch(Exception $e) {
             Log::error('SalesTrackService::agentCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;

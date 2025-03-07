@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class SalesTrackService
 {
-    protected SalesTrackRepositoryInterface $salesTrackRepository;
+    protected $user;
     protected $businessId;
+    protected SalesTrackRepositoryInterface $salesTrackRepository;
 
     /**
      * construct
@@ -19,8 +20,9 @@ class SalesTrackService
      */
     public function __construct(SalesTrackRepositoryInterface $salesTrackRepository)
     {
+        $this->user                 = Auth::user();
+        $this->businessId           = Auth::user()->business()->id;
         $this->salesTrackRepository = $salesTrackRepository;
-        $this->businessId = Auth::user()->business()->id;
     }
 
     /**
@@ -61,8 +63,18 @@ class SalesTrackService
     public function currentSalesStatistics(string $filter)
     {
         try {
-            return [
+            $role = $this->user->role->slug;
+            if ($role == 'admin')
+            {
 
+            }
+            else if ($role == 'agent')
+            {
+
+            }
+
+            return [
+                'role' => $role,
             ];
         } catch (Exception $e) {
             Log::error('SalesTrackService::currentSalesStatistics', ['error' => $e->getMessage()]);

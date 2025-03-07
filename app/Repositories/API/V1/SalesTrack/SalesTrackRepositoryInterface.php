@@ -27,11 +27,11 @@ interface SalesTrackRepositoryInterface
      * Summary of agentColseSalesTrack
      * @param int $userId
      */
-    public function agentColseSalesTrack(int $usetId);
+    public function agentMonthlyColseSalesTrack(int $usetId);
 
     /**
      * Summary of businessColseSalesTrack
      * @param int $businessId
      */
-    public function businessColseSalesTrack(int $businessId);
+    public function businessMonthlyColseSalesTrack(int $businessId);
 }

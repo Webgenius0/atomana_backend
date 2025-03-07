@@ -88,7 +88,10 @@ class SalesTrackService
     protected function adminCurrentStatus(string $filter):array
     {
         try {
-            $averagePrice = $this->salesTrackRepository->businessColseSalesTrack($this->businessId);
+            $averagePrice = null;
+            if ($filter == 'monthly') {
+                $averagePrice = $this->salesTrackRepository->businessMonthlyColseSalesTrack($this->businessId);
+            }
             return [
                 'target' => 55623450.32,
                 'price' => (float) $averagePrice,
@@ -107,7 +110,7 @@ class SalesTrackService
     protected function agentCurrentStatus(string $filter):array
     {
         try {
-            $averagePrice = $this->salesTrackRepository->agentColseSalesTrack($this->user->id);
+            $averagePrice = $this->salesTrackRepository->agentMonthlyColseSalesTrack($this->user->id);
             return [
                 'target' => 5450.32,
                 'price' => (float) $averagePrice,

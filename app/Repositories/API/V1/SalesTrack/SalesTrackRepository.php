@@ -63,7 +63,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
      * Summary of agentColseSalesTrack
      * @param int $userId
      */
-    public function agentColseSalesTrack(int $userId)
+    public function agentMonthlyColseSalesTrack(int $userId)
     {
         try {
             return SalesTrackView::where('user_id', $userId)->avg('price');
@@ -77,7 +77,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
      * Summary of businessColseSalesTrack
      * @param int $businessId
      */
-    public function businessColseSalesTrack(int $businessId)
+    public function businessMonthlyColseSalesTrack(int $businessId)
     {
         try {
             return SalesTrackView::where('business_id', $businessId)->avg('price');

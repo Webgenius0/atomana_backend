@@ -19,15 +19,6 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     public function getSalesTrackByBusiness(int $businessId, int $perPage = 25)
     {
         try {
-            // return SalesTrack::select([
-            //     'id',
-            //     'user_id',
-            //     'property_id',
-            //     'price',
-            //     'status',
-            //     'note',
-            // ])->with(['user:id,first_name,last_name', 'property:id,address'])->whereBusinessId($businessId)->latest()->paginate($perPage);
-
             return SalesTrackView::where('business_id', $businessId)
                 ->orderBy('id', 'desc')
                 ->paginate($perPage);

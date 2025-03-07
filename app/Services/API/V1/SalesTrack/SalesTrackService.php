@@ -64,21 +64,49 @@ class SalesTrackService
     {
         try {
             $role = $this->user->role->slug;
+            $response = null;
             if ($role == 'admin')
             {
-
+                $response = $this->adminCurrentStatus($filter);
             }
             else if ($role == 'agent')
             {
-
+                $response = $this->agentCurrentStatus($filter);
             }
 
-            return [
-                'role' => $role,
-                'filter' => $filter,
-            ];
+            return $response;
         } catch (Exception $e) {
             Log::error('SalesTrackService::currentSalesStatistics', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * adminCurrentStatus
+     * @param string $filter
+     * @return void
+     */
+    protected function adminCurrentStatus(string $filter)
+    {
+        try {
+
+        }catch(Exception $e) {
+            Log::error('SalesTrackService::adminCurrentStatus', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * agentCurrentStatus
+     * @param string $filter
+     * @return void
+     */
+    protected function agentCurrentStatus(string $filter)
+    {
+        try {
+
+        }catch(Exception $e) {
+            Log::error('SalesTrackService::agentCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

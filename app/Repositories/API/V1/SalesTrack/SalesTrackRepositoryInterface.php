@@ -24,14 +24,18 @@ interface SalesTrackRepositoryInterface
 
 
     /**
-     * Summary of agentColseSalesTrack
+     * Summary of agentMonthlyColseSalesTrack
      * @param int $userId
+     * @param string $startOfMonth
+     * @param string $endOfMonth
      */
-    public function agentMonthlyColseSalesTrack(int $usetId);
+    public function agentMonthlyColseSalesTrack(int $usetId, string $startOfMonth, string $endOfMonth);
 
     /**
-     * Summary of businessColseSalesTrack
+     * Summary of businessMonthlyColseSalesTrack
      * @param int $businessId
+     * @param string $startOfMonth
+     * @param string $endOfMonth
      */
-    public function businessMonthlyColseSalesTrack(int $businessId);
+    public function businessMonthlyColseSalesTrack(int $businessId, string $startOfMonth, string $endOfMonth);
 }

@@ -60,13 +60,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
 
 
     /**
-     * Summary of agentColseSalesTrack
+     * Summary of agentMonthlyColseSalesTrack
      * @param int $userId
+     * @param string $startOfMonth
+     * @param string $endOfMonth
      */
-    public function agentMonthlyColseSalesTrack(int $userId)
+    public function agentMonthlyColseSalesTrack(int $userId, string $startOfMonth, string $endOfMonth)
     {
         try {
-            return SalesTrackView::where('user_id', $userId)->avg('price');
+            return SalesTrackView::where('user_id', $userId)
+                ->where('status', 'close')
+                ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
+                ->avg('price');
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
             throw $e;
@@ -74,13 +79,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     }
 
     /**
-     * Summary of businessColseSalesTrack
+     * Summary of businessMonthlyColseSalesTrack
      * @param int $businessId
+     * @param string $startOfMonth
+     * @param string $endOfMonth
      */
-    public function businessMonthlyColseSalesTrack(int $businessId)
+    public function businessMonthlyColseSalesTrack(int $businessId, string $startOfMonth, string $endOfMonth)
     {
         try {
-            return SalesTrackView::where('business_id', $businessId)->avg('price');
+            return SalesTrackView::where('business_id', $businessId)->where('status', 'close')
+            ->where('status', 'close')
+            ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
+            ->avg('price');
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
             throw $e;

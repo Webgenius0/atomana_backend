@@ -4,6 +4,7 @@ namespace App\Services\API\V1\SalesTrack;
 
 use App\Models\SalesTrack;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepositoryInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -90,7 +91,9 @@ class SalesTrackService
         try {
             $averagePrice = null;
             if ($filter == 'monthly') {
-                $averagePrice = $this->salesTrackRepository->businessMonthlyColseSalesTrack($this->businessId);
+                $startOfMonth = Carbon::now()->startOfMonth();
+                $endOfMonth = Carbon::now()->endOfMonth();
+                $averagePrice = $this->salesTrackRepository->businessMonthlyColseSalesTrack($this->businessId, $startOfMonth, $endOfMonth);
             }
             return [
                 'target' => 55623450.32,

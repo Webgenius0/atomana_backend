@@ -13,22 +13,8 @@ class SalesTrackView extends Model
     public $incrementing = false;  // Prevents the model from trying to increment an ID field
     public $timestamps = false;    // Views typically don't have timestamps
 
-    // Define the columns you want to be fillable or guarded
-    protected $fillable = [
-        'id',
-        'first_name',
-        'last_name',
-        'address',
-        'user_id',
-        'property_id',
-        'price',
-        'status',
-        'expiration_date',
-        'note',
-    ];
 
-
-      /**
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -36,8 +22,19 @@ class SalesTrackView extends Model
     protected function casts(): array
     {
         return [
-            'id'          => 'integer',
-            'status'      => 'boolean',
+            'id'                  => 'integer',
+            'created_at'          => 'datetime',
+            'price'               => 'float',
+            'expiration_date'     => 'datetime',
+            'user_id'             => 'integer',
+            'property_id'         => 'integer',
+            'date_under_contract' => 'datetime',
+            'closing_date'        => 'datetime',
+            'purchase_price'      => 'float',
+            'referral_fee_pct'    => 'float',
+            'commission_on_sale'  => 'float',
+            'business_id'         => 'integer',
+            'co_list_percentage'  => 'float',
         ];
     }
 
@@ -46,8 +43,48 @@ class SalesTrackView extends Model
      * @param mixed $value
      * @return string
      */
-    protected function getPriceAttribute($value):string
+    protected function getPriceAttribute($value): string
     {
         return number_format($value, 2, '.', '');
+    }
+
+    /**
+     * acccessor for Price Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getCommissionOnSaleAttribute($value): string
+    {
+        return number_format($value, 2, '.', '');
+    }
+
+    /**
+     * acccessor for purchase_price Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getPurchasePriceAttribute($value): string
+    {
+        return number_format($value, 2, '.', '');
+    }
+
+    /**
+     * acccessor for referral_fee_pct Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getReferralFeePctAttribute($value): string
+    {
+        return number_format($value, 2, '.', '');
+    }
+
+    /**
+     * acccessor for CoListPercentage Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getCoListPercentageAttribute($value): string
+    {
+        return  number_format($value, 2, '.', '');
     }
 }

@@ -36,7 +36,6 @@ class SalesTrack extends Model
             'id'          => 'integer',
             'user_id'     => 'integer',
             'property_id' => 'integer',
-            'status'      => 'boolean',
             'created_at'  => 'datetime',
             'updated_at'  => 'datetime',
         ];

@@ -35,15 +35,15 @@ class Property extends Model
     protected function casts(): array
     {
         return [
-            'id'          => 'integer',
-            'business_id' => 'integer',
-            'agent'     => 'integer',
-            'price'       => 'float',
-            'co_agent'  => 'integer',
-            'co_list_percentage'  => 'float',
-            'development' => 'boolean',
-            'created_at'  => 'datetime',
-            'updated_at'  => 'datetime',
+            'id'                 => 'integer',
+            'business_id'        => 'integer',
+            'agent'              => 'integer',
+            'price'              => 'float',
+            'co_agent'           => 'integer',
+            'co_list_percentage' => 'float',
+            'development'        => 'boolean',
+            'created_at'         => 'datetime',
+            'updated_at'         => 'datetime',
         ];
     }
 

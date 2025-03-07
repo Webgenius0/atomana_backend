@@ -57,4 +57,36 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
             throw $e;
         }
     }
+
+
+    /**
+     * Summary of agentColseSalesTrack
+     * @param int $userId
+     */
+    public function agentColseSalesTrack(int $userId)
+    {
+        try {
+            return SalesTrackView::where('user_id', $userId)->avg('price');
+        } catch (Exception $e) {
+            Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * Summary of businessColseSalesTrack
+     * @param int $businessId
+     */
+    public function businessColseSalesTrack(int $businessId)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)->avg('price');
+        } catch (Exception $e) {
+            Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+
 }

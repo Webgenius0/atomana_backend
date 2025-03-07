@@ -88,9 +88,7 @@ class SalesTrackService
     protected function adminCurrentStatus(string $filter)
     {
         try {
-            return [
-
-            ];
+            return $this->salesTrackRepository->businessColseSalesTrack($this->businessId);
         }catch(Exception $e) {
             Log::error('SalesTrackService::adminCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;
@@ -105,9 +103,7 @@ class SalesTrackService
     protected function agentCurrentStatus(string $filter)
     {
         try {
-            return [
-
-            ];
+            return $this->salesTrackRepository->agentColseSalesTrack($this->user->id);
         }catch(Exception $e) {
             Log::error('SalesTrackService::agentCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;

@@ -21,4 +21,17 @@ interface SalesTrackRepositoryInterface
      * @return SalesTrack
      */
     public function create(array $credentials, int $businessId): SalesTrack;
+
+
+    /**
+     * Summary of agentColseSalesTrack
+     * @param int $userId
+     */
+    public function agentColseSalesTrack(int $usetId);
+
+    /**
+     * Summary of businessColseSalesTrack
+     * @param int $businessId
+     */
+    public function businessColseSalesTrack(int $businessId);
 }

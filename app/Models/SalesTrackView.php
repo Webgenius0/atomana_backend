@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class SalesTrackView extends Model
@@ -86,5 +87,45 @@ class SalesTrackView extends Model
     protected function getCoListPercentageAttribute($value): string
     {
         return  number_format($value, 2, '.', '');
+    }
+
+    /**
+     * accessor for created_at
+     * @param mixed $value
+     * @return string
+     */
+    protected function getCreatedAtAttribute($value): string
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    /**
+     * accessor for expiration_date
+     * @param mixed $value
+     * @return string
+     */
+    protected function getExpirationDateAttribute($value): string
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    /**
+     * accessor for date_under_contract
+     * @param mixed $value
+     * @return string
+     */
+    protected function getDateUnderContractAttribute($value): string
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    /**
+     * accessor for closing_date
+     * @param mixed $value
+     * @return string
+     */
+    protected function getclosingDateAttribute($value): string
+    {
+        return Carbon::parse($value)->format('m/d/Y');
     }
 }

@@ -51,4 +51,22 @@ class SalesTrackService
             throw $e;
         }
     }
+
+
+    /**
+     * currentSalesStatistics
+     * @param string $filter filter operation [month, quarter,  year]
+     * @return array
+     */
+    public function currentSalesStatistics(string $filter)
+    {
+        try {
+            return [
+
+            ];
+        } catch (Exception $e) {
+            Log::error('SalesTrackService::currentSalesStatistics', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

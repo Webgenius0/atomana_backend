@@ -88,11 +88,52 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     {
         try {
             return SalesTrackView::where('business_id', $businessId)->where('status', 'close')
-            ->where('status', 'close')
-            ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
-            ->avg('purchase_price');
+                ->where('status', 'close')
+                ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
+                ->avg('purchase_price');
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * agentCurrentQuarterColseSalesTrack
+     * @param int $userId
+     * @param string $quarterStart
+     * @param string $quarterEnd
+     */
+    public function agentCurrentQuarterColseSalesTrack(int $userId, string $quarterStart, string $quarterEnd)
+    {
+        try {
+            // Query for sales within the current quarter
+            return SalesTrackView::where('user_id', $userId)
+                ->where('status', 'close')
+                ->whereBetween('close_date', [$quarterStart, $quarterEnd])
+                ->avg('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentCurrentQuarterColseSalesTrack', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * businessCurrentQuarterColseSalesTrack
+     * @param int $businessId
+     * @param string $quarterStart
+     * @param string $quarterEnd
+     */
+    public function businessCurrentQuarterColseSalesTrack(int $businessId, string $quarterStart, string $quarterEnd)
+    {
+        try {
+            // Query for sales within the current quarter
+            return SalesTrackView::where('business_id', $businessId)
+                ->where('status', 'close')
+                ->whereBetween('close_date', [$quarterStart, $quarterEnd])
+                ->avg('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentCurrentQuarterColseSalesTrack', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

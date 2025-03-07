@@ -22,7 +22,6 @@ interface SalesTrackRepositoryInterface
      */
     public function create(array $credentials, int $businessId): SalesTrack;
 
-
     /**
      * Summary of agentMonthlyColseSalesTrack
      * @param int $userId
@@ -38,4 +37,20 @@ interface SalesTrackRepositoryInterface
      * @param string $endOfMonth
      */
     public function businessMonthlyColseSalesTrack(int $businessId, string $startOfMonth, string $endOfMonth);
+
+    /**
+     * agentCurrentQuarterColseSalesTrack
+     * @param int $userId
+     * @param string $quarterStart
+     * @param string $quarterEnd
+     */
+    public function agentCurrentQuarterColseSalesTrack(int $userId, string $quarterStart, string $quarterEnd);
+
+    /**
+     * businessCurrentQuarterColseSalesTrack
+     * @param int $businessId
+     * @param string $quarterStart
+     * @param string $quarterEnd
+     */
+    public function businessCurrentQuarterColseSalesTrack(int $businessId, string $quarterStart, string $quarterEnd);
 }

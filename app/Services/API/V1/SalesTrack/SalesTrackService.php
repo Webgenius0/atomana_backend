@@ -45,7 +45,7 @@ class SalesTrackService
      * @param array $credentials
      * @return SalesTrack
      */
-    public function storeSalesTrack(array $credentials):SalesTrack
+    public function storeSalesTrack(array $credentials): SalesTrack
     {
         try {
             return $this->salesTrackRepository->create($credentials, $this->businessId);
@@ -65,12 +65,9 @@ class SalesTrackService
         try {
             $role = $this->user->role->slug;
             $response = null;
-            if ($role == 'admin')
-            {
+            if ($role == 'admin') {
                 $response = $this->adminCurrentStatus($filter);
-            }
-            else if ($role == 'agent')
-            {
+            } else if ($role == 'agent') {
                 $response = $this->agentCurrentStatus($filter);
             }
 
@@ -86,7 +83,7 @@ class SalesTrackService
      * @param string $filter
      *
      */
-    protected function adminCurrentStatus(string $filter):array
+    protected function adminCurrentStatus(string $filter): array
     {
         try {
             $averagePrice = null;
@@ -95,11 +92,18 @@ class SalesTrackService
                 $endOfMonth = Carbon::now()->endOfMonth();
                 $averagePrice = $this->salesTrackRepository->businessMonthlyColseSalesTrack($this->businessId, $startOfMonth, $endOfMonth);
             }
+            else if ($filter == 'quarterly') {
+                $currentDate = Carbon::now();
+                // Determine the start and end of the current quarter
+                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
+                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                $averagePrice = $this->salesTrackRepository->agentCurrentQuarterColseSalesTrack($this->user->id, $quarterStart, $quarterEnd);
+            }
             return [
                 'target' => 55623450.32,
                 'price' => (float) $averagePrice,
             ];
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('SalesTrackService::adminCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -110,17 +114,71 @@ class SalesTrackService
      * @param string $filter
      *
      */
-    protected function agentCurrentStatus(string $filter):array
+    protected function agentCurrentStatus(string $filter): array
     {
         try {
-            $averagePrice = $this->salesTrackRepository->agentMonthlyColseSalesTrack($this->user->id);
+            $averagePrice = null;
+            if ($filter == 'monthly') {
+                $startOfMonth = Carbon::now()->startOfMonth();
+                $endOfMonth = Carbon::now()->endOfMonth();
+                $averagePrice = $this->salesTrackRepository->agentMonthlyColseSalesTrack($this->user->id, $startOfMonth, $endOfMonth);
+            }
+            else if ($filter == 'quarterly') {
+                $currentDate = Carbon::now();
+                // Determine the start and end of the current quarter
+                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
+                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                $averagePrice = $this->salesTrackRepository->agentCurrentQuarterColseSalesTrack($this->user->id, $quarterStart, $quarterEnd);
+            }
             return [
                 'target' => 5450.32,
                 'price' => (float) $averagePrice,
             ];
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('SalesTrackService::agentCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;
+        }
+    }
+
+
+
+    /**
+     * getCurrentQuarterStartDate
+     * @param \Carbon\Carbon $date
+     * @return Carbon|null
+     */
+    private function getCurrentQuarterStartDate(Carbon $date)
+    {
+        $month = $date->month;
+
+        if ($month <= 3) {
+            return Carbon::create($date->year, 1, 1);  // Q1 starts on January 1st
+        } elseif ($month <= 6) {
+            return Carbon::create($date->year, 4, 1);  // Q2 starts on April 1st
+        } elseif ($month <= 9) {
+            return Carbon::create($date->year, 7, 1);  // Q3 starts on July 1st
+        } else {
+            return Carbon::create($date->year, 10, 1); // Q4 starts on October 1st
+        }
+    }
+
+    /**
+     * getCurrentQuarterEndDate
+     * @param \Carbon\Carbon $date
+     * @return Carbon|null
+     */
+    private function getCurrentQuarterEndDate(Carbon $date)
+    {
+        $month = $date->month;
+
+        if ($month <= 3) {
+            return Carbon::create($date->year, 3, 31);  // Q1 ends on March 31st
+        } elseif ($month <= 6) {
+            return Carbon::create($date->year, 6, 30);  // Q2 ends on June 30th
+        } elseif ($month <= 9) {
+            return Carbon::create($date->year, 9, 30);  // Q3 ends on September 30th
+        } else {
+            return Carbon::create($date->year, 12, 31); // Q4 ends on December 31st
         }
     }
 }

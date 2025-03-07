@@ -57,7 +57,7 @@ class SalesTrackService
 
     /**
      * currentSalesStatistics
-     * @param string $filter filter operation [month, quarter,  year]
+     * @param string $filter filter operation monthly|quarterly|yearly
      * @return array
      */
     public function currentSalesStatistics(string $filter)
@@ -75,6 +75,7 @@ class SalesTrackService
 
             return [
                 'role' => $role,
+                'filter' => $filter,
             ];
         } catch (Exception $e) {
             Log::error('SalesTrackService::currentSalesStatistics', ['error' => $e->getMessage()]);

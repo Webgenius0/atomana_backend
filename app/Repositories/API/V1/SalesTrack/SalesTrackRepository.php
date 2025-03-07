@@ -138,6 +138,42 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
         }
     }
 
+    /**
+     * agentCurrentYearColseSalesTrack
+     * @param int $userId
+     * @param string $yearStart
+     * @param string $yearEnd
+     */
+    public function agentCurrentYearColseSalesTrack(int $userId, string $yearStart, string $yearEnd)
+    {
+        try {
+            return SalesTrackView::where('user_id', $userId)
+                ->where('status', 'close')
+                ->whereBetween('close_date', [$yearStart, $yearEnd])
+                ->avg('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentCurrentYearColseSalesTrack', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
 
+    /**
+     * businessCurrentYearColseSalesTrack
+     * @param int $businessId
+     * @param string $yearStart
+     * @param string $yearEnd
+     */
+    public function businessCurrentYearColseSalesTrack(int $businessId, string $yearStart, string $yearEnd)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)
+                ->where('status', 'close')
+                ->whereBetween('close_date', [$yearStart, $yearEnd])
+                ->avg('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::businessCurrentYearColseSalesTrack', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

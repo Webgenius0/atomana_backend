@@ -53,4 +53,22 @@ interface SalesTrackRepositoryInterface
      * @param string $quarterEnd
      */
     public function businessCurrentQuarterColseSalesTrack(int $businessId, string $quarterStart, string $quarterEnd);
+
+
+    /**
+     * agentCurrentYearColseSalesTrack
+     * @param int $userId
+     * @param string $yearStart
+     * @param string $yearEnd
+     */
+    public function agentCurrentYearColseSalesTrack(int $userId, string $yearStart, string $yearEnd);
+
+
+    /**
+     * businessCurrentYearColseSalesTrack
+     * @param int $businessId
+     * @param string $yearStart
+     * @param string $yearEnd
+     */
+    public function businessCurrentYearColseSalesTrack(int $businessId, string $yearStart, string $yearEnd);
 }

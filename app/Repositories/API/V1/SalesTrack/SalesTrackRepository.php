@@ -2,6 +2,7 @@
 
 namespace App\Repositories\API\V1\SalesTrack;
 
+use App\Helpers\Helper;
 use App\Models\SalesTrack;
 use App\Models\SalesTrackView;
 use Exception;
@@ -46,12 +47,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     {
         try {
             return SalesTrack::create([
+                'track_id' => Helper::generateUniqueId('sales_tracks', 'track_id'),
                 'business_id' => $businessId,
                 'user_id' => $credentials['user_id'],
                 'property_id' => $credentials['property_id'],
                 'price' => $credentials['price'],
                 'status' => $credentials['status'],
-                'expiration_date' => $credentials['expiration_date'],
+                'date_under_contract' => $credentials['date_under_contract'],
+                'closing_date' => $credentials['closing_date'],
+                'purchase_price' => $credentials['purchase_price'],
+                'buyer_seller' => $credentials['buyer_seller'],
+                'referral_fee_pct' => $credentials['referral_fee_pct'],
+                'commission_on_sale' => $credentials['commission_on_sale'],
                 'note' => $credentials['note'],
             ]);
         } catch (Exception $e) {

@@ -18,10 +18,17 @@ class CreateSalesTrackResource extends JsonResource
 
         return [
             'id' => $data['id'],
+            'track_id' => $data['track_id'],
             'user_id' => $data['user_id'],
             'property_id' => $data['property_id'],
             'price' => $data['price'],
             'status' => $data['status'],
+            'date_under_contract' => $data['date_under_contract'],
+            'closing_date' => $data['closing_date'],
+            'purchase_price' => $data['purchase_price'],
+            'buyer_seller' => $data['buyer_seller'],
+            'referral_fee_pct' => $data['referral_fee_pct'],
+            'commission_on_sale' => $data['commission_on_sale'],
             'note' => $data['note'],
         ];
     }

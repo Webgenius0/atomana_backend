@@ -52,6 +52,36 @@ class SalesTrack extends Model
         return number_format($value, 2, '.', '');
     }
 
+    /**
+     * acccessor for Price Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getCommissionOnSaleAttribute($value):string
+    {
+        return number_format($value, 2, '.', '');
+    }
+
+    /**
+     * acccessor for purchase_price Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getPurchasePriceAttribute($value):string
+    {
+        return number_format($value, 2, '.', '');
+    }
+
+    /**
+     * acccessor for referral_fee_pct Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getReferralFeePctAttribute($value):string
+    {
+        return number_format($value, 2, '.', '');
+    }
+
     // ------------------------------------
     // ------------------------------------
 

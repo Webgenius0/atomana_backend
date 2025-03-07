@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 class CreateSalesTrackRequest extends FormRequest
 {
     use ApiResponse;
-    /**
+      /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -18,7 +18,7 @@ class CreateSalesTrackRequest extends FormRequest
         return true;
     }
 
-    /**
+      /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -26,12 +26,17 @@ class CreateSalesTrackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
-            'property_id' => 'required|exists:properties,id',
-            'price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'status' => 'required|boolean',
-            'expiration_date' => 'required|date|after:today',
-            'note' => 'required|string',
+            'user_id'             => 'required|exists:users,id',
+            'property_id'         => 'required|exists:properties,id',
+            'price'               => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'status'              => 'required|in:active,pending,close,expired',
+            'date_under_contract' => 'required|date',
+            'purchase_price'      => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'closing_date'        => 'required|date',
+            'buyer_seller'        => 'nullable|string',
+            'referral_fee_pct'    => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'commission_on_sale'  => ['required', 'numeric', 'min:0', 'max:100', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'note'                => 'required|string',
         ];
     }
 
@@ -40,25 +45,44 @@ class CreateSalesTrackRequest extends FormRequest
     {
         return [
             'user_id.required' => 'The user field is mandatory.',
-            'user_id.exists' => 'The selected user does not exist in our records.',
+            'user_id.exists'   => 'The selected user does not exist in our records.',
+
             'property_id.required' => 'The property field is mandatory.',
-            'property_id.exists' => 'The selected property is not available.',
+            'property_id.exists'   => 'The selected property is not available.',
+
             'price.required' => 'Please provide a price.',
-            'price.numeric' => 'The price must be a valid number.',
-            'price.regex' => 'The price format must be a valid number with no more than two decimal places.',
+            'price.numeric'  => 'The price must be a valid number.',
+            'price.regex'    => 'The price format must be a valid number with no more than two decimal places.',
+
             'status.required' => 'The status field is mandatory.',
-            'status.boolean' => 'The status must be either true or false.',
-            'expiration_date.required' => 'The expiration date is required.',
-            'expiration_date.date' => 'The expiration date must be a valid date format.',
-            'expiration_date.after' => 'The expiration date must be a feture date.',
+            'status.in'       => 'The status must be one of the following: active, pending, close, expired.',
+
+            'date_under_contract.required' => 'The date under contract is required.',
+            'date_under_contract.date'     => 'The date under contract must be a valid date.',
+
+            'purchase_price.required' => 'The referral fee percentage is required.',
+            'purchase_price.numeric'  => 'The referral fee percentage must be a valid number.',
+            'purchase_price.regex'    => 'The referral fee percentage format must be a valid number with no more than two decimal places.',
+
+            'closing_date.required' => 'The closing date  is required.',
+            'closing_date.date'     => 'The closing date  must be a valid date.',
+
             'note.required' => 'A note is required.',
-            'note.string' => 'The note must be a valid string.',
+            'note.string'   => 'The note must be a valid string.',
+
+            'referral_fee_pct.required' => 'The referral fee percentage is required.',
+            'referral_fee_pct.numeric'  => 'The referral fee percentage must be a valid number.',
+            'referral_fee_pct.regex'    => 'The referral fee percentage format must be a valid number with no more than two decimal places.',
+
+            'commission_on_sale.required' => 'The commission on sale is required.',
+            'commission_on_sale.numeric'  => 'The commission on sale must be a valid number.',
+            'commission_on_sale.regex'    => 'The commission on sale format must be a valid number with no more than two decimal places.',
         ];
     }
 
 
 
-    /**
+      /**
      * Handles failed validation by formatting the validation errors and throwing a ValidationException.
      *
      * This method is called when validation fails in a form request. It uses the `error` method
@@ -74,14 +98,18 @@ class CreateSalesTrackRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator): never
     {
-        $errors = $validator->errors()->getMessages();
+        $errors  = $validator->errors()->getMessages();
         $message = null;
-        $fields = [
+        $fields  = [
             'user_id',
             'property_id',
             'price',
             'status',
-            'expiration_date',
+            'date_under_contract',
+            'purchase_price',
+            'buyer_seller',
+            'referral_fee_pct',
+            'commission_on_sale',
             'note',
         ];
 

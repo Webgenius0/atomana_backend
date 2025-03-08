@@ -34,7 +34,6 @@ class TargetController extends Controller
     public function store(StoreRequest $storeRequest): JsonResponse
     {
         try {
-            Log::info($storeRequest->all());
             $validatedData = $storeRequest->validated();
             $response = $this->targetService->store($validatedData);
             return $this->success(200, 'Target Stored', new CreateResource($response));

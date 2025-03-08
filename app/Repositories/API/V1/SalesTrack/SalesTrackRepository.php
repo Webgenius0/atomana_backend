@@ -42,7 +42,6 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
                 'business_id' => $businessId,
                 'user_id' => $credentials['user_id'],
                 'property_id' => $credentials['property_id'],
-                'price' => $credentials['price'],
                 'status' => $credentials['status'],
                 'date_under_contract' => $credentials['date_under_contract'],
                 'closing_date' => $credentials['closing_date'],
@@ -87,7 +86,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     public function businessMonthlyColseSalesTrack(int $businessId, string $startOfMonth, string $endOfMonth)
     {
         try {
-            return SalesTrackView::where('business_id', $businessId)->where('status', 'close')
+            return SalesTrackView::where('business_id', $businessId)
                 ->where('status', 'close')
                 ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
                 ->sum('purchase_price');

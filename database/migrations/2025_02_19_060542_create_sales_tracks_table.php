@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('business_id')->constrained('businesses')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('property_id')->constrained('properties')->cascadeOnDelete();
-            $table->decimal('price');
             $table->enum('status', ['active', 'pending', 'close', 'expired'])->default('active');
             $table->date('date_under_contract');
             $table->date('closing_date');

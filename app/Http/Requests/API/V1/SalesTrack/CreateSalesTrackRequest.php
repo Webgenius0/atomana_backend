@@ -28,7 +28,6 @@ class CreateSalesTrackRequest extends FormRequest
         return [
             'user_id'             => 'required|exists:users,id',
             'property_id'         => 'required|exists:properties,id',
-            'price'               => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'status'              => 'required|in:active,pending,close,expired',
             'date_under_contract' => 'required|date',
             'purchase_price'      => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
@@ -49,10 +48,6 @@ class CreateSalesTrackRequest extends FormRequest
 
             'property_id.required' => 'The property field is mandatory.',
             'property_id.exists'   => 'The selected property is not available.',
-
-            'price.required' => 'Please provide a price.',
-            'price.numeric'  => 'The price must be a valid number.',
-            'price.regex'    => 'The price format must be a valid number with no more than two decimal places.',
 
             'status.required' => 'The status field is mandatory.',
             'status.in'       => 'The status must be one of the following: active, pending, close, expired.',
@@ -103,7 +98,6 @@ class CreateSalesTrackRequest extends FormRequest
         $fields  = [
             'user_id',
             'property_id',
-            'price',
             'status',
             'date_under_contract',
             'purchase_price',

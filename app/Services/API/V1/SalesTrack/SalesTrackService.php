@@ -91,28 +91,35 @@ class SalesTrackService
     {
         try {
             $currentDate = Carbon::now();
-            $averagePrice = null;
+            $currentAmount = null;
             $target = null;
+            $percentage = null;
             if ($filter == 'monthly') {
-                $startOfMonth = $currentDate->startOfMonth();
+                $startOfMonth = $this->getStartOfMonth($currentDate);
                 $endOfMonth = $currentDate->endOfMonth();
-                $averagePrice = $this->salesTrackRepository->businessMonthlyColseSalesTrack($this->businessId, $startOfMonth, $endOfMonth);
+                $currentAmount = $this->salesTrackRepository->businessMonthlyColseSalesTrack($this->businessId, $startOfMonth, $endOfMonth);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'current_sales');
             } else if ($filter == 'quarterly') {
                 // Determine the start and end of the current quarter
                 $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                 $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
-                $averagePrice = $this->salesTrackRepository->businessCurrentQuarterColseSalesTrack($this->businessId, $quarterStart, $quarterEnd);
+                $currentAmount = $this->salesTrackRepository->businessCurrentQuarterColseSalesTrack($this->businessId, $quarterStart, $quarterEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'current_sales');
             } else if ($filter == 'yearly') {
                 $yearStart = $this->getCurrentYearStartDate($currentDate);
                 $yearEnd = $this->getCurrentYearEndDate($currentDate);
-                $averagePrice = $this->salesTrackRepository->businessCurrentYearColseSalesTrack($this->businessId, $yearStart, $yearEnd);
+                $currentAmount = $this->salesTrackRepository->businessCurrentYearColseSalesTrack($this->businessId, $yearStart, $yearEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'current_sales');
             }
+            Log::info($currentAmount);
+            Log::info($target);
+            if ($target) {
+                $percentage = ($currentAmount * 100) / $target;
+            }
             return [
-                'target' => (float) $target,
-                'price' => (float) $averagePrice,
+                'target' => number_format((float) $target, 2),
+                'price' => number_format((float) $currentAmount, 2),
+                'percentage' => number_format((float) $percentage, 2),
             ];
         } catch (Exception $e) {
             Log::error('SalesTrackService::adminCurrentStatus', ['error' => $e->getMessage()]);
@@ -129,32 +136,42 @@ class SalesTrackService
     {
         try {
             $currentDate = Carbon::now();
-            $averagePrice = null;
+            $currentAmount = null;
             $target = null;
             if ($filter == 'monthly') {
-                $startOfMonth = $currentDate->startOfMonth();
+                $startOfMonth = $this->getStartOfMonth($currentDate);
                 $endOfMonth = $currentDate->endOfMonth();
-                $averagePrice = $this->salesTrackRepository->agentMonthlyColseSalesTrack($this->user->id, $startOfMonth, $endOfMonth);
+                $currentAmount = $this->salesTrackRepository->agentMonthlyColseSalesTrack($this->user->id, $startOfMonth, $endOfMonth);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'current_sales');
             } else if ($filter == 'quarterly') {
                 $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                 $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
-                $averagePrice = $this->salesTrackRepository->agentCurrentQuarterColseSalesTrack($this->user->id, $quarterStart, $quarterEnd);
+                $currentAmount = $this->salesTrackRepository->agentCurrentQuarterColseSalesTrack($this->user->id, $quarterStart, $quarterEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'current_sales');
             } else if ($filter == 'yearly') {
                 $yearStart = $this->getCurrentYearStartDate($currentDate);
                 $yearEnd = $this->getCurrentYearEndDate($currentDate);
-                $averagePrice = $this->salesTrackRepository->agentCurrentYearColseSalesTrack($this->user->id, $yearStart, $yearEnd);
+                $currentAmount = $this->salesTrackRepository->agentCurrentYearColseSalesTrack($this->user->id, $yearStart, $yearEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'current_sales');
             }
             return [
                 'target' => (float) $target,
-                'price' => (float) $averagePrice,
+                'price' => (float) $currentAmount,
             ];
         } catch (Exception $e) {
             Log::error('SalesTrackService::agentCurrentStatus', ['error' => $e->getMessage()]);
             throw $e;
         }
+    }
+
+    /**
+     * getStartOfMonth
+     * @param \Carbon\Carbon $date
+     * @return Carbon
+     */
+    private function getStartOfMonth(Carbon $date)
+    {
+        return Carbon::create($date->year, $date->month, 1);
     }
 
     /**

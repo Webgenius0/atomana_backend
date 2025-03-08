@@ -18,10 +18,6 @@ use App\Repositories\API\V1\Expense\ExpenseRepository;
 use App\Repositories\API\V1\Expense\ExpenseRepositoryInterface;
 use App\Repositories\API\V1\Expense\SubCatetory\ExpenseSubCategoryRepository;
 use App\Repositories\API\V1\Expense\SubCatetory\ExpenseSubCategoryRepositoryInterface;
-use App\Repositories\API\V1\Expense\Type\ExpenseTypeRepository;
-use App\Repositories\API\V1\Expense\Type\ExpenseTypeRepositoryInterface;
-use App\Repositories\API\V1\Expense\Vendor\VendorRepository;
-use App\Repositories\API\V1\Expense\Vendor\VendorRepositoryInterface;
 use App\Repositories\API\V1\Method\PaymentMethodRepository;
 use App\Repositories\API\V1\Method\PaymentMethodRepositoryInterface;
 use App\Repositories\API\V1\OpenHouse\OpenHouseRepository;
@@ -32,6 +28,8 @@ use App\Repositories\API\V1\Property\PropertyRepository;
 use App\Repositories\API\V1\Property\PropertyRepositoryInterface;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepository;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepositoryInterface;
+use App\Repositories\API\V1\Target\TargetRepository;
+use App\Repositories\API\V1\Target\TargetRepositoryInterface;
 use App\Repositories\API\V1\User\UserRepository as UserRepo;
 use App\Repositories\API\V1\User\UserRepositoryInterface as UserRepoInter;
 use App\Repositories\API\V1\VendorCategory\VendorCategoryRepository;
@@ -76,7 +74,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OpenHouseRepositoryInterface::class, OpenHouseRepository::class);
 
         // vendors
-        $this->app->bind(VendorCategoryRepository::class, VendorCategoryRepositoryInterface::class);
+        $this->app->bind( VendorCategoryRepositoryInterface::class, VendorCategoryRepository::class);
+
+        // target
+        $this->app->bind(TargetRepositoryInterface::class, TargetRepository::class);
 
     }
 

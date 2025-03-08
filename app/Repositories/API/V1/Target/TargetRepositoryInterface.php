@@ -6,6 +6,15 @@ use App\Models\Target;
 
 interface TargetRepositoryInterface
 {
+
+    /**
+     * storeTarget
+     * @param array $credentials
+     * @param int $userId
+     * @return Target
+     */
+    public function storeTarget(array $credentials, int $userId): Target;
+
     /**
      * getRangeTarget
      * @param int $userId

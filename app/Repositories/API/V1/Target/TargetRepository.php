@@ -8,6 +8,29 @@ use Illuminate\Support\Facades\Log;
 
 class TargetRepository implements TargetRepositoryInterface
 {
+
+    /**
+     * storeTarget
+     * @param array $credentials
+     * @param int $userId
+     * @return Target
+     */
+    public function storeTarget(array $credentials, int $userId): Target
+    {
+        try {
+            return Target::create([
+                'user_id' => $userId,
+                'month'   => $credentials['month'],
+                'amount'  => $credentials['amount'],
+                'for'     => $credentials['for'],
+            ]);
+        } catch (Exception $e) {
+            Log::error('App\Repositories\API\V1\Target\TargetRepository::storeTarget', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
     /**
      * getRangeTarget
      * @param int $userId

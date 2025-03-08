@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'month'  => 'date',
+            'month'  => 'required|date_format:Y-m',
             'amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'for'    => 'required|in:current_sales,units_sold,expenses,gross_profit',
         ];
@@ -36,12 +36,13 @@ class StoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'month.date'      => 'The month must be a valid date format.',
-            'amount.required' => 'The amount is required.',
-            'amount.numeric'  => 'The amount must be a number.',
-            'amount.regex'    => 'The amount must be a valid number with up to two decimal places.',
-            'for.required'    => 'The for field is required.',
-            'for.in'          => 'The for field must be one of the following values: current_sales, units_sold, expenses, or gross_profit.',
+            'month.required'    => 'The month is required.',
+            'month.date_format' => 'The month must be in the format YYYY-MM.',
+            'amount.required'   => 'The amount is required.',
+            'amount.numeric'    => 'The amount must be a number.',
+            'amount.regex'      => 'The amount must be a valid number with up to two decimal places.',
+            'for.required'      => 'The for field is required.',
+            'for.in'            => 'The for field must be one of the following values: current_sales, units_sold, expenses, or gross_profit.',
         ];
     }
 

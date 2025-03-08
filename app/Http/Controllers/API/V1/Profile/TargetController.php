@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class TargetController extends Controller
 {
@@ -37,6 +38,8 @@ class TargetController extends Controller
             $validatedData = $storeRequest->validated();
             $response = $this->targetService->store($validatedData);
             return $this->success(200, 'Target Stored', new CreateResource($response));
+        }catch(ValidationException $e) {
+            return $this->error(422, $e->getMessage());
         }catch(Exception $e) {
             Log::error('App\Http\Controllers\API\V1\Target\TargetController::store', ['error'  => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

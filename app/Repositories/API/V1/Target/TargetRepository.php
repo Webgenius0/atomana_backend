@@ -5,6 +5,7 @@ namespace App\Repositories\API\V1\Target;
 use App\Models\Target;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class TargetRepository implements TargetRepositoryInterface
 {
@@ -18,13 +19,27 @@ class TargetRepository implements TargetRepositoryInterface
     public function storeTarget(array $credentials, int $userId): Target
     {
         try {
+            $formattedMonth = $credentials['month'] . '-01';
+
+            $existingTarget = Target::where('user_id', $userId)
+            ->where('month', $formattedMonth)
+            ->where('for', $credentials['for'])
+            ->exists();
+
+            if ($existingTarget){
+                throw ValidationException::withMessages(['duplicate_entry' => 'Duplicate Entry']);
+            }
+
             return Target::create([
                 'user_id' => $userId,
                 'month'   => $credentials['month'],
                 'amount'  => $credentials['amount'],
                 'for'     => $credentials['for'],
             ]);
-        } catch (Exception $e) {
+        }catch(ValidationException $e) {
+            throw $e;
+        }
+        catch (Exception $e) {
             Log::error('App\Repositories\API\V1\Target\TargetRepository::storeTarget', ['error' => $e->getMessage()]);
             throw $e;
         }

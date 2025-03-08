@@ -7,6 +7,7 @@ use App\Repositories\API\V1\Target\TargetRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class TargetService
 {
@@ -32,6 +33,8 @@ class TargetService
     {
         try {
             return $this->targetRepository->storeTarget($credentials, $this->user->id);
+        } catch (ValidationException $e) {
+            throw $e;
         } catch (Exception $e) {
             Log::error('App\Services\API\V1\Target\TargetService::store', ['error' => $e->getMessage()]);
             throw $e;

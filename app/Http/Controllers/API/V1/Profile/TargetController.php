@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Target\StoreRequest;
+use App\Http\Resources\API\V1\Target\CreateResource;
 use App\Services\API\V1\Target\TargetService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -35,7 +36,7 @@ class TargetController extends Controller
             Log::info($storeRequest->all());
             $validatedData = $storeRequest->validated();
             $response = $this->targetService->store($validatedData);
-            return $this->success(200, 'Target Stored', $response);
+            return $this->success(200, 'Target Stored', new CreateResource($response));
         }catch(Exception $e) {
             Log::error('App\Http\Controllers\API\V1\Target\TargetController::store', ['error'  => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

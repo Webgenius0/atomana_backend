@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 class CreateSalesTrackRequest extends FormRequest
 {
     use ApiResponse;
-      /**
+    /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -18,7 +18,7 @@ class CreateSalesTrackRequest extends FormRequest
         return true;
     }
 
-      /**
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -82,7 +82,7 @@ class CreateSalesTrackRequest extends FormRequest
 
 
 
-      /**
+    /**
      * Handles failed validation by formatting the validation errors and throwing a ValidationException.
      *
      * This method is called when validation fails in a form request. It uses the `error` method

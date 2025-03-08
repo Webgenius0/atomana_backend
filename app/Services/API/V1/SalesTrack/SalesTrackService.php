@@ -118,7 +118,7 @@ class SalesTrackService
             }
             return [
                 'target' => number_format((float) $target, 2),
-                'price' => number_format((float) $currentAmount, 2),
+                'target_fill' => number_format((float) $currentAmount, 2),
                 'percentage' => number_format((float) $percentage, 2),
             ];
         } catch (Exception $e) {

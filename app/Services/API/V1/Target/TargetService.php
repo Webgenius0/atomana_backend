@@ -2,6 +2,7 @@
 
 namespace App\Services\API\V1\Target;
 
+use App\Models\Target;
 use App\Repositories\API\V1\Target\TargetRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class TargetService
      * @param array $credentials
      * @return \App\Models\Target
      */
-    public function store(array $credentials)
+    public function store(array $credentials): Target
     {
         try {
             return $this->targetRepository->storeTarget($credentials, $this->user->id);

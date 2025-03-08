@@ -57,38 +57,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
         }
     }
 
-
     /**
-     * Summary of agentMonthlyColseSalesTrack
+     * agentColseSalesTrackTotalPurchasePriceByRange
      * @param int $userId
-     * @param string $startOfMonth
-     * @param string $endOfMonth
+     * @param string $start
+     * @param string $end
      */
-    public function agentMonthlyColseSalesTrack(int $userId, string $startOfMonth, string $endOfMonth)
+    public function agentColseSalesTrackTotalPurchasePriceByRange(int $userId, string $start, string $end)
     {
         try {
             return SalesTrackView::where('user_id', $userId)
                 ->where('status', 'close')
-                ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
-                ->sum('purchase_price');
-        } catch (Exception $e) {
-            Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
-
-    /**
-     * Summary of businessMonthlyColseSalesTrack
-     * @param int $businessId
-     * @param string $startOfMonth
-     * @param string $endOfMonth
-     */
-    public function businessMonthlyColseSalesTrack(int $businessId, string $startOfMonth, string $endOfMonth)
-    {
-        try {
-            return SalesTrackView::where('business_id', $businessId)
-                ->where('status', 'close')
-                ->whereBetween('close_date', [$startOfMonth, $endOfMonth])
+                ->whereBetween('close_date', [$start, $end])
                 ->sum('purchase_price');
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
@@ -98,77 +78,17 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
 
 
     /**
-     * agentCurrentQuarterColseSalesTrack
-     * @param int $userId
-     * @param string $quarterStart
-     * @param string $quarterEnd
-     */
-    public function agentCurrentQuarterColseSalesTrack(int $userId, string $quarterStart, string $quarterEnd)
-    {
-        try {
-            // Query for sales within the current quarter
-            return SalesTrackView::where('user_id', $userId)
-                ->where('status', 'close')
-                ->whereBetween('close_date', [$quarterStart, $quarterEnd])
-                ->sum('purchase_price');
-        } catch (Exception $e) {
-            Log::error('SalesTrackRepository::agentCurrentQuarterColseSalesTrack', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
-
-    /**
-     * businessCurrentQuarterColseSalesTrack
+     * busnessColseSalesTrackTotalPurchasePriceByRange
      * @param int $businessId
-     * @param string $quarterStart
-     * @param string $quarterEnd
+     * @param string $start
+     * @param string $end
      */
-    public function businessCurrentQuarterColseSalesTrack(int $businessId, string $quarterStart, string $quarterEnd)
-    {
-        try {
-            // Query for sales within the current quarter
-            return SalesTrackView::where('business_id', $businessId)
-                ->where('status', 'close')
-                ->whereBetween('close_date', [$quarterStart, $quarterEnd])
-                ->sum('purchase_price');
-        } catch (Exception $e) {
-            Log::error('SalesTrackRepository::agentCurrentQuarterColseSalesTrack', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
-
-    /**
-     * agentCurrentYearColseSalesTrack
-     * @param int $userId
-     * @param string $yearStart
-     * @param string $yearEnd
-     */
-    public function agentCurrentYearColseSalesTrack(int $userId, string $yearStart, string $yearEnd)
-    {
-        try {
-            return SalesTrackView::where('user_id', $userId)
-                ->where('status', 'close')
-                ->whereBetween('close_date', [$yearStart, $yearEnd])
-                ->sum('purchase_price');
-        } catch (Exception $e) {
-            Log::error('SalesTrackRepository::agentCurrentYearColseSalesTrack', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
-
-
-    /**
-     * businessCurrentYearColseSalesTrack
-     * @param int $businessId
-     * @param string $yearStart
-     * @param string $yearEnd
-     */
-    public function businessCurrentYearColseSalesTrack(int $businessId, string $yearStart, string $yearEnd)
+    public function busnessColseSalesTrackTotalPurchasePriceByRange(int $businessId, string $start, string $end)
     {
         try {
             return SalesTrackView::where('business_id', $businessId)
                 ->where('status', 'close')
-                ->whereBetween('close_date', [$yearStart, $yearEnd])
+                ->whereBetween('close_date', [$start, $end])
                 ->sum('purchase_price');
         } catch (Exception $e) {
             Log::error('SalesTrackRepository::businessCurrentYearColseSalesTrack', ['error' => $e->getMessage()]);

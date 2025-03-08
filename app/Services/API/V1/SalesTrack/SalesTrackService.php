@@ -85,7 +85,29 @@ class SalesTrackService
     }
 
     /**
-     * *
+     * uniteSoldStatistics
+     * @param string $filter
+     * @return array|null
+     */
+    public function uniteSoldStatistics(string $filter)
+    {
+        try {
+            $role = $this->user->role->slug;
+            $response = null;
+            if ($role == 'admin') {
+                $response = $this->adminUnitesStatus($filter);
+            } else if ($role == 'agent') {
+                $response = $this->agentUnitesStatus($filter);
+            }
+            return $response;
+        } catch (Exception $e) {
+            Log::error('SalesTrackService::uniteSoldStatistics', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * adminCurrentStatus
      * @param string $filter
      * @return array{price: float, target: float}
      */
@@ -99,18 +121,18 @@ class SalesTrackService
             if ($filter == 'monthly') {
                 $startOfMonth = $this->getStartOfMonth($currentDate);
                 $endOfMonth = $currentDate->endOfMonth();
-                $currentAmount = $this->salesTrackRepository->businessMonthlyColseSalesTrack($this->businessId, $startOfMonth, $endOfMonth);
+                $currentAmount = $this->salesTrackRepository->busnessColseSalesTrackTotalPurchasePriceByRange($this->businessId, $startOfMonth, $endOfMonth);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'current_sales');
             } else if ($filter == 'quarterly') {
                 // Determine the start and end of the current quarter
                 $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                 $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
-                $currentAmount = $this->salesTrackRepository->businessCurrentQuarterColseSalesTrack($this->businessId, $quarterStart, $quarterEnd);
+                $currentAmount = $this->salesTrackRepository->busnessColseSalesTrackTotalPurchasePriceByRange($this->businessId, $quarterStart, $quarterEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'current_sales');
             } else if ($filter == 'yearly') {
                 $yearStart = $this->getCurrentYearStartDate($currentDate);
                 $yearEnd = $this->getCurrentYearEndDate($currentDate);
-                $currentAmount = $this->salesTrackRepository->businessCurrentYearColseSalesTrack($this->businessId, $yearStart, $yearEnd);
+                $currentAmount = $this->salesTrackRepository->busnessColseSalesTrackTotalPurchasePriceByRange($this->businessId, $yearStart, $yearEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'current_sales');
             }
             if ($target) {
@@ -142,17 +164,17 @@ class SalesTrackService
             if ($filter == 'monthly') {
                 $startOfMonth = $this->getStartOfMonth($currentDate);
                 $endOfMonth = $currentDate->endOfMonth();
-                $currentAmount = $this->salesTrackRepository->agentMonthlyColseSalesTrack($this->user->id, $startOfMonth, $endOfMonth);
+                $currentAmount = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $startOfMonth, $endOfMonth);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'current_sales');
             } else if ($filter == 'quarterly') {
                 $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                 $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
-                $currentAmount = $this->salesTrackRepository->agentCurrentQuarterColseSalesTrack($this->user->id, $quarterStart, $quarterEnd);
+                $currentAmount = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $quarterStart, $quarterEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'current_sales');
             } else if ($filter == 'yearly') {
                 $yearStart = $this->getCurrentYearStartDate($currentDate);
                 $yearEnd = $this->getCurrentYearEndDate($currentDate);
-                $currentAmount = $this->salesTrackRepository->agentCurrentYearColseSalesTrack($this->user->id, $yearStart, $yearEnd);
+                $currentAmount = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $yearStart, $yearEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'current_sales');
             }
             return [
@@ -166,4 +188,24 @@ class SalesTrackService
         }
     }
 
+
+    private function adminUnitesStatus(string $filter)
+    {
+        try {
+            return [];
+        } catch (Exception $e) {
+            Log::error('SalesTrackService::adminUnitesStatus', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    private function agentUnitesStatus(string $filter)
+    {
+        try {
+            return [];
+        } catch (Exception $e) {
+            Log::error('SalesTrackService::agentUnitesStatus', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

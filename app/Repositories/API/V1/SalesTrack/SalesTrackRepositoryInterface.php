@@ -22,53 +22,71 @@ interface SalesTrackRepositoryInterface
      */
     public function create(array $credentials, int $businessId): SalesTrack;
 
+
     /**
-     * Summary of agentMonthlyColseSalesTrack
+     * agentColseSalesTrackTotalPurchasePriceByRange
      * @param int $userId
-     * @param string $startOfMonth
-     * @param string $endOfMonth
+     * @param string $start
+     * @param string $end
      */
-    public function agentMonthlyColseSalesTrack(int $usetId, string $startOfMonth, string $endOfMonth);
+    public function agentColseSalesTrackTotalPurchasePriceByRange(int $userId, string $start, string $end);
+
 
     /**
-     * Summary of businessMonthlyColseSalesTrack
+     * busnessColseSalesTrackTotalPurchasePriceByRange
      * @param int $businessId
-     * @param string $startOfMonth
-     * @param string $endOfMonth
+     * @param string $start
+     * @param string $end
      */
-    public function businessMonthlyColseSalesTrack(int $businessId, string $startOfMonth, string $endOfMonth);
+    public function busnessColseSalesTrackTotalPurchasePriceByRange(int $businessId, string $start, string $end);
 
-    /**
-     * agentCurrentQuarterColseSalesTrack
-     * @param int $userId
-     * @param string $quarterStart
-     * @param string $quarterEnd
-     */
-    public function agentCurrentQuarterColseSalesTrack(int $userId, string $quarterStart, string $quarterEnd);
+    // /**
+    //  * Summary of agentMonthlyColseSalesTrack
+    //  * @param int $userId
+    //  * @param string $startOfMonth
+    //  * @param string $endOfMonth
+    //  */
+    // public function agentMonthlyColseSalesTrack(int $usetId, string $startOfMonth, string $endOfMonth);
 
-    /**
-     * businessCurrentQuarterColseSalesTrack
-     * @param int $businessId
-     * @param string $quarterStart
-     * @param string $quarterEnd
-     */
-    public function businessCurrentQuarterColseSalesTrack(int $businessId, string $quarterStart, string $quarterEnd);
+    // /**
+    //  * Summary of businessMonthlyColseSalesTrack
+    //  * @param int $businessId
+    //  * @param string $startOfMonth
+    //  * @param string $endOfMonth
+    //  */
+    // public function businessMonthlyColseSalesTrack(int $businessId, string $startOfMonth, string $endOfMonth);
+
+    // /**
+    //  * agentCurrentQuarterColseSalesTrack
+    //  * @param int $userId
+    //  * @param string $quarterStart
+    //  * @param string $quarterEnd
+    //  */
+    // public function agentCurrentQuarterColseSalesTrack(int $userId, string $quarterStart, string $quarterEnd);
+
+    // /**
+    //  * businessCurrentQuarterColseSalesTrack
+    //  * @param int $businessId
+    //  * @param string $quarterStart
+    //  * @param string $quarterEnd
+    //  */
+    // public function businessCurrentQuarterColseSalesTrack(int $businessId, string $quarterStart, string $quarterEnd);
 
 
-    /**
-     * agentCurrentYearColseSalesTrack
-     * @param int $userId
-     * @param string $yearStart
-     * @param string $yearEnd
-     */
-    public function agentCurrentYearColseSalesTrack(int $userId, string $yearStart, string $yearEnd);
+    // /**
+    //  * agentCurrentYearColseSalesTrack
+    //  * @param int $userId
+    //  * @param string $yearStart
+    //  * @param string $yearEnd
+    //  */
+    // public function agentCurrentYearColseSalesTrack(int $userId, string $yearStart, string $yearEnd);
 
 
-    /**
-     * businessCurrentYearColseSalesTrack
-     * @param int $businessId
-     * @param string $yearStart
-     * @param string $yearEnd
-     */
-    public function businessCurrentYearColseSalesTrack(int $businessId, string $yearStart, string $yearEnd);
+    // /**
+    //  * businessCurrentYearColseSalesTrack
+    //  * @param int $businessId
+    //  * @param string $yearStart
+    //  * @param string $yearEnd
+    //  */
+    // public function businessCurrentYearColseSalesTrack(int $businessId, string $yearStart, string $yearEnd);
 }

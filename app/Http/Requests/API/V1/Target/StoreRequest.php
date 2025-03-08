@@ -40,8 +40,8 @@ class StoreRequest extends FormRequest
             'amount.required' => 'The amount is required.',
             'amount.numeric'  => 'The amount must be a number.',
             'amount.regex'    => 'The amount must be a valid number with up to two decimal places.',
-            'for.required'    => 'The "for" field is required.',
-            'for.in'          => 'The "for" field must be one of the following values: current_sales, units_sold, expenses, or gross_profit.',
+            'for.required'    => 'The for field is required.',
+            'for.in'          => 'The for field must be one of the following values: current_sales, units_sold, expenses, or gross_profit.',
         ];
     }
 

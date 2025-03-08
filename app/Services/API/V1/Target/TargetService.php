@@ -19,7 +19,7 @@ class TargetService
      */
     public function __construct(TargetRepositoryInterface $targetRepository)
     {
-        $this->user = Auth::use();
+        $this->user = Auth::user();
         $this->targetRepository = $targetRepository;
     }
 

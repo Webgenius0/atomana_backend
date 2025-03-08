@@ -71,7 +71,27 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
                 ->whereBetween('close_date', [$start, $end])
                 ->sum('purchase_price');
         } catch (Exception $e) {
-            Log::error('SalesTrakeRepository::agentColseSalesTrack', ['error' => $e->getMessage()]);
+            Log::error('SalesTrakeRepository::agentColseSalesTrackTotalPurchasePriceByRange', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * agentColseSalesTrackCount
+     * @param int $userId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentColseSalesTrackCount(int $userId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('user_id', $userId)
+                ->where('status', 'close')
+                ->whereBetween('close_date', [$start, $end])
+                ->count();
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentColseSalesTrackCount', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
@@ -91,7 +111,27 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
                 ->whereBetween('close_date', [$start, $end])
                 ->sum('purchase_price');
         } catch (Exception $e) {
-            Log::error('SalesTrackRepository::businessCurrentYearColseSalesTrack', ['error' => $e->getMessage()]);
+            Log::error('SalesTrackRepository::busnessColseSalesTrackTotalPurchasePriceByRange', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * busnessColseSalesTrackCount
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function busnessColseSalesTrackCount(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)
+            ->where('status', 'close')
+            ->whereBetween('close_date', [$start, $end])
+            ->count();
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::busnessColseSalesTrackCount', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

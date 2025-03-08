@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('sku')->unique();
             $table->string('email');
             $table->string('address');
-            $table->decimal('price', 15, 2);
+            $table->decimal('price');
             $table->date('expiration_date');
             $table->boolean('development');
             $table->unsignedBigInteger('co_agent')->nullable();

@@ -92,22 +92,26 @@ class SalesTrackService
         try {
             $currentDate = Carbon::now();
             $averagePrice = null;
+            $target = null;
             if ($filter == 'monthly') {
                 $startOfMonth = $currentDate->startOfMonth();
                 $endOfMonth = $currentDate->endOfMonth();
                 $averagePrice = $this->salesTrackRepository->businessMonthlyColseSalesTrack($this->businessId, $startOfMonth, $endOfMonth);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'current_sales');
             } else if ($filter == 'quarterly') {
                 // Determine the start and end of the current quarter
                 $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                 $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
                 $averagePrice = $this->salesTrackRepository->businessCurrentQuarterColseSalesTrack($this->businessId, $quarterStart, $quarterEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'current_sales');
             } else if ($filter == 'yearly') {
                 $yearStart = $this->getCurrentYearStartDate($currentDate);
                 $yearEnd = $this->getCurrentYearEndDate($currentDate);
                 $averagePrice = $this->salesTrackRepository->businessCurrentYearColseSalesTrack($this->businessId, $yearStart, $yearEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'current_sales');
             }
             return [
-                'target' => 55623450.32,
+                'target' => (float) $target,
                 'price' => (float) $averagePrice,
             ];
         } catch (Exception $e) {
@@ -144,7 +148,7 @@ class SalesTrackService
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'current_sales');
             }
             return [
-                'target' => $target,
+                'target' => (float) $target,
                 'price' => (float) $averagePrice,
             ];
         } catch (Exception $e) {

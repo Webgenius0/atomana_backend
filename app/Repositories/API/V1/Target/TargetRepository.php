@@ -9,26 +9,6 @@ use Illuminate\Support\Facades\Log;
 class TargetRepository implements TargetRepositoryInterface
 {
     /**
-     * getMonthlyTarget
-     * @param int $userId
-     * @param string $month
-     * @param string $for
-     * @return Target|null
-     */
-    public function getMonthlyTarget(int $userId, string $month, string $for): Target|null
-    {
-        try {
-            return Target::select('target')->where('user_id', $userId)
-                ->where('month', $month)
-                ->where('for', $for)
-                ->first();
-        } catch (Exception $e) {
-            Log::error('App\Repositories\API\V1\Target\TargetRepository::getMonthlyTarget', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
-
-    /**
      * getRangeTarget
      * @param int $userId
      * @param string $startMonth

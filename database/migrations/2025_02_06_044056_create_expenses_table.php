@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('payee')->nullable();
             $table->string('recept_name')->nullable();
             $table->string('recept_url')->nullable();
-            $table->string('owner')->nullable();
             $table->boolean('reimbursable')->nullable();
             $table->string('listing')->nullable();
             $table->longText('note')->nullable();

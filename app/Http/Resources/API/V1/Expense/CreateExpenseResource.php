@@ -26,7 +26,7 @@ class CreateExpenseResource extends JsonResource
             'payee'                   => $data['payee'],
             'recept_name'             => $data['recept_name'],
             'recept_url'              => $data['recept_url'],
-            'owner'                   => $data['owner'],
+            'user_id'                 => $data['user_id'],
             'reimbursable'            => $data['reimbursable'],
             'listing'                 => $data['listing'],
             'note'                    => $data['note'],

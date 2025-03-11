@@ -29,7 +29,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
                 'payee',
                 'recept_name',
                 'recept_url',
-                'owner',
+                'user_id',
                 'reimbursable',
                 'listing',
                 'note',

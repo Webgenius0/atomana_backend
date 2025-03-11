@@ -18,7 +18,7 @@ class IndexExpenseResource extends JsonResource
         $datas = parent::toArray($request);
 
         $modifyedData = [];
-        foreach($datas['data'] as $data){
+        foreach ($datas['data'] as $data) {
             $tempArray = [
                 'id'                      => $data['id'],
                 'expense_category_id'     => $data['expense_category_id'],
@@ -28,7 +28,7 @@ class IndexExpenseResource extends JsonResource
                 'payee'                   => $data['payee'],
                 'recept_name'             => $data['recept_name'],
                 'recept_url'              => $data['recept_url'],
-                'owner'                   => $data['owner'],
+                'user_id'                 => $data['user_id'],
                 'reimbursable'            => $data['reimbursable'],
                 'listing'                 => $data['listing'],
                 'note'                    => $data['note'],
@@ -44,5 +44,3 @@ class IndexExpenseResource extends JsonResource
         return $datas;
     }
 }
-
-

@@ -28,7 +28,7 @@ class IndexExpenseResource extends JsonResource
                 'payee'                   => $data['payee'],
                 'recept_name'             => $data['recept_name'],
                 'recept_url'              => $data['recept_url'],
-                'user_id'                 => $data['user_id'],
+                'owner'                   => $data['user']['handle'],
                 'reimbursable'            => $data['reimbursable'],
                 'listing'                 => $data['listing'],
                 'note'                    => $data['note'],

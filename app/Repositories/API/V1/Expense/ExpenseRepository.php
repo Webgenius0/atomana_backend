@@ -34,7 +34,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
                 'listing',
                 'note',
                 'created_at',
-            ])->whereBusinessId($businessId)
+            ])->with('user')->whereBusinessId($businessId)
                 ->whereExpenseForId($expenseForId)
                 ->whereArchive(false)
                 ->latest()->paginate($perPage);

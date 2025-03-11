@@ -33,7 +33,7 @@ class CreateExpenseRequest extends FormRequest
             'payment_method_id' => 'nullable|exists:payment_methods,id',
             'payee' => 'nullable|string',
             'recept' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf',
-            'owner' => 'nullable|string',
+            'user_id' => 'required|exists:users,id',
             'reimbursable' => 'nullable|boolean',
             'listing' => 'nullable|string',
             'note' => 'nullable|string',

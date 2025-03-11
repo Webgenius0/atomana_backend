@@ -22,7 +22,7 @@ interface ExpenseRepositoryInterface
      * @param int $expenseForId
      * @return mixed
      */
-    public function createExpense(array $credentials, int $userId, string $receptUrl, string $recept, int $businessId, int $expenseForId);
+    public function createExpense(array $credentials, string $receptUrl, string $recept, int $businessId, int $expenseForId);
 
     /**
      * agentsExpenseSum

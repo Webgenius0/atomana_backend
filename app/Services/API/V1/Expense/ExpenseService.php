@@ -74,7 +74,6 @@ class ExpenseService extends ExpenseRepository
 
             $data = $this->expenseRepository->createExpense(
                 $credentials,
-                $this->user->id,
                 $recept_url,
                 $recetp,
                 $businessId,

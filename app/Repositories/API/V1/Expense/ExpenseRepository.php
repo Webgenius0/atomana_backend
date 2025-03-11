@@ -15,7 +15,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param int $businessId
      * @return mixed
      */
-    public function getAllExpense(int $expenseForId, int $perPage, int $businessId):mixed
+    public function getAllExpense(int $expenseForId, int $perPage, int $businessId): mixed
     {
         try {
             $expenses = Expense::select([
@@ -39,7 +39,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
                 ->whereArchive(false)
                 ->latest()->paginate($perPage);
             return $expenses;
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ExpenseRepository::getAllExpense', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -54,28 +54,27 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param int $expenseForId
      * @return mixed
      */
-    public function createExpense(array $credentials, int $userId, string $receptUrl, string $recept, int $businessId, int $expenseForId):mixed
+    public function createExpense(array $credentials, string $receptUrl, string $recept, int $businessId, int $expenseForId): mixed
     {
         try {
             $data = Expense::create([
-                'business_id' => $businessId,
-                'user_id'   => $userId,
-                'expense_for_id' => $expenseForId,
-                'expense_category_id' => $credentials['expense_category_id'],
+                'business_id'             => $businessId,
+                'user_id'                 => $credentials['user_id'],
+                'expense_for_id'          => $expenseForId,
+                'expense_category_id'     => $credentials['expense_category_id'],
                 'expense_sub_category_id' => $credentials['expense_sub_category_id'],
-                'description' => $credentials['description'],
-                'amount' => $credentials['amount'],
-                'payment_method_id' => $credentials['payment_method_id'],
-                'payee' => $credentials['payee'],
-                'recept_name' => $recept,
-                'recept_url' => $receptUrl,
-                'owner' => $credentials['owner'],
-                'reimbursable' => $credentials['reimbursable'],
-                'listing' => $credentials['listing'],
-                'note' => $credentials['note'],
+                'description'             => $credentials['description'],
+                'amount'                  => $credentials['amount'],
+                'payment_method_id'       => $credentials['payment_method_id'],
+                'payee'                   => $credentials['payee'],
+                'recept_name'             => $recept,
+                'recept_url'              => $receptUrl,
+                'reimbursable'            => $credentials['reimbursable'],
+                'listing'                 => $credentials['listing'],
+                'note'                    => $credentials['note'],
             ]);
             return $data;
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ExpenseRepository::createExpense', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -91,8 +90,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
     {
         try {
             return Expense::whereUserId($userId)
-            ->whereBetween('created_at', [$start, $end])->sum('amount');
-        }catch (Exception $e) {
+                ->whereBetween('created_at', [$start, $end])->sum('amount');
+        } catch (Exception $e) {
             Log::error('ExpenseRepository::expenseSum', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -109,8 +108,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
     {
         try {
             return Expense::whereBusinessId($businessId)
-            ->whereBetween('created_at', [$start, $end])->sum('amount');
-        }catch (Exception $e) {
+                ->whereBetween('created_at', [$start, $end])->sum('amount');
+        } catch (Exception $e) {
             Log::error('ExpenseRepository::expenseSum', ['error' => $e->getMessage()]);
             throw $e;
         }

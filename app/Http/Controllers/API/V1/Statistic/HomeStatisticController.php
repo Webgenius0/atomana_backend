@@ -40,4 +40,21 @@ class HomeStatisticController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
+
+
+    /**
+     * unitsSold
+     * @param string $filter
+     * @return JsonResponse
+     */
+    public function unitsSold(string $filter): JsonResponse
+    {
+        try {
+            $response = $this->salesTrackService->uniteSoldStatistics($filter);
+            return $this->success(200, 'Current Sales', $response);
+        } catch(Exception $e) {
+            Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::currentSales', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
 }

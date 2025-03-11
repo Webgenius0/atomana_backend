@@ -188,21 +188,86 @@ class SalesTrackService
         }
     }
 
-
+    /**
+     * adminUnitesStatus
+     * @param string $filter
+     * @return array{current_count: string, percentage: string, target: string}
+     */
     private function adminUnitesStatus(string $filter)
     {
         try {
-            return [];
+            $currentDate = Carbon::now();
+            $currentCount = null;
+            $target = null;
+            $percentage = null;
+            if ($filter == 'monthly') {
+                $startOfMonth = $this->getStartOfMonth($currentDate);
+                $endOfMonth = $currentDate->endOfMonth();
+                $currentCount = $this->salesTrackRepository->busnessColseSalesTrackCount($this->businessId, $startOfMonth, $endOfMonth);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'units_sold');
+            } else if ($filter == 'quarterly') {
+                // Determine the start and end of the current quarter
+                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
+                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                $currentCount = $this->salesTrackRepository->busnessColseSalesTrackCount($this->businessId, $quarterStart, $quarterEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'units_sold');
+            } else if ($filter == 'yearly') {
+                $yearStart = $this->getCurrentYearStartDate($currentDate);
+                $yearEnd = $this->getCurrentYearEndDate($currentDate);
+                $currentCount = $this->salesTrackRepository->busnessColseSalesTrackCount($this->businessId, $yearStart, $yearEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'units_sold');
+            }
+            if ($target) {
+                $percentage = ($currentCount * 100) / $target;
+            }
+            return [
+                'target' => number_format((float) $target, 2),
+                'current_count' => number_format((float) $currentCount, 2),
+                'percentage' => number_format((float) $percentage, 2),
+            ];
         } catch (Exception $e) {
             Log::error('SalesTrackService::adminUnitesStatus', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
 
+    /**
+     * agentUnitesStatus
+     * @param string $filter
+     * @return array{current_count: string, percentage: string, target: string}
+     */
     private function agentUnitesStatus(string $filter)
     {
         try {
-            return [];
+            $currentDate = Carbon::now();
+            $currentCount = null;
+            $target = null;
+            $percentage = null;
+            if ($filter == 'monthly') {
+                $startOfMonth = $this->getStartOfMonth($currentDate);
+                $endOfMonth = $currentDate->endOfMonth();
+                $currentCount = $this->salesTrackRepository->agentColseSalesTrackCount($this->businessId, $startOfMonth, $endOfMonth);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'units_sold');
+            } else if ($filter == 'quarterly') {
+                // Determine the start and end of the current quarter
+                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
+                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                $currentCount = $this->salesTrackRepository->agentColseSalesTrackCount($this->businessId, $quarterStart, $quarterEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'units_sold');
+            } else if ($filter == 'yearly') {
+                $yearStart = $this->getCurrentYearStartDate($currentDate);
+                $yearEnd = $this->getCurrentYearEndDate($currentDate);
+                $currentCount = $this->salesTrackRepository->agentColseSalesTrackCount($this->businessId, $yearStart, $yearEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'units_sold');
+            }
+            if ($target) {
+                $percentage = ($currentCount * 100) / $target;
+            }
+            return [
+                'target' => number_format((float) $target, 2),
+                'current_count' => number_format((float) $currentCount, 2),
+                'percentage' => number_format((float) $percentage, 2),
+            ];
         } catch (Exception $e) {
             Log::error('SalesTrackService::agentUnitesStatus', ['error' => $e->getMessage()]);
             throw $e;

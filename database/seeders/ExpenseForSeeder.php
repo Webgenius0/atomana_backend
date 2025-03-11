@@ -27,12 +27,6 @@ class ExpenseForSeeder extends Seeder
                 'name' => 'My Business Expenses',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-            [
-                'slug' => 'my-agent-earnings',
-                'name' => 'My Agent Earnings',
-                'created_at' => now(),
-                'updated_at' => now(),
             ]
         ]);
     }

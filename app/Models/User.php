@@ -183,8 +183,22 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(VendorReview::class);
     }
 
+    /**
+     * may have many targets
+     * @return HasMany<Target, User>
+     */
     public function targets(): HasMany
     {
         return $this->hasMany(Target::class);
+    }
+
+
+    /**
+     * may have many expences
+     * @return HasMany<Expense, User>
+     */
+    public function expences():HasMany
+    {
+        return $this->hasMany(Expense::class);
     }
 }

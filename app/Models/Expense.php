@@ -87,6 +87,15 @@ class Expense extends Model
         return $this->belongsTo(PaymentMethod::class);
     }
 
+    /**
+     * belongs to user
+     * @return BelongsTo<PaymentMethod, Expense>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
     /**
      * acccessor for recept_url attribute
@@ -110,7 +119,7 @@ class Expense extends Model
      * @param mixed $value
      * @return string
      */
-    protected function getAmountAttribute($value):string
+    protected function getAmountAttribute($value): string
     {
         return number_format($value, 2, '.', '');
     }
@@ -120,9 +129,8 @@ class Expense extends Model
      * @param mixed $value
      * @return string
      */
-    protected function getCreatedAtAttribute($value):string
+    protected function getCreatedAtAttribute($value): string
     {
         return Carbon::parse($value)->format('m/d/Y');
     }
-
 }

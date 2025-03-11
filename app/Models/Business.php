@@ -98,4 +98,13 @@ class Business extends Model
     {
         return $this->hasMany(Vendor::class);
     }
+
+    /**
+     * owner
+     * @return \Illuminate\Support\Collection<int|string, mixed>
+     */
+    public function owner()
+    {
+        return $this->users()->where('role_id', 2)->pluck('user_id');
+    }
 }

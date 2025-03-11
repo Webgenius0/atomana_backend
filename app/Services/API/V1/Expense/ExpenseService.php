@@ -3,27 +3,35 @@
 namespace App\Services\API\V1\Expense;
 
 use App\Helpers\Helper;
+use App\Models\Business;
 use App\Models\ExpenseFor;
 use App\Repositories\API\V1\Expense\ExpenseRepository;
 use App\Repositories\API\V1\Expense\ExpenseRepositoryInterface;
+use App\Repositories\API\V1\Target\TargetRepositoryInterface;
+use App\Traits\V1\DateManager;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ExpenseService extends ExpenseRepository
 {
-
+    use DateManager;
     protected $user;
+    protected $businessId;
     protected ExpenseRepositoryInterface $expenseRepository;
+    protected TargetRepositoryInterface $targetRepository;
 
     /**
      * construct
      * @param \App\Repositories\API\V1\Expense\ExpenseRepositoryInterface $expenseRepository
      */
-    public function __construct(ExpenseRepositoryInterface $expenseRepository)
+    public function __construct(ExpenseRepositoryInterface $expenseRepository, TargetRepositoryInterface $targetRepository)
     {
-        $this->user = Auth::user();
+        $this->user              = Auth::user();
+        $this->businessId        = Auth::user()->business()->id;
         $this->expenseRepository = $expenseRepository;
+        $this->targetRepository  = $targetRepository;
     }
 
 
@@ -34,12 +42,12 @@ class ExpenseService extends ExpenseRepository
      */
     public function getExpenses($expenseFor)
     {
-        try{
+        try {
             $perPage = request()->query('per_page', 25);
             $businessId = $this->user->business()->id;
             $data = $this->expenseRepository->getAllExpense($expenseFor->id, $perPage, $businessId);
             return $data;
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error("ExpenseService::getExpenses", ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -55,7 +63,7 @@ class ExpenseService extends ExpenseRepository
     {
         try {
             $businessId = $this->user->business()->id;
-            
+
             $recetp = null;
             $recept_url = null;
 
@@ -66,6 +74,7 @@ class ExpenseService extends ExpenseRepository
 
             $data = $this->expenseRepository->createExpense(
                 $credentials,
+                $this->user->id,
                 $recept_url,
                 $recetp,
                 $businessId,
@@ -74,6 +83,113 @@ class ExpenseService extends ExpenseRepository
             return $data;
         } catch (Exception $e) {
             Log::error("ExpenseService::storeExpense", ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * expenseStatistics
+     * @param string $filter
+     * @return array|null
+     */
+    public function expenseStatistics(string $filter)
+    {
+        try {
+            $role = $this->user->role->slug;
+            $response = null;
+            if ($role == 'admin') {
+                $response = $this->agetnExpenseStatistics($filter);
+            } else if ($role == 'agent') {
+                $response = $this->adminExpenseStatistics($filter);
+            }
+
+            return $response;
+        } catch (Exception $e) {
+            Log::error('ExpenseService::expenseStatistics', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * agetnExpenseStatistics
+     * @param string $filter
+     * @return array
+     */
+    public function agetnExpenseStatistics(string $filter)
+    {
+        try {
+            $currentDate = Carbon::now();
+            $currentCount = null;
+            $target = null;
+            $percentage = null;
+            if ($filter == 'monthly') {
+                $startOfMonth = $this->getStartOfMonth($currentDate);
+                $endOfMonth = $currentDate->endOfMonth();
+                $currentCount = $this->expenseRepository->agentsExpenseSum($this->user->id, $startOfMonth, $endOfMonth);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'units_sold');
+            } else if ($filter == 'quarterly') {
+                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
+                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                $currentCount = $this->expenseRepository->agentsExpenseSum($this->user->id, $quarterStart, $quarterEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'units_sold');
+            } else if ($filter == 'yearly') {
+                $yearStart = $this->getCurrentYearStartDate($currentDate);
+                $yearEnd = $this->getCurrentYearEndDate($currentDate);
+                $currentCount = $this->expenseRepository->agentsExpenseSum($this->user->id, $yearStart, $yearEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'units_sold');
+            }
+            if ($target) {
+                $percentage = ($currentCount * 100) / $target;
+            }
+            return [
+                'target' => number_format((float) $target, 2),
+                'expense' => number_format((float) $currentCount, 2),
+                'percentage' => number_format((float) $percentage, 2),
+            ];
+        } catch (Exception $e) {
+            Log::error('ExpenseService::agetnExpenseStatistics', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * adminExpenseStatistics
+     * @param string $filter
+     * @return array
+     */
+    public function adminExpenseStatistics(string $filter)
+    {
+        try {
+            $currentDate = Carbon::now();
+            $currentCount = null;
+            $target = null;
+            $percentage = null;
+            if ($filter == 'monthly') {
+                $startOfMonth = $this->getStartOfMonth($currentDate);
+                $endOfMonth = $currentDate->endOfMonth();
+                $currentCount = $this->expenseRepository->businessExpenseSum($this->businessId, $startOfMonth, $endOfMonth);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'units_sold');
+            } else if ($filter == 'quarterly') {
+                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
+                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                $currentCount = $this->expenseRepository->businessExpenseSum($this->businessId, $quarterStart, $quarterEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'units_sold');
+            } else if ($filter == 'yearly') {
+                $yearStart = $this->getCurrentYearStartDate($currentDate);
+                $yearEnd = $this->getCurrentYearEndDate($currentDate);
+                $currentCount = $this->expenseRepository->businessExpenseSum($this->businessId, $yearStart, $yearEnd);
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'units_sold');
+            }
+            if ($target) {
+                $percentage = ($currentCount * 100) / $target;
+            }
+            return [
+                'target' => number_format((float) $target, 2),
+                'expense' => number_format((float) $currentCount, 2),
+                'percentage' => number_format((float) $percentage, 2),
+            ];
+        } catch (Exception $e) {
+            Log::error('ExpenseService::adminExpenseStatistics', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

@@ -54,11 +54,12 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param int $expenseForId
      * @return mixed
      */
-    public function createExpense(array $credentials, string $receptUrl, string $recept, int $businessId, int $expenseForId):mixed
+    public function createExpense(array $credentials, int $userId, string $receptUrl, string $recept, int $businessId, int $expenseForId):mixed
     {
         try {
             $data = Expense::create([
                 'business_id' => $businessId,
+                'user_id'   => $userId,
                 'expense_for_id' => $expenseForId,
                 'expense_category_id' => $credentials['expense_category_id'],
                 'expense_sub_category_id' => $credentials['expense_sub_category_id'],
@@ -76,6 +77,41 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             return $data;
         }catch (Exception $e) {
             Log::error('ExpenseRepository::createExpense', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * agentsExpenseSum
+     * @param mixed $userId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentsExpenseSum(int $userId,  string $start, string $end)
+    {
+        try {
+            return Expense::whereUserId($userId)
+            ->whereBetween('created_at', [$start, $end])->sum('amount');
+        }catch (Exception $e) {
+            Log::error('ExpenseRepository::expenseSum', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * businessExpenseSum
+     * @param mixed $businessId
+     * @param string $start
+     * @param string $end
+     * @return mixed
+     */
+    public function businessExpenseSum(int $businessId, string $start, string $end)
+    {
+        try {
+            return Expense::whereBusinessId($businessId)
+            ->whereBetween('created_at', [$start, $end])->sum('amount');
+        }catch (Exception $e) {
+            Log::error('ExpenseRepository::expenseSum', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

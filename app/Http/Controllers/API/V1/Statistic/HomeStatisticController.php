@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1\Statistic;
 
 use App\Http\Controllers\Controller;
+use App\Services\API\V1\Expense\ExpenseService;
 use App\Services\API\V1\SalesTrack\SalesTrackService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -14,14 +15,16 @@ class HomeStatisticController extends Controller
 {
     use ApiResponse;
     protected SalesTrackService $salesTrackService;
+    protected ExpenseService $expenseService;
 
     /**
      * Summary of __construct
      * @param \App\Services\API\V1\SalesTrack\SalesTrackService $salesTrackService
      */
-    public function __construct(SalesTrackService $salesTrackService)
+    public function __construct(SalesTrackService $salesTrackService, ExpenseService $expenseService)
     {
         $this->salesTrackService = $salesTrackService;
+        $this->expenseService = $expenseService;
     }
 
 
@@ -54,6 +57,22 @@ class HomeStatisticController extends Controller
             return $this->success(200, 'Current Sales', $response);
         } catch(Exception $e) {
             Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::currentSales', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
+     * expenses
+     * @param string $filter
+     * @return JsonResponse
+     */
+    public function expenses(string $filter): JsonResponse
+    {
+        try {
+            $response = $this->expenseService->expenseStatistics($filter);
+            return $this->success(200, 'Current Sales', $response);
+        } catch(Exception $e) {
+            Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::expenses', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

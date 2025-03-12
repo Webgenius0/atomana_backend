@@ -18,6 +18,7 @@ class CreatePropertyResource extends JsonResource
 
         return [
             'id'                 => $data['id'],
+            'sku'                 => $data['sku'],
             'business_id'        => $data['business_id'],
             'agent'              => $data['agent'],
             'email'              => $data['email'],

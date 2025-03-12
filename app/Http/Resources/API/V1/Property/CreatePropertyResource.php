@@ -29,7 +29,7 @@ class CreatePropertyResource extends JsonResource
             'is_co_listing'      => $data['is_co_listing'],
             'co_agent'           => $data['co_agent'],
             'co_list_percentage' => $data['co_list_percentage'],
-            'source'             => $data['source'],
+            'property_source_id' => $data['property_source_id'],
         ];
     }
 }

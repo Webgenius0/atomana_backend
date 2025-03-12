@@ -50,17 +50,19 @@ class PropertyRepository implements PropertyRepositoryInterface
     {
         try {
             return Property::create([
-                'business_id' => $businessId,
-                'agent' => $userId,
-                'sku' => Helper::generateUniqueId('properties', 'sku'),
-                'email' => $credentials['email'],
-                'address' => $credentials['address'],
-                'price' => $credentials['price'],
-                'expiration_date' => $credentials['expiration_date'],
-                'development' => $credentials['development'],
-                'co_agent' => $credentials['co_agent'],
+                'business_id'        => $businessId,
+                'agent'              => $userId,
+                'sku'                => Helper::generateUniqueId('properties', 'sku'),
+                'email'              => $credentials['email'],
+                'address'            => $credentials['address'],
+                'price'              => $credentials['price'],
+                'expiration_date'    => $credentials['expiration_date'],
+                'is_development'     => $credentials['is_development'],
+                'add_to_website'     => $credentials['add_to_website'],
+                'is_co_listing'      => $credentials['is_co_listing'],
+                'co_agent'           => $credentials['co_agent'],
                 'co_list_percentage' => $credentials['co_list_percentage'],
-                'source' => $credentials['source'],
+                'property_source_id' => $credentials['property_source_id'],
             ]);
         } catch (Exception $e) {
             Log::error('PropertyRepository::createProperty', ['error' => $e->getMessage()]);

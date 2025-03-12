@@ -115,4 +115,13 @@ class Property extends Model
     {
         return $this->hasMany(OpenHouse::class);
     }
+
+    /**
+     * model belongs to source
+     * @return BelongsTo<PropertySource, Property>
+     */
+    public function source():BelongsTo
+    {
+        return $this->belongsTo(PropertySource::class);
+    }
 }

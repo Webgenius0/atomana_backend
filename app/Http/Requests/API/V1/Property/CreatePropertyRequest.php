@@ -35,9 +35,9 @@ class CreatePropertyRequest extends FormRequest
             'is_development'     => 'required|boolean',
             'add_to_website'     => 'nullable|boolean',
             'is_co_listing'      => 'required|boolean',
-            'co_agent'           => [new CoAgentNotAuthenticated, 'nullable'],
-            'co_list_percentage' => [new CoAgentPercentage, 'nullable'],
-            'property_source_id'          => 'required|exists:property_sources,id',
+            'co_agent'           => [new CoAgentNotAuthenticated],
+            'co_list_percentage' => [new CoAgentPercentage],
+            'property_source_id' => 'required|exists:property_sources,id',
         ];
     }
 

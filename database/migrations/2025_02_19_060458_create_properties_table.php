@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->date('expiration_date');
             $table->boolean('is_development')->default(false);
-            $table->boolean('add_to_website')->nullable();
+            $table->boolean('add_to_website')->default(false);
             $table->boolean('is_co_listing')->default(false);
             $table->unsignedBigInteger('co_agent')->nullable();
             $table->decimal('co_list_percentage', 5, 2)->nullable();;

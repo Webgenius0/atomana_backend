@@ -6,6 +6,7 @@ use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CoAgentNotAuthenticated implements ValidationRule
 {
@@ -16,9 +17,9 @@ class CoAgentNotAuthenticated implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $coAgent = request()->input('co_agent');
+        $coAgent = request()->input('is_co_listing');
 
-        if ($coAgent && is_null($value)) {
+        if ($coAgent == '1' && is_null($value)) {
             $fail('The :attribute is required when co_agent is provided.');
             return;
         }

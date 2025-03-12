@@ -28,15 +28,15 @@ class CreatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'              => 'required|email',
-            'address'            => 'required|string',
-            'price'              => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'expiration_date'    => 'required|date|after:today',
-            'development'        => 'required|boolean',
-            'co_agent'           => ['nullable', new CoAgentNotAuthenticated],
-            'co_list_percentage' => [
-                new CoAgentPercentage
-            ],
+            'email'              => 'required|email' ,
+            'address'            => 'required|string' ,
+            'price'              => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'] ,
+            'expiration_date'    => 'required|date|after:today' ,
+            'is_development'     => 'required|boolean' ,
+            'add_to_website'     => 'nullable|boolean' ,
+            'is_co_listing'      => 'required|boolean' ,
+            'co_agent'           => [new CoAgentNotAuthenticated, 'nullable'],
+            'co_list_percentage' => [new CoAgentPercentage, 'nullable'],
             'source'             => 'required|string',
         ];
     }

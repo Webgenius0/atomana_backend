@@ -17,7 +17,7 @@ class CoAgentPercentage implements ValidationRule
     {
         $coAgent = request()->input('co_agent');
 
-        if (!empty($coAgent) && is_null($value)) {
+        if ($coAgent && is_null($value)) {
             $fail('The :attribute is required when co_agent is provided.');
             return;
         }

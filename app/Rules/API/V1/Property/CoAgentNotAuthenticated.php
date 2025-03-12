@@ -16,10 +16,17 @@ class CoAgentNotAuthenticated implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        $coAgent = request()->input('co_agent');
+
+        if ($coAgent && is_null($value)) {
+            $fail('The :attribute is required when co_agent is provided.');
+            return;
+        }
+
         if ($value && $value == Auth::id()) {
             $fail('The co-agent cannot be the same as the authenticated user.');
         }
-        
+
         // Check if the co_agent exists in the users table
         if ($value && !User::find($value)) {
             $fail('The selected co-agent must be a valid user.');

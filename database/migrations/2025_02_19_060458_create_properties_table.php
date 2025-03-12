@@ -26,6 +26,7 @@ return new class extends Migration
             $table->unsignedBigInteger('co_agent')->nullable();
             $table->decimal('co_list_percentage', 5, 2)->nullable();;
             $table->foreignId('property_source_id')->nullable()->constrained('property_sources')->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
 

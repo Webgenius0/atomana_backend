@@ -27,7 +27,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * dropdown
+     * dropdown shwo properties
      * @return \Illuminate\Http\JsonResponse
      */
     public function dropdown(): JsonResponse

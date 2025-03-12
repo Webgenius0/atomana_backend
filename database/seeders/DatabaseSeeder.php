@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             RoleSeeder::class,
             SubCategorySeeder::class,
-
+            PropertySourceSeeder::class,
             UserSeeder::class,
         ]);
 

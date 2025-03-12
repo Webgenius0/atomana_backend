@@ -20,10 +20,12 @@ return new class extends Migration
             $table->string('address');
             $table->decimal('price');
             $table->date('expiration_date');
-            $table->boolean('development');
+            $table->boolean('is_development')->default(false);
+            $table->boolean('add_to_website')->nullable();
+            $table->boolean('is_co_listing')->default(false);
             $table->unsignedBigInteger('co_agent')->nullable();
             $table->decimal('co_list_percentage', 5, 2)->nullable();;
-            $table->string('source');
+            $table->foreignId('property_source_id')->nullable()->constrained('property_sources')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
 

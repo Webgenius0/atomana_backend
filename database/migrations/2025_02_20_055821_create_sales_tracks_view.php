@@ -23,7 +23,7 @@ return new class extends Migration
             properties.created_at,
             properties.price AS list_price,
             properties.expiration_date,
-            properties.source,
+            properties.property_source_id AS source,
 
             co_agent_user.first_name AS co_agent_first_name,
             co_agent_user.last_name AS co_agent_last_name,

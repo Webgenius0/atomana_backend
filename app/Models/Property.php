@@ -39,9 +39,12 @@ class Property extends Model
             'business_id'        => 'integer',
             'agent'              => 'integer',
             'price'              => 'float',
+            'is_development'     => 'boolean',
+            'add_to_website'     => 'boolean',
+            'is_co_listing'      => 'boolean',
             'co_agent'           => 'integer',
             'co_list_percentage' => 'float',
-            'development'        => 'boolean',
+            'property_source_id' => 'integer',
             'created_at'         => 'datetime',
             'updated_at'         => 'datetime',
         ];
@@ -111,7 +114,7 @@ class Property extends Model
      * Model may have many OpenHouse
      * @return HasMany<OpenHouse, Property>
      */
-    public function openHouses():HasMany
+    public function openHouses(): HasMany
     {
         return $this->hasMany(OpenHouse::class);
     }
@@ -120,7 +123,7 @@ class Property extends Model
      * model belongs to source
      * @return BelongsTo<PropertySource, Property>
      */
-    public function source():BelongsTo
+    public function source(): BelongsTo
     {
         return $this->belongsTo(PropertySource::class);
     }

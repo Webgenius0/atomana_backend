@@ -23,7 +23,8 @@ return new class extends Migration
             properties.created_at,
             properties.price AS list_price,
             properties.expiration_date,
-            properties.property_source_id AS source,
+
+            property_sources.name AS source,
 
             co_agent_user.first_name AS co_agent_first_name,
             co_agent_user.last_name AS co_agent_last_name,
@@ -47,6 +48,7 @@ return new class extends Migration
         FROM sales_tracks
         JOIN users ON users.id = sales_tracks.user_id
         JOIN properties ON properties.id = sales_tracks.property_id
+        JOIN property_sources ON property_sources.id = properties.property_source_id
 
         LEFT JOIN users AS agent_user ON agent_user.id = properties.agent
         LEFT JOIN users AS co_agent_user ON co_agent_user.id = properties.co_agent");

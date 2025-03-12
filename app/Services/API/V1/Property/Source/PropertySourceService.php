@@ -22,15 +22,15 @@ class PropertySourceService
 
 
     /**
-     * getDropdown
+     * getIndex
      * @return \Illuminate\Database\Eloquent\Collection<int, \App\Models\PropertySource>
      */
-    public function getDropdown(): Collection
+    public function getIndex(): Collection
     {
         try {
             return $this->propertySourceRepository->getSource();
         }catch (Exception $e) {
-            Log::error('App\Services\API\V1\Property\Source\PropertySourceService::getDropdown', ['error' => $e->getMessage()]);
+            Log::error('App\Services\API\V1\Property\Source\PropertySourceService::getIndex', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

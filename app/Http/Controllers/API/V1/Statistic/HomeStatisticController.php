@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Statistic;
 use App\Http\Controllers\Controller;
 use App\Services\API\V1\Expense\ExpenseService;
 use App\Services\API\V1\SalesTrack\SalesTrackService;
+use App\Services\API\V1\User\UserService;
 use App\Traits\V1\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -17,14 +18,16 @@ class HomeStatisticController extends Controller
     protected SalesTrackService $salesTrackService;
     protected ExpenseService $expenseService;
 
+    protected UserService $userService;
     /**
      * Summary of __construct
      * @param \App\Services\API\V1\SalesTrack\SalesTrackService $salesTrackService
      */
-    public function __construct(SalesTrackService $salesTrackService, ExpenseService $expenseService)
+    public function __construct(SalesTrackService $salesTrackService, ExpenseService $expenseService, UserService $userService)
     {
         $this->salesTrackService = $salesTrackService;
         $this->expenseService = $expenseService;
+        $this->userService = $userService;
     }
 
 
@@ -89,6 +92,25 @@ class HomeStatisticController extends Controller
             return $this->success(200, 'Net Profit', $response);
         } catch(Exception $e) {
             Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::expenses', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+
+
+        /**
+     * Summary of topAgents
+     * @param string $sortedBy
+     * @param string $filter
+     * @return JsonResponse
+     */
+    public function leaderboard(string $sortedBy, string $filter)
+    {
+        try {
+            $response = $this->userService->getTopAgents($sortedBy, $filter);
+            return $this->success(200, 'Top agents on leaderboard', $response);
+        }catch(Exception $e) {
+            Log::error('UserController::topAgents', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

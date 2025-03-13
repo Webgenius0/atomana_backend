@@ -58,4 +58,15 @@ class UserRepository implements UserRepositoryInterface
             throw $e;
         }
     }
+
+
+    public function fetchTopAgents(string $sortedBy, string $filter)
+    {
+        try {
+            return User::whereRoleId(2);
+        } catch (Exception $e) {
+            Log::error('UserRepository::fetchTopAgents', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

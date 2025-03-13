@@ -165,6 +165,7 @@ class ExpenseService extends ExpenseRepository
             $currentCount = null;
             $target = null;
             $percentage = null;
+            Log::info($currentDate);
             if ($filter == 'monthly') {
                 $startOfMonth = $this->getStartOfMonth($currentDate);
                 $endOfMonth = $currentDate->endOfMonth();
@@ -207,14 +208,63 @@ class ExpenseService extends ExpenseRepository
             $role = $this->user->role->slug;
             $response = null;
             if ($role == 'admin') {
-                $response = $this->agetnExpenseStatistics($filter);
+                $response = $this->adminNetProfitStatistics($filter);
             } else if ($role == 'agent') {
-                $response = $this->adminExpenseStatistics($filter);
+                $response = $this->agentNetProfitStatistics($filter);
             }
 
             return $response;
         } catch (Exception $e) {
             Log::error('ExpenseService::expenseStatistics', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+        /**
+     * adminNetProfitStatistics
+     * @param string $filter
+     * @return array{net profit: string, percentage: string, target: string}
+     */
+    public function adminNetProfitStatistics(string $filter)
+    {
+        try {
+            $currentDate = Carbon::now();
+            $currentNetProfit = null;
+            $target = null;
+            $percentage = null;
+            Log::info($currentDate);
+            if ($filter == 'monthly') {
+                $startOfMonth = $this->getStartOfMonth($currentDate);
+                $endOfMonth = $currentDate->endOfMonth();
+                $totalExpence = $this->expenseRepository->agentsExpenseSum($this->user->id, $startOfMonth, $endOfMonth);
+                $totalIncome = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $startOfMonth, $endOfMonth);
+                $currentNetProfit = $totalIncome - $totalExpence;
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'net_profit');
+            } else if ($filter == 'quarterly') {
+                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
+                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                $totalExpence = $this->expenseRepository->agentsExpenseSum($this->user->id, $quarterStart, $quarterEnd);
+                $totalIncome = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $quarterStart, $quarterEnd);
+                $currentNetProfit = $totalIncome - $totalExpence;
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'net_profit');
+            } else if ($filter == 'yearly') {
+                $yearStart = $this->getCurrentYearStartDate($currentDate);
+                $yearEnd = $this->getCurrentYearEndDate($currentDate);
+                $totalExpence = $this->expenseRepository->agentsExpenseSum($this->user->id, $yearStart, $yearEnd);
+                $totalIncome = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $yearStart, $yearEnd);
+                $currentNetProfit = $totalIncome - $totalExpence;
+                $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'net_profit');
+            }
+            if ($target) {
+                $percentage = ($currentNetProfit * 100) / $target;
+            }
+            return [
+                'target' => number_format((float) $target, 2),
+                'net profit' => number_format((float) $currentNetProfit, 2),
+                'percentage' => number_format((float) $percentage, 2),
+            ];
+        }catch (Exception $e) {
+            Log::error('ExpenseService::adminNetProfitStatistics', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
@@ -270,53 +320,4 @@ class ExpenseService extends ExpenseRepository
         }
     }
 
-
-    /**
-     * adminNetProfitStatistics
-     * @param string $filter
-     * @return array{net profit: string, percentage: string, target: string}
-     */
-    public function adminNetProfitStatistics(string $filter)
-    {
-        try {
-            $currentDate = Carbon::now();
-            $currentNetProfit = null;
-            $target = null;
-            $percentage = null;
-
-            if ($filter == 'monthly') {
-                $startOfMonth = $this->getStartOfMonth($currentDate);
-                $endOfMonth = $currentDate->endOfMonth();
-                $totalExpence = $this->expenseRepository->agentsExpenseSum($this->user->id, $startOfMonth, $endOfMonth);
-                $totalIncome = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $startOfMonth, $endOfMonth);
-                $currentNetProfit = $totalIncome - $totalExpence;
-                $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'net_profit');
-            } else if ($filter == 'quarterly') {
-                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
-                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
-                $totalExpence = $this->expenseRepository->agentsExpenseSum($this->user->id, $quarterStart, $quarterEnd);
-                $totalIncome = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $quarterStart, $quarterEnd);
-                $currentNetProfit = $totalIncome - $totalExpence;
-                $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'net_profit');
-            } else if ($filter == 'yearly') {
-                $yearStart = $this->getCurrentYearStartDate($currentDate);
-                $yearEnd = $this->getCurrentYearEndDate($currentDate);
-                $totalExpence = $this->expenseRepository->agentsExpenseSum($this->user->id, $yearStart, $yearEnd);
-                $totalIncome = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $yearStart, $yearEnd);
-                $currentNetProfit = $totalIncome - $totalExpence;
-                $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'net_profit');
-            }
-            if ($target) {
-                $percentage = ($currentNetProfit * 100) / $target;
-            }
-            return [
-                'target' => number_format((float) $target, 2),
-                'net profit' => number_format((float) $currentNetProfit, 2),
-                'percentage' => number_format((float) $percentage, 2),
-            ];
-        }catch (Exception $e) {
-            Log::error('ExpenseService::adminNetProfitStatistics', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
 }

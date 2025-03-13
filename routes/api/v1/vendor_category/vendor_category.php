@@ -7,6 +7,7 @@ Route::prefix('v1/vendor-category')->name('vendor-category.')->middleware(['auth
     Route::middleware(['authorized'])->controller(VendorCategoryController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::post('/store', 'store')->name('store');
+        Route::get('/single/{categorySlug}', 'show')->name('show');
     });
 });
 

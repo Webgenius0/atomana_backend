@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->date('month');
             $table->decimal('amount');
-            $table->enum('for',['current_sales', 'units_sold', 'expenses', 'gross_profit']);
+            $table->enum('for',['current_sales', 'units_sold', 'expenses', 'net_profit']);
             $table->timestamps();
             // indexing
             $table->unique(['user_id', 'month', 'for']);

@@ -76,4 +76,20 @@ class HomeStatisticController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
+
+    /**
+     * netProfit
+     * @param string $filter
+     * @return JsonResponse
+     */
+    public function netProfit(string $filter): JsonResponse
+    {
+        try {
+            $response = $this->expenseService->netProfitStatistics($filter);
+            return $this->success(200, 'Net Profit', $response);
+        } catch(Exception $e) {
+            Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::expenses', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
 }

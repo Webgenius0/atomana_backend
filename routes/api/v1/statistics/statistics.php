@@ -18,5 +18,7 @@ Route::prefix('v1/statistic')->name('statistic.')->middleware(['auth:api', 'veri
         Route::get('/expenses/{filter}', 'expenses')->name('expenses')
         ->where('filter', 'monthly|quarterly|yearly');
 
+        Route::get('/net-profit/{filter}', 'netProfit')->name('net.profit')
+        ->where('filter', 'monthly|quarterly|yearly');
     });
 });

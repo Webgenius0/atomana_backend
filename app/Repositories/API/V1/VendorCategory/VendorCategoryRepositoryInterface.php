@@ -16,17 +16,17 @@ interface VendorCategoryRepositoryInterface
 
     /**
      * Get vendor category by ID.
-     * @param int $categoryId
+     * @param string $categorySlug
      * @return VendorCategory
      */
-    public function getVendorCategoryById(int $categoryId): VendorCategory;
+    public function getVendorCategoryBySlug(string $categorySlug): VendorCategory;
 
     /**
      * Create a new vendor category.
-     * @param array $credentials
-     * @return VendorCategory
+     * @param array $categories
+     * @return mixed
      */
-    public function create(array $credentials): VendorCategory;
+    public function create(array $categories, int $businessId): mixed;
 
     /**
      * Update an existing vendor category.

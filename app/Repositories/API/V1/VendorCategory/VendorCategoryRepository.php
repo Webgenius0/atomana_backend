@@ -1,7 +1,8 @@
 <?php
-        
+
 namespace App\Repositories\API\V1\VendorCategory;
 
+use App\Helpers\Helper;
 use App\Models\VendorCategory;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +17,9 @@ class VendorCategoryRepository implements VendorCategoryRepositoryInterface
     public function getAllVendorCategories(int $perPage = 25)
     {
         try {
-            return VendorCategory::orderBy('id', 'desc')->paginate($perPage);
+            $categories = VendorCategory::select('id', 'name', 'icon', 'slug')->withCount('vendors')
+                ->latest()->get();
+            return $categories;
         } catch (Exception $e) {
             Log::error('VendorCategoryRepository::getAllVendorCategories', ['error' => $e->getMessage()]);
             throw $e;
@@ -25,13 +28,13 @@ class VendorCategoryRepository implements VendorCategoryRepositoryInterface
 
     /**
      * Get vendor category by ID
-     * @param int $categoryId
+     * @param string $categorySlug
      * @return VendorCategory
      */
-    public function getVendorCategoryById(int $categoryId): VendorCategory
+    public function getVendorCategoryBySlug(string $categorySlug): VendorCategory
     {
         try {
-            return VendorCategory::findOrFail($categoryId);
+             return VendorCategory::select('id', 'name', 'icon', 'slug')->where('slug', $categorySlug)->with('vendors:id,vendor_category_id,name,slug')->firstOrFail();
         } catch (Exception $e) {
             Log::error('VendorCategoryRepository::getVendorCategoryById', ['error' => $e->getMessage()]);
             throw $e;
@@ -40,16 +43,18 @@ class VendorCategoryRepository implements VendorCategoryRepositoryInterface
 
     /**
      * Create a new vendor category
-     * @param array $credentials
-     * @return VendorCategory
+     * @param array $categories
+     * @param int $businessId
+     * @return mixed
      */
-    public function create(array $credentials): VendorCategory
+    public function create(array $categories, int $businessId): mixed
     {
         try {
             return VendorCategory::create([
-                'name' => $credentials['name'],
-                'description' => $credentials['description'],
-                'status' => $credentials['status'],
+                'business_id' => $businessId,
+                'name' => $categories['name'],
+                'icon' => $categories['icon'],
+                'slug' => Helper::generateUniqueSlug($categories['name'], 'vendor_categories'),
             ]);
         } catch (Exception $e) {
             Log::error('VendorCategoryRepository::create', ['error' => $e->getMessage()]);

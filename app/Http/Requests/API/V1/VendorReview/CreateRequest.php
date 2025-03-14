@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 
 class CreateRequest extends FormRequest
 {
+    use ApiResponse;
     /**
      * Determine if the user is authorized to make this request.
      */

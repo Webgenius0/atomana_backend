@@ -32,10 +32,13 @@ class VendorCategoryService
         $this->vendorCategoryRepository = $vendorCategoryRepository;
     }
 
+ 
     /**
-     * get Vendor Category
+     * Get all vendor categories.
+     *
+     * @return mixed
      */
-    public function getVendorCategory()
+    public function getVendorCategory(): mixed
     {
         try {
             $perPage = request()->query('per_page', 25);

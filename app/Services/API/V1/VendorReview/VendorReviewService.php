@@ -14,13 +14,18 @@ class VendorReviewService
     use DateManager;
 
     public $user;
-    public $businessId;
     public $vendorReviewRepository;
 
+    /**
+     * Constructor
+     *
+     * @param VendorReviewRepositoryInterface $vendorReviewRepository
+     *
+     * @return void
+     */
     public function __construct(VendorReviewRepositoryInterface $vendorReviewRepository)
     {
         $this->user = Auth::user();
-        $this->businessId = Auth::user()->business()->id;
         $this->vendorReviewRepository = $vendorReviewRepository;
     }
     /**

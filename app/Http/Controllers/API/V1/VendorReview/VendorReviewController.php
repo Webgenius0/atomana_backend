@@ -8,6 +8,7 @@ use App\Services\API\V1\VendorReview\VendorReviewService;
 use App\Traits\V1\ApiResponse;
 use Exception;
 use GuzzleHttp\Promise\Create;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -27,7 +28,7 @@ class VendorReviewController extends Controller
      * @param  \App\Http\Requests\API\V1\VendorReview\CreateRequest  $createRequest
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateRequest $createRequest)
+    public function store(CreateRequest $createRequest): JsonResponse
     {
         try {
             $validatedData = $createRequest->validated();
@@ -39,7 +40,13 @@ class VendorReviewController extends Controller
         }
     }
 
-    public function show(string $vendorSlug)
+    /**
+     * Display the specified vendor review.
+     *
+     * @param string $vendorSlug Vendor slug.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(string $vendorSlug): JsonResponse
     {
         try {
             $response = $this->vendorReviewService->getReviewsByVendorSlug($vendorSlug);

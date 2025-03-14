@@ -32,7 +32,7 @@ class VendorController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         try {
             $response = $this->vendorService->getVendors();

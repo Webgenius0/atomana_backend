@@ -33,7 +33,14 @@ class VendorService
         $this->businessId = Auth::user()->business()->id;
         $this->vendorRepository = $vendorRepository;
     }
-    public function getVendors()
+    /**
+     * Retrieve a paginated list of vendors.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+
+    public function getVendors(): mixed
     {
         try {
             $perPage = request()->query('per_page', 25);
@@ -44,7 +51,14 @@ class VendorService
         }
     }
 
-    public function getVendorBySlug($VendorSlug)
+    /**
+     * Get vendor by slug.
+     *
+     * @param string $VendorSlug Vendor slug.
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getVendorBySlug(string $VendorSlug): mixed
     {
         try {
             return $this->vendorRepository->getVendorBySlug($VendorSlug);
@@ -54,7 +68,14 @@ class VendorService
         }
     }
 
-    public function storeVendor($validatedData)
+    /**
+     * Store a newly created vendor in storage.
+     *
+     * @param  array  $validatedData
+     * @return mixed
+     * @throws \Exception
+     */
+    public function storeVendor(array $validatedData): mixed
     {
         try {
             return $this->vendorRepository->storeVendor($validatedData, $this->businessId);

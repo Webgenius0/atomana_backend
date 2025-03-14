@@ -47,10 +47,19 @@ class VendorService
     public function getVendorBySlug($VendorSlug)
     {
         try {
-            dd($VendorSlug);
             return $this->vendorRepository->getVendorBySlug($VendorSlug);
         } catch (Exception $e) {
             Log::error('VendorService::getVendorBySlug', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    public function storeVendor($validatedData)
+    {
+        try {
+            return $this->vendorRepository->storeVendor($validatedData, $this->businessId);
+        } catch (Exception $e) {
+            Log::error('VendorService::storeVendor', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

@@ -58,7 +58,7 @@ class Vendor extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(VendorCategory::class);
+        return $this->belongsTo(VendorCategory::class, 'vendor_category_id');
     }
 
 

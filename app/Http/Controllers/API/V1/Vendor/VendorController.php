@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\API\V1\Vendor;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\V1\VendorCategory\CreateRequest;
+use App\Http\Requests\API\V1\Vendor\CreateRequest;
+use App\Http\Resources\API\V1\Vendor\VendorResource;
 use App\Services\API\V1\Vendor\VendorService;
 use App\Services\API\V1\VendorCategory\VendorCategoryService;
 use App\Traits\V1\ApiResponse;
@@ -26,11 +27,16 @@ class VendorController extends Controller
     {
         $this->vendorService = $vendorService;
     }
-    public function index(Request $request)
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
     {
         try {
-            $response = $this->vendorService->getVendors($request);
-            return $this->success(200, 'Vendors', $response);
+            $response = $this->vendorService->getVendors();
+            return $this->success(200, 'Vendors', VendorResource::collection($response));
         } catch (Exception $e) {
             Log::error('VendorController::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
@@ -48,9 +54,27 @@ class VendorController extends Controller
     {
         try {
             $response = $this->vendorService->getVendorBySlug($VendorSlug);
-            return $this->success(200, 'Vendor Details', $response);
+            return $this->success(200, 'Vendor Details', new VendorResource($response));
         } catch (Exception $e) {
             Log::error('VendorCategoryController::show', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Store a newly created vendor in storage.
+     *
+     * @param  \App\Http\Requests\API\V1\Vendor\CreateRequest  $createRequest
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(CreateRequest $createRequest): JsonResponse
+    {
+        try {
+            $validatedData = $createRequest->validated();
+            $response = $this->vendorService->storeVendor($validatedData);
+            return $this->success(201, 'Vendor Created Successfully', $response);
+        } catch (Exception $e) {
+            Log::error('VendorController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

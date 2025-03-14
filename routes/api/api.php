@@ -20,3 +20,4 @@ require 'v1/open_house/open_house.php';    // user open_hours
 require 'v1/statistics/statistics.php';    // statistics
 require 'v1/vendor_category/vendor_category.php';    // vendor_category
 require 'v1/vendor/vendor.php';    // vendor
+require 'v1/vendor_review/vendor_review.php';    // vendor_review

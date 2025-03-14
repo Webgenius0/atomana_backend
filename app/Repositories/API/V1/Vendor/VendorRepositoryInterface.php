@@ -11,4 +11,6 @@ interface VendorRepositoryInterface
     public function getVendorBySlug($VendorSlug);
 
     // public function storeVendor(array $vendor, $businessId, $vendorId);
+
+    public function storeVendor(array $vendor,int $businessId);
 }

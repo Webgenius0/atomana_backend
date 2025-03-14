@@ -34,8 +34,12 @@ use App\Repositories\API\V1\Target\TargetRepository;
 use App\Repositories\API\V1\Target\TargetRepositoryInterface;
 use App\Repositories\API\V1\User\UserRepository as UserRepo;
 use App\Repositories\API\V1\User\UserRepositoryInterface as UserRepoInter;
+use App\Repositories\API\V1\Vendor\VendorRepository;
+use App\Repositories\API\V1\Vendor\VendorRepositoryInterface;
 use App\Repositories\API\V1\VendorCategory\VendorCategoryRepository;
 use App\Repositories\API\V1\VendorCategory\VendorCategoryRepositoryInterface;
+use App\Repositories\API\V1\VendorReview\VendorReviewRepository;
+use App\Repositories\API\V1\VendorReview\VendorReviewRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -76,8 +80,14 @@ class AppServiceProvider extends ServiceProvider
         // open house
         $this->app->bind(OpenHouseRepositoryInterface::class, OpenHouseRepository::class);
 
+        // vendors category
+        $this->app->bind(VendorCategoryRepositoryInterface::class, VendorCategoryRepository::class);
+
         // vendors
-        $this->app->bind( VendorCategoryRepositoryInterface::class, VendorCategoryRepository::class);
+        $this->app->bind(VendorRepositoryInterface::class, VendorRepository::class);
+
+        // vendors review
+        $this->app->bind(VendorReviewRepositoryInterface::class, VendorReviewRepository::class);
 
         // target
         $this->app->bind(TargetRepositoryInterface::class, TargetRepository::class);

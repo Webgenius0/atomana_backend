@@ -41,7 +41,6 @@ return new class extends Migration
             sales_tracks.referral_fee_pct,
             sales_tracks.commission_on_sale,
             sales_tracks.note,
-            -- sales_tracks.close_date,
 
             sales_tracks.business_id
 

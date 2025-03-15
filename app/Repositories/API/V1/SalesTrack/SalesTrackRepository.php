@@ -251,7 +251,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
                 ->whereBetween('closing_date', [$start, $end])
                 ->groupBy('user_id')
                 ->orderByDesc('avg_purchase_price')
-                ->with(['user:id,first_name,last_name'])
+                ->with(['user:id,first_name,last_name,handle'])
                 ->limit(12)
                 ->get();
         } catch (Exception $e) {
@@ -279,7 +279,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
                 ->whereBetween('closing_date', [$start, $end])
                 ->groupBy('user_id')
                 ->orderByDesc('sum_purchase_price')
-                ->with(['user:id,first_name,last_name'])
+                ->with(['user:id,first_name,last_name,handle'])
                 ->limit(12)
                 ->get();
         } catch (Exception $e) {

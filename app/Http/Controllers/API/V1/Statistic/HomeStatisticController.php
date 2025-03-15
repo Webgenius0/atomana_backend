@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1\Statistic;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\V1\Statistic\LeaderboardResource;
 use App\Services\API\V1\Expense\ExpenseService;
 use App\Services\API\V1\SalesTrack\SalesTrackService;
 use App\Services\API\V1\User\UserService;
@@ -108,7 +109,8 @@ class HomeStatisticController extends Controller
     {
         try {
             $response = $this->salesTrackService->leaderboardAgents($sortedBy, $filter);
-            return $this->success(200, 'Top agents on leaderboard.', $response);
+            return $this->success(200, 'Top agents on leaderboard.', new LeaderboardResource($response));
+            // return $this->success(200, 'Top agents on leaderboard.', $response);
         } catch (Exception $e) {
             Log::error('UserController::topAgents', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

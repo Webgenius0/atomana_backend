@@ -95,45 +95,4 @@ interface SalesTrackRepositoryInterface
      */
     public function busnessColseSalesTrackCount(int $businessId, string $start, string $end);
 
-    /**
-     * businessAvgSalesPrice
-     * @param int $businessId
-     * @param string $start
-     * @param string $end
-     */
-    public function businessAvgSalesPrice(int $businessId, string $start, string $end);
-
-    /**
-     * businessVolumeSalesPrice
-     * @param int $businessId
-     * @param string $start
-     * @param string $end
-     */
-    public function businessVolumeSalesPrice(int $businessId, string $start, string $end);
-
-    /**
-     * businessPendingVolumePrice
-     * @param int $businessId
-     * @param string $start
-     * @param string $end
-     */
-    public function businessPendingVolumePrice(int $businessId, string $start, string $end);
-
-    /**
-     * businessActiveVolumePrice
-     * @param int $businessId
-     * @param string $start
-     * @param string $end
-     */
-    public function businessActiveVolumePrice(int $businessId, string $start, string $end);
-
-    /**
-     * businessAverageListPrice
-     * @param int $businessId
-     * @param string $start
-     * @param string $end
-     */
-    public function businessAverageListPrice(int $businessId, string $start, string $end);
-
-
 }

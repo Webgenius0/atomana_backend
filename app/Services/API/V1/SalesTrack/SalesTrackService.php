@@ -106,6 +106,59 @@ class SalesTrackService
         }
     }
 
+
+    /**
+     * avgSalesData
+     * @param string $filter
+     * @return array
+     */
+    public function agentSalesData(int $userId, string $filter): array
+    {
+        try {
+            $currentDate = Carbon::now();
+            $avgSales = null;
+            $volumeSales = null;
+            $pendingVolumeSales = null;
+            $activeVolumeSales = null;
+            $avgLisging = null;
+            if ($filter == 'monthly') {
+                $startOfMonth = $this->getStartOfMonth($currentDate);
+                $endOfMonth = $currentDate->endOfMonth();
+                $avgSales = $this->salesTrackRepository->agentAvgSalesPrice($userId, $startOfMonth, $endOfMonth);
+                $volumeSales = $this->salesTrackRepository->agentVolumeSalesPrice($userId, $startOfMonth, $endOfMonth);
+                $pendingVolumeSales = $this->salesTrackRepository->agentPendingVolumePrice($userId, $startOfMonth, $endOfMonth);
+                $activeVolumeSales = $this->salesTrackRepository->agentActiveVolumePrice($userId, $startOfMonth, $endOfMonth);
+                $avgLisging = $this->salesTrackRepository->agentAverageListPrice($userId, $startOfMonth, $endOfMonth);
+            } else if ($filter == 'quarterly') {
+                $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
+                $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                $avgSales = $this->salesTrackRepository->agentAvgSalesPrice($userId, $quarterStart, $quarterEnd);
+                $volumeSales = $this->salesTrackRepository->agentVolumeSalesPrice($userId, $quarterStart, $quarterEnd);
+                $pendingVolumeSales = $this->salesTrackRepository->agentPendingVolumePrice($userId, $quarterStart, $quarterEnd);
+                $activeVolumeSales = $this->salesTrackRepository->agentActiveVolumePrice($userId, $quarterStart, $quarterEnd);
+                $avgLisging = $this->salesTrackRepository->agentAverageListPrice($userId, $quarterStart, $quarterEnd);
+            } else if ($filter == 'yearly') {
+                $yearStart = $this->getCurrentYearStartDate($currentDate);
+                $yearEnd = $this->getCurrentYearEndDate($currentDate);
+                $avgSales = $this->salesTrackRepository->agentAvgSalesPrice($userId, $yearStart, $yearEnd);
+                $volumeSales = $this->salesTrackRepository->agentVolumeSalesPrice($userId, $yearStart, $yearEnd);
+                $pendingVolumeSales = $this->salesTrackRepository->agentPendingVolumePrice($userId, $yearStart, $yearEnd);
+                $activeVolumeSales = $this->salesTrackRepository->agentActiveVolumePrice($userId, $yearStart, $yearEnd);
+                $avgLisging = $this->salesTrackRepository->agentAverageListPrice($userId, $yearStart, $yearEnd);
+            }
+            return [
+                'avg_sales' => number_format((float) $avgSales, 2),
+                'volume_ales' => number_format((float) $volumeSales, 2),
+                'pending_volume_ales' => number_format((float) $pendingVolumeSales, 2),
+                'active_volume_ales' => number_format((float) $activeVolumeSales, 2),
+                'avg_lisging' => number_format((float) $avgLisging, 2),
+            ];
+        } catch (Exception $e) {
+            Log::error('SalesTrackService::avgSalesData', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
     /**
      * adminCurrentStatus
      * @param string $filter
@@ -164,17 +217,17 @@ class SalesTrackService
             if ($filter == 'monthly') {
                 $startOfMonth = $this->getStartOfMonth($currentDate);
                 $endOfMonth = $currentDate->endOfMonth();
-                $currentAmount = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $startOfMonth, $endOfMonth);
+                $currentAmount = $this->salesTrackRepository->agentAvgSalesPrice($this->user->id, $startOfMonth, $endOfMonth);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $startOfMonth, $endOfMonth, 'current_sales');
             } else if ($filter == 'quarterly') {
                 $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                 $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
-                $currentAmount = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $quarterStart, $quarterEnd);
+                $currentAmount = $this->salesTrackRepository->agentAvgSalesPrice($this->user->id, $quarterStart, $quarterEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $quarterStart, $quarterEnd, 'current_sales');
             } else if ($filter == 'yearly') {
                 $yearStart = $this->getCurrentYearStartDate($currentDate);
                 $yearEnd = $this->getCurrentYearEndDate($currentDate);
-                $currentAmount = $this->salesTrackRepository->agentColseSalesTrackTotalPurchasePriceByRange($this->user->id, $yearStart, $yearEnd);
+                $currentAmount = $this->salesTrackRepository->agentAvgSalesPrice($this->user->id, $yearStart, $yearEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'current_sales');
             }
             return [

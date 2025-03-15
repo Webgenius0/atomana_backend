@@ -41,7 +41,7 @@ class HomeStatisticController extends Controller
         try {
             $response = $this->salesTrackService->currentSalesStatistics($filter);
             return $this->success(200, 'Current Sales', $response);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::currentSales', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
@@ -58,7 +58,7 @@ class HomeStatisticController extends Controller
         try {
             $response = $this->salesTrackService->uniteSoldStatistics($filter);
             return $this->success(200, 'Current Sales', $response);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::currentSales', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
@@ -74,7 +74,7 @@ class HomeStatisticController extends Controller
         try {
             $response = $this->expenseService->expenseStatistics($filter);
             return $this->success(200, 'Current Sales', $response);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::expenses', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
@@ -90,7 +90,7 @@ class HomeStatisticController extends Controller
         try {
             $response = $this->expenseService->netProfitStatistics($filter);
             return $this->success(200, 'Net Profit', $response);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\Statistics\HomeStatisticController::expenses', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
@@ -98,19 +98,36 @@ class HomeStatisticController extends Controller
 
 
 
-        /**
+    /**
      * Summary of topAgents
      * @param string $sortedBy
      * @param string $filter
      * @return JsonResponse
      */
-    public function leaderboard(string $sortedBy, string $filter)
+    public function leaderboard(string $sortedBy, string $filter): JsonResponse
     {
         try {
             $response = $this->userService->getTopAgents($sortedBy, $filter);
-            return $this->success(200, 'Top agents on leaderboard', $response);
-        }catch(Exception $e) {
+            return $this->success(200, 'Top agents on leaderboard.', $response);
+        } catch (Exception $e) {
             Log::error('UserController::topAgents', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
+     * agentData
+     * @param int $userId
+     * @param string $filter
+     * @return JsonResponse
+     */
+    public function agentData(int $userId, string $filter): JsonResponse
+    {
+        try {
+            $response = $this->salesTrackService->agentSalesData($userId, $filter);
+            return $this->success(200, 'Agent sales data.', $response);
+        } catch (Exception $e) {
+            Log::error('UserController::agentData', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

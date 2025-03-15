@@ -25,7 +25,7 @@ return new class extends Migration
             $table->decimal('referral_fee_pct');
             $table->decimal('commission_on_sale');
             $table->longText('note');
-            $table->date('close_date')->nullable();
+            // $table->date('close_date')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

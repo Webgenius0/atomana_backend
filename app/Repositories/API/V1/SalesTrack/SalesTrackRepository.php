@@ -68,7 +68,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
         try {
             return SalesTrackView::where('user_id', $userId)
                 ->where('status', 'close')
-                ->whereBetween('close_date', [$start, $end])
+                ->whereBetween('closing_date', [$start, $end])
                 ->sum('purchase_price');
         } catch (Exception $e) {
             Log::error('SalesTrakeRepository::agentColseSalesTrackTotalPurchasePriceByRange', ['error' => $e->getMessage()]);
@@ -88,7 +88,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
         try {
             return SalesTrackView::where('user_id', $userId)
                 ->where('status', 'close')
-                ->whereBetween('close_date', [$start, $end])
+                ->whereBetween('closing_date', [$start, $end])
                 ->count();
         } catch (Exception $e) {
             Log::error('SalesTrackRepository::agentColseSalesTrackCount', ['error' => $e->getMessage()]);
@@ -108,7 +108,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
         try {
             return SalesTrackView::where('business_id', $businessId)
                 ->where('status', 'close')
-                ->whereBetween('close_date', [$start, $end])
+                ->whereBetween('closing_date', [$start, $end])
                 ->sum('purchase_price');
         } catch (Exception $e) {
             Log::error('SalesTrackRepository::busnessColseSalesTrackTotalPurchasePriceByRange', ['error' => $e->getMessage()]);
@@ -128,7 +128,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
         try {
             return SalesTrackView::where('business_id', $businessId)
             ->where('status', 'close')
-            ->whereBetween('close_date', [$start, $end])
+            ->whereBetween('closing_date', [$start, $end])
             ->count();
         } catch (Exception $e) {
             Log::error('SalesTrackRepository::busnessColseSalesTrackCount', ['error' => $e->getMessage()]);

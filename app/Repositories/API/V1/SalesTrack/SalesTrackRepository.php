@@ -99,43 +99,97 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
 
     /**
      * agentAvgSalesPrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentAvgSalesPrice(int $businessId, string $start, string $end) {}
+    public function agentAvgSalesPrice(int $userId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('user_id', $userId)
+                ->where('status', 'close')
+                ->whereBetween('closing_date', [$start, $end])
+                ->avg('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentAvgSalesPrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * agentVolumeSalesPrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentVolumeSalesPrice(int $businessId, string $start, string $end) {}
+    public function agentVolumeSalesPrice(int $userId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('user_id', $userId)
+                ->where('status', 'close')
+                ->whereBetween('closing_date', [$start, $end])
+                ->sum('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentVolumeSalesPrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * agentPendingVolumePrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentPendingVolumePrice(int $businessId, string $start, string $end) {}
+    public function agentPendingVolumePrice(int $userId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('user_id', $userId)
+                ->where('status', 'pending')
+                ->whereBetween('closing_date', [$start, $end])
+                ->sum('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentPendingVolumePrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * agentActiveVolumePrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentActiveVolumePrice(int $businessId, string $start, string $end) {}
+    public function agentActiveVolumePrice(int $userId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('user_id', $userId)
+                ->where('status', 'active')
+                ->whereBetween('closing_date', [$start, $end])
+                ->sum('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentActiveVolumePrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * agentAverageListPrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentAverageListPrice(int $businessId, string $start, string $end) {}
+    public function agentAverageListPrice(int $userId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('user_id', $userId)
+                ->whereBetween('closing_date', [$start, $end])
+                ->sum('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::agentAverageListPrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
 
     /**
@@ -183,7 +237,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
      * @param string $start
      * @param string $end
      */
-    public function businessAvgSalesPrice(int $businessId, string $start, string $end) {}
+    public function businessAvgSalesPrice(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)
+                ->where('status', 'close')
+                ->whereBetween('closing_date', [$start, $end])
+                ->avg('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::businessAvgSalesPrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * businessVolumeSalesPrice
@@ -191,7 +256,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
      * @param string $start
      * @param string $end
      */
-    public function businessVolumeSalesPrice(int $businessId, string $start, string $end) {}
+    public function businessVolumeSalesPrice(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)
+                ->where('status', 'close')
+                ->whereBetween('closing_date', [$start, $end])
+                ->sum('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::businessVolumeSalesPrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * businessPendingVolumePrice
@@ -199,7 +275,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
      * @param string $start
      * @param string $end
      */
-    public function businessPendingVolumePrice(int $businessId, string $start, string $end) {}
+    public function businessPendingVolumePrice(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)
+                ->where('status', 'pending')
+                ->whereBetween('closing_date', [$start, $end])
+                ->sum('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::businessPendingVolumePrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * businessActiveVolumePrice
@@ -207,7 +294,18 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
      * @param string $start
      * @param string $end
      */
-    public function businessActiveVolumePrice(int $businessId, string $start, string $end) {}
+    public function businessActiveVolumePrice(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)
+                ->where('status', 'active')
+                ->whereBetween('closing_date', [$start, $end])
+                ->sum('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::businessActiveVolumePrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * businessAverageListPrice
@@ -215,5 +313,15 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
      * @param string $start
      * @param string $end
      */
-    public function businessAverageListPrice(int $businessId, string $start, string $end) {}
+    public function businessAverageListPrice(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)
+                ->whereBetween('closing_date', [$start, $end])
+                ->sum('purchase_price');
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::businessAverageListPrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

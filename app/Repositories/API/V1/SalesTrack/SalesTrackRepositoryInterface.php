@@ -41,43 +41,43 @@ interface SalesTrackRepositoryInterface
 
     /**
      * agentAvgSalesPrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentAvgSalesPrice(int $businessId, string $start, string $end);
+    public function agentAvgSalesPrice(int $userId, string $start, string $end);
 
     /**
      * agentVolumeSalesPrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentVolumeSalesPrice(int $businessId, string $start, string $end);
+    public function agentVolumeSalesPrice(int $userId, string $start, string $end);
 
     /**
      * agentPendingVolumePrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentPendingVolumePrice(int $businessId, string $start, string $end);
+    public function agentPendingVolumePrice(int $userId, string $start, string $end);
 
     /**
      * agentActiveVolumePrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentActiveVolumePrice(int $businessId, string $start, string $end);
+    public function agentActiveVolumePrice(int $userId, string $start, string $end);
 
     /**
      * agentAverageListPrice
-     * @param int $businessId
+     * @param int $userId
      * @param string $start
      * @param string $end
      */
-    public function agentAverageListPrice(int $businessId, string $start, string $end);
+    public function agentAverageListPrice(int $userId, string $start, string $end);
 
     /**
      * busnessColseSalesTrackTotalPurchasePriceByRange

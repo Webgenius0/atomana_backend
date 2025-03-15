@@ -107,7 +107,7 @@ class HomeStatisticController extends Controller
     public function leaderboard(string $sortedBy, string $filter): JsonResponse
     {
         try {
-            $response = $this->userService->getTopAgents($sortedBy, $filter);
+            $response = $this->salesTrackService->leaderboardAgents($sortedBy, $filter);
             return $this->success(200, 'Top agents on leaderboard.', $response);
         } catch (Exception $e) {
             Log::error('UserController::topAgents', ['error' => $e->getMessage()]);

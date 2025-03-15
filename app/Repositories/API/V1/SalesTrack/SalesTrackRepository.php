@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Models\SalesTrack;
 use App\Models\SalesTrackView;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SalesTrackRepository implements SalesTrackRepositoryInterface
@@ -227,6 +228,62 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
                 ->count();
         } catch (Exception $e) {
             Log::error('SalesTrackRepository::busnessColseSalesTrackCount', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * topAgentsOfBusinessWithAvgPurchasePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
+     */
+    public function topAgentsOfBusinessWithAvgPurchasePrice(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrack::select(
+                'user_id',
+                DB::raw('ROUND(AVG(purchase_price), 2) as avg_purchase_price'),
+                DB::raw('COUNT(id) as total_sales')
+            )
+                ->where('business_id', $businessId)
+                ->whereBetween('closing_date', [$start, $end])
+                ->groupBy('user_id')
+                ->orderByDesc('avg_purchase_price')
+                ->with(['user:id,first_name,last_name'])
+                ->limit(12)
+                ->get();
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::topAgentsOfBusinessWithAvgPurchasePrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * topAgentsOfBusinessWithSumPurchasePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
+     */
+    public function topAgentsOfBusinessWithSumPurchasePrice(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrack::select(
+                'user_id',
+                DB::raw('ROUND(SUM(purchase_price), 2) as sum_purchase_price'),
+                DB::raw('COUNT(id) as count')
+            )
+                ->where('business_id', $businessId)
+                ->whereBetween('closing_date', [$start, $end])
+                ->groupBy('user_id')
+                ->orderByDesc('sum_purchase_price')
+                ->with(['user:id,first_name,last_name'])
+                ->limit(12)
+                ->get();
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository::topAgentsOfBusinessWithSumPurchasePrice', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

@@ -41,20 +41,4 @@ class UserService
             throw $e;
         }
     }
-
-
-    /**
-     * getTopAgents
-     * @param string $sortedBy
-     * @param string $filter
-     */
-    public function getTopAgents(string $sortedBy, string $filter)
-    {
-        try {
-            return [];
-        } catch(Exception $e) {
-            Log::error('UserService::getTopAgents', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
 }

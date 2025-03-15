@@ -25,7 +25,7 @@ Route::prefix('v1/statistic')->name('statistic.')->middleware(['auth:api', 'veri
             ->where('filter', 'monthly|quarterly|yearly');
 
         Route::get('/leaderboard/{sortedBy}/{filter}', 'leaderboard')->name('leaderboard')
-            ->where('sortedBy', 'highest_sales|highest_sold_volume')
+            ->where('sortedBy', 'highest-avg-sales|highest-sold-volume')
             ->where('filter', 'monthly|quarterly|yearly');
     });
 });

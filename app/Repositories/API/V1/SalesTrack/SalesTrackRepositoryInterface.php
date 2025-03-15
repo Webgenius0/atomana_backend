@@ -95,4 +95,20 @@ interface SalesTrackRepositoryInterface
      */
     public function busnessColseSalesTrackCount(int $businessId, string $start, string $end);
 
+    /**
+     * topAgentsOfBusinessWithAvgPurchasePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
+     */
+    public function topAgentsOfBusinessWithAvgPurchasePrice(int $businessId, string $start, string $end);
+    /**
+     * topAgentsOfBusinessWithSumPurchasePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
+     */
+    public function topAgentsOfBusinessWithSumPurchasePrice(int $businessId, string $start, string $end);
 }

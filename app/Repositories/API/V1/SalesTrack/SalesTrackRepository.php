@@ -98,6 +98,47 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
 
 
     /**
+     * agentAvgSalesPrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentAvgSalesPrice(int $businessId, string $start, string $end) {}
+
+    /**
+     * agentVolumeSalesPrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentVolumeSalesPrice(int $businessId, string $start, string $end) {}
+
+    /**
+     * agentPendingVolumePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentPendingVolumePrice(int $businessId, string $start, string $end) {}
+
+    /**
+     * agentActiveVolumePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentActiveVolumePrice(int $businessId, string $start, string $end) {}
+
+    /**
+     * agentAverageListPrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentAverageListPrice(int $businessId, string $start, string $end) {}
+
+
+    /**
      * busnessColseSalesTrackTotalPurchasePriceByRange
      * @param int $businessId
      * @param string $start
@@ -127,12 +168,52 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     {
         try {
             return SalesTrackView::where('business_id', $businessId)
-            ->where('status', 'close')
-            ->whereBetween('closing_date', [$start, $end])
-            ->count();
+                ->where('status', 'close')
+                ->whereBetween('closing_date', [$start, $end])
+                ->count();
         } catch (Exception $e) {
             Log::error('SalesTrackRepository::busnessColseSalesTrackCount', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
+
+    /**
+     * businessAvgSalesPrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function businessAvgSalesPrice(int $businessId, string $start, string $end) {}
+
+    /**
+     * businessVolumeSalesPrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function businessVolumeSalesPrice(int $businessId, string $start, string $end) {}
+
+    /**
+     * businessPendingVolumePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function businessPendingVolumePrice(int $businessId, string $start, string $end) {}
+
+    /**
+     * businessActiveVolumePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function businessActiveVolumePrice(int $businessId, string $start, string $end) {}
+
+    /**
+     * businessAverageListPrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     */
+    public function businessAverageListPrice(int $businessId, string $start, string $end) {}
 }

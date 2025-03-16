@@ -17,7 +17,7 @@ class OpenAIService
     }
 
 
-    public function chat($message, $model = 'gpt-3.5-turbo')
+    public function chat($message, $model = 'gpt-4-turbo')
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->apiKey,

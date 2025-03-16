@@ -5,7 +5,7 @@ namespace App\Http\Resources\API\V1\AI;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CreateChatResource extends JsonResource
+class CreateChatMessageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +17,10 @@ class CreateChatResource extends JsonResource
         $data = parent::toArray($request);
 
         return [
-            'id' => $data[0]['id'],
-            'user_id' => $data[0]['user_id'],
-            'name' => $data[0]['name'],
-            'chat_id' => $data[1]['id'],
-            'message' => $data[1]['message'],
-            'response' => $data[1]['response'],
+            'id' => $data['id'],
+            'my_a_i_id' => $data['my_a_i_id'],
+            'message' => $data['message'],
+            'response' => $data['response'],
         ];
     }
 }

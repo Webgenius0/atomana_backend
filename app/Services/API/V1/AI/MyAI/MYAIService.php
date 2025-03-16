@@ -49,11 +49,8 @@ class MyAIService
                 $newChat = $this->myAIRepository->createChat($this->user->id, substr($responseMessage, 0, 10). '...');
                 $message = $this->myAIMessageRepository->saveChat($newChat->id, $message, $responseMessage,);
                 return [
-                    'new_chat_id' => $newChat['id'],
-                    'new_chat_name' => $newChat['name'],
-                    'message_id' => $message['id'],
-                    'message' => $message['message'],
-                    'response' => $message['response'],
+                    $newChat,
+                    $message
                 ];
             }
             throw new Exception($response);

@@ -20,8 +20,8 @@ class MyAIService
 
     /**
      * construct
-     * @param \App\Repositories\API\V1\AI\MyAI\MYAIRepositoryInterface $myAIRepository
-     * @param \App\Repositories\API\V1\AI\MyAI\MYAIMessageRepositoryInterface $myAIMessageRepository
+     * @param \App\Repositories\API\V1\AI\MyAI\MyAIRepositoryInterface $myAIRepository
+     * @param \App\Repositories\API\V1\AI\MyAI\MyAIMessageRepositoryInterface $myAIMessageRepository
      * @param \App\Services\API\V1\AI\OpenAIService $openAIService
      */
     public function __construct(MyAIRepositoryInterface $myAIRepository, MyAIMessageRepositoryInterface $myAIMessageRepository, OpenAIService $openAIService)
@@ -30,6 +30,16 @@ class MyAIService
         $this->myAIMessageRepository = $myAIMessageRepository;
         $this->openAIService = $openAIService;
         $this->user = Auth::user();
+    }
+
+    public function getChat()
+    {
+        try {
+            return $this->myAIRepository->getChats($this->user->id);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::getMessageList', ['error' => $e->getMessage()]);
+            throw $e;
+        }
     }
 
     /**
@@ -85,17 +95,7 @@ class MyAIService
         }
     }
 
-
-    public function getMessageList()
-    {
-        try {
-        } catch (Exception $e) {
-            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::getMessageList', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
-
-    public function getMessageChat()
+    public function getChatMessages()
     {
         try {
         } catch (Exception $e) {

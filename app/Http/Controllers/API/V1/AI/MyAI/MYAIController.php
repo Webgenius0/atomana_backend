@@ -33,7 +33,8 @@ class MyAIController extends Controller
     public function index(): JsonResponse
     {
         try {
-            return $this->success(200, 'All Chats.');
+            $resource = $this->myaiService->getChat();
+            return $this->success(200, 'All Chats.', $resource);
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\AI\MyAIController::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());

@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Log;
 
 class OTPController extends Controller
 {
-    use ApiResponse;
-
     protected OTPService $otpService;
 
     /**

@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Log;
 
 class HomeStatisticController extends Controller
 {
-    use ApiResponse;
     protected SalesTrackService $salesTrackService;
     protected ExpenseService $expenseService;
 

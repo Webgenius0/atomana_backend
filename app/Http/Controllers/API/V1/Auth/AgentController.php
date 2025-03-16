@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class AgentController extends Controller
 {
-    use ApiResponse;
     private AgentService $agentService;
 
     public function __construct(AgentService $agentService)

@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
-    use ApiResponse;
     protected ProfileService $profileService;
 
     public function __construct(ProfileService $profileService)

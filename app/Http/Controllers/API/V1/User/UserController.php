@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    use ApiResponse;
     protected UserService $userService;
 
     /**

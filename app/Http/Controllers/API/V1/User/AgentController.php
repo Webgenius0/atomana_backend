@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class AgentController extends Controller
 {
-    use ApiResponse;
     protected AgentService $agentService;
 
     /**

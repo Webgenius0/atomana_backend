@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class PasswordController extends Controller
 {
-
-    use ApiResponse;
-
-
     protected PasswordService $passwordService;
 
     /**

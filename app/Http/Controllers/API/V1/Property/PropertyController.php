@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Log;
 
 class PropertyController extends Controller
 {
-    use ApiResponse;
     protected PropertyService $propertyService;
 
     /**

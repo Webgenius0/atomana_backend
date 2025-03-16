@@ -15,7 +15,6 @@ use Illuminate\Validation\ValidationException;
 
 class TargetController extends Controller
 {
-    use ApiResponse;
     protected TargetService $targetService;
     /**
      * construct

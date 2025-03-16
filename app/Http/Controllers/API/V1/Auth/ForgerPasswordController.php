@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Log;
 
 class ForgerPasswordController extends Controller
 {
-    use ApiResponse;
-
     protected ForgerPasswordService $forgerPasswordService;
 
 

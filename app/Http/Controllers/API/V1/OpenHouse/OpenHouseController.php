@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class OpenHouseController extends Controller
 {
-    use ApiResponse;
     protected OpenHouseService $openHouseService;
 
     public function __construct(OpenHouseService $openHouseService)

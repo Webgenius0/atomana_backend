@@ -2,15 +2,15 @@
 
 namespace App\Repositories\API\V1\AI\MyAI;
 
-interface MYAIRepositoryInterface
+interface MyAIRepositoryInterface
 {
     /**
      * createMessage
      * @param int $user_id
-     * @param array $credentials
+     * @param string $name
      * @return \App\Models\MyAI
      */
-    public function createMessage(int $user_id, array $credentials);
+    public function createMessage(int $user_id, string $name);
 
     /**
      * getMessage

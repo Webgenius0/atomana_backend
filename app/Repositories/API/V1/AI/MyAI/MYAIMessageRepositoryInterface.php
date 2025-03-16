@@ -2,7 +2,7 @@
 
 namespace App\Repositories\API\V1\AI\MyAI;
 
-interface MYAIMessageRepositoryInterface
+interface MyAIMessageRepositoryInterface
 {
     /**
      * saveChat

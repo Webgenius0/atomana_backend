@@ -6,7 +6,7 @@ use App\Models\MyAIMessage;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class MYAIMessageRepository implements MYAIMessageRepositoryInterface
+class MyAIMessageRepository implements MyAIMessageRepositoryInterface
 {
     /**
      * saveChat

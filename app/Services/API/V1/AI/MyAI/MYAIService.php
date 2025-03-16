@@ -2,17 +2,17 @@
 
 namespace App\Services\API\V1\AI\MyAI;
 
-use App\Repositories\API\V1\AI\MyAI\MYAIMessageRepositoryInterface;
-use App\Repositories\API\V1\AI\MyAI\MYAIRepositoryInterface;
+use App\Repositories\API\V1\AI\MyAI\MyAIMessageRepositoryInterface;
+use App\Repositories\API\V1\AI\MyAI\MyAIRepositoryInterface;
 use App\Services\API\V1\AI\OpenAIService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-class MYAIService
+class MyAIService
 {
-    protected MYAIRepositoryInterface $myAIRepository;
-    protected MYAIMessageRepositoryInterface $myAIMessageRepository;
+    protected MyAIRepositoryInterface $myAIRepository;
+    protected MyAIMessageRepositoryInterface $myAIMessageRepository;
     protected OpenAIService $openAIService;
     protected $user;
 
@@ -22,7 +22,7 @@ class MYAIService
      * @param \App\Repositories\API\V1\AI\MyAI\MYAIMessageRepositoryInterface $myAIMessageRepository
      * @param \App\Services\API\V1\AI\OpenAIService $openAIService
      */
-    public function __construct(MYAIRepositoryInterface $myAIRepository, MYAIMessageRepositoryInterface $myAIMessageRepository, OpenAIService $openAIService)
+    public function __construct(MyAIRepositoryInterface $myAIRepository, MyAIMessageRepositoryInterface $myAIMessageRepository, OpenAIService $openAIService)
     {
         $this->myAIRepository = $myAIRepository;
         $this->myAIMessageRepository = $myAIMessageRepository;
@@ -30,6 +30,12 @@ class MYAIService
         $this->user = Auth::user();
     }
 
+    /**
+     * createNewMessage
+     * @param string $message
+     * @throws Exception
+     * @return array{message: mixed, message_id: mixed, new_chat_id: mixed, new_chat_name: mixed, response: mixed}
+     */
     public function createNewMessage(string $message)
     {
         try {
@@ -37,7 +43,16 @@ class MYAIService
             if (isset($response['id']))
             {
                 $responseMessage = $response['choices'][0]['message']['content'];
-                
+
+                $newChat = $this->myAIRepository->createMessage($this->user->id, substr($responseMessage, 0, 10). '...');
+                $message = $this->myAIMessageRepository->saveChat($newChat->id, $message, $responseMessage,);
+                return [
+                    'new_chat_id' => $newChat['id'],
+                    'new_chat_name' => $newChat['name'],
+                    'message_id' => $message['id'],
+                    'message' => $message['message'],
+                    'response' => $message['response'],
+                ];
             }
             throw new Exception($response);
         } catch (Exception $e) {

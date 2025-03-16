@@ -40,11 +40,11 @@ class MyAIController extends Controller
     }
 
     /**
-     * create new chat
+     * storeChat
      * @param \App\Http\Requests\API\V1\AI\MessageRequest $messageRequest
      * @return JsonResponse
      */
-    public function store(MessageRequest $messageRequest)
+    public function storeChat(MessageRequest $messageRequest)
     {
         try {
             $validatedData = $messageRequest->validated();
@@ -52,7 +52,7 @@ class MyAIController extends Controller
             $response = $this->myaiService->createNewChat($message);
             return $this->success(200,'Chat created successfully.', $response);
         } catch (Exception $e) {
-            Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);
+            Log::error('App\Http\Controllers\API\V1\AI\MyAIController::storeChat', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());
         }
     }
@@ -68,9 +68,10 @@ class MyAIController extends Controller
     }
 
 
-    public function chat(MyAI $myAI): JsonResponse
+    public function message(MyAI $myAI): JsonResponse
     {
         try {
+
             return $this->success(200, 'All Chats.');
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);

@@ -11,7 +11,7 @@ interface MyAIMessageRepositoryInterface
      * @param string $response
      * @return \App\Models\MyAIMessage
      */
-    public function saveChat(int $MyAIId, string $message, string $response);
+    public function saveChat(int $myAIId, string $message, string $response);
 
     /**
      * getChets

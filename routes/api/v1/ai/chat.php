@@ -5,4 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/my-ai')->name('ai.')->controller(MyAIController::class)->group(function () {
     Route::post('/chat', 'storeChat')->name('chat');
+    Route::post('/chat/{myAI}', 'message')->name('chat.message');
 });

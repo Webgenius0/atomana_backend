@@ -15,11 +15,11 @@ class MyAIMessageRepository implements MyAIMessageRepositoryInterface
      * @param string $response
      * @return MyAIMessage
      */
-    public function saveChat(int $MyAIId, string $message, string $response)
+    public function saveChat(int $myAIId, string $message, string $response)
     {
         try {
             return MyAIMessage::create([
-                'my_a_i_id' => $MyAIId,
+                'my_a_i_id' => $myAIId,
                 'message' => $message,
                 'response' => $response,
             ]);

@@ -2,6 +2,8 @@
 
 namespace App\Services\API\V1\AI\MyAI;
 
+use App\Models\MyAI;
+use App\Models\MyAIMessage;
 use App\Repositories\API\V1\AI\MyAI\MyAIMessageRepositoryInterface;
 use App\Repositories\API\V1\AI\MyAI\MyAIRepositoryInterface;
 use App\Services\API\V1\AI\OpenAIService;
@@ -36,7 +38,7 @@ class MyAIService
      * @throws Exception
      * @return array{message: mixed, message_id: mixed, new_chat_id: mixed, new_chat_name: mixed, response: mixed}
      */
-    public function createNewChat(string $message)
+    public function createNewChat(string $message):array
     {
         try {
             $response = $this->openAIService->chat($message);
@@ -61,9 +63,25 @@ class MyAIService
         }
     }
 
-    public function saveChat()
+    /**
+     * saveChat
+     * @param \App\Models\MyAI $myAI
+     * @param string $message
+     * @throws \Exception
+     * @return MyAIMessage
+     */
+    public function saveChat(int $myAIId, string $message):MyAIMessage
     {
         try {
+            $response = $this->openAIService->chat($message);
+            if (isset($response['id']))
+            {
+                $responseMessage = $response['choices'][0]['message']['content'];
+
+                $message = $this->myAIMessageRepository->saveChat($myAIId, $message, $responseMessage,);
+                return $message;
+            }
+            throw new Exception($response);
         } catch (Exception $e) {
             Log::error('App\Services\API\V1\AI\MyAI\MYAIService::saveChat', ['error' => $e->getMessage()]);
             throw $e;

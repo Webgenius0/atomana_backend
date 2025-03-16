@@ -67,12 +67,19 @@ class MyAIController extends Controller
         }
     }
 
-
-    public function message(MyAI $myAI): JsonResponse
+    /**
+     * save message
+     * @param \App\Http\Requests\API\V1\AI\MessageRequest $messageRequest
+     * @param \App\Models\MyAI $myAI
+     * @return JsonResponse
+     */
+    public function message(MessageRequest $messageRequest,MyAI $myAI): JsonResponse
     {
         try {
-
-            return $this->success(200, 'All Chats.');
+            $validatedData = $messageRequest->validated();
+            $message = $validatedData['message'];
+            $response = $this->myaiService->saveChat($myAI->id, $message);
+            return $this->success(200, 'All Chats.', $response);
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());

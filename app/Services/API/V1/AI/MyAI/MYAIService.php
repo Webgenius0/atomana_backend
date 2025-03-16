@@ -32,6 +32,9 @@ class MyAIService
         $this->user = Auth::user();
     }
 
+    /**
+     * getChat
+     */
     public function getChat()
     {
         try {
@@ -71,6 +74,20 @@ class MyAIService
     }
 
     /**
+     * getChatMessages
+     * @param int $myAIId
+     */
+    public function getChatMessages(int $myAIId)
+    {
+        try {
+            return $this->myAIMessageRepository->getChets($myAIId);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::getMessageChat', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
      * saveChat
      * @param \App\Models\MyAI $myAI
      * @param string $message
@@ -91,16 +108,6 @@ class MyAIService
             throw new Exception($response);
         } catch (Exception $e) {
             Log::error('App\Services\API\V1\AI\MyAI\MYAIService::saveChat', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
-
-    public function getChatMessages(int $myAIId)
-    {
-        try {
-            return $this->myAIMessageRepository->getChets($myAIId);
-        } catch (Exception $e) {
-            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::getMessageChat', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

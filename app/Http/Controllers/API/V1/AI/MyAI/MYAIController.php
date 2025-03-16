@@ -29,7 +29,10 @@ class MyAIController extends Controller
         $this->myaiService = $myaiService;
     }
 
-
+    /**
+     * index
+     * @return JsonResponse
+     */
     public function index(): JsonResponse
     {
         try {
@@ -59,6 +62,11 @@ class MyAIController extends Controller
         }
     }
 
+    /**
+     * show
+     * @param \App\Models\MyAI $myAI
+     * @return JsonResponse
+     */
     public function show(MyAI $myAI): JsonResponse
     {
         try {

@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API\V1\AI\MyAI;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\AI\MessageRequest;
+use App\Http\Resources\API\V1\AI\CreateChatResource;
 use App\Models\MyAI;
 use App\Services\API\V1\AI\MyAI\MyAIService;
 use App\Services\API\V1\AI\OpenAIService;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class MyAIController extends Controller
@@ -79,7 +79,7 @@ class MyAIController extends Controller
             $validatedData = $messageRequest->validated();
             $message = $validatedData['message'];
             $response = $this->myaiService->saveChat($myAI->id, $message);
-            return $this->success(200, 'All Chats.', $response);
+            return $this->success(200, 'All Chats.', new CreateChatResource($response));
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());

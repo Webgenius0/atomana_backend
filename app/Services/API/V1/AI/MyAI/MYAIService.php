@@ -95,9 +95,10 @@ class MyAIService
         }
     }
 
-    public function getChatMessages()
+    public function getChatMessages(int $myAIId)
     {
         try {
+            return $this->myAIMessageRepository->getChets($myAIId);
         } catch (Exception $e) {
             Log::error('App\Services\API\V1\AI\MyAI\MYAIService::getMessageChat', ['error' => $e->getMessage()]);
             throw $e;

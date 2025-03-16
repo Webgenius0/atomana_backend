@@ -7,4 +7,5 @@ Route::prefix('v1/my-ai')->name('ai.')->controller(MyAIController::class)->group
     Route::get('/chat', 'index')->name('chat.index');
     Route::post('/chat', 'storeChat')->name('chat.store');
     Route::post('/chat/{myAI}', 'message')->name('chat.message.store');
+    Route::get('/chat/{myAI}', 'show')->name('chat.message.show');
 });

@@ -34,7 +34,7 @@ class MyAIRepository implements MyAIRepositoryInterface
     public function getChats(int $user_id)
     {
         try {
-            return MyAI::whereUserId($user_id)->get();
+            return MyAI::whereUserId($user_id)->latest()->get();
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\AI\MyAI\MYAIRepository::getChats', ['error' => $e->getMessage()]);
             throw $e;

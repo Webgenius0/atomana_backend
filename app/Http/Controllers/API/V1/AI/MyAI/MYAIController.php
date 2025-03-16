@@ -62,7 +62,8 @@ class MyAIController extends Controller
     public function show(MyAI $myAI): JsonResponse
     {
         try {
-            return $this->success(200, 'All Chats.');
+            $resource = $this->myaiService->getChatMessages($myAI->id);
+            return $this->success(200, 'All messages.', $resource);
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());

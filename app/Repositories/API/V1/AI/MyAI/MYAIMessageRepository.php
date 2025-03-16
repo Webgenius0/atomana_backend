@@ -36,7 +36,7 @@ class MyAIMessageRepository implements MyAIMessageRepositoryInterface
     public function getChets(int $MyAIId)
     {
         try {
-            return MyAIMessage::whereMyAIId($MyAIId)->get();
+            return MyAIMessage::select('id','message', 'response')->whereMyAIId($MyAIId)->latest()->paginate(10);
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\AI\MyAI\MYAIMessageRepository::getChets', ['error' => $e->getMessage()]);
             throw $e;

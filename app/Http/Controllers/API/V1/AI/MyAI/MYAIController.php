@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\API\V1\AI\MyAI;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\AI\MessageRequest;
 use App\Models\MyAI;
+use App\Services\API\V1\AI\MyAI\MYAIService;
+use App\Services\API\V1\AI\OpenAIService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,6 +14,21 @@ use Illuminate\Support\Facades\Log;
 
 class MYAIController extends Controller
 {
+    protected OpenAIService $openAIService;
+    protected MYAIService $myaiService;
+
+    /**
+     * construct
+     * @param \App\Services\API\V1\AI\OpenAIService $openAIService
+     * @param \App\Services\API\V1\AI\MyAI\MYAIService $myaiService
+     */
+    public function __construct(OpenAIService $openAIService, MYAIService $myaiService)
+    {
+        $this->openAIService = $openAIService;
+        $this->myaiService = $myaiService;
+    }
+
+
     public function index(): JsonResponse
     {
         try {
@@ -21,10 +39,12 @@ class MYAIController extends Controller
         }
     }
 
-    public function store(): JsonResponse
+    public function store(MessageRequest $messageRequest)
     {
         try {
-            return $this->success(200, 'All Chats.');
+            $validatedData = $messageRequest->validated();
+            $message = $validatedData['message'];
+            $this->myaiService->createNewMessage($message);
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());

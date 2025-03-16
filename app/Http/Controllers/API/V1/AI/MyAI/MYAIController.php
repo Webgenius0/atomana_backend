@@ -39,12 +39,18 @@ class MyAIController extends Controller
         }
     }
 
+    /**
+     * create new chat
+     * @param \App\Http\Requests\API\V1\AI\MessageRequest $messageRequest
+     * @return JsonResponse
+     */
     public function store(MessageRequest $messageRequest)
     {
         try {
             $validatedData = $messageRequest->validated();
             $message = $validatedData['message'];
-            $this->myaiService->createNewMessage($message);
+            $response = $this->myaiService->createNewChat($message);
+            return $this->success(200,'Chat created successfully.', $response);
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());

@@ -31,12 +31,12 @@ class MyAIService
     }
 
     /**
-     * createNewMessage
+     * createNewChat
      * @param string $message
      * @throws Exception
      * @return array{message: mixed, message_id: mixed, new_chat_id: mixed, new_chat_name: mixed, response: mixed}
      */
-    public function createNewMessage(string $message)
+    public function createNewChat(string $message)
     {
         try {
             $response = $this->openAIService->chat($message);
@@ -44,7 +44,7 @@ class MyAIService
             {
                 $responseMessage = $response['choices'][0]['message']['content'];
 
-                $newChat = $this->myAIRepository->createMessage($this->user->id, substr($responseMessage, 0, 10). '...');
+                $newChat = $this->myAIRepository->createChat($this->user->id, substr($responseMessage, 0, 10). '...');
                 $message = $this->myAIMessageRepository->saveChat($newChat->id, $message, $responseMessage,);
                 return [
                     'new_chat_id' => $newChat['id'],
@@ -56,7 +56,7 @@ class MyAIService
             }
             throw new Exception($response);
         } catch (Exception $e) {
-            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::createNewMessage', ['error' => $e->getMessage()]);
+            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::createNewChat', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

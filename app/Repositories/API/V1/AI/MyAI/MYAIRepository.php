@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Log;
 class MyAIRepository implements MyAIRepositoryInterface
 {
     /**
-     * createMessage
+     * createChat
      * @param int $user_id
      * @param string $name
      * @return MyAI
      */
-    public function createMessage(int $user_id, string $name)
+    public function createChat(int $user_id, string $name)
     {
         try {
             return MyAI::create([
@@ -22,21 +22,21 @@ class MyAIRepository implements MyAIRepositoryInterface
                 'name' => $name,
             ]);
         } catch (Exception $e) {
-            Log::error('App\Repositories\API\V1\AI\MyAI\MYAIRepository::createMessage', ['error' => $e->getMessage()]);
+            Log::error('App\Repositories\API\V1\AI\MyAI\MYAIRepository::createChat', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
 
     /**
-     * getMessage
+     * getChats
      * @param int $user_id
      */
-    public function getMessage(int $user_id)
+    public function getChats(int $user_id)
     {
         try {
             return MyAI::whereUserId($user_id)->get();
         } catch (Exception $e) {
-            Log::error('App\Repositories\API\V1\AI\MyAI\MYAIRepository::getMessage', ['error' => $e->getMessage()]);
+            Log::error('App\Repositories\API\V1\AI\MyAI\MYAIRepository::getChats', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

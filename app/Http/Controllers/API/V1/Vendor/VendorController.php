@@ -27,6 +27,7 @@ class VendorController extends Controller
     {
         $this->vendorService = $vendorService;
     }
+    
     /**
      * Display a listing of the resource.
      *

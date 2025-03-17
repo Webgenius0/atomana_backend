@@ -4,13 +4,34 @@ namespace App\Repositories\API\V1\Vendor;
 
 interface VendorRepositoryInterface
 {
-    public function getVendors(int $perPage = 25);
+    /**
+     * Get all vendor categories
+     * @param int $perPage
+     * @return mixed
+     */
+    public function getVendors(int $perPage = 25): mixed;
 
-    public function getVendorsByCategory($categoryId, int $perPage = 25);
+    /**
+     * Get all vendor categories
+     * @param int $perPage
+     * @return mixed
+     */
+    public function getVendorsByCategory($categoryId, int $perPage = 25): mixed;
 
-    public function getVendorBySlug($VendorSlug);
+    /**
+     * Get vendor by slug.
+     *
+     * @param string $VendorSlug Vendor slug.
+     * @return mixed
+     */
+    public function getVendorBySlug($VendorSlug): mixed;
 
-    // public function storeVendor(array $vendor, $businessId, $vendorId);
-
-    public function storeVendor(array $vendor,int $businessId);
+    /**
+     * Store a newly created vendor in storage.
+     *
+     * @param  array  $vendor
+     * @param  int  $businessId
+     * @return mixed
+     */
+    public function storeVendor(array $vendor, int $businessId): mixed;
 }

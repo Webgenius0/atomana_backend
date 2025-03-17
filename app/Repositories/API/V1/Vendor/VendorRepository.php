@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Log;
 
 class VendorRepository implements VendorRepositoryInterface
 {
-
     /**
      * Get all vendor categories
      * @param int $perPage
@@ -27,6 +26,7 @@ class VendorRepository implements VendorRepositoryInterface
             throw $e;
         }
     }
+
     /**
      * Get all vendor categories
      * @param int $perPage

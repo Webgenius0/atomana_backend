@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->longText('about');
-
+            $table->longText('additional_note')->nullable();
             $table->timestamps();
         });
     }

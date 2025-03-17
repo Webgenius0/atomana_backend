@@ -39,7 +39,6 @@ class VendorService
      * @return mixed
      * @throws \Exception
      */
-
     public function getVendors(): mixed
     {
         try {

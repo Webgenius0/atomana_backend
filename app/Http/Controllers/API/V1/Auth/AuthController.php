@@ -16,7 +16,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    use ApiResponse;
     protected AuthService $authService;
 
     /**

@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Log;
 
 class ExpenseSubCategoryController extends Controller
 {
-    use ApiResponse;
     protected ExpenseSubCategoryService $expenseSubCategoryService;
 
     /**

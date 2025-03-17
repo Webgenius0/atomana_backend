@@ -23,6 +23,68 @@ class ProfileService
     }
 
 
+    public function addressUpdateOperation()
+    {
+        try {
+            
+        }catch (Exception $e) {
+            Log::error('ProfileService::addressUpdateOperation', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    public function phoneUpdateOperation()
+    {
+        try {
+
+        }catch (Exception $e) {
+            Log::error('ProfileService::phoneUpdateOperation', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    public function birthdayUpdateOperation()
+    {
+        try {
+
+        }catch (Exception $e) {
+            Log::error('ProfileService::birthdayUpdateOperation', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    public function anniversaryHomeAddrressUpdateOperation()
+    {
+        try {
+
+        }catch (Exception $e) {
+            Log::error('ProfileService::anniversaryHomeAddrressUpdateOperation', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    public function socialMediaUpdateOperation()
+    {
+        try {
+
+        }catch (Exception $e) {
+            Log::error('ProfileService::socialMediaUpdateOperation', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    public function aboutUpdateOperation()
+    {
+        try {
+
+        }catch (Exception $e) {
+            Log::error('ProfileService::aboutUpdateOperation', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
     /**
      * getting the profile of the user based on the rold of the user
      *

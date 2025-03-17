@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Log;
 
 class SalesTrackController extends Controller
 {
-    use ApiResponse;
     protected SalesTrackService $salesTrackService;
 
     /**

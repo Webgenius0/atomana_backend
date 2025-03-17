@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class SocialLoginController extends Controller
 {
-    use ApiResponse;
     protected $socialLoginService;
 
     /**

@@ -4,6 +4,14 @@ namespace App\Providers;
 
 use App\Repositories\API\V1\Admin\AgentRepository;
 use App\Repositories\API\V1\Admin\AgentRepositoryInterface;
+use App\Repositories\API\V1\AI\MyAI\MyAIMessageRepository;
+use App\Repositories\API\V1\AI\MyAI\MyAIMessageRepositoryInterface;
+use App\Repositories\API\V1\AI\MyAI\MyAIRepository;
+use App\Repositories\API\V1\AI\MyAI\MyAIRepositoryInterface;
+use App\Repositories\API\V1\AI\MyPR\MyPRMessageRepository;
+use App\Repositories\API\V1\AI\MyPR\MyPRMessageRepositoryInterface;
+use App\Repositories\API\V1\AI\MyPR\MyPRRepository;
+use App\Repositories\API\V1\AI\MyPR\MyPRRepositoryInterface;
 use App\Repositories\API\V1\Auth\ForgetPasswordRepository;
 use App\Repositories\API\V1\Auth\ForgetPasswordRepositoryInterface;
 use App\Repositories\API\V1\Auth\OTPRepository;
@@ -92,6 +100,11 @@ class AppServiceProvider extends ServiceProvider
         // target
         $this->app->bind(TargetRepositoryInterface::class, TargetRepository::class);
 
+        // myai
+        $this->app->bind(MyAIRepositoryInterface::class, MyAIRepository::class);
+        $this->app->bind(MyAIMessageRepositoryInterface::class, MyAIMessageRepository::class);
+        $this->app->bind(MyPRRepositoryInterface::class, MyPRRepository::class);
+        $this->app->bind(MyPRMessageRepositoryInterface::class, MyPRMessageRepository::class);
     }
 
     /**

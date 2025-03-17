@@ -28,7 +28,7 @@ class StoreRequest extends FormRequest
         return [
             'month'  => 'required|date_format:Y-m',
             'amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'for'    => 'required|in:current_sales,units_sold,expenses,gross_profit',
+            'for'    => 'required|in:current_sales,units_sold,expenses,net_profit',
         ];
     }
 

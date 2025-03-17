@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentMethodController extends Controller
 {
-    use ApiResponse;
     protected PaymentMethodService $payemntMethodService;
 
     public function __construct(PaymentMethodService $payemntMethodService)

@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class PropertySourceController extends Controller
 {
-    use ApiResponse;
     protected  PropertySourceService $propertySourceService;
 
     /**

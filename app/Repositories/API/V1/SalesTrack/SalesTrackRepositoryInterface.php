@@ -40,6 +40,46 @@ interface SalesTrackRepositoryInterface
     public function agentColseSalesTrackCount(int $userId, string $start, string $end);
 
     /**
+     * agentAvgSalesPrice
+     * @param int $userId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentAvgSalesPrice(int $userId, string $start, string $end);
+
+    /**
+     * agentVolumeSalesPrice
+     * @param int $userId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentVolumeSalesPrice(int $userId, string $start, string $end);
+
+    /**
+     * agentPendingVolumePrice
+     * @param int $userId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentPendingVolumePrice(int $userId, string $start, string $end);
+
+    /**
+     * agentActiveVolumePrice
+     * @param int $userId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentActiveVolumePrice(int $userId, string $start, string $end);
+
+    /**
+     * agentAverageListPrice
+     * @param int $userId
+     * @param string $start
+     * @param string $end
+     */
+    public function agentAverageListPrice(int $userId, string $start, string $end);
+
+    /**
      * busnessColseSalesTrackTotalPurchasePriceByRange
      * @param int $businessId
      * @param string $start
@@ -55,4 +95,20 @@ interface SalesTrackRepositoryInterface
      */
     public function busnessColseSalesTrackCount(int $businessId, string $start, string $end);
 
+    /**
+     * topAgentsOfBusinessWithAvgPurchasePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
+     */
+    public function topAgentsOfBusinessWithAvgPurchasePrice(int $businessId, string $start, string $end);
+    /**
+     * topAgentsOfBusinessWithSumPurchasePrice
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
+     */
+    public function topAgentsOfBusinessWithSumPurchasePrice(int $businessId, string $start, string $end);
 }

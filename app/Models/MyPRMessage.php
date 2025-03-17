@@ -38,10 +38,10 @@ class MyPRMessage extends Model
     }
 
     /**
-     * myAi
+     * myAR
      * @return BelongsTo<MyAI, MyAIMessage>
      */
-    public function myAi():BelongsTo
+    public function myPR():BelongsTo
     {
         return $this->belongsTo(MyPR::class);
     }

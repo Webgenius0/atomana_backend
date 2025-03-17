@@ -41,7 +41,7 @@ class MyAIMessage extends Model
      * myAi
      * @return BelongsTo<MyAI, MyAIMessage>
      */
-    public function myAi():BelongsTo
+    public function myAI():BelongsTo
     {
         return $this->belongsTo(MyAI::class);
     }

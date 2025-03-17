@@ -8,16 +8,16 @@ interface MyPRMessageRepositoryInterface
 {
     /**
      * saveChat
-     * @param int $MyAIId
+     * @param int $myPRId
      * @param string $message
      * @param string $response
      * @return MyPRMessage
      */
-    public function saveChat(int $myAIId, string $message, string $response): MyPRMessage;
+    public function saveChat(int $myPRId, string $message, string $response): MyPRMessage;
 
     /**
      * getChets
-     * @param int $MyAIId
+     * @param int $myPRId
      */
-    public function getChets(int $MyAIId);
+    public function getChets(int $myPRId);
 }

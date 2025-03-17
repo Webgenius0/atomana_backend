@@ -10,16 +10,16 @@ class MyPRMessageRepository implements MyPRMessageRepositoryInterface
 {
     /**
      * saveChat
-     * @param int $MyAIId
+     * @param int $myPRId
      * @param string $message
      * @param string $response
      * @return MyPRMessage
      */
-    public function saveChat(int $myAIId, string $message, string $response): MyPRMessage
+    public function saveChat(int $myPRId, string $message, string $response): MyPRMessage
     {
         try {
             return MyPRMessage::create([
-                'my_a_i_id' => $myAIId,
+                'my_p_r_id' => $myPRId,
                 'message' => $message,
                 'response' => $response,
             ]);
@@ -31,12 +31,12 @@ class MyPRMessageRepository implements MyPRMessageRepositoryInterface
 
     /**
      * getChets
-     * @param int $MyAIId
+     * @param int $myPRId
      */
-    public function getChets(int $MyAIId)
+    public function getChets(int $myPRId)
     {
         try {
-            return MyPRMessage::select('id', 'message', 'response')->whereMyAIId($MyAIId)->latest()->paginate(10);
+            return MyPRMessage::select('id', 'message', 'response')->whereMyAIId($myPRId)->latest()->paginate(10);
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\AI\MyPR\MyPRMessageRepository::getChets', ['error' => $e->getMessage()]);
             throw $e;

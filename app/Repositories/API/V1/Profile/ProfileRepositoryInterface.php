@@ -21,4 +21,12 @@ interface ProfileRepositoryInterface
      * @return User
      */
     public function getAgentProfileData(int $userId);
+
+    /**
+     * updateAddress
+     * @param int $userId
+     * @param string $address
+     * @return void
+     */
+    public function updateAddress(int $userId, string $address);
 }

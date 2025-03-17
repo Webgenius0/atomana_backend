@@ -22,11 +22,15 @@ class ProfileService
         $this->user = Auth::user();
     }
 
-
-    public function addressUpdateOperation()
+    /**
+     * addressUpdateOperation
+     * @param mixed $address
+     * @return void
+     */
+    public function addressUpdateOperation($address)
     {
         try {
-            
+            $this->profileRepository->updateAddress($this->user->id, $address);
         }catch (Exception $e) {
             Log::error('ProfileService::addressUpdateOperation', ['error' => $e->getMessage()]);
             throw $e;

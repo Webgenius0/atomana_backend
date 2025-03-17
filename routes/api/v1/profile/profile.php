@@ -13,7 +13,7 @@ Route::prefix('v1/profile')->name('profile.')->middleware(['auth:api', 'verified
         Route::put('/address', 'address')->name('address');
         Route::put('/phone', 'phone')->name('phone');
         Route::put('/birthday', 'birthday')->name('birthday');
-        Route::put('/anniversary-home-addrress', 'anniversaryHomeAddrress')->name('anniversary.home.addrress');
+        Route::put('/anniversary-home-address', 'anniversaryHomeAddress')->name('anniversary.home.address');
         Route::put('/social-media', 'socialMedia')->name('social.media');
         Route::put('/about', 'about')->name('about');
     });

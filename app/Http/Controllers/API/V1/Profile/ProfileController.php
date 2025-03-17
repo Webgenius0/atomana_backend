@@ -87,7 +87,7 @@ class ProfileController extends Controller
      * update anniversaryHomeAddrress
      * @return JsonResponse
      */
-    public function anniversaryHomeAddrress(): JsonResponse
+    public function anniversaryHomeAddress(): JsonResponse
     {
         try {
             $this->profileService->anniversaryHomeAddrressUpdateOperation();

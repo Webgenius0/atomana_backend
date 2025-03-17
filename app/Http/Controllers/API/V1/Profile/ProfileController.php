@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\Profile\AddressRequest;
 use App\Http\Resources\API\V1\Profile\ShowProfileResource;
 use App\Services\API\V1\Profile\ProfileService;
 use App\Traits\V1\ApiResponse;
@@ -40,10 +41,11 @@ class ProfileController extends Controller
      * update address
      * @return JsonResponse
      */
-    public function address(): JsonResponse
+    public function address(AddressRequest $addressRequest): JsonResponse
     {
         try {
-            $this->profileService->addressUpdateOperation();
+            $validatedData = $addressRequest->validated();
+            $this->profileService->addressUpdateOperation($validatedData['address']);
             return $this->success(202	, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::address', ['error' => $e->getMessage()]);

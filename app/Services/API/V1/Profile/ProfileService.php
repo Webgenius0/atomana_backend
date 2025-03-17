@@ -27,7 +27,7 @@ class ProfileService
      * @param mixed $address
      * @return void
      */
-    public function addressUpdateOperation($address)
+    public function addressUpdateOperation(string $address)
     {
         try {
             $this->profileRepository->updateAddress($this->user->id, $address);

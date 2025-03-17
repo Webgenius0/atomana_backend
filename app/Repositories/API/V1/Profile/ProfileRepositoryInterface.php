@@ -29,4 +29,12 @@ interface ProfileRepositoryInterface
      * @return void
      */
     public function updateAddress(int $userId, string $address);
+
+    /**
+     * updateSocialMedia
+     * @param int $userId
+     * @param array $credentials
+     * @return void
+     */
+    public function updateSocialMedia(int $userId, array $credentials);
 }

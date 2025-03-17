@@ -67,4 +67,25 @@ class ProfileRepository implements ProfileRepositoryInterface
             throw $e;
         }
     }
+
+    /**
+     * updateSocialMedia
+     * @param int $userId
+     * @param array $credentials
+     * @return void
+     */
+    public function updateSocialMedia(int $userId, array $credentials)
+    {
+        try {
+            $profile = Profile::whereUserId($userId)->first();
+            $profile->facebook = $credentials['facebook'];
+            $profile->instagram = $credentials['instagram'];
+            $profile->twitter = $credentials['twitter'];
+            $profile->save();
+        }catch (Exception $e) {
+            Log::error('ProfileRepository::updateSocialMedia', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
 }

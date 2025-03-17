@@ -68,10 +68,10 @@ class ProfileService
         }
     }
 
-    public function socialMediaUpdateOperation()
+    public function socialMediaUpdateOperation(array $credentials)
     {
         try {
-
+            $this->profileRepository->updateSocialMedia($this->user->id, $credentials);
         }catch (Exception $e) {
             Log::error('ProfileService::socialMediaUpdateOperation', ['error' => $e->getMessage()]);
             throw $e;

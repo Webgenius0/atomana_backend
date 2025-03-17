@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Profile\AddressRequest;
+use App\Http\Requests\API\V1\Profile\SocialMediaRequest;
 use App\Http\Resources\API\V1\Profile\ShowProfileResource;
 use App\Services\API\V1\Profile\ProfileService;
 use App\Traits\V1\ApiResponse;
@@ -100,13 +101,16 @@ class ProfileController extends Controller
 
 
     /**
-     * update socialMedia
+     * socialMedia
+     * @param \App\Http\Requests\API\V1\Profile\SocialMediaRequest $socialMediaRequest
      * @return JsonResponse
      */
-    public function socialMedia(): JsonResponse
+    public function socialMedia(SocialMediaRequest $socialMediaRequest): JsonResponse
     {
         try {
-            $this->profileService->socialMediaUpdateOperation();
+            $validatedData = $socialMediaRequest->validated();
+            Log::info($validatedData);
+            $this->profileService->socialMediaUpdateOperation($validatedData);
             return $this->success(202	, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);

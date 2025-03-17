@@ -41,14 +41,7 @@ class AddressRequest extends FormRequest
         $errors = $validator->errors()->getMessages();
         $message = null;
         $fields = [
-            'business_id',
-            'email',
-            'property_id',
-            'date',
-            'start_time',
-            'end_time',
-            'wavy_man',
-            'sign_number',
+            'address',
         ];
 
         foreach ($fields as $field) {

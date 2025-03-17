@@ -15,17 +15,14 @@ use Illuminate\Support\Facades\Log;
 
 class MyAIController extends Controller
 {
-    protected OpenAIService $openAIService;
-    protected MyAIService $myaiService;
+        protected MyAIService $myaiService;
 
     /**
      * construct
-     * @param \App\Services\API\V1\AI\OpenAIService $openAIService
      * @param \App\Services\API\V1\AI\MyAI\MYAIService $myaiService
      */
-    public function __construct(OpenAIService $openAIService, MyAIService $myaiService)
+    public function __construct(MyAIService $myaiService)
     {
-        $this->openAIService = $openAIService;
         $this->myaiService = $myaiService;
     }
 
@@ -39,7 +36,7 @@ class MyAIController extends Controller
             $resource = $this->myaiService->getChat();
             return $this->success(200, 'All Chats.', $resource);
         } catch (Exception $e) {
-            Log::error('App\Http\Controllers\API\V1\AI\MyAIController::index', ['error' => $e->getMessage()]);
+            Log::error('App\Http\Controllers\API\V1\AI\MyAI\MyAIController::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());
         }
     }
@@ -57,7 +54,7 @@ class MyAIController extends Controller
             $response = $this->myaiService->createNewChat($message);
             return $this->success(200,'Chat created successfully.', new CreateChatResource($response));
         } catch (Exception $e) {
-            Log::error('App\Http\Controllers\API\V1\AI\MyAIController::storeChat', ['error' => $e->getMessage()]);
+            Log::error('App\Http\Controllers\API\V1\AI\MyAI\MyAIController::storeChat', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());
         }
     }
@@ -73,7 +70,7 @@ class MyAIController extends Controller
             $resource = $this->myaiService->getChatMessages($myAI->id);
             return $this->success(200, 'All messages.', $resource);
         } catch (Exception $e) {
-            Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);
+            Log::error('App\Http\Controllers\API\V1\AI\MyAI\MyAIController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());
         }
     }
@@ -92,7 +89,7 @@ class MyAIController extends Controller
             $response = $this->myaiService->saveChat($myAI->id, $message);
             return $this->success(200, 'All Chats.', new CreateChatMessageResource($response));
         } catch (Exception $e) {
-            Log::error('App\Http\Controllers\API\V1\AI\MyAIController::store', ['error' => $e->getMessage()]);
+            Log::error('App\Http\Controllers\API\V1\AI\MyAI\MyAIController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());
         }
     }

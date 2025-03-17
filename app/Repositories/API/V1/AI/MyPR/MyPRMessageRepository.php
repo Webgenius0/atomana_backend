@@ -36,7 +36,7 @@ class MyPRMessageRepository implements MyPRMessageRepositoryInterface
     public function getChets(int $myPRId)
     {
         try {
-            return MyPRMessage::select('id', 'message', 'response')->whereMyAIId($myPRId)->latest()->paginate(10);
+            return MyPRMessage::select('id', 'message', 'response')->whereMyPRId($myPRId)->latest()->paginate(10);
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\AI\MyPR\MyPRMessageRepository::getChets', ['error' => $e->getMessage()]);
             throw $e;

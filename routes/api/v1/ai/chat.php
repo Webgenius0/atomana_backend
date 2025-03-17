@@ -3,7 +3,14 @@
 use App\Http\Controllers\API\V1\AI\MyAI\MyAIController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1/my-ai')->name('ai.')->middleware('authorized')->controller(MyAIController::class)->group(function () {
+Route::prefix('v1/my-ai')->name('my.ai.')->middleware('authorized')->controller(MyAIController::class)->group(function () {
+    Route::get('/chat', 'index')->name('chat.index');
+    Route::post('/chat', 'storeChat')->name('chat.store');
+    Route::post('/chat/{myAI}', 'message')->name('chat.message.store');
+    Route::get('/chat/{myAI}', 'show')->name('chat.message.show');
+});
+
+Route::prefix('v1/my-ai')->name('my.ai.')->middleware('authorized')->controller(MyAIController::class)->group(function () {
     Route::get('/chat', 'index')->name('chat.index');
     Route::post('/chat', 'storeChat')->name('chat.store');
     Route::post('/chat/{myAI}', 'message')->name('chat.message.store');

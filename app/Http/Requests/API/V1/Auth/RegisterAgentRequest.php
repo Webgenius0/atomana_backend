@@ -27,11 +27,12 @@ class RegisterAgentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => "required|string",
-            'last_name'  => "required|string",
-            'email'      => "required|email|unique:users",
-            'password'   => "required|confirmed",
-            'business_id' => "required|exists:businesses,id"
+            'first_name'          => "required|string",
+            'last_name'           => "required|string",
+            'email'               => "required|email|unique:users",
+            'password'            => "required|confirmed",
+            'business_id'         => "required|exists:businesses,id",
+            'contract_year_start' => 'required|date',
         ];
     }
 
@@ -85,6 +86,7 @@ class RegisterAgentRequest extends FormRequest
         $emailErrors = $validator->errors()->get('email') ?? null;
         $passwordErrors = $validator->errors()->get('password') ?? null;
         $businessId = $validator->errors()->get('business_id') ?? null;
+        $businessId = $validator->errors()->get('contract_year_start') ?? null;
 
         if ($firstNameErrors) {
             $message = $firstNameErrors[0];

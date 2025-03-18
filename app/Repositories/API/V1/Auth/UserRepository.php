@@ -39,16 +39,21 @@ class UserRepository implements UserRepositoryInterface
                 'role_id'       => $role,
             ]);
             // creating user profile
-            $user->profile()->create([]);
-
-            if ($role == 2) {
+            if ($role == 1) {
+                $user->profile()->create([]);
+            } else if ($role == 2) {
                 $business = Business::create([
                     'licence' => $credentials['licence'],
                     'ecar_id' => $credentials['ecar_id'],
                 ]);
+
+                $user->profile()->create([]);
                 $user->businesses()->attach($business->id);
             } else if ($role == 3) {
                 $user->businesses()->attach($credentials['business_id']);
+                $user->profile()->create([
+                    'contract_year_start' => $credentials['contract_year_start'],
+                ]);
             }
 
             return $user;

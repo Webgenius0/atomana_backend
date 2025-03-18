@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
 
-            // $table->enum('gender', ['male', 'female', 'others'])->nullable();
-
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->text('spears_group_anniversary_home_address')->nullable();
@@ -28,6 +26,8 @@ return new class extends Migration
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
+
+            $table->date('contract_year_start');
 
             $table->timestamps();
         });

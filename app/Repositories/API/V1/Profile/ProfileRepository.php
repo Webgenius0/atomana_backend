@@ -62,7 +62,7 @@ class ProfileRepository implements ProfileRepositoryInterface
             $profile = Profile::whereUserId($userId)->first();
             $profile->address = $address;
             $profile->save();
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ProfileRepository::updateAddress', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -82,7 +82,7 @@ class ProfileRepository implements ProfileRepositoryInterface
             $profile->instagram = $credentials['instagram'];
             $profile->twitter = $credentials['twitter'];
             $profile->save();
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ProfileRepository::updateSocialMedia', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -100,7 +100,7 @@ class ProfileRepository implements ProfileRepositoryInterface
             $profile = Profile::whereUserId($userId)->first();
             $profile->date_of_birth = $date;
             $profile->save();
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ProfileRepository::updateBirthDay', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -118,7 +118,7 @@ class ProfileRepository implements ProfileRepositoryInterface
             $profile = Profile::whereUserId($userId)->first();
             $profile->spears_group_anniversary_home_address = $address;
             $profile->save();
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ProfileRepository::updateSpearsGroupAnniversaryHomeAddress', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -136,10 +136,28 @@ class ProfileRepository implements ProfileRepositoryInterface
             $profile = Profile::whereUserId($userId)->first();
             $profile->phone = $phone;
             $profile->save();
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ProfileRepository::updatePhone', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
 
+
+    /**
+     * updateBio
+     * @param int $userId
+     * @param string $phone
+     * @return void
+     */
+    public function updateBio(int $userId, string $bio)
+    {
+        try {
+            $profile = Profile::whereUserId($userId)->first();
+            $profile->bio = $bio;
+            $profile->save();
+        } catch (Exception $e) {
+            Log::error('ProfileRepository::updateBio', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

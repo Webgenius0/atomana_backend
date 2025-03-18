@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class PhoneRequest extends FormRequest
+class BioRequest extends FormRequest
 {
     use ApiResponse;
     /**
@@ -26,13 +26,9 @@ class PhoneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "phone" => [
-                "required", // Ensures phone is provided
-                "regex:/^\+1\(\d{3}\)\d{3}-\d{4}$/", // Format: +1 (XXX) XXX-XXXX
-            ],
+            "bio" => 'required|string',
         ];
     }
-
 
     /**
      * failedValidation
@@ -45,7 +41,7 @@ class PhoneRequest extends FormRequest
         $errors = $validator->errors()->getMessages();
         $message = null;
         $fields = [
-            'phone',
+            'bio',
         ];
 
         foreach ($fields as $field) {

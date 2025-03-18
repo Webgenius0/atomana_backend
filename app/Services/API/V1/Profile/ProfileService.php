@@ -95,10 +95,15 @@ class ProfileService
         }
     }
 
-    public function aboutUpdateOperation()
+    /**
+     * aboutUpdateOperation
+     * @param string $bio
+     * @return void
+     */
+    public function aboutUpdateOperation(string $bio)
     {
         try {
-
+            $this->profileRepository->updateBio($this->user->id, $bio);
         }catch (Exception $e) {
             Log::error('ProfileService::aboutUpdateOperation', ['error' => $e->getMessage()]);
             throw $e;

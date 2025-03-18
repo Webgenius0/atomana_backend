@@ -61,4 +61,12 @@ interface ProfileRepositoryInterface
      * @return void
      */
     public function updatePhone(int $userId, string $phone);
+
+    /**
+     * updateBio
+     * @param int $userId
+     * @param string $phone
+     * @return void
+     */
+    public function updateBio(int $userId, string $bio);
 }

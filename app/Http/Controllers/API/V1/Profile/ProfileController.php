@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Profile\AddressRequest;
+use App\Http\Requests\API\V1\Profile\BioRequest;
 use App\Http\Requests\API\V1\Profile\BirthdayRequest;
 use App\Http\Requests\API\V1\Profile\PhoneRequest;
 use App\Http\Requests\API\V1\Profile\SocialMediaRequest;
@@ -18,6 +19,10 @@ class ProfileController extends Controller
 {
     protected ProfileService $profileService;
 
+    /**
+     * construct
+     * @param \App\Services\API\V1\Profile\ProfileService $profileService
+     */
     public function __construct(ProfileService $profileService)
     {
         $this->profileService = $profileService;
@@ -126,10 +131,11 @@ class ProfileController extends Controller
      * update about
      * @return JsonResponse
      */
-    public function about(): JsonResponse
+    public function about(BioRequest $noteRequest): JsonResponse
     {
         try {
-            $this->profileService->aboutUpdateOperation();
+            $validatedData = $noteRequest->validated();
+            $this->profileService->aboutUpdateOperation($validatedData['bio']);
             return $this->success(202, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);

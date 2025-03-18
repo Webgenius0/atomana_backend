@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('buyer_seller')->nullable();
             $table->decimal('referral_fee_pct');
             $table->decimal('commission_on_sale');
+            $table->decimal('override_split')->default(0)->nullable();
             $table->longText('note');
 
             $table->softDeletes();

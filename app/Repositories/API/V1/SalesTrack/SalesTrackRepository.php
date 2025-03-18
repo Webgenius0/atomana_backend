@@ -50,6 +50,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
                 'buyer_seller' => $credentials['buyer_seller'],
                 'referral_fee_pct' => $credentials['referral_fee_pct'],
                 'commission_on_sale' => $credentials['commission_on_sale'],
+                'override_split' => $credentials['override_split'],
                 'note' => $credentials['note'],
             ]);
         } catch (Exception $e) {

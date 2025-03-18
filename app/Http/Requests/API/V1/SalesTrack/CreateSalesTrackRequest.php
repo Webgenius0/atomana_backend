@@ -31,6 +31,7 @@ class CreateSalesTrackRequest extends FormRequest
             'status'              => 'required|in:active,pending,close,expired',
             'date_under_contract' => 'required|date',
             'purchase_price'      => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'override_split'      => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0.01', 'max:100'],
             'closing_date'        => 'required|date',
             'buyer_seller'        => 'nullable|string',
             'referral_fee_pct'    => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
@@ -58,6 +59,10 @@ class CreateSalesTrackRequest extends FormRequest
             'purchase_price.required' => 'The referral fee percentage is required.',
             'purchase_price.numeric'  => 'The referral fee percentage must be a valid number.',
             'purchase_price.regex'    => 'The referral fee percentage format must be a valid number with no more than two decimal places.',
+
+            'override_split.required' => 'The referral fee override split is required.',
+            'override_split.numeric'  => 'The referral fee override split must be a valid number.',
+            'override_split.regex'    => 'The referral fee override split format must be a valid number with no more than two decimal places.',
 
             'closing_date.required' => 'The closing date  is required.',
             'closing_date.date'     => 'The closing date  must be a valid date.',

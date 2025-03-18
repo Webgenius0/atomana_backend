@@ -17,19 +17,20 @@ class CreateSalesTrackResource extends JsonResource
         $data = parent::toArray($request);
 
         return [
-            'id' => $data['id'],
-            'track_id' => $data['track_id'],
-            'user_id' => $data['user_id'],
-            'business_id' => $data['business_id'],
-            'property_id' => $data['property_id'],
-            'status' => $data['status'],
+            'id'                  => $data['id'],
+            'track_id'            => $data['track_id'],
+            'user_id'             => $data['user_id'],
+            'business_id'         => $data['business_id'],
+            'property_id'         => $data['property_id'],
+            'status'              => $data['status'],
             'date_under_contract' => $data['date_under_contract'],
-            'closing_date' => $data['closing_date'],
-            'purchase_price' => $data['purchase_price'],
-            'buyer_seller' => $data['buyer_seller'],
-            'referral_fee_pct' => $data['referral_fee_pct'],
-            'commission_on_sale' => $data['commission_on_sale'],
-            'note' => $data['note'],
+            'closing_date'        => $data['closing_date'],
+            'purchase_price'      => $data['purchase_price'],
+            'buyer_seller'        => $data['buyer_seller'],
+            'referral_fee_pct'    => $data['referral_fee_pct'],
+            'commission_on_sale'  => $data['commission_on_sale'],
+            'override_split'      => $data['override_split'],
+            'note'                => $data['note'],
         ];
     }
 }

@@ -60,10 +60,10 @@ class ProfileService
         }
     }
 
-    public function anniversaryHomeAddrressUpdateOperation()
+    public function anniversaryHomeAddrressUpdateOperation(string $address)
     {
         try {
-
+            $this->profileRepository->updateSpearsGroupAnniversaryHomeAddress($this->user->id, $address);
         }catch (Exception $e) {
             Log::error('ProfileService::anniversaryHomeAddrressUpdateOperation', ['error' => $e->getMessage()]);
             throw $e;

@@ -45,4 +45,12 @@ interface ProfileRepositoryInterface
      * @return void
      */
     public function updateBirthDay(int $userId, string $date);
+
+    /**
+     * updateSpearsGroupAnniversaryHomeAddress
+     * @param int $userId
+     * @param string $address
+     * @return void
+     */
+    public function updateSpearsGroupAnniversaryHomeAddress(int $userId, string $address);
 }

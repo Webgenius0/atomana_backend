@@ -89,10 +89,11 @@ class ProfileController extends Controller
      * update anniversaryHomeAddrress
      * @return JsonResponse
      */
-    public function anniversaryHomeAddress(): JsonResponse
+    public function anniversaryHomeAddress(AddressRequest $addressRequest): JsonResponse
     {
         try {
-            $this->profileService->anniversaryHomeAddrressUpdateOperation();
+            $validatedData = $addressRequest->validated();
+            $this->profileService->anniversaryHomeAddrressUpdateOperation($validatedData['address']);
             return $this->success(202	, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);

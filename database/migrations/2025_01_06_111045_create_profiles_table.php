@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
+            $table->text('spears_group_anniversary_home_address')->nullable();
 
             $table->date('date_of_birth')->nullable();
             $table->longText('bio')->nullable();

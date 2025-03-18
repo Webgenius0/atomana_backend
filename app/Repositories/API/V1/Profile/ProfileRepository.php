@@ -105,5 +105,22 @@ class ProfileRepository implements ProfileRepositoryInterface
             throw $e;
         }
     }
+    /**
+     * updateSpearsGroupAnniversaryHomeAddress
+     * @param int $userId
+     * @param string $address
+     * @return void
+     */
+    public function updateSpearsGroupAnniversaryHomeAddress(int $userId, string $address)
+    {
+        try {
+            $profile = Profile::whereUserId($userId)->first();
+            $profile->spears_group_anniversary_home_address = $address;
+            $profile->save();
+        }catch (Exception $e) {
+            Log::error('ProfileRepository::updateSpearsGroupAnniversaryHomeAddress', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
 }

@@ -24,7 +24,8 @@ return new class extends Migration
             $table->boolean('add_to_website')->default(false);
             $table->boolean('is_co_listing')->default(false);
             $table->unsignedBigInteger('co_agent')->nullable();
-            $table->decimal('co_list_percentage', 5, 2)->nullable();;
+            $table->decimal('commission_rate', 15, 2)->nullable();;
+            $table->decimal('co_list_percentage', 15, 2)->nullable();;
             $table->foreignId('property_source_id')->nullable()->constrained('property_sources')->nullOnDelete();
 
             $table->softDeletes();

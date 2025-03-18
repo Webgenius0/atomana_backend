@@ -69,6 +69,15 @@ class Property extends Model
     {
         return  number_format($value, 2, '.', '');
     }
+    /**
+     *  acccessor for CommissionRate Attribute
+     * @param mixed $value
+     * @return string
+     */
+    protected function getCommissionRateAttribute($value): string
+    {
+        return  number_format($value, 2, '.', '');
+    }
 
     // ------------------------------------
     // ------------------------------------

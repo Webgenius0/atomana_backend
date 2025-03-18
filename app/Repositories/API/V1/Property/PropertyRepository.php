@@ -59,6 +59,7 @@ class PropertyRepository implements PropertyRepositoryInterface
                 'expiration_date'    => $credentials['expiration_date'],
                 'is_development'     => $credentials['is_development'],
                 'add_to_website'     => $credentials['add_to_website'] ?? false,
+                'commission_rate'    => $credentials['commission_rate'],
                 'is_co_listing'      => $credentials['is_co_listing'],
                 'co_agent'           => $credentials['co_agent'],
                 'co_list_percentage' => $credentials['co_list_percentage'],

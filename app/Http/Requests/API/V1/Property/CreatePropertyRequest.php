@@ -34,6 +34,7 @@ class CreatePropertyRequest extends FormRequest
             'expiration_date'    => 'required|date|after:today',
             'is_development'     => 'required|boolean',
             'add_to_website'     => 'nullable|boolean',
+            'commission_rate'    => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'max:100', 'min:0.01'],
             'is_co_listing'      => 'required|boolean',
             'co_agent'           => [new CoAgentNotAuthenticated],
             'co_list_percentage' => [new CoAgentPercentage],
@@ -44,29 +45,35 @@ class CreatePropertyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required'                 => 'Please provide an email address.',
-            'email.email'                    => 'The email address must be in a valid email format.',
+            'email.required' => 'Please provide an email address.',
+            'email.email'    => 'The email address must be in a valid email format.',
 
-            'address.required'               => 'The address field cannot be empty.',
+            'address.required' => 'The address field cannot be empty.',
 
-            'price.required'                 => 'The price is required to complete this action.',
-            'price.numeric'                  => 'The price must be a numeric value.',
-            'price.regex'                    => 'The price must be a valid number with up to two decimal places.',
+            'price.required' => 'The price is required to complete this action.',
+            'price.numeric'  => 'The price must be a numeric value.',
+            'price.regex'    => 'The price must be a valid number with up to two decimal places.',
 
-            'expiration_date.required'       => 'The expiration date is required.',
-            'expiration_date.date'           => 'The expiration date must be in a valid date format.',
-            'expiration_date.after'          => 'The expiration date must be a future date.',
+            'commission_rate.required' => 'The commission rate is required to complete this action.',
+            'commission_rate.numeric'  => 'The commission rate must be a numeric value.',
+            'commission_rate.regex'    => 'The commission rate must be a valid number with up to two decimal places.',
+            'commission_rate.max'    => 'The commission rate must not exceed 100.',
+            'commission_rate.min'    => 'The commission rate must be at least 0.01.',
 
-            'development.required'           => 'Please specify if it is a development property.',
-            'development.boolean'            => 'The development field must be true or false.',
+            'expiration_date.required' => 'The expiration date is required.',
+            'expiration_date.date'     => 'The expiration date must be in a valid date format.',
+            'expiration_date.after'    => 'The expiration date must be a future date.',
 
-            'co_list_percentage.numeric'     => 'The co-listing percentage must be a numeric value.',
-            'co_list_percentage.regex'       => 'The co-listing percentage must be a valid number with up to two decimal places.',
-            'co_list_percentage.min'         => 'The co-listing percentage must be at least 0.',
-            'co_list_percentage.max'         => 'The co-listing percentage must not exceed 100.',
+            'development.required' => 'Please specify if it is a development property.',
+            'development.boolean'  => 'The development field must be true or false.',
 
-            'source.required'                => 'The source of the listing is required.',
-            'source.string'                  => 'The source must be a valid string.',
+            'co_list_percentage.numeric' => 'The co-listing percentage must be a numeric value.',
+            'co_list_percentage.regex'   => 'The co-listing percentage must be a valid number with up to two decimal places.',
+            'co_list_percentage.min'     => 'The co-listing percentage must be at least 0.',
+            'co_list_percentage.max'     => 'The co-listing percentage must not exceed 100.',
+
+            'source.required' => 'The source of the listing is required.',
+            'source.string'   => 'The source must be a valid string.',
         ];
     }
 

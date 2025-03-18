@@ -18,7 +18,7 @@ class CreatePropertyResource extends JsonResource
 
         return [
             'id'                 => $data['id'],
-            'sku'                 => $data['sku'],
+            'sku'                => $data['sku'],
             'business_id'        => $data['business_id'],
             'agent'              => $data['agent'],
             'email'              => $data['email'],
@@ -27,6 +27,7 @@ class CreatePropertyResource extends JsonResource
             'expiration_date'    => $data['expiration_date'],
             'is_development'     => $data['is_development'],
             'add_to_website'     => $data['add_to_website'],
+            'commission_rate'    => $data['commission_rate'],
             'is_co_listing'      => $data['is_co_listing'],
             'co_agent'           => $data['co_agent'],
             'co_list_percentage' => $data['co_list_percentage'],

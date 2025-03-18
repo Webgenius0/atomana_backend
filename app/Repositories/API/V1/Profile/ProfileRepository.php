@@ -88,4 +88,22 @@ class ProfileRepository implements ProfileRepositoryInterface
         }
     }
 
+    /**
+     * updateBirthDay
+     * @param int $userId
+     * @param string $date
+     * @return void
+     */
+    public function updateBirthDay(int $userId, string $date)
+    {
+        try {
+            $profile = Profile::whereUserId($userId)->first();
+            $profile->date_of_birth = $date;
+            $profile->save();
+        }catch (Exception $e) {
+            Log::error('ProfileRepository::updateBirthDay', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
 }

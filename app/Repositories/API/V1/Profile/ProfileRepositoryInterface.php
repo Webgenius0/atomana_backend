@@ -37,4 +37,12 @@ interface ProfileRepositoryInterface
      * @return void
      */
     public function updateSocialMedia(int $userId, array $credentials);
+
+    /**
+     * updateBirthDay
+     * @param int $userId
+     * @param string $date
+     * @return void
+     */
+    public function updateBirthDay(int $userId, string $date);
 }

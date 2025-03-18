@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API\V1\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Profile\AddressRequest;
+use App\Http\Requests\API\V1\Profile\BirthdayRequest;
 use App\Http\Requests\API\V1\Profile\SocialMediaRequest;
 use App\Http\Resources\API\V1\Profile\ShowProfileResource;
 use App\Services\API\V1\Profile\ProfileService;
-use App\Traits\V1\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -73,10 +73,11 @@ class ProfileController extends Controller
      * update birthday
      * @return JsonResponse
      */
-    public function birthday(): JsonResponse
+    public function birthday(BirthdayRequest $birthdayRequest): JsonResponse
     {
         try {
-            $this->profileService->birthdayUpdateOperation();
+            $validatedData = $birthdayRequest->validated();
+            $this->profileService->birthdayUpdateOperation($validatedData['date_of_birth']);
             return $this->success(202	, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);

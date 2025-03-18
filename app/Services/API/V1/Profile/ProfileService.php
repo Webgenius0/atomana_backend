@@ -3,6 +3,7 @@
 namespace App\Services\API\V1\Profile;
 
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -48,10 +49,11 @@ class ProfileService
         }
     }
 
-    public function birthdayUpdateOperation()
+    public function birthdayUpdateOperation(string $date)
     {
         try {
-
+            $formattedDate = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
+            $this->profileRepository->updateBirthDay($this->user->id, $formattedDate);
         }catch (Exception $e) {
             Log::error('ProfileService::birthdayUpdateOperation', ['error' => $e->getMessage()]);
             throw $e;

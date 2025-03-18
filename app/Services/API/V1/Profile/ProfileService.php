@@ -39,16 +39,21 @@ class ProfileService
     }
 
 
-    public function phoneUpdateOperation()
+    public function phoneUpdateOperation(string $phone)
     {
         try {
-
+            $this->profileRepository->updatePhone($this->user->id, $phone);
         }catch (Exception $e) {
             Log::error('ProfileService::phoneUpdateOperation', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
 
+    /**
+     * birthdayUpdateOperation
+     * @param string $date
+     * @return void
+     */
     public function birthdayUpdateOperation(string $date)
     {
         try {
@@ -60,6 +65,11 @@ class ProfileService
         }
     }
 
+    /**
+     * anniversaryHomeAddrressUpdateOperation
+     * @param string $address
+     * @return void
+     */
     public function anniversaryHomeAddrressUpdateOperation(string $address)
     {
         try {
@@ -70,6 +80,11 @@ class ProfileService
         }
     }
 
+    /**
+     * socialMediaUpdateOperation
+     * @param array $credentials
+     * @return void
+     */
     public function socialMediaUpdateOperation(array $credentials)
     {
         try {

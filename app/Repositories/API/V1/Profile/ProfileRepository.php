@@ -105,6 +105,7 @@ class ProfileRepository implements ProfileRepositoryInterface
             throw $e;
         }
     }
+
     /**
      * updateSpearsGroupAnniversaryHomeAddress
      * @param int $userId
@@ -119,6 +120,24 @@ class ProfileRepository implements ProfileRepositoryInterface
             $profile->save();
         }catch (Exception $e) {
             Log::error('ProfileRepository::updateSpearsGroupAnniversaryHomeAddress', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updatePhone
+     * @param int $userId
+     * @param string $phone
+     * @return void
+     */
+    public function updatePhone(int $userId, string $phone)
+    {
+        try {
+            $profile = Profile::whereUserId($userId)->first();
+            $profile->phone = $phone;
+            $profile->save();
+        }catch (Exception $e) {
+            Log::error('ProfileRepository::updatePhone', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

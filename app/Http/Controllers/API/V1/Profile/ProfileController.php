@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Profile\AddressRequest;
 use App\Http\Requests\API\V1\Profile\BirthdayRequest;
+use App\Http\Requests\API\V1\Profile\PhoneRequest;
 use App\Http\Requests\API\V1\Profile\SocialMediaRequest;
 use App\Http\Resources\API\V1\Profile\ShowProfileResource;
 use App\Services\API\V1\Profile\ProfileService;
@@ -47,7 +48,7 @@ class ProfileController extends Controller
         try {
             $validatedData = $addressRequest->validated();
             $this->profileService->addressUpdateOperation($validatedData['address']);
-            return $this->success(202	, 'updated successful');
+            return $this->success(202, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::address', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
@@ -58,11 +59,12 @@ class ProfileController extends Controller
      * update phone
      * @return JsonResponse
      */
-    public function phone(): JsonResponse
+    public function phone(PhoneRequest $phoneRequest): JsonResponse
     {
         try {
-            $this->profileService->phoneUpdateOperation();
-            return $this->success(202	, 'updated successful');
+            $validatedData = $phoneRequest->validated();
+            $this->profileService->phoneUpdateOperation($validatedData['phone']);
+            return $this->success(202, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
@@ -78,7 +80,7 @@ class ProfileController extends Controller
         try {
             $validatedData = $birthdayRequest->validated();
             $this->profileService->birthdayUpdateOperation($validatedData['date_of_birth']);
-            return $this->success(202	, 'updated successful');
+            return $this->success(202, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
@@ -94,7 +96,7 @@ class ProfileController extends Controller
         try {
             $validatedData = $addressRequest->validated();
             $this->profileService->anniversaryHomeAddrressUpdateOperation($validatedData['address']);
-            return $this->success(202	, 'updated successful');
+            return $this->success(202, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
@@ -113,7 +115,7 @@ class ProfileController extends Controller
             $validatedData = $socialMediaRequest->validated();
             Log::info($validatedData);
             $this->profileService->socialMediaUpdateOperation($validatedData);
-            return $this->success(202	, 'updated successful');
+            return $this->success(202, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
@@ -128,13 +130,10 @@ class ProfileController extends Controller
     {
         try {
             $this->profileService->aboutUpdateOperation();
-            return $this->success(202	, 'updated successful');
+            return $this->success(202, 'updated successful');
         } catch (Exception $e) {
             Log::error('ProfileController::phone', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-
-
-
 }

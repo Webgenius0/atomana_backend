@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
 
-            $table->date('contract_year_start');
+            $table->date('contract_year_start')->nullable();
 
             $table->timestamps();
         });

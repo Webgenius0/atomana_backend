@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             SubCategorySeeder::class,
             PropertySourceSeeder::class,
             UserSeeder::class,
+            TargetsTableSeeder::class,
+            PropertiesTableSeeder::class,
+            SalesTracksTableSeeder::class,
         ]);
 
     }

@@ -14,13 +14,17 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            CategorySeeder::class,
+            // metadata
+            ExpenseCategorySeeder::class,
             ExpenseForSeeder::class,
             PaymentMethodSeeder::class,
             RoleSeeder::class,
-            SubCategorySeeder::class,
+            ExpenseSubCategorySeeder::class,
+
+            // relational data
             PropertySourceSeeder::class,
             UserSeeder::class,
+            ExpensesTableSeeder::class,
             TargetsTableSeeder::class,
             PropertiesTableSeeder::class,
             SalesTracksTableSeeder::class,

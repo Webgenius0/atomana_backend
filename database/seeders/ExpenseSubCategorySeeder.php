@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Faker\Factory;
 use Illuminate\Support\Facades\DB;
 
-class SubCategorySeeder extends Seeder
+class ExpenseSubCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.

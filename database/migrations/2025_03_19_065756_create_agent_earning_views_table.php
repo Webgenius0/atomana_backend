@@ -16,14 +16,27 @@ return new class extends Migration
         DB::statement("
             CREATE VIEW agent_earning_views AS
             SELECT
+
                 sales_tracks.user_id,
+
+
                 sales_tracks.business_id,
+
+
                 COUNT(sales_tracks.id) AS sales_closed,
+
+
                 SUM(sales_tracks.purchase_price) AS closed_sales_total,
+
+
                 (SUM(sales_tracks.purchase_price) / (SELECT SUM(purchase_price) FROM sales_tracks WHERE status = 'close')) * 100 AS percentage_of_closed_deals,
+
+
                 TIMESTAMPDIFF(YEAR,
                     DATE_ADD(profiles.contract_year_start, INTERVAL MONTH(CURDATE()) - MONTH(profiles.contract_year_start) MONTH),
                     CURDATE()) AS current_contract_year,
+
+
                 ROUND(SUM(
                     CASE
                         WHEN sales_tracks.override_split IS NOT NULL THEN
@@ -32,10 +45,18 @@ return new class extends Migration
                             sales_tracks.commission_on_sale
                     END
                 ), 2) AS agent_commission_split,
+
+
                 ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100), 2) AS gross_commission_income,
+
+
                 ROUND((SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * 0.10), 2) AS brokers_cur,
+
+
                 ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) -
                     (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * 0.10), 2) AS net_commission,
+
+
                 ROUND(
                     (SUM(
                         CASE
@@ -48,6 +69,8 @@ return new class extends Migration
                     (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) -
                     (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * 0.10))), 2
                 ) AS net_income,
+
+
                 ROUND(
                     ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) -
                     (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * 0.10), 2)
@@ -64,6 +87,8 @@ return new class extends Migration
                     (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * 0.10))), 2)
                 ) AS group_gross_income,
 
+
+                
                 ROUND(
                     ROUND(
                         ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) -
@@ -82,6 +107,8 @@ return new class extends Migration
                     ) - COALESCE(SUM(sales_tracks.purchase_price * properties.co_list_percentage / 100), 0)
                     - COALESCE(SUM(sales_tracks.purchase_price * sales_tracks.override_split / 100), 0)
                 ) AS group_net_income
+
+
             FROM sales_tracks
             JOIN profiles ON sales_tracks.user_id = profiles.user_id
             LEFT JOIN properties ON sales_tracks.property_id = properties.id

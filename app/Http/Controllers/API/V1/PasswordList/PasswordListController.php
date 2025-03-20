@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1\PasswordList;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\PasswordList\CreateRequest;
 use App\Services\API\V1\PasswordList\PasswordListService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -20,10 +21,10 @@ class PasswordListController extends Controller
         $this->passwordListService = $passwordListService;
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
         try {
-            $response = $this->passwordListService->getAllPassword($request->all());
+            $response = $this->passwordListService->getAllPassword();
             return $this->success(200, 'Password lists faced successfully', $response);
         } catch (Exception $e) {
             Log::error($e);
@@ -31,11 +32,12 @@ class PasswordListController extends Controller
         }
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(CreateRequest $createRequest): JsonResponse
     {
         try {
-            $response = $this->passwordListService->createPassword($request->all());
-            return $this->success(200, 'Password lists faced successfully', $response);
+            $validatedData = $createRequest->validated();
+            $response = $this->passwordListService->createPassword($validatedData);
+            return $this->success(201, 'New password added to password lists ', $response);
         } catch (Exception $e) {
             Log::error($e);
             return $this->error(500, 'Server Error', $e->getMessage());

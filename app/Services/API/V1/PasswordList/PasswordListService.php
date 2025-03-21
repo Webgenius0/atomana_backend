@@ -18,7 +18,7 @@ class PasswordListService
     {
         $this->user = Auth::user();
         $this->businessId = Auth::user()->business()->id;
-        $this->$passwordListRepository = $passwordListRepository;
+        $this->passwordListRepository = $passwordListRepository;
     }
 
     public function getAllPassword(): mixed
@@ -37,8 +37,8 @@ class PasswordListService
     {
         try {
             $validatedData['business_id'] = $this->businessId;
-            $shortName = substr($validatedData['name'], 0, 10);
-            $validatedData['slug'] = Helper::generateUniqueSlug($shortName, 'password_lists');
+            $shortTitle = substr($validatedData['title'], 0, 5);
+            $validatedData['slug'] = Helper::makeSlug($shortTitle, 'password_lists');
             $passwordList = $this->passwordListRepository->createPassword($validatedData);
             return $passwordList;
         } catch (Exception $e) {
@@ -60,7 +60,7 @@ class PasswordListService
     }
 
 
-    public function deletePassword(string $passwordListSlug): mixed
+    public function deletePassword($passwordListSlug): mixed
     {
         try {
             $passwordList = $this->passwordListRepository->deletePassword($passwordListSlug);

@@ -8,5 +8,7 @@ Route::prefix('v1/password-list')->name('password-list.')->middleware(['auth:api
         Route::get('/', 'index')->name('index');
         Route::get('/single/{passwordListSlug}', 'show')->name('show');
         Route::post('/store', 'store')->name('store');
+        Route::post('/update/{passwordListSlug}', 'update')->name('update');
+        Route::delete('/delete/{passwordListSlug}', 'destroy')->name('delete');
     });
 });

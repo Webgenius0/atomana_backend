@@ -8,6 +8,8 @@ Route::prefix('v1/shared-note')->name('shared-note.')->middleware(['auth:api', '
         Route::get('/', 'index')->name('index');
         Route::get('/single/{sharedNoteSlug}', 'show')->name('show');
         Route::post('/store', 'store')->name('store');
+        Route::post('/update/{sharedNoteSlug}', 'update')->name('update');
+        Route::delete('/delete/{sharedNoteSlug}', 'destroy')->name('delete');
     });
 });
 

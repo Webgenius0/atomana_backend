@@ -11,7 +11,8 @@ class PasswordListRepository implements PasswordListRepositoryInterface
     public function getAllPassword(int $perPage = 25): mixed
     {
         try {
-            $passwordLists = PasswordList::select('id', 'business_id', 'title', 'website', 'user_name', 'password', 'email', 'notes', 'slug')->latest()->get();
+            $passwordLists = PasswordList::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'website', 'user_name', 'password', 'email', 'notes', 'slug')->latest()->get();
+
             return $passwordLists;
         } catch (Exception $e) {
             Log::error('PasswordListRepository::getAllPassword', ['error' => $e->getMessage()]);
@@ -22,7 +23,7 @@ class PasswordListRepository implements PasswordListRepositoryInterface
     public function getPassword(string $passwordListSlug): mixed
     {
         try {
-            $passwordList = PasswordList::select('id', 'business_id', 'title', 'website', 'user_name', 'password', 'email', 'notes', 'slug')->where('slug', $passwordListSlug)->firstOrFail();
+            $passwordList = PasswordList::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'website', 'user_name', 'password', 'email', 'notes', 'slug')->where('slug', $passwordListSlug)->firstOrFail();
             return $passwordList;
         } catch (Exception $e) {
             Log::error('PasswordListRepository::getPassword', ['error' => $e->getMessage()]);
@@ -43,7 +44,7 @@ class PasswordListRepository implements PasswordListRepositoryInterface
     public function updatePassword(array $validatedData, string $passwordListSlug): mixed
     {
         try {
-            $passwordList = PasswordList::where('slug', $passwordListSlug)->firstOrFail();
+            $passwordList = PasswordList::where('business_id', auth()->user()->business()->id)->where('slug', $passwordListSlug)->firstOrFail();
             $passwordList->update($validatedData);
             return $passwordList;
         } catch (Exception $e) {
@@ -55,9 +56,9 @@ class PasswordListRepository implements PasswordListRepositoryInterface
     public function deletePassword(string $passwordListSlug): mixed
     {
         try {
-            $passwordList = PasswordList::where('slug', $passwordListSlug)->firstOrFail();
+            $passwordList = PasswordList::where('business_id', auth()->user()->business()->id)->where('slug', $passwordListSlug)->firstOrFail();
             $passwordList->delete();
-            return $passwordList;
+            return true;
         } catch (Exception $e) {
             Log::error('PasswordListRepository::deletePassword', ['error' => $e->getMessage()]);
             throw $e;

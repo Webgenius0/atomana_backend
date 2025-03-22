@@ -24,9 +24,19 @@ return new class extends Migration
                 ytc.years_worked,
                 SUM(sales_tracks.purchase_price) AS dollars_on_closed_deals_ytd,
 
-                (user_data.user_total_purchase_price * 100) / business_data.business_total AS total_dollars_on_close_deal_percentage,
+                ROUND((user_data.user_total_purchase_price * 100) / business_data.business_total, 2) AS total_dollars_on_close_deal_percentage,
 
-                SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) AS agent_commission_split
+                ROUND(
+                    SUM(
+                        (sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100)
+                        - (
+                            CASE
+                                WHEN sales_tracks.override_split IS NOT NULL
+                                THEN ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * sales_tracks.override_split / 100)
+                                ELSE ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * profiles.total_commission_this_contract_year / 100)
+                            END
+                        )
+                    ), 2) AS agent_commission_split
 
             FROM sales_tracks
             JOIN profiles ON sales_tracks.user_id = profiles.user_id

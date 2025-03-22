@@ -42,6 +42,7 @@ return new class extends Migration
                 FROM profiles
             ) AS calculated ON sales_tracks.user_id = calculated.user_id
             WHERE sales_tracks.status = 'close'
+             AND sales_tracks.closing_date >= calculated.current_year_start
             GROUP BY sales_tracks.user_id, sales_tracks.business_id, profiles.contract_year_start, calculated.years_worked, calculated.current_year_start;
     ");
     }

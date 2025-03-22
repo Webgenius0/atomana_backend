@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('twitter')->nullable();
 
             $table->date('contract_year_start')->nullable();
+            $table->decimal('total_commission_this_contract_year')->nullable();
 
             $table->timestamps();
         });

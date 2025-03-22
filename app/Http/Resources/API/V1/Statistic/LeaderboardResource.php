@@ -19,6 +19,7 @@ class LeaderboardResource extends JsonResource
 
 
         $data = [];
+        Log::info($values);
 
         foreach ($values as $key => $value) {
             $data[] = [

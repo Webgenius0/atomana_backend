@@ -274,7 +274,7 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
             return SalesTrack::select(
                 'user_id',
                 DB::raw('ROUND(SUM(purchase_price), 2) as sum_purchase_price'),
-                DB::raw('COUNT(id) as count')
+                DB::raw('COUNT(id) as total_sales')
             )
                 ->where('business_id', $businessId)
                 ->whereBetween('closing_date', [$start, $end])

@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('DROP VIEW IF EXISTs agent_earning_views');
+        DB::statement('DROP VIEW IF EXISTS agent_earning_views');
         DB::statement("
         CREATE VIEW agent_earning_views AS
             SELECT
@@ -20,10 +20,15 @@ return new class extends Migration
                 sales_tracks.business_id,
                 COUNT(sales_tracks.id) AS sales_closed,
                 profiles.contract_year_start,
-                calculated.years_worked,
-                calculated.current_year_start
+                ytc.years_worked,
+                ytc.current_year_start,
+                SUM(sales_tracks.purchase_price) AS dollars_on_closed_deals_ytd,
+
+                (user_data.user_total_purchase_price * 100) / business_data.business_total AS total_dollars_on_close_deal_percentage
+
             FROM sales_tracks
             JOIN profiles ON sales_tracks.user_id = profiles.user_id
+
             JOIN (
                 SELECT
                     user_id,
@@ -40,10 +45,25 @@ return new class extends Migration
                             DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(contract_year_start), '-', DAY(contract_year_start)))
                     END AS current_year_start
                 FROM profiles
-            ) AS calculated ON sales_tracks.user_id = calculated.user_id
+            ) AS ytc ON sales_tracks.user_id = ytc.user_id
+
+            JOIN (
+               SELECT business_id, SUM(purchase_price) AS business_total
+                    FROM sales_tracks
+                    WHERE sales_tracks.status = 'close'
+                    GROUP BY business_id
+            ) AS business_data ON sales_tracks.business_id = business_data.business_id
+
+            JOIN (
+                SELECT user_id, SUM(purchase_price) AS user_total_purchase_price
+                    FROM sales_tracks
+                    WHERE sales_tracks.status = 'close'
+                    GROUP BY user_id
+            ) AS user_data ON sales_tracks.user_id = user_data.user_id
+
             WHERE sales_tracks.status = 'close'
-             AND sales_tracks.closing_date >= calculated.current_year_start
-            GROUP BY sales_tracks.user_id, sales_tracks.business_id, profiles.contract_year_start, calculated.years_worked, calculated.current_year_start;
+             AND sales_tracks.closing_date >= ytc.current_year_start
+            GROUP BY sales_tracks.user_id, sales_tracks.business_id, profiles.contract_year_start, ytc.years_worked, ytc.current_year_start;
     ");
     }
 
@@ -52,6 +72,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('DROP VIEW IF EXISTs agent_earning_views');
+        DB::statement('DROP VIEW IF EXISTS agent_earning_views');
     }
 };

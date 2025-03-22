@@ -86,9 +86,7 @@ return new class extends Migration
                             ELSE ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * profiles.total_commission_this_contract_year / 100)
                         END
                     )
-                ) * 100) / SUM(sales_tracks.purchase_price), 2) / 100) ,2)AS gross_net_income_ytd,
-
-
+                ) * 100) / SUM(sales_tracks.purchase_price), 2) / 100) ,2)AS gross_net_income_ytd
 
             FROM sales_tracks
             JOIN profiles ON sales_tracks.user_id = profiles.user_id
@@ -112,13 +110,10 @@ return new class extends Migration
             ) AS ytc ON sales_tracks.user_id = ytc.user_id
 
             JOIN (
-               SELECT
-                    business_id,
-                    SUM(purchase_price) AS business_total,
-
-                FROM sales_tracks
-                WHERE sales_tracks.status = 'close'
-                GROUP BY business_id
+               SELECT business_id, SUM(purchase_price) AS business_total
+                    FROM sales_tracks
+                    WHERE sales_tracks.status = 'close'
+                    GROUP BY business_id
             ) AS business_data ON sales_tracks.business_id = business_data.business_id
 
             JOIN (

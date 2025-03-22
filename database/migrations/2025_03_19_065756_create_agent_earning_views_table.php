@@ -20,11 +20,13 @@ return new class extends Migration
                 sales_tracks.business_id,
                 COUNT(sales_tracks.id) AS sales_closed,
                 profiles.contract_year_start,
-                ytc.years_worked,
                 ytc.current_year_start,
+                ytc.years_worked,
                 SUM(sales_tracks.purchase_price) AS dollars_on_closed_deals_ytd,
 
-                (user_data.user_total_purchase_price * 100) / business_data.business_total AS total_dollars_on_close_deal_percentage
+                (user_data.user_total_purchase_price * 100) / business_data.business_total AS total_dollars_on_close_deal_percentage,
+
+                SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) AS agent_commission_split
 
             FROM sales_tracks
             JOIN profiles ON sales_tracks.user_id = profiles.user_id

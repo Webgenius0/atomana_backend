@@ -100,6 +100,15 @@ class Business extends Model
     }
 
     /**
+     * model may have many tiers
+     * @return HasMany<Tier, Business>
+     */
+    public function tiers():HasMany
+    {
+        return $this->hasMany(Tier::class);
+    }
+
+    /**
      * owner
      * @return \Illuminate\Support\Collection<int|string, mixed>
      */

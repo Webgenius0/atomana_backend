@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tier extends Model
 {
@@ -40,5 +41,16 @@ class Tier extends Model
             'created_at'  => 'datetime',
             'updated_at'  => 'datetime',
         ];
+    }
+    // _____________________________
+    // _____________________________
+
+    /**
+     * belongs to business
+     * @return BelongsTo<Business, Tier>
+     */
+    public function business():BelongsTo
+    {
+        return $this->belongsTo(Business::class);
     }
 }

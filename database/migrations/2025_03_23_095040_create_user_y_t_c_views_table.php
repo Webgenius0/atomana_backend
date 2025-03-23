@@ -32,7 +32,7 @@ return new class extends Migration
                             DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(contract_year_start), '-', DAY(contract_year_start)))
                     END AS current_year_start
                 FROM profiles
-            )
+        ) AS ytc;
     ");
     }
 

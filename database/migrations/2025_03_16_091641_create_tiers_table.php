@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('tiers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('business_id')->constrained()->cascadeOnDelete();
-            $table->decimal('from');
-            $table->decimal('to');
-            $table->decimal('cut');
-            $table->decimal('diduct');
+            $table->decimal('from', 15, 2); // Increase precision
+            $table->decimal('to', 15, 2)->nullable(); // Allow null for open-ended tiers
+            $table->decimal('cut', 5, 2);
+            $table->decimal('diduct', 5, 2);
             $table->timestamps();
         });
     }

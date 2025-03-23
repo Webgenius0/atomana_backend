@@ -26,67 +26,14 @@ return new class extends Migration
 
                     ROUND((user_data.user_total_purchase_price * 100) / business_data.business_total, 2) AS total_dollars_on_close_deal_percentage,
 
-                    ROUND(
-                        SUM(
-                            (sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100)
-                            - (
-                                CASE
-                                    WHEN sales_tracks.override_split IS NOT NULL
-                                    THEN ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * sales_tracks.override_split / 100)
-                                    ELSE ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * profiles.total_commission_this_contract_year / 100)
-                                END
-                            )
-                        ), 2) AS agent_commission,
+                    
 
 
-                    ROUND((SUM(
-                        (sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100)
-                        - (
-                            CASE
-                                WHEN sales_tracks.override_split IS NOT NULL
-                                THEN ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * sales_tracks.override_split / 100)
-                                ELSE ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * profiles.total_commission_this_contract_year / 100)
-                            END
-                        )
-                    ) * 100) / SUM(sales_tracks.purchase_price), 2) AS agent_commission_split,
 
 
-                    ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale),2) AS gross_commission_income_ytd,
-
-                    ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale) * 0.10, 2) AS brokerage_cur_ytd,
-
-                    ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale)
-                    - (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale) * 0.10), 2) AS net_commission_ytd,
 
 
-                    ROUND((SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale)
-                    - (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale) * 0.10))
-                    * ROUND((SUM(
-                        (sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100)
-                        - (
-                            CASE
-                                WHEN sales_tracks.override_split IS NOT NULL
-                                THEN ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * sales_tracks.override_split / 100)
-                                ELSE ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * profiles.total_commission_this_contract_year / 100)
-                            END
-                        )
-                    ) * 100) / SUM(sales_tracks.purchase_price), 2) / 100) AS net_income_ytd,
 
-
-                    ROUND(ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale)
-                    - (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale) * 0.10), 2) -
-                    ROUND((SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale)
-                    - (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale) * 0.10))
-                    * ROUND((SUM(
-                        (sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100)
-                        - (
-                            CASE
-                                WHEN sales_tracks.override_split IS NOT NULL
-                                THEN ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * sales_tracks.override_split / 100)
-                                ELSE ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * profiles.total_commission_this_contract_year / 100)
-                            END
-                        )
-                    ) * 100) / SUM(sales_tracks.purchase_price), 2) / 100) ,2)AS gross_net_income_ytd
 
                 FROM sales_tracks
                 JOIN profiles ON sales_tracks.user_id = profiles.user_id

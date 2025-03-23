@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        DB::statement('DROP VIEW IF EXISTS agent_earning_veiws');
+        DB::statement("
+            CREATE VIEW agent_earning_veiws AS
+            SELECT
+                st.user_id,
+                st.business_id,
+                COUNT(st.id) AS sales_closed,
+                SUM(st.purchase_price) AS dollars_on_closed_deals_ytd,
+                ROUND((SUM(st.purchase_price) * 100) / (SELECT SUM(purchase_price) FROM sales_tracks WHERE status = 'close'), 2) AS percentage_total_dollars_on_close_deal,
+                ROUND(SUM(st.purchase_price * st.commission_on_sale), 2) AS gross_commission_income_ytd,
+                ROUND(SUM(st.purchase_price * st.commission_on_sale) * 0.10, 2) AS brokerage_cur_ytd,
+                ROUND(SUM(st.purchase_price * st.commission_on_sale) - (SUM(st.purchase_price * st.commission_on_sale) * 0.10), 2) AS net_commission_ytd
+            FROM sales_tracks st
+            JOIN user_y_t_c_views ytc ON st.user_id = ytc.user_id
+            WHERE st.status = 'close'
+            AND st.closing_date <= ytc.current_year_start
+            GROUP BY st.user_id, st.business_id;
+        ");
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        DB::statement('DROP VIEW IF EXISTS agent_earning_veiws');
+    }
+};

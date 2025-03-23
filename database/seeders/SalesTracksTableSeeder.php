@@ -29,7 +29,7 @@ class SalesTracksTableSeeder extends Seeder
                 'purchase_price' => number_format($faker->randomFloat(2, 10000, 1000000), 2, '.', ''),
                 'buyer_seller' => $faker->name,
                 'referral_fee_pct' => number_format($faker->randomFloat(2, 1, 10), 2, '.', ''),
-                'commission_on_sale' => number_format($faker->randomFloat(2, 30, 30), 2, '.', ''),
+                'commission_on_sale' => number_format($faker->randomFloat(2, 1, 5), 2, '.', ''),
                 'override_split' => number_format($faker->randomFloat(2, 0, 5), 2, '.', ''),
                 'note' => $faker->paragraph,
                 'created_at' => now(),

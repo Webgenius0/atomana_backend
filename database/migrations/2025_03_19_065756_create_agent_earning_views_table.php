@@ -17,37 +17,27 @@ return new class extends Migration
     CREATE VIEW agent_earning_views AS
         SELECT
             sales_tracks.user_id,
+
             sales_tracks.business_id,
+
             COUNT(sales_tracks.id) AS sales_closed,
+
             profiles.contract_year_start,
+
             ytc.current_year_start,
+
             ytc.years_worked,
+
             SUM(sales_tracks.purchase_price) AS dollars_on_closed_deals_ytd,
 
             ROUND((user_data.user_total_purchase_price * 100) / business_data.business_total, 2) AS total_dollars_on_close_deal_percentage,
 
-            ROUND(
-                SUM(
-                    (sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100)
-                    - (
-                        CASE
-                            WHEN sales_tracks.override_split IS NOT NULL
-                            THEN ((sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * sales_tracks.override_split / 100)
-                            ELSE
-                                -- Join the tiers table to check the business_id range and apply the deduction
-                                (
-                                    CASE
-                                        WHEN tiers.to IS NULL AND sales_tracks.purchase_price >= tiers.from
-                                        THEN (sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * tiers.deduct / 100
-                                        WHEN sales_tracks.purchase_price BETWEEN tiers.from AND tiers.to
-                                        THEN (sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * tiers.deduct / 100
-                                        ELSE 0
-                                    END
-                                )
-                        END
-                    )
-                ), 2) AS agent_commission
+            ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100),2) AS gross_commission_income_ytd,
 
+            ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * 0.10, 2) AS brokerage_cur_ytd,
+
+            ROUND(SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100)
+            - (SUM(sales_tracks.purchase_price * sales_tracks.commission_on_sale / 100) * 0.10), 2) AS net_commission_ytd
 
         FROM sales_tracks
 

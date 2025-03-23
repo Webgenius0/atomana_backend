@@ -42,6 +42,8 @@ use App\Repositories\API\V1\Target\TargetRepository;
 use App\Repositories\API\V1\Target\TargetRepositoryInterface;
 use App\Repositories\API\V1\User\UserRepository as UserRepo;
 use App\Repositories\API\V1\User\UserRepositoryInterface as UserRepoInter;
+use App\Repositories\API\V1\UserYTC\UserYTCRepository;
+use App\Repositories\API\V1\UserYTC\UserYTCRepositoryInterface;
 use App\Repositories\API\V1\Vendor\VendorRepository;
 use App\Repositories\API\V1\Vendor\VendorRepositoryInterface;
 use App\Repositories\API\V1\VendorCategory\VendorCategoryRepository;
@@ -105,6 +107,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MyAIMessageRepositoryInterface::class, MyAIMessageRepository::class);
         $this->app->bind(MyPRRepositoryInterface::class, MyPRRepository::class);
         $this->app->bind(MyPRMessageRepositoryInterface::class, MyPRMessageRepository::class);
+
+        // ytc
+        $this->app->bind(UserYTCRepositoryInterface::class, UserYTCRepository::class);
     }
 
     /**

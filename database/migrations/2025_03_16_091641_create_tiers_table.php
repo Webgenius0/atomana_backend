@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('from', 15, 2);
             $table->decimal('to', 15, 2)->nullable();
             $table->decimal('cut', 5, 2);
-            $table->decimal('diduct', 5, 2);
+            $table->decimal('deduct', 5, 2);
             $table->timestamps();
         });
     }

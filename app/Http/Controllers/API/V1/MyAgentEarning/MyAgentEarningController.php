@@ -23,6 +23,7 @@ class MyAgentEarningController extends Controller
     public function index()
     {
         try {
+            
         }catch (Exception $e){
             Log::error('App\Services\API\V1\MyAgentEarning\MyAgentEarningService::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

@@ -8,14 +8,13 @@ use App\Http\Resources\API\V1\AI\CreateChatMessageResource;
 use App\Http\Resources\API\V1\AI\CreateChatResource;
 use App\Models\MyAI;
 use App\Services\API\V1\AI\MyAI\MyAIService;
-use App\Services\API\V1\AI\OpenAIService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
 class MyAIController extends Controller
 {
-        protected MyAIService $myaiService;
+    protected MyAIService $myaiService;
 
     /**
      * construct

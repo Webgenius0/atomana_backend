@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Business extends Model
 {
@@ -115,5 +116,23 @@ class Business extends Model
     public function owner()
     {
         return $this->users()->where('role_id', 2)->pluck('user_id');
+    }
+
+    /**
+     * has many agentEarning
+     * @return HasMany<AgentEarningView, Business>
+     */
+    public function agentEarnings():HasMany
+    {
+        return $this->hasMany(AgentEarningView::class);
+    }
+
+    /**
+     * has one businessInfo
+     * @return HasOne<BusinessInfoView, Business>
+     */
+    public function businessInfo():HasOne
+    {
+        return $this->hasOne(BusinessInfoView::class);
     }
 }

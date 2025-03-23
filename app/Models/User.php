@@ -203,11 +203,20 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
-     * ytd
+     * has one ytd
      * @return HasOne<UserYTCView, User>
      */
     public function ytd():HasOne
     {
         return $this->hasOne(UserYTCView::class);
+    }
+
+    /**
+     * has one agentEarning
+     * @return HasOne<AgentEarningView, User>
+     */
+    public function agentEarning():HasOne
+    {
+        return $this->hasOne(AgentEarningView::class);
     }
 }

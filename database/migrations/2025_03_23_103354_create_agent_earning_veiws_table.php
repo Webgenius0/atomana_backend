@@ -40,7 +40,7 @@ return new class extends Migration
             WHERE st.status = 'close'
                 AND st.closing_date <= ytc.current_year_start
             GROUP BY st.user_id, st.business_id, ytc.current_year_start;
-                    ");
+        ");
     }
 
     /**

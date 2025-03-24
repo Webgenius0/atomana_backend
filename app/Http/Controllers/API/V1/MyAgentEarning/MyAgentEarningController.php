@@ -13,17 +13,24 @@ class MyAgentEarningController extends Controller
 {
     protected MyAgentEarningService $myAgentEarningService;
 
-
+    /**
+     * construct
+     * @param \App\Services\API\V1\MyAgentEarning\MyAgentEarningService $myAgentEarningService
+     */
     public function __construct(MyAgentEarningService $myAgentEarningService)
     {
         $this->myAgentEarningService = $myAgentEarningService;
     }
 
-
-    public function index()
+    /**
+     * index
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
     {
         try {
-            
+            $response =  $this->myAgentEarningService->businessAgentEarning();
+            return $this->success(200, 'Agents Earning', $response);
         }catch (Exception $e){
             Log::error('App\Services\API\V1\MyAgentEarning\MyAgentEarningService::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

@@ -11,7 +11,7 @@ class PasswordListRepository implements PasswordListRepositoryInterface
     public function getAllPassword(int $perPage = 25): mixed
     {
         try {
-            $passwordLists = PasswordList::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'website', 'user_name', 'password', 'email', 'notes', 'slug')->latest()->get();
+            $passwordLists = PasswordList::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'website', 'user_name', 'password', 'email', 'notes', 'slug','updated_at')->latest()->get();
 
             return $passwordLists;
         } catch (Exception $e) {
@@ -23,7 +23,7 @@ class PasswordListRepository implements PasswordListRepositoryInterface
     public function getPassword(string $passwordListSlug): mixed
     {
         try {
-            $passwordList = PasswordList::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'website', 'user_name', 'password', 'email', 'notes', 'slug')->where('slug', $passwordListSlug)->firstOrFail();
+            $passwordList = PasswordList::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'website', 'user_name', 'password', 'email', 'notes', 'slug','updated_at')->where('slug', $passwordListSlug)->firstOrFail();
             return $passwordList;
         } catch (Exception $e) {
             Log::error('PasswordListRepository::getPassword', ['error' => $e->getMessage()]);

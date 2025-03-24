@@ -17,7 +17,7 @@ class SharedNoteRepository implements SharedNoteRepositoryInterface
     public function getAllSharedNote(int $perPage = 25): mixed
     {
         try {
-            $SharedNotes = SharedNote::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'notes', 'slug')->latest()->get();
+            $SharedNotes = SharedNote::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'notes', 'slug', 'updated_at')->latest()->get();
             return $SharedNotes;
         } catch (Exception $e) {
             Log::error('SharedNoteRepository::getAllSharedNote', ['error' => $e->getMessage()]);
@@ -35,7 +35,7 @@ class SharedNoteRepository implements SharedNoteRepositoryInterface
     public function getSharedNote(string $SharedNoteSlug): mixed
     {
         try {
-            $SharedNote = SharedNote::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'notes', 'slug')->where('slug', $SharedNoteSlug)->firstOrFail();
+            $SharedNote = SharedNote::where('business_id', auth()->user()->business()->id)->select('id', 'business_id', 'title', 'notes', 'slug', 'updated_at')->where('slug', $SharedNoteSlug)->firstOrFail();
             return $SharedNote;
         } catch (Exception $e) {
             Log::error('SharedNoteRepository::getSharedNote', ['error' => $e->getMessage()]);

@@ -15,23 +15,25 @@ return new class extends Migration
         DB::statement('DROP VIEW IF EXISTS user_y_t_c_views');
         DB::statement("
         CREATE VIEW user_y_t_c_views AS
-            SELECT user_id, contract_year_start, current_year_start, years_worked
-            FROM (
-                SELECT
-                    user_id,
-                    contract_year_start,
-                    TIMESTAMPDIFF(YEAR, contract_year_start, CURDATE()) -
-                        CASE
-                            WHEN CURDATE() < DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(contract_year_start), '-', DAY(contract_year_start))) THEN 1
-                            ELSE 0
-                        END AS years_worked,
+        SELECT user_id, business_id, contract_year_start, current_year_start, years_worked
+        FROM (
+            SELECT
+                p.user_id,
+                bu.business_id,
+                p.contract_year_start,
+                TIMESTAMPDIFF(YEAR, p.contract_year_start, CURDATE()) -
                     CASE
-                        WHEN CURDATE() < DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(contract_year_start), '-', DAY(contract_year_start))) THEN
-                            DATE(CONCAT(YEAR(CURDATE()) - 1, '-', MONTH(contract_year_start), '-', DAY(contract_year_start)))
-                        ELSE
-                            DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(contract_year_start), '-', DAY(contract_year_start)))
-                    END AS current_year_start
-                FROM profiles
+                        WHEN CURDATE() < DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(p.contract_year_start), '-', DAY(p.contract_year_start))) THEN 1
+                        ELSE 0
+                    END AS years_worked,
+                CASE
+                    WHEN CURDATE() < DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(p.contract_year_start), '-', DAY(p.contract_year_start))) THEN
+                        DATE(CONCAT(YEAR(CURDATE()) - 1, '-', MONTH(p.contract_year_start), '-', DAY(p.contract_year_start)))
+                    ELSE
+                        DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(p.contract_year_start), '-', DAY(p.contract_year_start)))
+                END AS current_year_start
+            FROM profiles p
+            LEFT JOIN business_user bu ON p.user_id = bu.user_id
         ) AS ytc;
     ");
     }

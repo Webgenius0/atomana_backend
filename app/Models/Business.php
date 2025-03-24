@@ -86,7 +86,7 @@ class Business extends Model
      * Model may have multiple vendorCategory
      * @return HasMany<VendorCategory, Business>
      */
-    public function vendorCategories():HasMany
+    public function vendorCategories(): HasMany
     {
         return $this->hasMany(VendorCategory::class);
     }
@@ -116,6 +116,27 @@ class Business extends Model
     public function owner()
     {
         return $this->users()->where('role_id', 2)->pluck('user_id');
+    }
+
+    /**
+     * A business may have many password lists associated with it.
+     *
+     * @return HasMany<PasswordList, Business>
+     */
+
+    public function passwordLists(): HasMany
+    {
+        return $this->hasMany(PasswordList::class);
+    }
+
+    /**
+     * Model may have multiple shared notes
+     * @return HasMany<SharedNote, Business>
+     */
+
+    public function sharedNotes(): HasMany
+    {
+        return $this->hasMany(SharedNote::class);
     }
 
     /**

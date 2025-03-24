@@ -22,3 +22,5 @@ require 'v1/vendor_category/vendor_category.php';    // vendor_category
 require 'v1/vendor/vendor.php';    // vendor
 require 'v1/vendor_review/vendor_review.php';    // vendor_review
 require 'v1/ai/chat.php';                  // my-chat
+require 'v1/password_list/password_list.php';  // password_list
+require 'v1/shared_note/shared_note.php';  // shared_note

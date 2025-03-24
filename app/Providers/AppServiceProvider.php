@@ -30,6 +30,8 @@ use App\Repositories\API\V1\Method\PaymentMethodRepository;
 use App\Repositories\API\V1\Method\PaymentMethodRepositoryInterface;
 use App\Repositories\API\V1\OpenHouse\OpenHouseRepository;
 use App\Repositories\API\V1\OpenHouse\OpenHouseRepositoryInterface;
+use App\Repositories\API\V1\PasswordList\PasswordListRepository;
+use App\Repositories\API\V1\PasswordList\PasswordListRepositoryInterface;
 use App\Repositories\API\V1\Profile\ProfileRepository;
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
 use App\Repositories\API\V1\Property\PropertyRepository;
@@ -38,6 +40,8 @@ use App\Repositories\API\V1\Property\Source\PropertySourceRepository;
 use App\Repositories\API\V1\Property\Source\PropertySourceRepositoryInterface;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepository;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepositoryInterface;
+use App\Repositories\API\V1\SharedNote\SharedNoteRepository;
+use App\Repositories\API\V1\SharedNote\SharedNoteRepositoryInterface;
 use App\Repositories\API\V1\Target\TargetRepository;
 use App\Repositories\API\V1\Target\TargetRepositoryInterface;
 use App\Repositories\API\V1\User\UserRepository as UserRepo;
@@ -107,6 +111,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MyAIMessageRepositoryInterface::class, MyAIMessageRepository::class);
         $this->app->bind(MyPRRepositoryInterface::class, MyPRRepository::class);
         $this->app->bind(MyPRMessageRepositoryInterface::class, MyPRMessageRepository::class);
+
+        //shared note
+        $this->app->bind(SharedNoteRepositoryInterface::class, SharedNoteRepository::class);
+
+        //password list
+        $this->app->bind(PasswordListRepositoryInterface::class, PasswordListRepository::class);
 
         // ytc
         $this->app->bind(UserYTCRepositoryInterface::class, UserYTCRepository::class);

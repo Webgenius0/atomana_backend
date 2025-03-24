@@ -165,4 +165,15 @@ class Helper
             'timestamp' => now()->toIso8601String() . ' GMT' . now()->format('P'),
         ], $code);
     }
+
+    //! Generate Slug
+    public static function makeSlug(string $title, $table): string
+    {
+        $slug = Str::slug($title);
+        while (DB::table($table)->where('slug', $slug)->exists()) {
+            $randomString = Str::random(5);
+            $slug = Str::slug($title) . '-' . $randomString;
+        }
+        return $slug;
+    }
 }

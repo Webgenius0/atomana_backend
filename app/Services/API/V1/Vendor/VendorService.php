@@ -3,15 +3,8 @@
 namespace App\Services\API\V1\Vendor;
 
 use App\Helpers\Helper;
-use App\Models\SalesTrack;
-use App\Models\VendorCategory;
-use App\Repositories\API\V1\SalesTrack\SalesTrackRepositoryInterface;
-use App\Repositories\API\V1\Target\TargetRepositoryInterface;
-use App\Repositories\API\V1\Vendor\VendorRepository;
 use App\Repositories\API\V1\Vendor\VendorRepositoryInterface;
-use App\Repositories\API\V1\VendorCategory\VendorCategoryRepositoryInterface;
 use App\Traits\V1\DateManager;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;

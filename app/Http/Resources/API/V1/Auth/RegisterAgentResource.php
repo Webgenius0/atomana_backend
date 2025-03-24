@@ -16,7 +16,6 @@ class RegisterAgentResource extends JsonResource
     public function toArray(Request $request): array
     {
         $data = parent::toArray($request);
-        Log::info($data);
         $user = [
             'first_name' => $data['user']['first_name'],
             'last_name' => $data['user']['last_name'],

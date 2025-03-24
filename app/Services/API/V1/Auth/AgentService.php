@@ -45,8 +45,6 @@ class AgentService
             // create user with role 3 (Agent)
             $user = $this->userRepository->createUser($credentials, 3);
             $otp = $this->otpRepository->sendOtp($user, 'email');
-
-
             DB::commit();
             $user->load(['profile' => function ($query) {
                 $query->select('id', 'user_id', 'phone', 'address', 'date_of_birth', 'bio');

@@ -53,6 +53,7 @@ class UserRepository implements UserRepositoryInterface
                 $user->businesses()->attach($credentials['business_id']);
                 $user->profile()->create([
                     'contract_year_start' => $credentials['contract_year_start'],
+                    'total_commission_this_contract_year' => $credentials['total_commission_this_contract_year'],
                 ]);
             }
 

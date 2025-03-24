@@ -14,10 +14,15 @@ return new class extends Migration
         DB::statement("
             CREATE VIEW agent_earning_views AS
                 SELECT
+
                 st.user_id,
+
                 st.business_id,
+
                 COUNT(st.id) AS sales_closed,
+
                 SUM(st.purchase_price) AS dollars_on_closed_deals_ytd,
+
                 ytc.current_year_start,
                 COALESCE(
                     ROUND(
@@ -30,11 +35,17 @@ return new class extends Migration
                     ),
                     0
                 ) AS percentage_total_dollars_on_close_deal,
+
                 SUM(sev.gross_commission_income) AS gross_commission_income_ytd,
+
                 SUM(sev.brokerage_cut) AS brokerage_cut_ytd,
+
                 SUM(sev.net_commission) AS net_commission_ytd,
+
                 SUM(sev.agent_net_income) AS agent_net_income_ytd,
+
                 SUM(sev.group_gross_income) AS group_gross_income_ytd,
+
                 SUM(sev.group_gross_income) AS group_net_ytd,
                 ROUND( COALESCE(
                     (SUM(sev.group_gross_income) /
@@ -43,6 +54,7 @@ return new class extends Migration
                             WHERE closing_date >= (SELECT MIN(current_year_start) FROM user_y_t_c_views)), 0)),
                     0
                 ) * 100, 2) AS percentage_group_gross_income_ytd
+                
             FROM sales_tracks st
             JOIN user_y_t_c_views ytc ON st.user_id = ytc.user_id
             JOIN business_info_views bi ON st.business_id = bi.business_id

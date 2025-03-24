@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
             PaymentMethodSeeder::class,
             RoleSeeder::class,
             ExpenseSubCategorySeeder::class,
-            TierSeeder::class,
 
             // relational data
             PropertySourceSeeder::class,
             UserSeeder::class,
+            TierSeeder::class,
             ExpensesTableSeeder::class,
             TargetsTableSeeder::class,
             PropertiesTableSeeder::class,

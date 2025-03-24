@@ -20,9 +20,9 @@ return new class extends Migration
                 SUM(st.purchase_price) AS dollars_on_closed_deals_ytd,
                 ytc.current_year_start,
                 ROUND((SUM(st.purchase_price) * 100) / (SELECT SUM(purchase_price) FROM sales_tracks WHERE status = 'close'), 2) AS percentage_total_dollars_on_close_deal,
-                ROUND(SUM(st.purchase_price * st.commission_on_sale), 2) AS gross_commission_income_ytd,
-                ROUND(SUM(st.purchase_price * st.commission_on_sale) * 0.10, 2) AS brokerage_cur_ytd,
-                ROUND(SUM(st.purchase_price * st.commission_on_sale) - (SUM(st.purchase_price * st.commission_on_sale) * 0.10), 2) AS net_commission_ytd
+                ROUND(SUM(st.purchase_price * st.commission_on_sale / 100), 2) AS gross_commission_income_ytd,
+                ROUND(SUM(st.purchase_price * st.commission_on_sale / 100) * 0.10, 2) AS brokerage_cur_ytd,
+                ROUND(SUM(st.purchase_price * st.commission_on_sale / 100) - (SUM(st.purchase_price * st.commission_on_sale / 100) * 0.10), 2) AS net_commission_ytd
             FROM sales_tracks st
             JOIN user_y_t_c_views ytc ON st.user_id = ytc.user_id
             WHERE st.status = 'close'

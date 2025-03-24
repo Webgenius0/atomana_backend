@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1\MyAgentEarning;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\V1\AgentEarning\IndexResource;
 use App\Services\API\V1\MyAgentEarning\MyAgentEarningService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -30,7 +31,7 @@ class MyAgentEarningController extends Controller
     {
         try {
             $response =  $this->myAgentEarningService->businessAgentEarning();
-            return $this->success(200, 'Agents Earning', $response);
+            return $this->success(200, 'Agents Earning', new IndexResource($response));
         }catch (Exception $e){
             Log::error('App\Services\API\V1\MyAgentEarning\MyAgentEarningService::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

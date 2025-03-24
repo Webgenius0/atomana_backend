@@ -19,7 +19,7 @@ return new class extends Migration
             FROM sales_tracks st
             JOIN user_y_t_c_views ytc ON st.business_id = ytc.business_id
             WHERE st.status = 'close'
-                AND st.closing_date <= ytc.current_year_start
+                AND st.closing_date >= ytc.current_year_start
             GROUP BY st.business_id;
         ");
     }

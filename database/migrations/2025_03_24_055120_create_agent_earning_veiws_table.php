@@ -10,7 +10,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('DROP VIEW IF EXISTS agent_earning_veiws');
+        DB::statement('DROP VIEW IF EXISTS agent_earning_views');
         DB::statement("
             CREATE VIEW agent_earning_views AS
             SELECT
@@ -22,7 +22,7 @@ return new class extends Migration
                 COALESCE(
                     ROUND(
                         (SUM(st.purchase_price) * 100) /
-                        (SELECT SUM(purchase_price) FROM sales_tracks WHERE status = 'close' AND closing_date <= ytc.current_year_start),
+                        (SELECT SUM(purchase_price) FROM sales_tracks WHERE status = 'close' AND closing_date >= ytc.current_year_start),
                         2
                     ),
                     0
@@ -33,12 +33,25 @@ return new class extends Migration
                     SUM(st.purchase_price * st.commission_on_sale / 100) -
                     (SUM(st.purchase_price * st.commission_on_sale / 100) * 0.10),
                     2
-                ) AS net_commission_ytd
+                ) AS net_commission_ytd,
+
+                -- Adding the sum of net_income from sales_earning_view
+                COALESCE(
+                    (
+                        SELECT SUM(net_income)
+                        FROM sales_earning_view sev
+                        WHERE sev.user_id = st.user_id
+                        AND sev.business_id = st.business_id
+                        AND sev.closing_date >= ytc.current_year_start
+                    ),
+                    0
+                ) AS net_income_ytd
+
             FROM sales_tracks st
             JOIN user_y_t_c_views ytc ON st.user_id = ytc.user_id
             JOIN business_info_views bi ON st.business_id = bi.business_id
             WHERE st.status = 'close'
-                AND st.closing_date <= ytc.current_year_start
+                AND st.closing_date >= ytc.current_year_start
             GROUP BY st.user_id, st.business_id, ytc.current_year_start;
         ");
     }
@@ -48,6 +61,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        DB::statement('DROP VIEW IF EXISTS agent_earning_veiws');
+        DB::statement('DROP VIEW IF EXISTS agent_earning_views');
     }
 };

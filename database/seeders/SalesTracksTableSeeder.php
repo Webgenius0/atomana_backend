@@ -25,7 +25,7 @@ class SalesTracksTableSeeder extends Seeder
                 'property_id' => $property->id,
                 'status' => $faker->randomElement(['close']),
                 'date_under_contract' =>$faker->dateTimeBetween('2024-12-01', '2025-12-31')->format('Y-m-d'),
-                'closing_date' => $faker->dateTimeBetween('2024-12-01', '2025-12-31')->format('Y-m-d'),
+                'closing_date' => $faker->dateTimeBetween('2024-12-01', '2025-2-27')->format('Y-m-d'),
                 'purchase_price' => number_format($faker->randomFloat(2, 10000, 1000000), 2, '.', ''),
                 'buyer_seller' => $faker->name,
                 'referral_fee_pct' => number_format($faker->randomFloat(2, 1, 10), 2, '.', ''),

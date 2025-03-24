@@ -27,12 +27,13 @@ class RegisterAgentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'          => "required|string",
-            'last_name'           => "required|string",
-            'email'               => "required|email|unique:users",
-            'password'            => "required|confirmed",
-            'business_id'         => "required|exists:businesses,id",
-            'contract_year_start' => 'required|date',
+            'first_name'                          => "required|string",
+            'last_name'                           => "required|string",
+            'email'                               => "required|email|unique:users",
+            'password'                            => "required|confirmed",
+            'business_id'                         => "required|exists:businesses,id",
+            'contract_year_start'                 => 'required|date',
+            'total_commission_this_contract_year' => 'required|numeric',
         ];
     }
 

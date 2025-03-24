@@ -16,20 +16,18 @@ class LeaderboardResource extends JsonResource
     public function toArray(Request $request): array
     {
         $values = parent::toArray($request);
-
-
         $data = [];
 
-        foreach ($values as $key => $value) {
+        foreach ($values['list'] as $key => $value) {
             $data[] = [
-                'index' => (int) $key+1,
+                'index' => (int) $key + 1,
                 'user_id' => $value['user_id'] ?? null,
                 'handle' => $value['user']['handle'] ?? null,
-                'name' => $value['user']['first_name'] . ' '. $value['user']['last_name'],
+                'name' => $value['user']['first_name'] . ' ' . $value['user']['last_name'],
                 'avg_purchase_price' => $value['avg_purchase_price'] ?? null,
                 'total_sales' => (int) $value['total_sales'] ?? null,
             ];
         }
-        return $data;
+        return ['total_sales' => $values['total_sales'], 'list' => $data];
     }
 }

@@ -288,4 +288,24 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
             throw $e;
         }
     }
+
+    /**
+     * salesCountOnThatRange
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     * @return int
+     */
+    public function salesCountOnThatRange(int $businessId, string $start, string $end)
+    {
+        try {
+            return SalesTrackView::where('business_id', $businessId)
+            ->where('status', 'close')
+            ->whereBetween('closing_date', [$start, $end])
+            ->count();
+        }catch (Exception $e) {
+            Log::error('SalesTrackRepository::salesCountOnThatRange', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

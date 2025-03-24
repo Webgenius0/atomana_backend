@@ -110,45 +110,52 @@ class SalesTrackService
      * Summary of leaderboardAgents
      * @param mixed $sortedBy
      * @param mixed $filter
-     * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
+     * @return array
      */
-    public function leaderboardAgents($sortedBy, $filter)
+    public function leaderboardAgents($sortedBy, $filter): array
     {
         try {
             $currentDate = Carbon::now();
             $list = null;
+            $totalSales = null;
             if ($sortedBy == 'highest-avg-sales') {
                 if ($filter == 'monthly') {
                     $startOfMonth = $this->getStartOfMonth($currentDate);
                     $endOfMonth = $currentDate->endOfMonth();
+                    $totalSales = $this->salesTrackRepository->salesCountOnThatRange($this->businessId, $startOfMonth, $endOfMonth);
                     $list = $this->salesTrackRepository->topAgentsOfBusinessWithAvgPurchasePrice($this->businessId, $startOfMonth, $endOfMonth);
                 } else if ($filter == 'quarterly') {
                     // Determine the start and end of the current quarter
                     $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                     $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                    $totalSales = $this->salesTrackRepository->salesCountOnThatRange($this->businessId, $quarterStart, $quarterEnd);
                     $list = $this->salesTrackRepository->topAgentsOfBusinessWithAvgPurchasePrice($this->businessId, $quarterStart, $quarterEnd);
                 } else if ($filter == 'yearly') {
                     $yearStart = $this->getCurrentYearStartDate($currentDate);
                     $yearEnd = $this->getCurrentYearEndDate($currentDate);
+                    $totalSales = $this->salesTrackRepository->salesCountOnThatRange($this->businessId, $currentDate, $currentDate);
                     $list = $this->salesTrackRepository->topAgentsOfBusinessWithAvgPurchasePrice($this->businessId, $yearStart, $yearEnd);
                 }
             } else {
                 if ($filter == 'monthly') {
                     $startOfMonth = $this->getStartOfMonth($currentDate);
                     $endOfMonth = $currentDate->endOfMonth();
+                    $totalSales = $this->salesTrackRepository->salesCountOnThatRange($this->businessId, $startOfMonth, $endOfMonth);
                     $list = $this->salesTrackRepository->topAgentsOfBusinessWithSumPurchasePrice($this->businessId, $startOfMonth, $endOfMonth);
                 } else if ($filter == 'quarterly') {
                     // Determine the start and end of the current quarter
                     $quarterStart = $this->getCurrentQuarterStartDate($currentDate);
                     $quarterEnd = $this->getCurrentQuarterEndDate($currentDate);
+                    $totalSales = $this->salesTrackRepository->salesCountOnThatRange($this->businessId, $quarterStart, $quarterEnd);
                     $list = $this->salesTrackRepository->topAgentsOfBusinessWithSumPurchasePrice($this->businessId, $quarterStart, $quarterEnd);
                 } else if ($filter == 'yearly') {
                     $yearStart = $this->getCurrentYearStartDate($currentDate);
                     $yearEnd = $this->getCurrentYearEndDate($currentDate);
+                    $totalSales = $this->salesTrackRepository->salesCountOnThatRange($this->businessId, $currentDate, $currentDate);
                     $list = $this->salesTrackRepository->topAgentsOfBusinessWithSumPurchasePrice($this->businessId, $yearStart, $yearEnd);
                 }
             }
-            return $list;
+            return ['total_sales' => $totalSales, 'list' => $list];
         } catch (Exception $e) {
             Log::error('SalesTrackService::leaderboardAgents', ['error' => $e->getMessage()]);
             throw $e;

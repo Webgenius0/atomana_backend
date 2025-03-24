@@ -103,6 +103,7 @@ interface SalesTrackRepositoryInterface
      * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
      */
     public function topAgentsOfBusinessWithAvgPurchasePrice(int $businessId, string $start, string $end);
+
     /**
      * topAgentsOfBusinessWithSumPurchasePrice
      * @param int $businessId
@@ -111,4 +112,13 @@ interface SalesTrackRepositoryInterface
      * @return \Illuminate\Database\Eloquent\Collection<int, SalesTrack>
      */
     public function topAgentsOfBusinessWithSumPurchasePrice(int $businessId, string $start, string $end);
+
+    /**
+     * salesCountOnThatRange
+     * @param int $businessId
+     * @param string $start
+     * @param string $end
+     * @return int
+     */
+    public function salesCountOnThatRange(int $businessId, string $start, string $end);
 }

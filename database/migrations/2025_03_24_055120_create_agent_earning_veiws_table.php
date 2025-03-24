@@ -28,24 +28,12 @@ return new class extends Migration
                     0
                 ) AS percentage_total_dollars_on_close_deal,
                 ROUND(SUM(st.purchase_price * st.commission_on_sale / 100), 2) AS gross_commission_income_ytd,
-                ROUND(SUM(st.purchase_price * st.commission_on_sale / 100) * 0.10, 2) AS brokerage_cur_ytd,
+                ROUND(SUM((st.purchase_price * st.commission_on_sale / 100) * 0.10) , 2) AS brokerage_cur_ytd,
                 ROUND(
                     SUM(st.purchase_price * st.commission_on_sale / 100) -
-                    (SUM(st.purchase_price * st.commission_on_sale / 100) * 0.10),
+                    SUM((st.purchase_price * st.commission_on_sale / 100) * 0.10),
                     2
-                ) AS net_commission_ytd,
-
-                -- Adding the sum of net_income from sales_earning_view
-                COALESCE(
-                    (
-                        SELECT SUM(net_income)
-                        FROM sales_earning_view sev
-                        WHERE sev.user_id = st.user_id
-                        AND sev.business_id = st.business_id
-                        AND sev.closing_date >= ytc.current_year_start
-                    ),
-                    0
-                ) AS net_income_ytd
+                ) AS net_commission_ytd
 
             FROM sales_tracks st
             JOIN user_y_t_c_views ytc ON st.user_id = ytc.user_id

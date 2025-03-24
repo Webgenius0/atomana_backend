@@ -23,7 +23,7 @@ class SalesTracksTableSeeder extends Seeder
                 'business_id' => $property->business_id,
                 'user_id' => $property->agent,
                 'property_id' => $property->id,
-                'status' => $faker->randomElement(['active', 'pending', 'close', 'expired']),
+                'status' => $faker->randomElement(['close']),
                 'date_under_contract' =>$faker->dateTimeBetween('2024-12-01', '2025-12-31')->format('Y-m-d'),
                 'closing_date' => $faker->dateTimeBetween('2024-12-01', '2025-12-31')->format('Y-m-d'),
                 'purchase_price' => number_format($faker->randomFloat(2, 10000, 1000000), 2, '.', ''),

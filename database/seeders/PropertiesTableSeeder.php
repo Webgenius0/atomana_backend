@@ -18,7 +18,8 @@ class PropertiesTableSeeder extends Seeder
         $users = DB::table('users')->pluck('id'); // Get all user IDs
 
         foreach ($users as $userId) {
-            for ($i = 2; $i <= 100; $i++) {
+            if ($userId == 1) continue;
+            for ($i = 1; $i <= 10; $i++) {
                 DB::table('properties')->insert([
                     'business_id' => 1, // Change if needed
                     'agent' => $userId,

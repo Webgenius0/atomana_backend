@@ -55,21 +55,23 @@ class ShowProfileResource extends JsonResource
     private function responseForAgent(array $data)
     {
         return [
-            'id'            => $data['id'],
-            'first_name'    => $data['first_name'],
-            'last_name'     => $data['last_name'],
-            'handle'        => $data['handle'],
-            'email'         => $data['email'],
-            'avatar'        => $data['avatar'],
-            'role'          => $data['role']['name'],
-            'status'        => $data['status'],
-            'phone'         => $data['profile']['phone'],
-            'address'       => $data['profile']['address'],
-            'date_of_birth' => $data['profile']['date_of_birth'],
-            'bio'           => $data['profile']['bio'],
-            'facebook'      => $data['profile']['facebook'],
-            'instagram'     => $data['profile']['instagram'],
-            'twitter'       => $data['profile']['twitter'],
+            'id'                                  => $data['id'],
+            'first_name'                          => $data['first_name'],
+            'last_name'                           => $data['last_name'],
+            'handle'                              => $data['handle'],
+            'email'                               => $data['email'],
+            'avatar'                              => $data['avatar'],
+            'role'                                => $data['role']['name'],
+            'status'                              => $data['status'],
+            'phone'                               => $data['profile']['phone'],
+            'address'                             => $data['profile']['address'],
+            'date_of_birth'                       => $data['profile']['date_of_birth'],
+            'contract_year_start'                 => $data['profile']['contract_year_start'],
+            'total_commission_this_contract_year' => $data['profile']['total_commission_this_contract_year'],
+            'bio'                                 => $data['profile']['bio'],
+            'facebook'                            => $data['profile']['facebook'],
+            'instagram'                           => $data['profile']['instagram'],
+            'twitter'                             => $data['profile']['twitter'],
         ];
     }
 }

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\API\V1\Admin\AgentRepository;
 use App\Repositories\API\V1\Admin\AgentRepositoryInterface;
+use App\Repositories\API\V1\AgentEarning\AgentEarningRepository;
+use App\Repositories\API\V1\AgentEarning\AgentEarningRepositoryInterface;
 use App\Repositories\API\V1\AI\MyAI\MyAIMessageRepository;
 use App\Repositories\API\V1\AI\MyAI\MyAIMessageRepositoryInterface;
 use App\Repositories\API\V1\AI\MyAI\MyAIRepository;
@@ -78,6 +80,9 @@ class AppServiceProvider extends ServiceProvider
         // agent
         $this->app->bind(AgentRepositoryInterface::class, AgentRepository::class);
         $this->app->bind(SalesTrackRepositoryInterface::class, SalesTrackRepository::class);
+
+        // agent-earning
+        $this->app->bind(AgentEarningRepositoryInterface::class, AgentEarningRepository::class);
 
         // expences
         $this->app->bind(ExpenseCategoryRepositoryInterface::class, ExpenseCategoryRepository::class);

@@ -10,7 +10,7 @@ interface AgentEarningRepositoryInterface
      * Summary of getAgentsOfBusiness
      * @param int $businessId
      * @param int $per_page
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return LengthAwarePaginator
      */
     public function getAgentsOfBusiness(int $businessId, int $per_page): LengthAwarePaginator;
 }

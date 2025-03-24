@@ -21,8 +21,8 @@ class MyAgentEarningService
      */
     public function __construct(AgentEarningRepositoryInterface $agentEarningRepository)
     {
-        $this->$agentEarningRepository = $agentEarningRepository;
-        $this->businessId = Auth::user()->business();
+        $this->agentEarningRepository = $agentEarningRepository;
+        $this->businessId = Auth::user()->business()->id;
     }
 
 

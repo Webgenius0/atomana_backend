@@ -87,7 +87,8 @@ class RegisterAgentRequest extends FormRequest
         $emailErrors = $validator->errors()->get('email') ?? null;
         $passwordErrors = $validator->errors()->get('password') ?? null;
         $businessId = $validator->errors()->get('business_id') ?? null;
-        $businessId = $validator->errors()->get('contract_year_start') ?? null;
+        $contractYearStart = $validator->errors()->get('contract_year_start') ?? null;
+        $totalCommissionThisContractYear = $validator->errors()->get('total_commission_this_contract_year') ?? null;
 
         if ($firstNameErrors) {
             $message = $firstNameErrors[0];
@@ -99,6 +100,10 @@ class RegisterAgentRequest extends FormRequest
             $message = $passwordErrors[0];
         }else if ($businessId) {
             $message = $businessId[0];
+        }else if ($contractYearStart) {
+            $message = $contractYearStart[0];
+        }else if ($totalCommissionThisContractYear) {
+            $message = $totalCommissionThisContractYear[0];
         }
 
         $response = $this->error(

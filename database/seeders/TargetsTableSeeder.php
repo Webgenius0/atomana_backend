@@ -27,7 +27,7 @@ class TargetsTableSeeder extends Seeder
                         DB::table('targets')->insert([
                             'user_id' => $user->id,
                             'month' => Carbon::create($year, $month, 1)->toDateString(),
-                            'amount' => rand(1000000, 10000000), // Random amount
+                            'amount' => rand(100000, 1000000), // Random amount
                             'for' => $type,
                             'created_at' => now(),
                             'updated_at' => now(),

@@ -19,7 +19,7 @@ class PropertiesTableSeeder extends Seeder
 
         foreach ($users as $userId) {
             if ($userId == 1) continue;
-            for ($i = 1; $i <= 1000; $i++) {
+            for ($i = 1; $i <= 100; $i++) {
                 DB::table('properties')->insert([
                     'business_id' => 1, // Change if needed
                     'agent' => $userId,

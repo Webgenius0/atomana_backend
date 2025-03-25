@@ -29,6 +29,7 @@ class IndexResource extends JsonResource
                 'handle' => $data['user']['handle'],
                 'sales_closed' => $data['sales_closed'],
                 'dollars_on_closed_deals_ytd' => $data['dollars_on_closed_deals_ytd'],
+                'current_year_start' => $data['current_year_start'],
                 'percentage_total_dollars_on_close_deal' => $data['percentage_total_dollars_on_close_deal'],
                 'gross_commission_income_ytd' => $data['gross_commission_income_ytd'],
                 'brokerage_cut_ytd' => $data['brokerage_cut_ytd'],

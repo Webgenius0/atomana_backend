@@ -22,6 +22,7 @@ class AgentEarningRepository implements AgentEarningRepositoryInterface
                 'user_id',
                 'sales_closed',
                 'dollars_on_closed_deals_ytd',
+                'current_year_start',
                 'percentage_total_dollars_on_close_deal',
                 'gross_commission_income_ytd',
                 'brokerage_cut_ytd',

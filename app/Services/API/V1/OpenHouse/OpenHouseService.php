@@ -5,11 +5,13 @@ namespace App\Services\API\V1\OpenHouse;
 use App\Models\OpenHouse;
 use App\Repositories\API\V1\OpenHouse\OpenHouseRepositoryInterface;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class OpenHouseService
 {
     protected OpenHouseRepositoryInterface $openHouseRepository;
+    protected $businessId;
 
     /**
      * construct
@@ -18,6 +20,7 @@ class OpenHouseService
     public function __construct(OpenHouseRepositoryInterface $openHouseRepository)
     {
         $this->openHouseRepository = $openHouseRepository;
+        $this->businessId = Auth::user()->business()->id;
     }
 
     /**
@@ -28,7 +31,7 @@ class OpenHouseService
     public function store(array $credential): OpenHouse
     {
         try {
-            return $this->openHouseRepository->storeOpenHourse($credential);
+            return $this->openHouseRepository->storeOpenHourse($credential, $this->businessId);
         } catch (Exception $e) {
             Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:store');
             throw $e;

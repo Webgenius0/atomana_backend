@@ -26,7 +26,6 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'business_id' => 'required|exists:businesses,id',
             'email' => 'required|email',
             'property_id' => 'required|exists:properties,id',
             'date' => 'required|date|after:' . now()->toDateString(), // Date must be today or in the future
@@ -75,7 +74,6 @@ class CreateRequest extends FormRequest
         $errors = $validator->errors()->getMessages();
         $message = null;
         $fields = [
-            'business_id',
             'email',
             'property_id',
             'date',

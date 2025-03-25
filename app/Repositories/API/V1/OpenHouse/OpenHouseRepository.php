@@ -13,11 +13,11 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
      * @param array $credentials
      * @return OpenHouse
      */
-    public function storeOpenHourse(array $credentials):OpenHouse
+    public function storeOpenHourse(array $credentials, int $businessId):OpenHouse
     {
         try {
             return OpenHouse::create([
-                'business_id' => $credentials['business_id'],
+                'business_id' => $businessId,
                 'property_id' => $credentials['property_id'],
                 'email'       => $credentials['email'],
                 'date'        => $credentials['date'],

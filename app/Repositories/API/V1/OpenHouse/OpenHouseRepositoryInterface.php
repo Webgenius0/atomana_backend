@@ -6,5 +6,5 @@ use App\Models\OpenHouse;
 
 interface OpenHouseRepositoryInterface
 {
-    public function storeOpenHourse(array $credentials):OpenHouse;
+    public function storeOpenHourse(array $credentials, int $businessId):OpenHouse;
 }

@@ -31,7 +31,6 @@ class RegisterAgentRequest extends FormRequest
             'last_name'                           => "required|string",
             'email'                               => "required|email|unique:users",
             'password'                            => "required|confirmed",
-            'business_id'                         => "required|exists:businesses,id",
             'contract_year_start'                 => 'required|date',
             'total_commission_this_contract_year' => 'required|numeric',
         ];
@@ -57,9 +56,6 @@ class RegisterAgentRequest extends FormRequest
 
             'password.required'  => 'Password is required.',
             'password.confirmed' => 'Passwords do not match.',
-
-            'business_id.required'  => 'Business ID is required.',
-            'business_id.exists'  => 'Please provide a valed business ID.'
         ];
     }
 
@@ -86,7 +82,6 @@ class RegisterAgentRequest extends FormRequest
         $lastNameErrors = $validator->errors()->get('last_name') ?? null;
         $emailErrors = $validator->errors()->get('email') ?? null;
         $passwordErrors = $validator->errors()->get('password') ?? null;
-        $businessId = $validator->errors()->get('business_id') ?? null;
         $contractYearStart = $validator->errors()->get('contract_year_start') ?? null;
         $totalCommissionThisContractYear = $validator->errors()->get('total_commission_this_contract_year') ?? null;
 
@@ -98,8 +93,6 @@ class RegisterAgentRequest extends FormRequest
             $message = $emailErrors[0];
         } else if ($passwordErrors) {
             $message = $passwordErrors[0];
-        }else if ($businessId) {
-            $message = $businessId[0];
         }else if ($contractYearStart) {
             $message = $contractYearStart[0];
         }else if ($totalCommissionThisContractYear) {

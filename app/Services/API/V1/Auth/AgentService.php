@@ -5,6 +5,7 @@ namespace App\Services\API\V1\Auth;
 use App\Repositories\API\V1\Auth\OTPRepositoryInterface;
 use App\Repositories\API\V1\Auth\UserRepositoryInterface;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -13,6 +14,8 @@ class AgentService
 {
     protected UserRepositoryInterface $userRepository;
     protected OTPRepositoryInterface $otpRepository;
+
+    protected $businessId;
 
     /**
      * Constructor for initializing the class with UserRepository and OTPRepository dependencies.
@@ -24,6 +27,7 @@ class AgentService
     {
         $this->userRepository = $userRepository;
         $this->otpRepository = $otpRepository;
+        $this->businessId = Auth::user()->business()->id;
     }
 
 
@@ -43,7 +47,7 @@ class AgentService
         try {
             DB::beginTransaction();
             // create user with role 3 (Agent)
-            $user = $this->userRepository->createUser($credentials, 3);
+            $user = $this->userRepository->createUser($credentials, $this->businessId, 3);
             $otp = $this->otpRepository->sendOtp($user, 'email');
             DB::commit();
             $user->load(['profile' => function ($query) {

@@ -9,12 +9,12 @@ interface UserRepositoryInterface
 {
     /**
      * Creates a new user with the provided credentials.
-     *
-     * @param array $credentials The user data (first_name, last_name, email, password).
-     *
-     * @return User The created user object.
+     * @param array $credentials
+     * @param int $businessId
+     * @param int $role
+     * @return void
      */
-    public function createUser(array $credentials, int $role = 2):User;
+    public function createUser(array $credentials, int $businessId, int $role = 2,):User;
 
     /**
      * Attempts to retrieve a user by their login credentials.

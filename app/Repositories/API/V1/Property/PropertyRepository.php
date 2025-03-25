@@ -31,7 +31,7 @@ class PropertyRepository implements PropertyRepositoryInterface
     public function propertiesOfTheAgent(int $userId)
     {
         try {
-            $properties = Property::select('id', 'address')->whereUserId($userId)->get();
+            $properties = Property::select('id', 'address')->whereAgent($userId)->get();
             return $properties;
         } catch (Exception $e) {
             Log::error('PropertyRepository::propertiesOfTheAgent', ['error' => $e->getMessage()]);

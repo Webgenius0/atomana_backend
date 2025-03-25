@@ -4,6 +4,7 @@ namespace App\Http\Resources\API\V1\SalesTrack;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class IndexSalesTrackResource extends JsonResource
 {
@@ -16,8 +17,6 @@ class IndexSalesTrackResource extends JsonResource
     {
         $datas = parent::toArray($request);
 
-        $response = [];
-
         foreach ($datas['data'] as $data) {
             $response[] = [
                 'id'                  => $data['id'],
@@ -28,7 +27,7 @@ class IndexSalesTrackResource extends JsonResource
                 'user_last_name'      => $data['user_last_name'],
                 'address'             => $data['address'],
                 'created_at'          => $data['created_at'],
-                'price'               => $data['price'],
+                'list_price'          => $data['list_price'],
                 'expiration_date'     => $data['expiration_date'],
                 'co_agent_first_name' => $data['co_agent_first_name'],
                 'co_agent_last_name'  => $data['co_agent_last_name'],
@@ -43,6 +42,9 @@ class IndexSalesTrackResource extends JsonResource
             ];
         }
 
-        return $response;
+        $datas['data'] = $response;
+
+
+        return $datas;
     }
 }

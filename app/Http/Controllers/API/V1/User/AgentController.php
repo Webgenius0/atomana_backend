@@ -37,4 +37,19 @@ class AgentController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
+
+    /**
+     * agent Drop Down
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getCoList(): JsonResponse
+    {
+        try {
+            $response = $this->agentService->getAgentsCoList();
+            return $this->success(200, 'Agent Id and Name', $response);
+        } catch (Exception $e) {
+            Log::error('AgentController::agentDropDown', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
 }

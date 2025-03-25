@@ -69,4 +69,17 @@ class UserRepository implements UserRepositoryInterface
             throw $e;
         }
     }
+
+    public function getCoListingAgents(int $userId, int $businessId)
+    {
+        try {
+            return User::select('id', 'first_name', 'last_name', 'handle')->where('id','!=', $userId)
+                ->wherehas('businesses', function ($query) use ($businessId) {
+                    $query->where('businesses.id', $businessId);
+                })->whereRoleId(3)->get();
+        } catch (Exception $e) {
+            Log::error('UserRepository::getCoListingAgents', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

@@ -13,5 +13,6 @@ Route::prefix('v1/user')->name('user.')->middleware(['auth:api', 'verified',])->
         Route::get('/data', [UserController::class, 'userData'])->name('data');
         // dropdown
         Route::get('/agent/get-agent', [AgentController::class, 'getAgent'])->name('agent.get-agent');
+        Route::get('/agent/co-list', [AgentController::class, 'getCoList'])->name('agent.co-list');
     });
 });

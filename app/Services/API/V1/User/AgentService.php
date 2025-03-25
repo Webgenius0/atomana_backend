@@ -12,6 +12,8 @@ class AgentService
     protected UserRepositoryInterface $userRepository;
     protected $user;
 
+    protected $businessId;
+
     /**
      * construct
      * @param \App\Repositories\API\V1\User\UserRepositoryInterface $userRepository
@@ -20,6 +22,7 @@ class AgentService
     {
         $this->userRepository = $userRepository;
         $this->user = Auth::user();
+        $this->businessId = $this->user->business()->id;
     }
 
     /**
@@ -33,8 +36,23 @@ class AgentService
             if ($role == 'agent'){
                 $agents = $this->userRepository->getNameAndId($this->user->id);
             } else {
-                $agents = $this->userRepository->getAgentsNameAndId($this->user->business()->id);
+                $agents = $this->userRepository->getAgentsNameAndId($this->businessId);
             }
+            return $agents;
+        }catch(Exception $e) {
+            Log::error('AgentService::getAgents', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * get agent name and id for dropdown
+     */
+    public function getAgentsCoList()
+    {
+        try {
+            $agents = $this->userRepository->getCoListingAgents($this->user->id, $this->businessId);
             return $agents;
         }catch(Exception $e) {
             Log::error('AgentService::getAgents', ['error' => $e->getMessage()]);

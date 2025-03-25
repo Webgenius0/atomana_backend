@@ -20,4 +20,7 @@ interface UserRepositoryInterface
     public function agentData($userId): array;
 
     public function businessData($userId):array;
+
+    public function getCoListingAgents(int $userId, int $businessId);
+
 }

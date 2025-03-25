@@ -165,7 +165,6 @@ class ExpenseService extends ExpenseRepository
             $currentCount = null;
             $target = null;
             $percentage = null;
-            Log::info($currentDate);
             if ($filter == 'monthly') {
                 $startOfMonth = $this->getStartOfMonth($currentDate);
                 $endOfMonth = $currentDate->endOfMonth();
@@ -232,7 +231,6 @@ class ExpenseService extends ExpenseRepository
             $currentNetProfit = null;
             $target = null;
             $percentage = null;
-            Log::info($currentDate);
             if ($filter == 'monthly') {
                 $startOfMonth = $this->getStartOfMonth($currentDate);
                 $endOfMonth = $currentDate->endOfMonth();

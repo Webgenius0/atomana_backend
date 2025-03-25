@@ -285,6 +285,9 @@ class SalesTrackService
                 $currentAmount = $this->salesTrackRepository->agentAvgSalesPrice($this->user->id, $yearStart, $yearEnd);
                 $target = $this->targetRepository->getRangeTarget($this->user->id, $yearStart, $yearEnd, 'current_sales');
             }
+            if ($target) {
+                $percentage = ($currentAmount * 100) / $target;
+            }
             return [
                 'target' => number_format((float) $target, 2),
                 'target_fill' => number_format((float) $currentAmount, 2),

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API\V1\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\Admin\AgentProfileUpdateRequest;
 use App\Http\Resources\API\V1\Admin\AgentIndexResource;
+use App\Http\Resources\API\V1\Admin\AgentProfileShowResource;
 use App\Models\User;
 use App\Services\API\V1\Admin\AgentService;
 use App\Traits\V1\ApiResponse;
@@ -41,7 +43,8 @@ class AgentController extends Controller
     public function show(User $user)
     {
         try {
-            return $this->agentService->getAgentDetails($user);
+            $resource =  $this->agentService->getAgentDetails($user);
+            return $this->success(200, 'Agent Profile', new AgentProfileShowResource($resource));
         }catch(Exception $e) {
             Log::error('AgentController::show', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
@@ -54,9 +57,11 @@ class AgentController extends Controller
      * @param string $slug
      * @return JsonResponse
      */
-    public function update(Request $request, User $user)
+    public function update(AgentProfileUpdateRequest $request, User $user)
     {
         try{
+            $validatedData = $request->validated();
+            dd($validatedData, $user->id);
             $response = $this->agentService->getAgents();
             return $this->success(200, 'Profile Data Seuccessfully Retrived', new AgentIndexResource($response));
         }catch(Exception $e) {

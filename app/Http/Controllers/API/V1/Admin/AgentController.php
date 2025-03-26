@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\V1\Admin\AgentIndexResource;
+use App\Models\User;
 use App\Services\API\V1\Admin\AgentService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -36,13 +37,24 @@ class AgentController extends Controller
         }
     }
 
+
+    public function show(User $user)
+    {
+        try {
+            return $this->agentService->getAgentDetails($user);
+        }catch(Exception $e) {
+            Log::error('AgentController::show', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
     /**
      * update
      * @param \Illuminate\Http\Request $request
      * @param string $slug
      * @return JsonResponse
      */
-    public function update(Request $request, string $slug)
+    public function update(Request $request, User $user)
     {
         try{
             $response = $this->agentService->getAgents();

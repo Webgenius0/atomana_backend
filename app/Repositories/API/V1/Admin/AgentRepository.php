@@ -2,6 +2,7 @@
 
 namespace App\Repositories\API\V1\Admin;
 
+use App\Models\Profile;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -39,7 +40,7 @@ class AgentRepository implements AgentRepositoryInterface
     {
         try {
             return User::with('profile')->findOrFail($userId);
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('AgentRepository::getAgentProfileById', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -54,8 +55,20 @@ class AgentRepository implements AgentRepositoryInterface
     public function updateAgentProfileById(array $credentials, int $userId)
     {
         try {
-            User::findOrFail($userId)->update($credentials);
-        }catch(Exception $e) {
+            User::findOrFail($userId)->update([
+                'first_name' => $credentials['first_name'] ?? null,
+                'last_name' => $credentials['last_name'] ?? null,
+                'email' => $credentials['email'] ?? null,
+            ]);
+
+            Profile::whereUserId($userId)->update([
+                'phone' => $credentials['phone'] ?? null,
+                'contract_year_start' => $credentials['contract_year_start'] ?? null,
+                'total_commission_this_contract_year' => $credentials['total_commission_this_contract_year'] ?? null,
+                'aggrement' => $credentials['aggrement'] ?? Profile::whereUserId($userId)->value('aggrement'),
+                'file' => $credentials['file'] ?? Profile::whereUserId($userId)->value('file'),
+            ]);
+        } catch (Exception $e) {
             Log::error('AgentRepository::updateAgentProfileById', ['error' => $e->getMessage()]);
             throw $e;
         }

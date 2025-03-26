@@ -2,11 +2,14 @@
 
 namespace App\Services\API\V1\Admin;
 
+use App\Helpers\Helper;
 use App\Models\User;
 use App\Repositories\API\V1\Admin\AgentRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use PHPUnit\TextUI\Help;
 
 class AgentService
 {
@@ -57,8 +60,21 @@ class AgentService
     public function updateAgentProfile(User $user, array $credentials)
     {
         try {
+            DB::beginTransaction();
+            if (!empty($credentials['aggrement']) && $credentials['aggrement'] instanceof \Illuminate\Http\UploadedFile) {
+                Helper::deleteFile($user->aggrement);
+                $credentials['aggrement'] = Helper::uploadFile($credentials['aggrement'], 'aggrement/'.$user->handle);
+            }
+
+            if (!empty($credentials['file']) && $credentials['file'] instanceof \Illuminate\Http\UploadedFile) {
+                Helper::deleteFile($user->file);
+                $credentials['file'] = Helper::uploadFile($credentials['file'], 'file/'.$user->handle);
+            }
+
             $this->agentRepository->updateAgentProfileById($credentials, $user->id);
+            DB::commit();
         }catch(Exception $e) {
+            DB::rollBack();
             Log::error('App\Services\API\V1\Admin\AgentService::updateAgentProfile', ['error' => $e->getMessage()]);
             throw $e;
         }

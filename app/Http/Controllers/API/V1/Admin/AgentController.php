@@ -28,24 +28,28 @@ class AgentController extends Controller
      * Getting list of all agents of admin
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index():JsonResponse
+    public function index(): JsonResponse
     {
-        try{
+        try {
             $response = $this->agentService->getAgents();
             return $this->success(200, 'Profile Data Seuccessfully Retrived', new AgentIndexResource($response));
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('AgentController::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
 
-
-    public function show(User $user)
+    /**
+     * show
+     * @param \App\Models\User $user
+     * @return JsonResponse
+     */
+    public function show(User $user): JsonResponse
     {
         try {
             $resource =  $this->agentService->getAgentDetails($user);
             return $this->success(200, 'Agent Profile', new AgentProfileShowResource($resource));
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('AgentController::show', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
@@ -57,14 +61,13 @@ class AgentController extends Controller
      * @param string $slug
      * @return JsonResponse
      */
-    public function update(AgentProfileUpdateRequest $request, User $user)
+    public function update(AgentProfileUpdateRequest $request, User $user): JsonResponse
     {
-        try{
+        try {
             $validatedData = $request->validated();
-            dd($validatedData, $user->id);
-            $response = $this->agentService->getAgents();
-            return $this->success(200, 'Profile Data Seuccessfully Retrived', new AgentIndexResource($response));
-        }catch(Exception $e) {
+            $this->agentService->updateAgentProfile($user, $validatedData);
+            return $this->success(200, 'Profile Updated Seuccessfully');
+        } catch (Exception $e) {
             Log::error('AgentController::update', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }

@@ -36,8 +36,8 @@ class AgentProfileUpdateRequest extends FormRequest
             ],
             'contract_year_start' => 'required|date',
             'total_commission_this_contract_year' => 'required',
-            'aggrement' => 'nullable|file',
-            'file' => 'nullable|file',
+            'aggrement' => 'nullable|file|max:240000',
+            'file' => 'nullable|file|max:240000',
         ];
     }
 

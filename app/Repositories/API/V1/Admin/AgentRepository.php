@@ -11,7 +11,7 @@ class AgentRepository implements AgentRepositoryInterface
     public function fetchAgentsOfAdmin(int $businessId, int $perPage = 10)
     {
         try {
-            $data = User::select('id', 'first_name', 'last_name', 'avatar', 'email', 'role_id')
+            $data = User::select('id', 'first_name', 'last_name', 'handle', 'avatar', 'email', 'role_id')
                 ->where('role_id', 3)
                 ->with([
                     'role',

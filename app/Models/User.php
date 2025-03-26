@@ -219,4 +219,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(AgentEarningView::class);
     }
+
+    public function getRouteKeyName(): string
+{
+    return 'handle';
+}
 }

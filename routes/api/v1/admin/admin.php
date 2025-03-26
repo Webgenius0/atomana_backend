@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1/admin')->name('admin.')->middleware(['auth:api', 'verified', 'admin'])->group(function () {
     Route::prefix('/agent')->name('agent.')->controller(AgentController::class)->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/{user:slug}', 'show')->name('show');
-        Route::put('/{user:slug}', 'update')->name('update');
+        Route::get('/{user:handle}', 'show')->name('show');
+        Route::put('/{user:handle}', 'update')->name('update');
     });
 });

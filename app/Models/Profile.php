@@ -30,6 +30,42 @@ class Profile extends Model
 
 
     /**
+     * sccessor for aggrement attribute
+     * @param mixed $url
+     * @return string
+     */
+    public function getAggrementAttribute($url): string
+    {
+        if ($url) {
+            if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
+                return $url;
+            } else {
+                return asset('storage/' . $url);
+            }
+        } else {
+            return asset('assets/img/user_placeholder.png');
+        }
+    }
+    /**
+     * sccessor for file attribute
+     * @param mixed $url
+     * @return string
+     */
+    public function getfileAttribute($url): string
+    {
+        if ($url) {
+            if (strpos($url, 'http://') === 0 || strpos($url, 'https://') === 0) {
+                return $url;
+            } else {
+                return asset('storage/' . $url);
+            }
+        } else {
+            return asset('assets/img/user_placeholder.png');
+        }
+    }
+
+
+    /**
      * Establishes an inverse one-to-many relationship with the User model.
      *
      * This method defines that the current model belongs to a single User.

@@ -35,4 +35,21 @@ class AgentController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
+
+    /**
+     * update
+     * @param \Illuminate\Http\Request $request
+     * @param string $slug
+     * @return JsonResponse
+     */
+    public function update(Request $request, string $slug)
+    {
+        try{
+            $response = $this->agentService->getAgents();
+            return $this->success(200, 'Profile Data Seuccessfully Retrived', new AgentIndexResource($response));
+        }catch(Exception $e) {
+            Log::error('AgentController::update', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
 }

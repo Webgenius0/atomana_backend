@@ -29,4 +29,35 @@ class AgentRepository implements AgentRepositoryInterface
             throw $e;
         }
     }
+
+    /**
+     * getAgentProfileById
+     * @param int $userId
+     * @return User
+     */
+    public function getAgentProfileById(int $userId)
+    {
+        try {
+            return User::with('profile')->findOrFail($userId);
+        }catch(Exception $e) {
+            Log::error('AgentRepository::getAgentProfileById', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updateAgentProfileById
+     * @param array $credentials
+     * @param int $userId
+     * @return void
+     */
+    public function updateAgentProfileById(array $credentials, int $userId)
+    {
+        try {
+            User::findOrFail($userId)->update($credentials);
+        }catch(Exception $e) {
+            Log::error('AgentRepository::updateAgentProfileById', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

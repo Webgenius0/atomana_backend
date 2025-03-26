@@ -30,6 +30,9 @@ return new class extends Migration
             $table->date('contract_year_start')->nullable();
             $table->decimal('total_commission_this_contract_year')->nullable();
 
+            $table->string('aggrement')->nullable();
+            $table->string('file')->nullable();
+
             $table->timestamps();
         });
     }

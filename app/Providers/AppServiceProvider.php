@@ -30,6 +30,8 @@ use App\Repositories\API\V1\Expense\SubCatetory\ExpenseSubCategoryRepository;
 use App\Repositories\API\V1\Expense\SubCatetory\ExpenseSubCategoryRepositoryInterface;
 use App\Repositories\API\V1\Method\PaymentMethodRepository;
 use App\Repositories\API\V1\Method\PaymentMethodRepositoryInterface;
+use App\Repositories\API\V1\OpenHouse\FeedbackRepository;
+use App\Repositories\API\V1\OpenHouse\FeedbackRepositoryInterface;
 use App\Repositories\API\V1\OpenHouse\OpenHouseRepository;
 use App\Repositories\API\V1\OpenHouse\OpenHouseRepositoryInterface;
 use App\Repositories\API\V1\PasswordList\PasswordListRepository;
@@ -98,6 +100,7 @@ class AppServiceProvider extends ServiceProvider
 
         // open house
         $this->app->bind(OpenHouseRepositoryInterface::class, OpenHouseRepository::class);
+        $this->app->bind(FeedbackRepositoryInterface::class, FeedbackRepository::class);
 
         // vendors category
         $this->app->bind(VendorCategoryRepositoryInterface::class, VendorCategoryRepository::class);

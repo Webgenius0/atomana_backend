@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\OpenHouse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\OpenHouse\CreateRequest;
 use App\Http\Resources\API\V1\OpenHouse\CreateResource;
+use App\Http\Resources\API\V1\OpenHouse\DropdownResource;
 use App\Services\API\V1\OpenHouse\OpenHouseService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -46,7 +47,7 @@ class OpenHouseController extends Controller
     {
         try {
             $response = $this->openHouseService->dropdown();
-            return $this->success(201, 'Open House Created Successfully',$response);
+            return $this->success(201, 'Open House Created Successfully',new DropdownResource($response));
         }catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\OpenHouse::dropdownIndex', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

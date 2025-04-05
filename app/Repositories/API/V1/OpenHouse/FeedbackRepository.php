@@ -4,6 +4,7 @@ namespace App\Repositories\API\V1\OpenHouse;
 
 use App\Models\OpenHouseFeedback;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class FeedbackRepository implements FeedbackRepositoryInterface
 {
@@ -28,6 +29,7 @@ class FeedbackRepository implements FeedbackRepositoryInterface
                 'additional_feedback' => $data['additional_feedback'],
             ]);
         }catch (Exception $e) {
+            Log::error('API\V1\OpenHouse\FeedbackRepository:createOpenHouseFeedback');
             throw $e;
         }
     }

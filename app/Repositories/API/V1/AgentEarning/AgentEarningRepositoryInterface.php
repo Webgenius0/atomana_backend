@@ -21,5 +21,5 @@ interface AgentEarningRepositoryInterface
      * @param int $per_page
      * @return LengthAwarePaginator
      */
-    public function getAgentsOfBusinessBySearch(int $businessId, int $per_page): LengthAwarePaginator;
+    public function getAgentsOfBusinessBySearch(string $name ,int $businessId, int $per_page): LengthAwarePaginator;
 }

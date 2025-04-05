@@ -40,7 +40,7 @@ class AgentEarningRepository implements AgentEarningRepositoryInterface
 
 
 
-    public function getAgentsOfBusinessBySearch(int $businessId, int $per_page): LengthAwarePaginator
+    public function getAgentsOfBusinessBySearch(string $name ,int $businessId, int $per_page): LengthAwarePaginator
     {
         try {
             return AgentEarningView::select([
@@ -56,7 +56,11 @@ class AgentEarningRepository implements AgentEarningRepositoryInterface
                 'group_gross_income_ytd',
                 'group_net_ytd',
                 'percentage_group_gross_income_ytd'
-            ])->where('business_id', $businessId)->with(['user:id,first_name,last_name,handle'])->paginate($per_page);
+            ])->where('business_id', $businessId)
+            ->where('name', 'like', '%'. $name . '%')
+            ->orWhere('handle', 'like', '%'. $name . '%')
+            ->with(['user:id,first_name,last_name,handle'])
+            ->paginate($per_page);
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\AI\AgentEarning\AgentEarningRepository::getAgentsOfBusiness', ['error' => $e->getMessage()]);
             throw $e;

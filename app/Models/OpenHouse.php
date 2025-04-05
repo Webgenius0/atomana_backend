@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class OpenHouse extends Model
 {
@@ -86,5 +87,14 @@ class OpenHouse extends Model
     public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);
+    }
+
+    /**
+     * openHouseFeedback
+     * @return HasMany<OpeHouseFeedback, User>
+     */
+    public function openHouseFeedback() : HasMany
+    {
+        return $this->hasMany(OpeHouseFeedback::class);
     }
 }

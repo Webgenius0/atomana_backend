@@ -156,4 +156,13 @@ class Business extends Model
     {
         return $this->hasOne(BusinessInfoView::class);
     }
+
+    /**
+     * openHouseFeedback
+     * @return HasMany<OpeHouseFeedback, User>
+     */
+    public function openHouseFeedback() : HasMany
+    {
+        return $this->hasMany(OpeHouseFeedback::class);
+    }
 }

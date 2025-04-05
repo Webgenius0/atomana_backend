@@ -136,4 +136,13 @@ class Property extends Model
     {
         return $this->belongsTo(PropertySource::class);
     }
+
+    /**
+     * openHouseFeedback
+     * @return HasMany<OpeHouseFeedback, User>
+     */
+    public function openHouseFeedback() : HasMany
+    {
+        return $this->hasMany(OpeHouseFeedback::class);
+    }
 }

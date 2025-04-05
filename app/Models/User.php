@@ -197,7 +197,7 @@ class User extends Authenticatable implements JWTSubject
      * may have many expences
      * @return HasMany<Expense, User>
      */
-    public function expences():HasMany
+    public function expences(): HasMany
     {
         return $this->hasMany(Expense::class);
     }
@@ -206,7 +206,7 @@ class User extends Authenticatable implements JWTSubject
      * has one ytd
      * @return HasOne<UserYTCView, User>
      */
-    public function ytd():HasOne
+    public function ytd(): HasOne
     {
         return $this->hasOne(UserYTCView::class);
     }
@@ -215,13 +215,26 @@ class User extends Authenticatable implements JWTSubject
      * has one agentEarning
      * @return HasOne<AgentEarningView, User>
      */
-    public function agentEarning():HasOne
+    public function agentEarning(): HasOne
     {
         return $this->hasOne(AgentEarningView::class);
     }
 
+    /**
+     * getRouteKeyName
+     * @return string
+     */
     public function getRouteKeyName(): string
-{
-    return 'handle';
-}
+    {
+        return 'handle';
+    }
+
+    /**
+     * openHouseFeedback
+     * @return HasMany<OpeHouseFeedback, User>
+     */
+    public function openHouseFeedback() : HasMany
+    {
+        return $this->hasMany(OpeHouseFeedback::class);
+    }
 }

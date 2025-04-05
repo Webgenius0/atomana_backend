@@ -37,4 +37,14 @@ class MyAgentEarningController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
+
+    public function search()
+    {
+        try {
+
+        }catch (Exception $e){
+            Log::error('App\Services\API\V1\MyAgentEarning\MyAgentEarningService::search', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
 }

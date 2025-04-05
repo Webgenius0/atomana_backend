@@ -8,6 +8,7 @@ use App\Http\Resources\API\V1\OpenHouse\CreateResource;
 use App\Services\API\V1\OpenHouse\OpenHouseService;
 use App\Traits\V1\ApiResponse;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -25,7 +26,7 @@ class OpenHouseController extends Controller
      * @param \App\Http\Requests\API\V1\OpenHouse\CreateRequest $createRequest
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateRequest $createRequest)
+    public function store(CreateRequest $createRequest): JsonResponse
     {
         try {
             $validatedData = $createRequest->validated();

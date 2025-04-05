@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->integer('people_count')->default(0);
             $table->longText('feedback');
-            $table->longText('additional_feedback');
+            $table->longText('additional_feedback')->nullable();
             $table->timestamps();
         });
     }

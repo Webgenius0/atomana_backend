@@ -8,5 +8,6 @@ Route::prefix('v1/agent-earning')->name('agent.earnings.')->middleware(['auth:ap
 
     Route::controller(MyAgentEarningController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/search', 'search')->name('search');
     });
 });

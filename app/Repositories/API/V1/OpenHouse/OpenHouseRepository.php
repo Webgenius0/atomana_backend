@@ -27,7 +27,22 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
                 'sign_number' => $credentials['sign_number'],
             ]);
         }catch(Exception $e) {
-            Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:storeOpenHourse');
+            Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:storeOpenHourse', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * openHouseById
+     * @param int $id
+     * @return OpenHouse
+     */
+    public function openHouseById(int $id):OpenHouse
+    {
+        try {
+            return OpenHouse::findOrFail($id);
+        }catch(Exception $e) {
+            Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:openHouseById', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

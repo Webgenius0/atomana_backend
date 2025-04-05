@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\OpenHouse;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\OpenHouse\CreateFeedbackRequest;
+use App\Http\Resources\API\V1\OpenHouse\CreateFeedback;
 use App\Services\API\V1\OpenHouse\OpenHouseFeedbackService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -36,7 +37,7 @@ class FeedbackController extends Controller
         try {
             $validatedData = $createFeedbackRequest->validated();
             $response = $this->openHouseFeedbackService->storeFeedback($validatedData);
-            return $this->success(201, 'Open House Created Successfully', $response);
+            return $this->success(201, 'Open House Created Successfully', new CreateFeedback($response));
         }catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\FeedbackController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

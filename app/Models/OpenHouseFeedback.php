@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OpenHouseFeedback extends Model
 {
+    protected $table = "open_house_feedbacks";
     /**
      * The attributes that are mass assignable.
      *

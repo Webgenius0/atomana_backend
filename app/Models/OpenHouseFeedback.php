@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class OpeHouseFeedback extends Model
+class OpenHouseFeedback extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -50,7 +50,7 @@ class OpeHouseFeedback extends Model
 
     /**
      *  user
-     * @return BelongsTo<User, OpeHouseFeedback>
+     * @return BelongsTo<User, OpenHouseFeedback>
      */
     public function user(): BelongsTo
     {
@@ -59,7 +59,7 @@ class OpeHouseFeedback extends Model
 
     /**
      * business
-     * @return BelongsTo<Business, OpeHouseFeedback>
+     * @return BelongsTo<Business, OpenHouseFeedback>
      */
     public function business(): BelongsTo
     {
@@ -68,7 +68,7 @@ class OpeHouseFeedback extends Model
 
     /**
      * property
-     * @return BelongsTo<Property, OpeHouseFeedback>
+     * @return BelongsTo<Property, OpenHouseFeedback>
      */
     public function property(): BelongsTo
     {
@@ -77,7 +77,7 @@ class OpeHouseFeedback extends Model
 
     /**
      * openHouse
-     * @return BelongsTo<OpenHouse, OpeHouseFeedback>
+     * @return BelongsTo<OpenHouse, OpenHouseFeedback>
      */
     public function openHouse(): BelongsTo
     {

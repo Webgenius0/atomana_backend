@@ -139,10 +139,10 @@ class Property extends Model
 
     /**
      * openHouseFeedback
-     * @return HasMany<OpeHouseFeedback, User>
+     * @return HasMany<OpenHouseFeedback, User>
      */
     public function openHouseFeedback() : HasMany
     {
-        return $this->hasMany(OpeHouseFeedback::class);
+        return $this->hasMany(OpenHouseFeedback::class);
     }
 }

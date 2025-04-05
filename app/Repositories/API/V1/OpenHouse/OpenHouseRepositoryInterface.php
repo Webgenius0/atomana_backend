@@ -19,4 +19,10 @@ interface OpenHouseRepositoryInterface
      * @return OpenHouse
      */
     public function openHouseById(int $id): OpenHouse;
+
+    /**
+     * getList
+     * @param int $businessId
+     */
+    public function getList(int $businessId): mixed;
 }

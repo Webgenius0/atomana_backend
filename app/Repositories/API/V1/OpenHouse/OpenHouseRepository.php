@@ -13,7 +13,7 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
      * @param array $credentials
      * @return OpenHouse
      */
-    public function storeOpenHourse(array $credentials, int $businessId):OpenHouse
+    public function storeOpenHourse(array $credentials, int $businessId): OpenHouse
     {
         try {
             return OpenHouse::create([
@@ -26,7 +26,7 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
                 'wavy_man'    => $credentials['wavy_man'],
                 'sign_number' => $credentials['sign_number'],
             ]);
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:storeOpenHourse', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -37,12 +37,26 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
      * @param int $id
      * @return OpenHouse
      */
-    public function openHouseById(int $id):OpenHouse
+    public function openHouseById(int $id): OpenHouse
     {
         try {
             return OpenHouse::findOrFail($id);
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:openHouseById', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * getList
+     * @param int $businessId
+     */
+    public function getList(int $businessId): mixed
+    {
+        try {
+            return OpenHouse::select(['id','property_id'])->whereBusinessId($businessId)->with(['property:id,address'])->get();
+        } catch (Exception $e) {
+            Log::error('Repositories\API\V1\OpenHouse\OpenHouseRepository:getList', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

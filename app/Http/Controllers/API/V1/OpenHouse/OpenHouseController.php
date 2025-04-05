@@ -37,4 +37,19 @@ class OpenHouseController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
+
+    /**
+     * dropdownIndex
+     * @return JsonResponse
+     */
+    public function dropdownIndex(): JsonResponse
+    {
+        try {
+            $response = $this->openHouseService->dropdown();
+            return $this->success(201, 'Open House Created Successfully',$response);
+        }catch (Exception $e) {
+            Log::error('App\Http\Controllers\API\V1\OpenHouse::dropdownIndex', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
 }

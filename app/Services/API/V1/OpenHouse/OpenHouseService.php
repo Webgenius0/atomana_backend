@@ -33,7 +33,21 @@ class OpenHouseService
         try {
             return $this->openHouseRepository->storeOpenHourse($credential, $this->businessId);
         } catch (Exception $e) {
-            Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:store');
+            Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:store', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * dropdown
+     */
+    public function dropdown()
+    {
+        try {
+            return $this->openHouseRepository->getList($this->businessId);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:store', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

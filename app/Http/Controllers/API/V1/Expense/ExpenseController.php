@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Expense;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
+use App\Http\Requests\API\V1\Expense\UpdateCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateUserRequest;
 use App\Http\Resources\API\V1\Expense\CreateExpenseResource;
 use App\Http\Resources\API\V1\Expense\IndexExpenseResource;
@@ -62,20 +63,36 @@ class ExpenseController extends Controller
         }
     }
 
+    /**
+     * updateUser
+     * @param \App\Models\Expense $expense
+     * @param \App\Http\Requests\API\V1\Expense\UpdateUserRequest $updateUserRequest
+     * @return JsonResponse
+     */
     public function updateUser(Expense $expense, UpdateUserRequest $updateUserRequest): JsonResponse
     {
         try {
             $validatedData = $updateUserRequest->validated();
             $this->expenseService->updateUser($expense->id, $validatedData['user_id']);
-            return $this->success(200,'User Updated',);
+            return $this->success(200,'User Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateUser', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-    public function updateCategory(Expense $expense)
+
+    /**
+     * updateCategory
+     * @param \App\Models\Expense $expense
+     * @param \App\Http\Requests\API\V1\Expense\UpdateCategoryRequest $updateCategoryRequest
+     * @return JsonResponse
+     */
+    public function updateCategory(Expense $expense, UpdateCategoryRequest $updateCategoryRequest): JsonResponse
     {
         try {
+            $validatedData = $updateCategoryRequest->validated();
+            $this->expenseService->updateCategory($expense->id, $validatedData['category_id']);
+            return $this->success(200,'Category Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateCategory', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

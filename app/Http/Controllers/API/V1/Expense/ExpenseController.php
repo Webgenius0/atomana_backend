@@ -9,6 +9,7 @@ use App\Http\Requests\API\V1\Expense\UpdateCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateDescriptionRequest;
 use App\Http\Requests\API\V1\Expense\UpdatePayeeRequest;
 use App\Http\Requests\API\V1\Expense\UpdatePaymentMethodRequest;
+use App\Http\Requests\API\V1\Expense\UpdateReimbursableRequest;
 use App\Http\Requests\API\V1\Expense\UpdateSubCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateUserRequest;
 use App\Http\Resources\API\V1\Expense\CreateExpenseResource;
@@ -158,6 +159,13 @@ class ExpenseController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
+
+    /**
+     * updatePaymentMethod
+     * @param \App\Models\Expense $expense
+     * @param \App\Http\Requests\API\V1\Expense\UpdatePaymentMethodRequest $updatePaymentMethodRequest
+     * @return JsonResponse
+     */
     public function updatePaymentMethod(Expense $expense, UpdatePaymentMethodRequest $updatePaymentMethodRequest): JsonResponse
     {
         try {
@@ -169,6 +177,13 @@ class ExpenseController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
+
+    /**
+     * updatePayee
+     * @param \App\Models\Expense $expense
+     * @param \App\Http\Requests\API\V1\Expense\UpdatePayeeRequest $updatePayeeRequest
+     * @return JsonResponse
+     */
     public function updatePayee(Expense $expense, UpdatePayeeRequest $updatePayeeRequest): JsonResponse
     {
         try {
@@ -180,9 +195,17 @@ class ExpenseController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-    public function updateReimbursable(Expense $expense)
+
+    /**
+     * updateReimbursable
+     * @param \App\Models\Expense $expense
+     * @return JsonResponse
+     */
+    public function updateReimbursable(Expense $expense):JsonResponse
     {
         try {
+            $this->expenseService->updateReimbursable($expense->id);
+            return $this->success(200,'Reimburables Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateReimbursable', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

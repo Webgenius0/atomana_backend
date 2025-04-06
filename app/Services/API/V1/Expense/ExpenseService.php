@@ -406,10 +406,10 @@ class ExpenseService extends ExpenseRepository
      * @param int $paymentMethodId
      * @return void
      */
-    public function updatePaymentMethodAmount(int $id, int $paymentMethodId)
+    public function updatePaymentMethod(int $id, int $paymentMethodId)
     {
         try {
-            $this->expenseRepository->updatePaymentMethodAmount($id, $paymentMethodId);
+            $this->expenseRepository->updatePaymentMethod($id, $paymentMethodId);
         } catch (Exception $e) {
             Log::error('ExpenseService::updatePaymentMethodAmount', ['error' => $e->getMessage()]);
             throw $e;

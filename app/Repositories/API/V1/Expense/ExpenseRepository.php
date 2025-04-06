@@ -211,14 +211,14 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param int $paymentMethodId
      * @return bool
      */
-    public function updatePaymentMethodAmount(int $id, int $paymentMethodId)
+    public function updatePaymentMethod(int $id, int $paymentMethodId)
     {
         try {
             return Expense::findOrFail($id)->update([
                 'payment_method_id' => $paymentMethodId,
             ]);
         } catch (Exception $e) {
-            Log::error('ExpenseRepository::updatePaymentMethodAmount', ['error' => $e->getMessage()]);
+            Log::error('ExpenseRepository::updatePaymentMethod', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

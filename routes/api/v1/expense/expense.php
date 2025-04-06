@@ -25,7 +25,7 @@ Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'verified
         Route::put('/update/sub-category/{expense}', 'updateSubCategory')->name('update.sub.category');
         Route::put('/update/description/{expense}', 'updateDescription')->name('update.description');
         Route::put('/update/amount/{expense}', 'updateAmount')->name('update.amount');
-        Route::put('/update/payment-method/{expense}', 'updatePaymentMethodAmount')->name('update.payment.method');
+        Route::put('/update/payment-method/{expense}', 'updatePaymentMethod')->name('update.payment.method');
         Route::put('/update/payee/{expense}', 'updatePayee')->name('update.payee');
         Route::put('/update/reimburables/{expense}', 'updateReimbursable')->name('update.reimburables');
         Route::put('/update/listings/{expense}', 'updateListing')->name('update.listings');

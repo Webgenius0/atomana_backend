@@ -87,7 +87,7 @@ interface ExpenseRepositoryInterface
      * @param int $paymentMethodId
      * @return bool
      */
-    public function updatePaymentMethodAmount(int $id, int $paymentMethodId);
+    public function updatePaymentMethod(int $id, int $paymentMethodId);
 
     /**
      * updatePayee

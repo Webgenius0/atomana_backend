@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Expense;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
+use App\Http\Requests\API\V1\Expense\UpdateUserRequest;
 use App\Http\Resources\API\V1\Expense\CreateExpenseResource;
 use App\Http\Resources\API\V1\Expense\IndexExpenseResource;
 use App\Models\Expense;
@@ -61,9 +62,12 @@ class ExpenseController extends Controller
         }
     }
 
-    public function updateUser(Expense $expense)
+    public function updateUser(Expense $expense, UpdateUserRequest $updateUserRequest): JsonResponse
     {
         try {
+            $validatedData = $updateUserRequest->validated();
+            $this->expenseService->updateUser($expense->id, $validatedData['user_id']);
+            return $this->success(200,'User Updated',);
         } catch (Exception $e) {
             Log::error('ExpenseController::updateUser', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

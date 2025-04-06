@@ -3,6 +3,7 @@
 namespace App\Services\API\V1\Expense;
 
 use App\Helpers\Helper;
+use App\Models\Expense;
 use App\Repositories\API\V1\Expense\ExpenseRepository;
 use App\Repositories\API\V1\Expense\ExpenseRepositoryInterface;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepositoryInterface;
@@ -318,4 +319,19 @@ class ExpenseService extends ExpenseRepository
         }
     }
 
+    /**
+     * updateUser
+     * @param int $id
+     * @param int $userId
+     * @return void
+     */
+    public function updateUser(int $id, int $userId)
+    {
+        try {
+            $this->expenseRepository->updateUser($id, $userId);
+        }catch (Exception $e) {
+            Log::error('ExpenseService::updateUser', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

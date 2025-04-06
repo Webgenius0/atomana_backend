@@ -7,6 +7,8 @@ use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
 use App\Http\Requests\API\V1\Expense\UpdateAmountRequest;
 use App\Http\Requests\API\V1\Expense\UpdateCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateDescriptionRequest;
+use App\Http\Requests\API\V1\Expense\UpdateListingRequest;
+use App\Http\Requests\API\V1\Expense\UpdateNoteRequest;
 use App\Http\Requests\API\V1\Expense\UpdatePayeeRequest;
 use App\Http\Requests\API\V1\Expense\UpdatePaymentMethodRequest;
 use App\Http\Requests\API\V1\Expense\UpdateReimbursableRequest;
@@ -211,17 +213,37 @@ class ExpenseController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-    public function updateListing(Expense $expense)
+
+    /**
+     * updateListing
+     * @param \App\Models\Expense $expense
+     * @param \App\Http\Requests\API\V1\Expense\UpdateListingRequest $updateListingRequest
+     * @return JsonResponse
+     */
+    public function updateListing(Expense $expense, UpdateListingRequest $updateListingRequest): JsonResponse
     {
         try {
+            $validatedData = $updateListingRequest->validated();
+            $this->expenseService->updateListing($expense->id, $validatedData['listing']);
+            return $this->success(200,'Listing Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateListing', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-    public function updateNote(Expense $expense)
+
+    /**
+     * updateNote
+     * @param \App\Models\Expense $expense
+     * @param \App\Http\Requests\API\V1\Expense\UpdateNoteRequest $updateNoteRequest
+     * @return JsonResponse
+     */
+    public function updateNote(Expense $expense, UpdateNoteRequest $updateNoteRequest): JsonResponse
     {
         try {
+            $validatedData = $updateNoteRequest->validated();
+            $this->expenseService->updateNote($expense->id, $validatedData['note']);
+            return $this->success(200,'Note Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateNote', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

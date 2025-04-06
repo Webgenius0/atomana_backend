@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Expense;
+use App\Policies\API\V1\ExpensePolicy;
 use App\Repositories\API\V1\Admin\AgentRepository;
 use App\Repositories\API\V1\Admin\AgentRepositoryInterface;
 use App\Repositories\API\V1\AgentEarning\AgentEarningRepository;
@@ -58,6 +60,7 @@ use App\Repositories\API\V1\VendorCategory\VendorCategoryRepository;
 use App\Repositories\API\V1\VendorCategory\VendorCategoryRepositoryInterface;
 use App\Repositories\API\V1\VendorReview\VendorReviewRepository;
 use App\Repositories\API\V1\VendorReview\VendorReviewRepositoryInterface;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -135,6 +138,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::policy(Expense::class, ExpensePolicy::class);
     }
 }

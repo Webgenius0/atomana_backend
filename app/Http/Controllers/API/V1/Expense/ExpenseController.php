@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
 use App\Http\Resources\API\V1\Expense\CreateExpenseResource;
 use App\Http\Resources\API\V1\Expense\IndexExpenseResource;
+use App\Models\Expense;
 use App\Models\ExpenseFor;
 use App\Services\API\V1\Expense\ExpenseService;
 use App\Traits\V1\ApiResponse;
@@ -56,6 +57,87 @@ class ExpenseController extends Controller
             return $this->success(200, 'Expense Created Successfully',  new CreateExpenseResource($response));
         } catch (Exception $e) {
             Log::error('ExpenseController::store', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    public function updateUser(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updateUser', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updateCategory(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updateCategory', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updateSubCategory(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updateSubCategory', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updateDescription(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updateDescription', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updateAmount(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updateAmount', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updatePaymentMethodAmount(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updatePaymentMethodAmount', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updatePayee(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updatePayee', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updateReimbursable(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updateReimbursable', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updateListing(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updateListing', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+    public function updateNote(Expense $expense)
+    {
+        try {
+        } catch (Exception $e) {
+            Log::error('ExpenseController::updateNote', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

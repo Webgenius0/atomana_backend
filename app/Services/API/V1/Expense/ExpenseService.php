@@ -369,17 +369,17 @@ class ExpenseService extends ExpenseRepository
     }
 
     /**
-     * updateDexcription
+     * updateDescriptions
      * @param int $id
      * @param int $description
      * @return void
      */
-    public function updateDexcription(int $id, int $description)
+    public function updateDescriptions(int $id, int $description)
     {
         try {
             $this->expenseRepository->updateDescription($id, $description);
         } catch (Exception $e) {
-            Log::error('ExpenseService::updateDexcription', ['error' => $e->getMessage()]);
+            Log::error('ExpenseService::updateDescriptions', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

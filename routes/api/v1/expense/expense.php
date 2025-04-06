@@ -20,7 +20,20 @@ Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'verified
     });
     // all route for expense
     Route::controller(ExpenseController::class)->group(function () {
+        Route::put('/update/user/{expense}', 'updateUser')->name('update.user');
+        Route::put('/update/category/{expense}', 'updateCategory')->name('update.catgeory');
+        Route::put('/update/sub-category/{expense}', 'updateSubCategory')->name('update.sub.category');
+        Route::put('/update/update-description/{expense}', 'updateDescription')->name('update.description');
+        Route::put('/update/amount/{expense}', 'updateAmount')->name('update.amount');
+        Route::put('/update/payment-method/{expense}', 'updatePaymentMethodAmount')->name('update.payment.method');
+        Route::put('/update/payee/{expense}', 'updatePayee')->name('update.payee');
+        Route::put('/update/reimburables/{expense}', 'updateReimbursable')->name('update.reimburables');
+        Route::put('/update/listings/{expense}', 'updateListing')->name('update.listings');
+        Route::put('/update/note/{expense}', 'updateNote')->name('update.note');
+
+
         Route::post('/store/{expense_for}', 'store')->name('store');
         Route::get('/{expense_for}', 'index')->name('index');
+
     });
 });

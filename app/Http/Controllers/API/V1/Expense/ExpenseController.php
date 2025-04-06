@@ -7,6 +7,7 @@ use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
 use App\Http\Requests\API\V1\Expense\UpdateAmountRequest;
 use App\Http\Requests\API\V1\Expense\UpdateCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateDescriptionRequest;
+use App\Http\Requests\API\V1\Expense\UpdatePayeeRequest;
 use App\Http\Requests\API\V1\Expense\UpdatePaymentMethodRequest;
 use App\Http\Requests\API\V1\Expense\UpdateSubCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateUserRequest;
@@ -168,9 +169,12 @@ class ExpenseController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-    public function updatePayee(Expense $expense)
+    public function updatePayee(Expense $expense, UpdatePayeeRequest $updatePayeeRequest): JsonResponse
     {
         try {
+            $validatedData = $updatePayeeRequest->validated();
+            $this->expenseService->updatePayee($expense->id, $validatedData['payee']);
+            return $this->success(200,'Payee Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updatePayee', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

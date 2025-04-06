@@ -116,12 +116,31 @@ class ExpenseRepository implements ExpenseRepositoryInterface
     }
 
     /**
+     * updateUser
+     * @param int $id
+     * @param int $userId
+     * @return bool
+     */
+    public function updateUser(int $id, int $userId)
+    {
+        try {
+            return Expense::findOrFail($id)->update([
+                'user_id' => $userId,
+            ]);
+        } catch (Exception $e) {
+            Log::error('ExpenseRepository::updateUser', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
      * updateCategory
      * @param int $id
      * @param int $categoryId
      * @return bool
      */
-    public function updateCategory(int $id, int $categoryId) {
+    public function updateCategory(int $id, int $categoryId)
+    {
         try {
             return Expense::findOrFail($id)->update([
                 'expense_category_id' => $categoryId,
@@ -138,7 +157,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param int $subCategoryId
      * @return bool
      */
-    public function updateSubCategory(int $id, int $subCategoryId) {
+    public function updateSubCategory(int $id, int $subCategoryId)
+    {
         try {
             return Expense::findOrFail($id)->update([
                 'expense_sub_category_id' => $subCategoryId,
@@ -155,7 +175,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param string $description
      * @return bool
      */
-    public function updateDescription(int $id, string $description) {
+    public function updateDescription(int $id, string $description)
+    {
         try {
             return Expense::findOrFail($id)->update([
                 'description' => $description,
@@ -172,7 +193,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param float $amount
      * @return bool
      */
-    public function updateAmount(int $id, float $amount) {
+    public function updateAmount(int $id, float $amount)
+    {
         try {
             return Expense::findOrFail($id)->update([
                 'amount' => $amount,
@@ -189,7 +211,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param int $paymentMethodId
      * @return bool
      */
-    public function updatePaymentMethodAmount(int $id, int $paymentMethodId) {
+    public function updatePaymentMethodAmount(int $id, int $paymentMethodId)
+    {
         try {
             return Expense::findOrFail($id)->update([
                 'payment_method_id' => $paymentMethodId,
@@ -206,7 +229,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param string $payee
      * @return bool
      */
-    public function updatePayee(int $id, string $payee) {
+    public function updatePayee(int $id, string $payee)
+    {
         try {
             return Expense::findOrFail($id)->update([
                 'payee' => $payee,
@@ -241,7 +265,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param string $listing
      * @return bool
      */
-    public function updateListing(int $id, string $listing) {
+    public function updateListing(int $id, string $listing)
+    {
         try {
             return Expense::findOrFail($id)->update([
                 'listing' => $listing,
@@ -258,7 +283,8 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param string $note
      * @return bool
      */
-    public function updateNote(int $id, string $note) {
+    public function updateNote(int $id, string $note)
+    {
         try {
             return Expense::findOrFail($id)->update([
                 'note' => $note,
@@ -268,5 +294,4 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             throw $e;
         }
     }
-
 }

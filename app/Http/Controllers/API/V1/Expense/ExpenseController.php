@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Expense;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
 use App\Http\Requests\API\V1\Expense\UpdateCategoryRequest;
+use App\Http\Requests\API\V1\Expense\UpdateDescriptionRequest;
 use App\Http\Requests\API\V1\Expense\UpdateSubCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateUserRequest;
 use App\Http\Resources\API\V1\Expense\CreateExpenseResource;
@@ -118,9 +119,19 @@ class ExpenseController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-    public function updateDescription(Expense $expense)
+
+    /**
+     * updateDescription
+     * @param \App\Models\Expense $expense
+     * @param \App\Http\Requests\API\V1\Expense\UpdateDescriptionRequest $updateDescriptionRequest
+     * @return JsonResponse
+     */
+    public function updateDescription(Expense $expense, UpdateDescriptionRequest $updateDescriptionRequest): JsonResponse
     {
         try {
+            $validatedData = $updateDescriptionRequest->validated();
+            $this->expenseService->updateDescription($expense->id, $validatedData['description']);
+            return $this->success(200,'Description Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateDescription', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

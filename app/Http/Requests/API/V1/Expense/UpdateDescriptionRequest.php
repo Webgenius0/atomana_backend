@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class UpdateSubCategoryRequest extends FormRequest
+class UpdateDescriptionRequest extends FormRequest
 {
     use ApiResponse;
     /**
@@ -26,10 +26,9 @@ class UpdateSubCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sub_category_id' => 'required|exists:expense_sub_categories,id'
+            "description" => "nullable|string",
         ];
     }
-
 
     /**
      * failedValidation
@@ -42,7 +41,7 @@ class UpdateSubCategoryRequest extends FormRequest
         $errors = $validator->errors()->getMessages();
         $message = null;
         $fields = [
-            'user_id'
+            'description'
         ];
 
         foreach ($fields as $field) {

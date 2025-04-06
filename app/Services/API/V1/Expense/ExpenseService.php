@@ -334,4 +334,20 @@ class ExpenseService extends ExpenseRepository
             throw $e;
         }
     }
+
+    /**
+     * updateCategory
+     * @param int $id
+     * @param int $categoryId
+     * @return void
+     */
+    public function updateCategory(int $id, int $categoryId)
+    {
+        try {
+            $this->expenseRepository->updateCategory($id, $categoryId);
+        }catch (Exception $e) {
+            Log::error('ExpenseService::updateCategory', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

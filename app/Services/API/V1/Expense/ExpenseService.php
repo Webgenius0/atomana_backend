@@ -27,9 +27,11 @@ class ExpenseService extends ExpenseRepository
      * construct
      * @param \App\Repositories\API\V1\Expense\ExpenseRepositoryInterface $expenseRepository
      */
-    public function __construct(ExpenseRepositoryInterface $expenseRepository, TargetRepositoryInterface $targetRepository,
-    SalesTrackRepositoryInterface $salesTrackRepository)
-    {
+    public function __construct(
+        ExpenseRepositoryInterface $expenseRepository,
+        TargetRepositoryInterface $targetRepository,
+        SalesTrackRepositoryInterface $salesTrackRepository
+    ) {
         $this->user              = Auth::user();
         $this->businessId        = Auth::user()->business()->id;
         $this->expenseRepository = $expenseRepository;
@@ -220,7 +222,7 @@ class ExpenseService extends ExpenseRepository
         }
     }
 
-        /**
+    /**
      * adminNetProfitStatistics
      * @param string $filter
      * @return array{net profit: string, percentage: string, target: string}
@@ -262,7 +264,7 @@ class ExpenseService extends ExpenseRepository
                 'net profit' => number_format((float) $currentNetProfit, 2),
                 'percentage' => number_format((float) $percentage, 2),
             ];
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ExpenseService::adminNetProfitStatistics', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -312,8 +314,7 @@ class ExpenseService extends ExpenseRepository
                 'net profit' => number_format((float) $currentNetProfit, 2),
                 'percentage' => number_format((float) $percentage, 2),
             ];
-
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ExpenseService::agentNetProfitStatistics', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -329,7 +330,7 @@ class ExpenseService extends ExpenseRepository
     {
         try {
             $this->expenseRepository->updateUser($id, $userId);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ExpenseService::updateUser', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -345,9 +346,137 @@ class ExpenseService extends ExpenseRepository
     {
         try {
             $this->expenseRepository->updateCategory($id, $categoryId);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('ExpenseService::updateCategory', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
+
+    /**
+     * updateSubCategory
+     * @param int $id
+     * @param int $categoryId
+     * @return void
+     */
+    public function updateSubCategory(int $id, int $subCategoryId)
+    {
+        try {
+            $this->expenseRepository->updateSubCategory($id, $subCategoryId);
+        } catch (Exception $e) {
+            Log::error('ExpenseService::updateSubCategory', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updateDexcription
+     * @param int $id
+     * @param int $description
+     * @return void
+     */
+    public function updateDexcription(int $id, int $description)
+    {
+        try {
+            $this->expenseRepository->updateDescription($id, $description);
+        } catch (Exception $e) {
+            Log::error('ExpenseService::updateDexcription', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updateAmount
+     * @param int $id
+     * @param float $amount
+     * @return void
+     */
+    public function updateAmount(int $id, float $amount)
+    {
+        try {
+            $this->expenseRepository->updateAmount($id, $amount);
+        } catch (Exception $e) {
+            Log::error('ExpenseService::updateAmount', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updatePaymentMethodAmount
+     * @param int $id
+     * @param int $paymentMethodId
+     * @return void
+     */
+    public function updatePaymentMethodAmount(int $id, int $paymentMethodId)
+    {
+        try {
+            $this->expenseRepository->updatePaymentMethodAmount($id, $paymentMethodId);
+        } catch (Exception $e) {
+            Log::error('ExpenseService::updatePaymentMethodAmount', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updatePayee
+     * @param int $id
+     * @param string $payee
+     * @return void
+     */
+    public function updatePayee(int $id, string $payee)
+    {
+        try {
+            $this->expenseRepository->updatePayee($id, $payee);
+        } catch (Exception $e) {
+            Log::error('ExpenseService::updatePayee', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updateReimbursable
+     * @param int $id
+     * @return void
+     */
+    public function updateReimbursable(int $id)
+    {
+        try {
+            $this->expenseRepository->updateReimbursable($id);
+        } catch (Exception $e) {
+            Log::error('ExpenseService::updateReimbursable', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updateListing
+     * @param int $id
+     * @param string $listing
+     * @return void
+     */
+    public function updateListing(int $id, string $listing)
+    {
+        try {
+            $this->expenseRepository->updateListing($id, $listing);
+        } catch (Exception $e) {
+            Log::error('ExpenseService::updateListing', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updateNote
+     * @param int $id
+     * @param string $note
+     * @return void
+     */
+    public function updateNote(int $id, string $note)
+    {
+        try {
+            $this->expenseRepository->updateNote($id, $note);
+        } catch (Exception $e) {
+            Log::error('ExpenseService::updateNote', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
 }

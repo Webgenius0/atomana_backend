@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Expense;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
 use App\Http\Requests\API\V1\Expense\UpdateCategoryRequest;
+use App\Http\Requests\API\V1\Expense\UpdateSubCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateUserRequest;
 use App\Http\Resources\API\V1\Expense\CreateExpenseResource;
 use App\Http\Resources\API\V1\Expense\IndexExpenseResource;
@@ -35,7 +36,8 @@ class ExpenseController extends Controller
      * @param \App\Models\ExpenseFor $expenseFor
      * @return JsonResponse
      */
-    public function index(ExpenseFor $expenseFor) {
+    public function index(ExpenseFor $expenseFor)
+    {
         try {
             $response = $this->expenseService->getExpenses($expenseFor);
             return $this->success(200, 'Expense Created Successfully', new IndexExpenseResource($response));
@@ -74,7 +76,7 @@ class ExpenseController extends Controller
         try {
             $validatedData = $updateUserRequest->validated();
             $this->expenseService->updateUser($expense->id, $validatedData['user_id']);
-            return $this->success(200,'User Updated Successfully');
+            return $this->success(200, 'User Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateUser', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
@@ -92,15 +94,25 @@ class ExpenseController extends Controller
         try {
             $validatedData = $updateCategoryRequest->validated();
             $this->expenseService->updateCategory($expense->id, $validatedData['category_id']);
-            return $this->success(200,'Category Updated Successfully');
+            return $this->success(200, 'Category Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateCategory', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-    public function updateSubCategory(Expense $expense)
+
+    /**
+     * updateSubCategory
+     * @param \App\Models\Expense $expense
+     * @param \App\Http\Requests\API\V1\Expense\UpdateSubCategoryRequest $updateSubCategoryRequest
+     * @return JsonResponse
+     */
+    public function updateSubCategory(Expense $expense, UpdateSubCategoryRequest $updateSubCategoryRequest): JsonResponse
     {
         try {
+            $validatedData = $updateSubCategoryRequest->validated();
+            $this->expenseService->updateSubCategory($expense->id, $validatedData['sub_category_id']);
+            return $this->success(200, 'Sub Category Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateSubCategory', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

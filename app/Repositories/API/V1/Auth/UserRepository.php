@@ -26,7 +26,7 @@ class UserRepository implements UserRepositoryInterface
      *
      * @throws Exception If user creation fails.
      */
-    public function createUser(array $credentials, int $businessId, int $role = 2): User
+    public function createUser(array $credentials, int $businessId = null, int $role = 2): User
     {
         try {
             // creating user

@@ -14,7 +14,7 @@ interface UserRepositoryInterface
      * @param int $role
      * @return void
      */
-    public function createUser(array $credentials, int $businessId, int $role = 2,):User;
+    public function createUser(array $credentials, int $businessId = null, int $role = 2,):User;
 
     /**
      * Attempts to retrieve a user by their login credentials.

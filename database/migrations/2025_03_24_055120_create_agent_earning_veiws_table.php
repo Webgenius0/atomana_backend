@@ -15,7 +15,6 @@ return new class extends Migration
             CREATE VIEW agent_earning_views AS
             SELECT
                 CONCAT(u.first_name, ' ', u.last_name) AS name,
-                u.handle,
                 st.user_id,
                 st.business_id,
                 COUNT(st.id) AS sales_closed,

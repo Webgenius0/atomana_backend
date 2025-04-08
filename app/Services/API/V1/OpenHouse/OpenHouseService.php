@@ -12,6 +12,7 @@ class OpenHouseService
 {
     protected OpenHouseRepositoryInterface $openHouseRepository;
     protected $businessId;
+    protected $user;
 
     /**
      * construct
@@ -20,6 +21,7 @@ class OpenHouseService
     public function __construct(OpenHouseRepositoryInterface $openHouseRepository)
     {
         $this->openHouseRepository = $openHouseRepository;
+        $this->user = Auth::user();
         $this->businessId = Auth::user()->business()->id;
     }
 
@@ -31,7 +33,7 @@ class OpenHouseService
     public function store(array $credential): OpenHouse
     {
         try {
-            return $this->openHouseRepository->storeOpenHourse($credential, $this->businessId);
+            return $this->openHouseRepository->storeOpenHourse($credential, $this->businessId, $this->user->id);
         } catch (Exception $e) {
             Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:store', ['error' => $e->getMessage()]);
             throw $e;

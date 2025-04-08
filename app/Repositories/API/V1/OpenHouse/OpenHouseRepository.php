@@ -11,15 +11,17 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
     /**
      * storeOpenHourse
      * @param array $credentials
+     * @param int $businessId
+     * @param int $userId
      * @return OpenHouse
      */
-    public function storeOpenHourse(array $credentials, int $businessId): OpenHouse
+    public function storeOpenHourse(array $credentials, int $businessId, int $userId): OpenHouse
     {
         try {
             return OpenHouse::create([
                 'business_id' => $businessId,
                 'property_id' => $credentials['property_id'],
-                'email'       => $credentials['email'],
+                'user_id'     => $userId,
                 'date'        => $credentials['date'],
                 'start_time'  => $credentials['start_time'],
                 'end_time'    => $credentials['end_time'],
@@ -54,7 +56,7 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
     public function getList(int $businessId): mixed
     {
         try {
-            return OpenHouse::select(['id','property_id'])->whereBusinessId($businessId)->with(['property:id,address'])->get();
+            return OpenHouse::select(['id', 'property_id'])->whereBusinessId($businessId)->with(['property:id,address'])->get();
         } catch (Exception $e) {
             Log::error('Repositories\API\V1\OpenHouse\OpenHouseRepository:getList', ['error' => $e->getMessage()]);
             throw $e;

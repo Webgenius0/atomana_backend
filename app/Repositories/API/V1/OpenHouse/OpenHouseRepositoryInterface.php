@@ -9,9 +9,11 @@ interface OpenHouseRepositoryInterface
     /**
      * storeOpenHourse
      * @param array $credentials
+     * @param int $businessId
+     * @param int $userId
      * @return OpenHouse
      */
-    public function storeOpenHourse(array $credentials, int $businessId): OpenHouse;
+    public function storeOpenHourse(array $credentials, int $businessId, int $userId): OpenHouse;
 
     /**
      * openHouseById

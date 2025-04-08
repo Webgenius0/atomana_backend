@@ -31,7 +31,7 @@ class CreateRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'website' => ['required', 'string', 'url', 'max:255'],
             'user_name' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'max:255'],
+            'password' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'notes' => ['nullable', 'string'],
         ];

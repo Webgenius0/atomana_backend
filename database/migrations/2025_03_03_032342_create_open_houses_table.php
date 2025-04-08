@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('open_houses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('business_id')->constrained('businesses')->cascadeOnDelete();
-            $table->string('email');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('property_id')->constrained('properties')->cascadeOnDelete();
             $table->date('date');
             $table->time('start_time');

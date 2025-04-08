@@ -26,7 +26,6 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
             'property_id' => 'required|exists:properties,id',
             'date' => 'required|date|after:' . now()->toDateString(), // Date must be today or in the future
             'start_time' => 'required|date_format:H:i',

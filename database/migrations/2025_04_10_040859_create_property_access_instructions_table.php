@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('property_access_instructions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('property_id')->constrained('properties')->cascadeOnDelete();
-            $table->foreignId('property_types_id')->constrained('property_types')->cascadeOnDelete();
+            $table->foreignId('property_type_id')->constrained('property_types')->cascadeOnDelete();
             $table->string('size')->nullable();
             $table->string('access_key')->nullable();
             $table->string('lock_box_location')->nullable();

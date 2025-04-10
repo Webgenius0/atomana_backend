@@ -134,7 +134,7 @@ class Property extends Model
      */
     public function source(): BelongsTo
     {
-        return $this->belongsTo(PropertySource::class);
+        return $this->belongsTo(PropertySource::class, 'property_source_id');
     }
 
     /**

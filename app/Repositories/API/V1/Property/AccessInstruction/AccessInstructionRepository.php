@@ -41,7 +41,7 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
 
             return PropertyAccessInstruction::create([
                 "property_id"          => $data["property_id"],
-                "property_types_id"    => $data["property_types_id"],
+                "property_type_id"    => $data["property_type_id"],
                 "size"                 => $data["size"],
                 "access_key"           => $data["access_key"],
                 "lock_box_location"    => $data["lock_box_location"],
@@ -51,11 +51,10 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
                 "visitor_parking"      => $data["visitor_parking"],
                 "note"                 => $data["note"],
             ]);
-        }catch (PreconditionFailedHttpException $e) {
+        } catch (PreconditionFailedHttpException $e) {
             Log::error('AccessInstructionRepository::create', ['error' => $e->getMessage()]);
             throw $e;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('AccessInstructionRepository::create', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -69,7 +68,13 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
     public function show(int $accessInstructionId): PropertyAccessInstruction
     {
         try {
-            return PropertyAccessInstruction::with(['property'])->findOrFail($accessInstructionId);
+            return PropertyAccessInstruction::with([
+                'propertyType:id,name',
+                'property',
+                'property.agent:id,first_name,last_name',
+                'property.coAgent:id,first_name,last_name',
+                'property.source:id,name'
+            ])->findOrFail($accessInstructionId);
         } catch (Exception $e) {
             Log::error('AccessInstructionRepository::singel', ['error' => $e->getMessage()]);
             throw $e;

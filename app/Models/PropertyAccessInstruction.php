@@ -34,7 +34,7 @@ class PropertyAccessInstruction extends Model
         return [
             'id'               => 'integer',
             'property_id'      => 'integer',
-            'property_types_id' => 'integer',
+            'property_type_id' => 'integer',
         ];
     }
 
@@ -57,6 +57,6 @@ class PropertyAccessInstruction extends Model
      */
     public function propertyType(): BelongsTo
     {
-        return $this->belongsTo(PropertyType::class);
+        return $this->belongsTo(PropertyType::class, );
     }
 }

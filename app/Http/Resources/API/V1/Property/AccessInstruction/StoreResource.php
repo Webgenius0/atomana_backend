@@ -18,7 +18,7 @@ class StoreResource extends JsonResource
 
         return [
             "id"                   => $response["id"],
-            "property_types_id"    => $response["property_types_id"],
+            "property_type_id"    => $response["property_type_id"],
             "size"                 => $response["size"],
             "access_key"           => $response["access_key"],
             "lock_box_location"    => $response["lock_box_location"],

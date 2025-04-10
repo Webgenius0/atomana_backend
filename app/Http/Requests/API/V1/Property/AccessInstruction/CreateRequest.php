@@ -27,7 +27,7 @@ class CreateRequest extends FormRequest
     {
         return [
             "property_id"=> "required|exists:properties,id",
-            "property_types_id"=> "required|exists:property_types,id",
+            "property_type_id"=> "required|exists:property_types,id",
             "size"=> "nullable|string",
             "access_key"=> "nullable|string",
             "lock_box_location"=> "nullable|string",
@@ -51,7 +51,7 @@ class CreateRequest extends FormRequest
         $message = null;
         $fields = [
             'property_id',
-            'property_types_id',
+            'property_type_id',
             'size',
             'access_key',
             'lock_box_location',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Property\AccessInstruction;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Property\AccessInstruction\CreateRequest;
+use App\Http\Resources\API\V1\Property\AccessInstruction\ShowResource;
 use App\Http\Resources\API\V1\Property\AccessInstruction\StoreResource;
 use App\Http\Resources\API\V1\Property\AccessInstruction\IndexResource;
 use App\Models\PropertyAccessInstruction;
@@ -70,7 +71,7 @@ class AccessInstructionController extends Controller
     {
         try {
             $response = $this->accessInstructionService->showSingleAccessInstruction($propertyAccessInstruction->id);
-            return $this->success(200, 'Created Successfully.', $response);
+            return $this->success(200, 'Created Successfully.', new ShowResource($response));
         }catch (Exception $e){
             Log::error('AccessInstructionController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());

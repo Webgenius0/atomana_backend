@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Log;
 
 class OpenHouseRepository implements OpenHouseRepositoryInterface
 {
+    public function listOfOpenHouseWithResponse(int $businessId, int $perPage)
+    {
+        try {
+            return OpenHouse::with([
+                'property:id,address',
+                'feedbacks:id,user_id,people_count,feedback,additional_feedback'])->whereBusinessId($businessId)->paginate($perPage);
+        } catch (Exception $e) {
+            Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:listOfOpenHouseWithResponse', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
     /**
      * storeOpenHourse
      * @param array $credentials

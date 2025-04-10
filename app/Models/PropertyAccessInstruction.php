@@ -34,7 +34,7 @@ class PropertyAccessInstruction extends Model
         return [
             'id'               => 'integer',
             'property_id'      => 'integer',
-            'property_type_id' => 'integer',
+            'property_types_id' => 'integer',
         ];
     }
 

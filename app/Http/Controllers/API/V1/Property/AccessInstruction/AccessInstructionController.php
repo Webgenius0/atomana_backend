@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Property\AccessInstruction;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Property\AccessInstruction\CreateRequest;
+use App\Http\Resources\API\V1\Property\AccessInstruction\StoreResource;
 use App\Http\Resources\API\V1\Property\AccessInstruction\IndexResource;
 use App\Models\PropertyAccessInstruction;
 use App\Services\API\V1\Property\AccessInstruction\AccessInstructionService;
@@ -11,6 +12,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 class AccessInstructionController extends Controller
 {
@@ -49,9 +51,10 @@ class AccessInstructionController extends Controller
     {
         try {
             $validatedData = $createRequest->validated();
-            Log::info($validatedData);
             $response = $this->accessInstructionService->createAccessInstruction($validatedData);
-            return $this->success(200, 'Created Successfully.', $response);
+            return $this->success(200, 'Created Successfully.', new StoreResource($response));
+        }catch (PreconditionFailedHttpException $e) {
+            throw $e;
         }catch (Exception $e){
             Log::error('AccessInstructionController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());

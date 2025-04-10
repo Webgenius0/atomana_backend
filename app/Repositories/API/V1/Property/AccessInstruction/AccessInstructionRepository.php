@@ -6,6 +6,7 @@ use App\Models\Property;
 use App\Models\PropertyAccessInstruction;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 class AccessInstructionRepository implements AccessInstructionRepositoryInterface
 {
@@ -17,8 +18,8 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
     public function getList(int $businessId, int $perPage = 25)
     {
         try {
-            return Property::select(['id','address'])->whereBusinessId($businessId)->wherehas('accessInstruction')->with(['accessInstruction:id,property_id'])->paginate($perPage);
-        }catch(Exception $e) {
+            return Property::select(['id', 'address'])->whereBusinessId($businessId)->wherehas('accessInstruction')->with(['accessInstruction:id,property_id'])->paginate($perPage);
+        } catch (Exception $e) {
             Log::error('AccessInstructionRepository::index', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -29,9 +30,15 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
      * @param array $data
      * @return PropertyAccessInstruction
      */
-    public function create(array $data):PropertyAccessInstruction
+    public function create(array $data): PropertyAccessInstruction
     {
         try {
+            $existingInstruction = PropertyAccessInstruction::where('property_id', $data['property_id'])->first();
+
+            if ($existingInstruction) {
+                throw new PreconditionFailedHttpException('Access Instruction already exists for this property.',);
+            }
+
             return PropertyAccessInstruction::create([
                 "property_id"          => $data["property_id"],
                 "property_types_id"    => $data["property_types_id"],
@@ -44,7 +51,11 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
                 "visitor_parking"      => $data["visitor_parking"],
                 "note"                 => $data["note"],
             ]);
-        }catch (Exception $e) {
+        }catch (PreconditionFailedHttpException $e) {
+            Log::error('AccessInstructionRepository::create', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+        catch (Exception $e) {
             Log::error('AccessInstructionRepository::create', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -59,7 +70,7 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
     {
         try {
             return PropertyAccessInstruction::with(['property'])->findOrFail($accessInstructionId);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('AccessInstructionRepository::singel', ['error' => $e->getMessage()]);
             throw $e;
         }

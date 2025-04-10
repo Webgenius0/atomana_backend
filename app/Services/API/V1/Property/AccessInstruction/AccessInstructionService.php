@@ -7,6 +7,7 @@ use App\Repositories\API\V1\Property\AccessInstruction\AccessInstructionReposito
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 class AccessInstructionService
 {
@@ -46,6 +47,8 @@ class AccessInstructionService
     {
         try {
             return $this->accessInstructionRepository->create($data);
+        }catch (PreconditionFailedHttpException $e) {
+            throw $e;
         } catch (Exception $e) {
             Log::error('AccessInstructionService::createAccessInstruction', ['error' => $e->getMessage()]);
             throw $e;

@@ -40,6 +40,8 @@ use App\Repositories\API\V1\PasswordList\PasswordListRepository;
 use App\Repositories\API\V1\PasswordList\PasswordListRepositoryInterface;
 use App\Repositories\API\V1\Profile\ProfileRepository;
 use App\Repositories\API\V1\Profile\ProfileRepositoryInterface;
+use App\Repositories\API\V1\Property\AccessInstruction\AccessInstructionRepository;
+use App\Repositories\API\V1\Property\AccessInstruction\AccessInstructionRepositoryInterface;
 use App\Repositories\API\V1\Property\PropertyRepository;
 use App\Repositories\API\V1\Property\PropertyRepositoryInterface;
 use App\Repositories\API\V1\Property\Source\PropertySourceRepository;
@@ -100,6 +102,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PropertyRepositoryInterface::class, PropertyRepository::class);
         $this->app->bind(PropertySourceRepositoryInterface::class, PropertySourceRepository::class);
         $this->app->bind(PropertyTypeRepositoryInterface::class, PropertyTypeRepository::class);
+        $this->app->bind(AccessInstructionRepositoryInterface::class, AccessInstructionRepository::class);
 
         // moetod
         $this->app->bind(PaymentMethodRepositoryInterface::class, PaymentMethodRepository::class);

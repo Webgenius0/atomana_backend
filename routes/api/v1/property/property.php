@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\V1\Property\PropertyController;
 use App\Http\Controllers\API\V1\Property\Source\PropertySourceController;
+use App\Http\Controllers\API\V1\Property\Type\PropertyTypeController;
 use Illuminate\Support\Facades\Route;
 
 // all profile route of property
@@ -18,5 +19,9 @@ Route::prefix('v1/property')->name('property.')->middleware(['auth:api', 'verifi
 
     Route::middleware(['authorized'])->controller(PropertySourceController::class)->group(function () {
         Route::get('/source', 'index')->name('source.index');
+    });
+
+    Route::middleware(['authorized'])->controller(PropertyTypeController::class)->group(function () {
+        Route::get('/type', 'index')->name('type.index');
     });
 });

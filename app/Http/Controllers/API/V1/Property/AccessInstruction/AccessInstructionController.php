@@ -33,7 +33,6 @@ class AccessInstructionController extends Controller
     {
         try {
             $response = $this->accessInstructionService->getIndex();
-            // return $this->success(200, 'List of Property Access Instruciton', $response);
             return $this->success(200, 'List of Property Access Instruciton', new IndexResource($response));
         }catch (Exception $e){
             Log::error('AccessInstructionController::index', ['error' => $e->getMessage()]);
@@ -50,6 +49,7 @@ class AccessInstructionController extends Controller
     {
         try {
             $validatedData = $createRequest->validated();
+            Log::info($validatedData);
             $response = $this->accessInstructionService->createAccessInstruction($validatedData);
             return $this->success(200, 'Created Successfully.', $response);
         }catch (Exception $e){

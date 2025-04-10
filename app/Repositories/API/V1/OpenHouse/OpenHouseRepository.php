@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Log;
 
 class OpenHouseRepository implements OpenHouseRepositoryInterface
 {
+    /**
+     * listOfOpenHouseWithResponse
+     * @param int $businessId
+     * @param int $perPage
+     */
     public function listOfOpenHouseWithResponse(int $businessId, int $perPage)
     {
         try {

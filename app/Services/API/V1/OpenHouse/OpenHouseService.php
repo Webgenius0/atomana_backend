@@ -25,6 +25,21 @@ class OpenHouseService
         $this->businessId = Auth::user()->business()->id;
     }
 
+
+    /**
+     * list
+     */
+    public function list()
+    {
+        try {
+            $perPage = request()->query('per_page', 25);
+            return $this->openHouseRepository->listInDesc($this->businessId, $perPage);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:list', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
     /**
      * store
      * @param array $credential

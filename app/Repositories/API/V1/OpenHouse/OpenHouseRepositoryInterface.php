@@ -7,11 +7,11 @@ use App\Models\OpenHouse;
 interface OpenHouseRepositoryInterface
 {
     /**
-     * listOfOpenHouseWithResponse
+     * listInDesc
      * @param int $businessId
      * @param int $perPage
      */
-    public function listOfOpenHouseWithResponse(int $businessId, int $perPage);
+    public function listInDesc(int $businessId, int $perPage);
 
     /**
      * storeOpenHourse

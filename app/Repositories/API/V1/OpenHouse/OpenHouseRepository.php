@@ -25,7 +25,6 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
                 'date'        => $credentials['date'],
                 'start_time'  => $credentials['start_time'],
                 'end_time'    => $credentials['end_time'],
-                'wavy_man'    => $credentials['wavy_man'],
                 'sign_number' => $credentials['sign_number'],
             ]);
         } catch (Exception $e) {

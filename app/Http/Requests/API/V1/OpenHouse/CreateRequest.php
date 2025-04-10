@@ -30,7 +30,6 @@ class CreateRequest extends FormRequest
             'date' => 'required|date|after:' . now()->toDateString(), // Date must be today or in the future
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time', // End time must be strictly after start time
-            'wavy_man' => 'required|boolean',
             'sign_number' => 'required|integer',
         ];
     }
@@ -78,7 +77,6 @@ class CreateRequest extends FormRequest
             'date',
             'start_time',
             'end_time',
-            'wavy_man',
             'sign_number',
         ];
 

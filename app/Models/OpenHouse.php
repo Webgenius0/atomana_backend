@@ -41,7 +41,6 @@ class OpenHouse extends Model
             'date'        => 'date',
             'start_time'  => 'datetime',
             'end_time'    => 'datetime',
-            'wavy_man'    => 'boolean',
             'sign_number' => 'integer',
             'created_at'  => 'datetime',
             'updated_at'  => 'datetime',

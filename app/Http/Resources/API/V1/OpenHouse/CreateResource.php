@@ -23,7 +23,6 @@ class CreateResource extends JsonResource
             'date' => $data['date'],
             'start_time' => $data['start_time'],
             'end_time' => $data['end_time'],
-            'wavy_man' => $data['wavy_man'],
             'sign_number' => $data['sign_number'],
         ];
     }

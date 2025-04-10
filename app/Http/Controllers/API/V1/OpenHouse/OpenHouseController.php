@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\OpenHouse\CreateRequest;
 use App\Http\Resources\API\V1\OpenHouse\CreateResource;
 use App\Http\Resources\API\V1\OpenHouse\DropdownResource;
+use App\Http\Resources\API\V1\OpenHouse\IndexResource;
 use App\Services\API\V1\OpenHouse\OpenHouseService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -26,7 +27,7 @@ class OpenHouseController extends Controller
     {
         try {
             $response = $this->openHouseService->list();
-            return $this->success(200, 'Request Success', $response);
+            return $this->success(200, 'Request Success', new IndexResource($response));
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\OpenHouse::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

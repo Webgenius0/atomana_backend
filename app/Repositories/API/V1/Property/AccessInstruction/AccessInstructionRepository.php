@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Log;
 class AccessInstructionRepository implements AccessInstructionRepositoryInterface
 {
     /**
-     * index
+     * getList
      * @param int $businessId
      * @param int $perPage
      */
-    public function index(int $businessId, int $perPage = 25)
+    public function getList(int $businessId, int $perPage = 25)
     {
         try {
             return Property::whereBusinessId($businessId)->with(['accessInstruction'])->paginate($perPage);
@@ -52,13 +52,13 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
 
     /**
      * show
-     * @param int $id
+     * @param int $accessInstructionId
      * @return PropertyAccessInstruction
      */
-    public function show(int $id): PropertyAccessInstruction
+    public function show(int $accessInstructionId): PropertyAccessInstruction
     {
         try {
-            return PropertyAccessInstruction::with(['property'])->findOrFail($id);
+            return PropertyAccessInstruction::with(['property'])->findOrFail($accessInstructionId);
         }catch (Exception $e) {
             Log::error('AccessInstructionRepository::singel', ['error' => $e->getMessage()]);
             throw $e;

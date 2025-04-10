@@ -146,7 +146,10 @@ class Property extends Model
         return $this->hasMany(OpenHouseFeedback::class);
     }
 
-
+    /**
+     * accessInstruction
+     * @return HasOne<PropertyAccessInstruction, Property>
+     */
     public function accessInstruction():HasOne
     {
         return $this->hasOne(related: PropertyAccessInstruction::class);

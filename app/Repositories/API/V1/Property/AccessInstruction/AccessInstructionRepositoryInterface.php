@@ -7,11 +7,11 @@ use App\Models\PropertyAccessInstruction;
 interface AccessInstructionRepositoryInterface
 {
     /**
-     * index
+     * getList
      * @param int $businessId
      * @param int $perPage
      */
-    public function index(int $businessId, int $perPage = 25);
+    public function getList(int $businessId, int $perPage = 25);
 
     /**
      * create
@@ -25,5 +25,5 @@ interface AccessInstructionRepositoryInterface
      * @param int $id
      * @return PropertyAccessInstruction
      */
-    public function show(int $id): PropertyAccessInstruction;
+    public function show(int $accessInstructionId): PropertyAccessInstruction;
 }

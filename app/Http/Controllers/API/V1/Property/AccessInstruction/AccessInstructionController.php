@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Property\AccessInstruction;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Property\AccessInstruction\CreateRequest;
+use App\Http\Resources\API\V1\Property\AccessInstruction\IndexResource;
 use App\Models\PropertyAccessInstruction;
 use App\Services\API\V1\Property\AccessInstruction\AccessInstructionService;
 use Exception;
@@ -32,7 +33,8 @@ class AccessInstructionController extends Controller
     {
         try {
             $response = $this->accessInstructionService->getIndex();
-            return $this->success(200, 'List of Property Access Instruciton', $response);
+            // return $this->success(200, 'List of Property Access Instruciton', $response);
+            return $this->success(200, 'List of Property Access Instruciton', new IndexResource($response));
         }catch (Exception $e){
             Log::error('AccessInstructionController::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ExpenseSubCategorySeeder::class,
 
             // relational data
+            PropertyTypeSeeder::class,
             PropertySourceSeeder::class,
             UserSeeder::class,
             TierSeeder::class,

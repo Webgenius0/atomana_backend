@@ -152,6 +152,6 @@ class Property extends Model
      */
     public function accessInstruction():HasOne
     {
-        return $this->hasOne(related: PropertyAccessInstruction::class);
+        return $this->hasOne(PropertyAccessInstruction::class, 'property_id');
     }
 }

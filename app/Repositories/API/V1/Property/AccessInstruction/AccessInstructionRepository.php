@@ -17,7 +17,7 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
     public function getList(int $businessId, int $perPage = 25)
     {
         try {
-            return Property::whereBusinessId($businessId)->with(['accessInstruction'])->paginate($perPage);
+            return Property::select(['id','address'])->whereBusinessId($businessId)->wherehas('accessInstruction')->with(['accessInstruction:id,property_id'])->paginate($perPage);
         }catch(Exception $e) {
             Log::error('AccessInstructionRepository::index', ['error' => $e->getMessage()]);
             throw $e;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\V1\Property\AccessInstruction\AccessInstructionController;
 use App\Http\Controllers\API\V1\Property\PropertyController;
 use App\Http\Controllers\API\V1\Property\Source\PropertySourceController;
 use App\Http\Controllers\API\V1\Property\Type\PropertyTypeController;
@@ -23,5 +24,11 @@ Route::prefix('v1/property')->name('property.')->middleware(['auth:api', 'verifi
 
     Route::middleware(['authorized'])->controller(PropertyTypeController::class)->group(function () {
         Route::get('/type', 'index')->name('type.index');
+    });
+
+    Route::middleware(['authorized'])->controller(AccessInstructionController::class)->group(function () {
+        Route::get('/access-instruction', 'index')->name('access.instruction.index');
+        Route::post('/access-instruction', 'store')->name('access.instruction.store');
+        Route::get('/access-instruction/{propertyAccessInstruction}', 'show')->name('access.instruction.show');
     });
 });

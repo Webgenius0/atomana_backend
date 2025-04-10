@@ -23,6 +23,10 @@ class OpenHouseController extends Controller
         $this->openHouseService = $openHouseService;
     }
 
+    /**
+     * index
+     * @return JsonResponse
+     */
     public function index()
     {
         try {

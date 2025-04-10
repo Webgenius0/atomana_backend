@@ -44,6 +44,8 @@ use App\Repositories\API\V1\Property\PropertyRepository;
 use App\Repositories\API\V1\Property\PropertyRepositoryInterface;
 use App\Repositories\API\V1\Property\Source\PropertySourceRepository;
 use App\Repositories\API\V1\Property\Source\PropertySourceRepositoryInterface;
+use App\Repositories\API\V1\Property\Type\PropertyTypeRepository;
+use App\Repositories\API\V1\Property\Type\PropertyTypeRepositoryInterface;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepository;
 use App\Repositories\API\V1\SalesTrack\SalesTrackRepositoryInterface;
 use App\Repositories\API\V1\SharedNote\SharedNoteRepository;
@@ -97,6 +99,7 @@ class AppServiceProvider extends ServiceProvider
         // product
         $this->app->bind(PropertyRepositoryInterface::class, PropertyRepository::class);
         $this->app->bind(PropertySourceRepositoryInterface::class, PropertySourceRepository::class);
+        $this->app->bind(PropertyTypeRepositoryInterface::class, PropertyTypeRepository::class);
 
         // moetod
         $this->app->bind(PaymentMethodRepositoryInterface::class, PaymentMethodRepository::class);

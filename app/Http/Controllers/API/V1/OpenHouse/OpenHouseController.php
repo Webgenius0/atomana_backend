@@ -22,6 +22,17 @@ class OpenHouseController extends Controller
         $this->openHouseService = $openHouseService;
     }
 
+    public function index()
+    {
+        try {
+            $response = $this->openHouseService->list();
+            return $this->success(200, 'Request Success', $response);
+        } catch (Exception $e) {
+            Log::error('App\Http\Controllers\API\V1\OpenHouse::index', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
     /**
      * store
      * @param \App\Http\Requests\API\V1\OpenHouse\CreateRequest $createRequest
@@ -47,8 +58,8 @@ class OpenHouseController extends Controller
     {
         try {
             $response = $this->openHouseService->dropdown();
-            return $this->success(201, 'Open House Created Successfully',new DropdownResource($response));
-        }catch (Exception $e) {
+            return $this->success(201, 'Open House Created Successfully', new DropdownResource($response));
+        } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\OpenHouse::dropdownIndex', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }

@@ -13,7 +13,7 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
         try {
             return OpenHouse::with([
                 'property:id,address',
-                'feedbacks:id,user_id,people_count,feedback,additional_feedback'])->whereBusinessId($businessId)->paginate($perPage);
+                'feedbacks:id,user_id,people_count,feedback,additional_feedback'])->orderBy('created_at', 'desc')->whereBusinessId($businessId)->paginate($perPage);
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:listOfOpenHouseWithResponse', ['error' => $e->getMessage()]);
             throw $e;

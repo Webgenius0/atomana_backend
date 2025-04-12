@@ -7,6 +7,7 @@ use App\Http\Requests\API\V1\OpenHouse\CreateRequest;
 use App\Http\Resources\API\V1\OpenHouse\CreateResource;
 use App\Http\Resources\API\V1\OpenHouse\DropdownResource;
 use App\Http\Resources\API\V1\OpenHouse\IndexResource;
+use App\Models\OpenHouse;
 use App\Services\API\V1\OpenHouse\OpenHouseService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -49,6 +50,22 @@ class OpenHouseController extends Controller
             $validatedData = $createRequest->validated();
             $response = $this->openHouseService->store($validatedData);
             return $this->success(201, 'Open House Created Successfully', new CreateResource($response));
+        } catch (Exception $e) {
+            Log::error('App\Http\Controllers\API\V1\OpenHouse::store', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
+     * show
+     * @param \App\Models\OpenHouse $openHouse
+     * @return JsonResponse
+     */
+    public function show(OpenHouse $openHouse)
+    {
+        try {
+            $response = $this->openHouseService->showOpenHouse($openHouse);
+            return $this->success(201, 'Getting OpenHouse with feedbacks', $response);
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\OpenHouse::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

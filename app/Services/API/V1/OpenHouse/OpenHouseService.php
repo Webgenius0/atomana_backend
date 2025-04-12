@@ -55,6 +55,21 @@ class OpenHouseService
         }
     }
 
+    /**
+     * showOpenHouse
+     * @param \App\Models\OpenHouse $openHouse
+     * @return OpenHouse
+     */
+    public function showOpenHouse(OpenHouse $openHouse): OpenHouse
+    {
+        try {
+            return $this->openHouseRepository->openHouseById($openHouse->id);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:showOpenHouse', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
 
     /**
      * dropdown

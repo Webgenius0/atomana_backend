@@ -28,6 +28,13 @@ return new class extends Migration
             $table->decimal('co_list_percentage', 15, 2)->nullable();;
             $table->foreignId('property_source_id')->nullable()->constrained('property_sources')->nullOnDelete();
 
+            $table->integer('beds')->nullable();
+            $table->integer('full_baths')->nullable();
+            $table->integer('half_baths')->nullable();
+            $table->decimal('size')->nullable();
+            $table->string('link');
+            $table->longText('note');
+
             $table->softDeletes();
             $table->timestamps();
 

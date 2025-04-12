@@ -15,4 +15,12 @@ interface FeedbackRepositoryInterface
      * @return OpenHouseFeedback
      */
     public function createOpenHouseFeedback(array $data, int $userId, int $businessId, int $propertyId): OpenHouseFeedback;
+
+
+    /**
+     * getFeebackByOpenHouseId
+     * @param int $openHouseId
+     * @return void
+     */
+    public function getFeebackByOpenHouseId(int $openHouseId, int $perPage);
 }

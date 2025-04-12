@@ -33,4 +33,20 @@ class FeedbackRepository implements FeedbackRepositoryInterface
             throw $e;
         }
     }
+
+
+    /**
+     * getFeebackByOpenHouseId
+     * @param int $openHouseId
+     * @return void
+     */
+    public function getFeebackByOpenHouseId(int $openHouseId, int $perPage)
+    {
+        try {
+            return OpenHouseFeedback::whereOpenHouseId($openHouseId)->paginate($perPage);
+        }catch (Exception $e) {
+            Log::error('API\V1\OpenHouse\FeedbackRepository:getFeebackByOpenHouseId');
+            throw $e;
+        }
+    }
 }

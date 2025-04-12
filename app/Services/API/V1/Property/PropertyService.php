@@ -24,6 +24,19 @@ class PropertyService
     }
 
     /**
+     * propertyesOfBusiness
+     */
+    public function propertyesOfBusiness()
+    {
+        try{
+            return $this->propertyRepository->propertiesOftheBusiness($this->user->business()->id);
+        }catch (Exception $e) {
+            Log::error('PropertyService::propertyesOfBusiness', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
      * showDropdown of properties
      */
     public function showDropdown()

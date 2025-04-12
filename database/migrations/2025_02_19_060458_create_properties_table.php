@@ -32,8 +32,8 @@ return new class extends Migration
             $table->integer('full_baths')->nullable();
             $table->integer('half_baths')->nullable();
             $table->decimal('size')->nullable();
-            $table->string('link');
-            $table->longText('note');
+            $table->string('link')->nullable();;
+            $table->longText('note')->nullable();;
 
             $table->softDeletes();
             $table->timestamps();

@@ -37,6 +37,21 @@ class PropertyService
     }
 
     /**
+     * showPropertyDetails
+     * @param int $showById
+     * @return Property
+     */
+    public function showPropertyDetails(int $showById): Property
+    {
+        try {
+            return $this->propertyRepository->showDetailsById($showById);
+        }catch (Exception $e) {
+            Log::error('PropertyService::showPropertyDetails', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
      * showDropdown of properties
      */
     public function showDropdown()

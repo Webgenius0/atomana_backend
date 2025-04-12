@@ -38,7 +38,6 @@ class FeedbackRepository implements FeedbackRepositoryInterface
     /**
      * getFeebackByOpenHouseId
      * @param int $openHouseId
-     * @return void
      */
     public function getFeebacksOfOpenHouseId(int $openHouseId, int $perPage)
     {

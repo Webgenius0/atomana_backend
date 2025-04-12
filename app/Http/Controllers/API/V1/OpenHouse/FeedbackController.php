@@ -27,6 +27,18 @@ class FeedbackController extends Controller
     }
 
 
+    public function index($openHouseid)
+    {
+        try {
+            $response = $this->openHouseFeedbackService->getFeedbacksOfOpenHouse($openHouseid);
+            return $this->success(200, 'List of Feedbacks', $response);
+        }catch (Exception $e) {
+            Log::error('App\Http\Controllers\API\V1\FeedbackController::index', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+
     /**
      * store
      * @param \App\Http\Requests\API\V1\OpenHouse\CreateFeedbackRequest $createFeedbackRequest

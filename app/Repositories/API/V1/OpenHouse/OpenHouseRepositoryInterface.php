@@ -29,6 +29,14 @@ interface OpenHouseRepositoryInterface
      */
     public function openHouseById(int $id): OpenHouse;
 
+
+    /**
+     * openHouseInfoById
+     * @param int $id
+     * @return OpenHouse
+     */
+    public function openHouseInfoById(int $id): OpenHouse;
+
     /**
      * getList
      * @param int $businessId

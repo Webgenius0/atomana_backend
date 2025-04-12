@@ -66,6 +66,21 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
     }
 
     /**
+     * openHouseInfoById
+     * @param int $id
+     * @return OpenHouse
+     */
+    public function openHouseInfoById(int $id): OpenHouse
+    {
+        try {
+            return OpenHouse::findOrFail($id);
+        } catch (Exception $e) {
+            Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:openHouseById', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
      * getList
      * @param int $businessId
      */

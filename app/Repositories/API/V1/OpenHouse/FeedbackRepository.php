@@ -28,7 +28,7 @@ class FeedbackRepository implements FeedbackRepositoryInterface
                 'feedback'            => $data['feedback'],
                 'additional_feedback' => $data['additional_feedback'],
             ]);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('API\V1\OpenHouse\FeedbackRepository:createOpenHouseFeedback');
             throw $e;
         }
@@ -42,8 +42,9 @@ class FeedbackRepository implements FeedbackRepositoryInterface
     public function getFeebacksOfOpenHouseId(int $openHouseId, int $perPage)
     {
         try {
-            return OpenHouseFeedback::whereOpenHouseId($openHouseId)->orderBy('created_at', 'desc')->paginate($perPage);
-        }catch (Exception $e) {
+            return OpenHouseFeedback::select(['id', 'user_id', 'people_count', 'feedback', 'additional_feedback'])
+            ->with(['user:id,first_name,last_name,handle,avatar'])->whereOpenHouseId($openHouseId)->orderBy('created_at', 'desc')->paginate($perPage);
+        } catch (Exception $e) {
             Log::error('API\V1\OpenHouse\FeedbackRepository:getFeebackByOpenHouseId');
             throw $e;
         }

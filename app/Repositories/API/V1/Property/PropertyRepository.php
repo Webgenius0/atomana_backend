@@ -85,7 +85,29 @@ class PropertyRepository implements PropertyRepositoryInterface
     public function showDetailsById(int $propertyId):Property
     {
         try {
-            return Property::findOrFail($propertyId);
+            return Property::select([
+                'id',
+                'sku',
+                'email',
+                'address',
+                'price',
+                'expiration_date',
+                'is_development',
+                'add_to_website',
+                'commission_rate',
+                'agent',
+                'co_agent',
+                'co_list_percentage',
+                'property_source_id',
+                'beds',
+                'full_baths',
+                'half_baths',
+                'size',
+                'link',
+                'note',
+                ])->
+            with(['agent:id,first_name,last_name,handle,avatar', 'coAgent:id,first_name,last_name,handle,avatar'])
+            ->findOrFail($propertyId);
         }catch (Exception $e) {
             Log::error('PropertyRepository::createProperty', ['error' => $e->getMessage()]);
             throw $e;

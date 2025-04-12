@@ -22,5 +22,5 @@ interface FeedbackRepositoryInterface
      * @param int $openHouseId
      * @return void
      */
-    public function getFeebackByOpenHouseId(int $openHouseId, int $perPage);
+    public function getFeebacksOfOpenHouseId(int $openHouseId, int $perPage);
 }

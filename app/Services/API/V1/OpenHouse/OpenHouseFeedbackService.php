@@ -44,4 +44,19 @@ class OpenHouseFeedbackService
             throw $e;
         }
     }
+
+    /**
+     * getFeedbacksOfOpenHouse
+     * @param int $openHouseId
+     */
+    public function getFeedbacksOfOpenHouse(int $openHouseId)
+    {
+        try {
+            $perPage = request()->query('per_page', 5);
+            return $this->feedbackRepository->getFeebacksOfOpenHouseId($openHouseId, $perPage);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\OpenHouse\OpenHouseFeedbackService:storeFeedback');
+            throw $e;
+        }
+    }
 }

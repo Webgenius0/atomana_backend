@@ -89,10 +89,19 @@ class OpenHouse extends Model
     }
 
     /**
+     * user
+     * @return BelongsTo<User, OpenHouse>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * feedback
      * @return HasMany<OpenHouseFeedback, User>
      */
-    public function feedbacks() : HasMany
+    public function feedbacks(): HasMany
     {
         return $this->hasMany(OpenHouseFeedback::class);
     }

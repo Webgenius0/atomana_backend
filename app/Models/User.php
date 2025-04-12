@@ -229,11 +229,21 @@ class User extends Authenticatable implements JWTSubject
         return 'handle';
     }
 
+
+    /**
+     * openHouse
+     * @return HasMany<OpenHouse, User>
+     */
+    public function openHouse(): HasMany
+    {
+        return $this->hasMany(OpenHouse::class);
+    }
+
     /**
      * openHouseFeedback
      * @return HasMany<OpenHouseFeedback, User>
      */
-    public function openHouseFeedback() : HasMany
+    public function openHouseFeedback(): HasMany
     {
         return $this->hasMany(OpenHouseFeedback::class);
     }

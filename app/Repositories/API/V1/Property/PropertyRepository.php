@@ -64,6 +64,12 @@ class PropertyRepository implements PropertyRepositoryInterface
                 'co_agent'           => $credentials['co_agent'],
                 'co_list_percentage' => $credentials['co_list_percentage'],
                 'property_source_id' => $credentials['property_source_id'],
+                'beds'               => $credentials['beds'],
+                'full_baths'         => $credentials['full_baths'],
+                'half_baths'         => $credentials['half_baths'],
+                'size'               => $credentials['size'],
+                'link'               => $credentials['link'],
+                'note'               => $credentials['note'],
             ]);
         } catch (Exception $e) {
             Log::error('PropertyRepository::createProperty', ['error' => $e->getMessage()]);

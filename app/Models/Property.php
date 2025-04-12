@@ -45,6 +45,10 @@ class Property extends Model
             'co_agent'           => 'integer',
             'co_list_percentage' => 'float',
             'property_source_id' => 'integer',
+            'beds'               => 'integer',
+            'full_baths'         => 'integer',
+            'half_baths'         => 'integer',
+            'size'               => 'decimal',
             'created_at'         => 'datetime',
             'updated_at'         => 'datetime',
         ];

@@ -28,17 +28,23 @@ class CreatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'              => 'required|email',
-            'address'            => 'required|string',
-            'price'              => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'expiration_date'    => 'required|date|after:today',
-            'is_development'     => 'required|boolean',
-            'add_to_website'     => 'nullable|boolean',
-            'commission_rate'    => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'max:100', 'min:0.01'],
-            'is_co_listing'      => 'required|boolean',
-            'co_agent'           => [new CoAgentNotAuthenticated],
-            'co_list_percentage' => [new CoAgentPercentage],
-            'property_source_id' => 'required|exists:property_sources,id',
+            'email'              => 'required|email' ,
+            'address'            => 'required|string' ,
+            'price'              => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'] ,
+            'expiration_date'    => 'required|date|after:today' ,
+            'is_development'     => 'required|boolean' ,
+            'add_to_website'     => 'nullable|boolean' ,
+            'commission_rate'    => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'max:100', 'min:0.01'] ,
+            'is_co_listing'      => 'required|boolean' ,
+            'co_agent'           => [new CoAgentNotAuthenticated] ,
+            'co_list_percentage' => [new CoAgentPercentage] ,
+            'property_source_id' => 'required|exists:property_sources,id' ,
+            'beds'               => 'nullable|integer' ,
+            'full_baths'         => 'nullable|integer' ,
+            'half_baths'         => 'nullable|integer' ,
+            'size'               => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'max:100', 'min:0.01'],
+            'link'               => 'nullable|url' ,
+            'note'               => 'nullable|string' ,
         ];
     }
 
@@ -104,7 +110,13 @@ class CreatePropertyRequest extends FormRequest
             'development',
             'co_agent',
             'co_list_percentage',
-            'source',
+            'property_source_id',
+            'beds',
+            'full_baths',
+            'half_baths',
+            'size',
+            'link',
+            'note',
         ];
 
         foreach ($fields as $field) {

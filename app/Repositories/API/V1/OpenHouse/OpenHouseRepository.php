@@ -73,7 +73,7 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
     public function openHouseInfoById(int $id): OpenHouse
     {
         try {
-            return OpenHouse::findOrFail($id);
+            return OpenHouse::with(['user', 'property', 'property.coAgent'])->findOrFail($id);
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:openHouseById', ['error' => $e->getMessage()]);
             throw $e;

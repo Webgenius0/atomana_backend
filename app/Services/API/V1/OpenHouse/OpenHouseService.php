@@ -63,7 +63,7 @@ class OpenHouseService
     public function showOpenHouse(OpenHouse $openHouse): OpenHouse
     {
         try {
-            return $this->openHouseRepository->openHouseById($openHouse->id);
+            return $this->openHouseRepository->openHouseInfoById($openHouse->id);
         } catch (Exception $e) {
             Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:showOpenHouse', ['error' => $e->getMessage()]);
             throw $e;

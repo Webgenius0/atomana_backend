@@ -26,6 +26,21 @@ class PropertyController extends Controller
     }
 
     /**
+     * index
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
+    {
+        try {
+            $response = $this->propertyService->propertyesOfBusiness();
+            return $this->success(200, 'Property List', $response);
+        }catch (Exception $e) {
+            Log::error('PropertyController::index', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
      * dropdown shwo properties
      * @return \Illuminate\Http\JsonResponse
      */

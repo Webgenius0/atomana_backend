@@ -10,11 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1/property')->name('property.')->middleware(['auth:api', 'verified',])->group(function () {
     // routes for bouth admin and agents
     Route::middleware(['authorized'])->controller(PropertyController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
         Route::post('/store', 'store')->name('show');
-    });
-
-
-    Route::middleware(['authorized'])->controller(PropertyController::class)->group(function () {
         Route::get('/dropdown', 'dropdown')->name('dropdown');
     });
 

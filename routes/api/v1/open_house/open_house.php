@@ -15,5 +15,6 @@ Route::prefix('v1/open-house')->name('open.house.')->middleware(['auth:api', 've
 
 Route::prefix('v1/open-house/feedback')->name('open.house.')->middleware(['auth:api', 'verified', 'authorized'])
     ->controller(FeedbackController::class)->group(function () {
+        Route::get('/{openhouseId}', 'index')->name('index');
         Route::post('/store', 'store')->name('store');
     });

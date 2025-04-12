@@ -27,7 +27,7 @@ class FeedbackController extends Controller
     }
 
 
-    public function index($openHouseid)
+    public function index($openHouseid): JsonResponse
     {
         try {
             $response = $this->openHouseFeedbackService->getFeedbacksOfOpenHouse($openHouseid);

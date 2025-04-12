@@ -76,4 +76,19 @@ class PropertyRepository implements PropertyRepositoryInterface
             throw $e;
         }
     }
+
+    /**
+     * showById
+     * @param int $propertyId
+     * @return Property
+     */
+    public function showDetailsById(int $propertyId):Property
+    {
+        try {
+            return Property::findOrFail($propertyId);
+        }catch (Exception $e) {
+            Log::error('PropertyRepository::createProperty', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

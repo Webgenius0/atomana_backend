@@ -29,14 +29,15 @@ class CreateSalesTrackRequest extends FormRequest
             'user_id'             => 'required|exists:users,id',
             'property_id'         => 'required|exists:properties,id',
             'status'              => 'required|in:active,pending,close,expired',
-            'date_under_contract' => 'required|date',
-            'purchase_price'      => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+
+            'date_under_contract' => 'nullable|date',
+            'purchase_price'      => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'override_split'      => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0.01', 'max:100'],
-            'closing_date'        => 'required|date',
+            'closing_date'        => 'nullable|date',
             'buyer_seller'        => 'nullable|string',
-            'referral_fee_pct'    => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'commission_on_sale'  => ['required', 'numeric', 'min:0', 'max:100', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'note'                => 'required|string',
+            'referral_fee_pct'    => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0', 'max:100'],
+            'commission_on_sale'  => ['nullable', 'numeric', 'min:0', 'max:100', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'note'                => 'nullable|string',
         ];
     }
 

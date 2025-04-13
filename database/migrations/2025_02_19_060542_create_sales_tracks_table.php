@@ -18,14 +18,14 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('property_id')->constrained('properties')->cascadeOnDelete();
             $table->enum('status', ['active', 'pending', 'close', 'expired'])->default('active');
-            $table->date('date_under_contract');
-            $table->date('closing_date');
-            $table->decimal('purchase_price');
+            $table->date('date_under_contract')->nullable();
+            $table->date('closing_date')->nullable();
+            $table->decimal('purchase_price')->nullable();
             $table->string('buyer_seller')->nullable();
-            $table->decimal('referral_fee_pct');
-            $table->decimal('commission_on_sale');
+            $table->decimal('referral_fee_pct')->nullable();
+            $table->decimal('commission_on_sale')->nullable();
             $table->decimal('override_split')->default(0)->nullable();
-            $table->longText('note');
+            $table->longText('note')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

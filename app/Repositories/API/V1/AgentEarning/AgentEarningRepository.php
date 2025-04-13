@@ -31,7 +31,7 @@ class AgentEarningRepository implements AgentEarningRepositoryInterface
                 'group_gross_income_ytd',
                 'group_net_ytd',
                 'percentage_group_gross_income_ytd'
-            ])->where('business_id', $businessId)->with(['user:id,first_name,last_name,handle'])->paginate($per_page);
+            ])->where('business_id', $businessId)->with(['user:id,first_name,last_name,handle'])->orderBy('created_at', 'desc')->paginate($per_page);
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\AI\AgentEarning\AgentEarningRepository::getAgentsOfBusiness', ['error' => $e->getMessage()]);
             throw $e;

@@ -37,7 +37,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             ])->with('user')->whereBusinessId($businessId)
                 ->whereExpenseForId($expenseForId)
                 ->whereArchive(false)
-                ->latest()->paginate($perPage);
+                ->orderBy('created_at', 'desc')->paginate($perPage);
             return $expenses;
         } catch (Exception $e) {
             Log::error('ExpenseRepository::getAllExpense', ['error' => $e->getMessage()]);

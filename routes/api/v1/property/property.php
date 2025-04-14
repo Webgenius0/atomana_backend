@@ -13,7 +13,7 @@ Route::prefix('v1/property')->name('property.')->middleware(['auth:api', 'verifi
         Route::get('/', 'index')->name('index');
         Route::post('/store', 'store')->name('show');
         Route::get('/dropdown', 'dropdown')->name('dropdown');
-        Route::get('/{propertyId}', 'show')->name('show');
+        Route::get('/show/{propertyId}', 'show')->name('show');
     });
 
     Route::middleware(['authorized'])->controller(PropertySourceController::class)->group(function () {

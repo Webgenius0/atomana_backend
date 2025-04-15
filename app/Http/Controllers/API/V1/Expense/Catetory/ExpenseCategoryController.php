@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\V1\Expense\Catetory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\Category\CreateRequest;
-use App\Http\Resources\Api\V1\Expense\Category\StoreResource;
+use App\Http\Resources\API\V1\Expense\Category\StoreResource;
 use App\Services\API\V1\Expense\Catetory\ExpenseCategoryService;
 use App\Traits\V1\ApiResponse;
 use Exception;

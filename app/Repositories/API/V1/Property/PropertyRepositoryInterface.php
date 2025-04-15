@@ -9,8 +9,9 @@ interface PropertyRepositoryInterface
     /**
      * properties Of the Business
      * @param int $businessId
+     * @param int $perPage
      */
-    public function propertiesOftheBusiness(int $businessId);
+    public function propertiesOftheBusiness(int $businessId, int $perPage);
 
     /**
      * properties Of The Agent

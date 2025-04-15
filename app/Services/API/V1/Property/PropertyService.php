@@ -29,7 +29,8 @@ class PropertyService
     public function propertyesOfBusiness()
     {
         try{
-            return $this->propertyRepository->propertiesOftheBusiness($this->user->business()->id);
+            $perPage = request()->query('per_page', 25);
+            return $this->propertyRepository->propertiesOftheBusiness($this->user->business()->id, $perPage);
         }catch (Exception $e) {
             Log::error('PropertyService::propertyesOfBusiness', ['error' => $e->getMessage()]);
             throw $e;

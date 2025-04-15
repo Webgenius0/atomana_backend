@@ -58,14 +58,14 @@ class PropertyController extends Controller
     /**
      * store properties
      * @param \App\Http\Requests\API\V1\Property\CreatePropertyRequest $createPropertyRequest
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(CreatePropertyRequest $createPropertyRequest): JsonResponse
     {
         try {
             $validatedData = $createPropertyRequest->validated();
             $response = $this->propertyService->storeProperty($validatedData);
-            return $this->success(201, 'property created', new CreatePropertyResource($response));
+            return $this->success(201, 'property created');
         } catch (Exception $e) {
             Log::error('PropertyController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

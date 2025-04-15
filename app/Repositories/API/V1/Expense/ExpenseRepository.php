@@ -142,9 +142,15 @@ class ExpenseRepository implements ExpenseRepositoryInterface
     public function updateCategory(int $id, int $categoryId)
     {
         try {
-            return Expense::findOrFail($id)->update([
+            Expense::findOrFail($id)->update([
                 'expense_category_id' => $categoryId,
             ]);
+            Expense::findOrFail($id)->update([
+                'expense_sub_category_id' => null,
+            ]);
+
+            return true;
+
         } catch (Exception $e) {
             Log::error('ExpenseRepository::updateCategory', ['error' => $e->getMessage()]);
             throw $e;

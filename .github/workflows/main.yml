@@ -1,21 +1,42 @@
+name: 🚀 Deploy website on push
+
 on:
   push:
     branches:
       - dev
-name: 🚀 Deploy website on push
+      - main
+
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  deploy-dev:
+    if: github.ref == 'refs/heads/dev'
+    name: 🚧 Deploy to DEV Server
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
 
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ftp.softvencefsd.xyz
-        username: api@atomana.softvencefsd.xyz
-        password: ${{ secrets.ftp_password }}
-        port: 21
-        protocol: "ftp"
+      - name: 📂 Sync files to DEV
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.softvencefsd.xyz
+          username: api@atomana.softvencefsd.xyz
+          password: ${{ secrets.ftp_password }}
+          port: 21
+          protocol: "ftp"
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    name: 🚀 Deploy to PRODUCTION Server
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 📂 Sync files to PROD
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 20.81.128.40
+          username: admin
+          password: ${{ secrets.ftp_myops }}
+          port: 21
+          protocol: "ftp"

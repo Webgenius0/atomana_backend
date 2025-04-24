@@ -42,7 +42,7 @@ class CreatePropertyRequest extends FormRequest
             'beds'               => 'nullable|integer' ,
             'full_baths'         => 'nullable|integer' ,
             'half_baths'         => 'nullable|integer' ,
-            'size'               => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'max:100', 'min:0.01'],
+            'size'               => ['nullable', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'min:0.01'],
             'link'               => 'nullable|url' ,
             'note'               => 'nullable|string' ,
         ];

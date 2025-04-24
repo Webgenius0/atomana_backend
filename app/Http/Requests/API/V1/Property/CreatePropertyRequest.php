@@ -28,7 +28,6 @@ class CreatePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'              => 'required|email' ,
             'address'            => 'required|string' ,
             'price'              => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'] ,
             'expiration_date'    => 'required|date|after:today' ,

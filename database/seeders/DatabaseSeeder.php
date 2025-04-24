@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
             PropertyTypeSeeder::class,
             PropertySourceSeeder::class,
             UserSeeder::class,
-            TierSeeder::class,
-            ExpensesTableSeeder::class,
-            TargetsTableSeeder::class,
-            PropertiesTableSeeder::class,
-            SalesTracksTableSeeder::class,
+            // TierSeeder::class,
+            // ExpensesTableSeeder::class,
+            // TargetsTableSeeder::class,
+            // PropertiesTableSeeder::class,
+            // SalesTracksTableSeeder::class,
         ]);
 
     }

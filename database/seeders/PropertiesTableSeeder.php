@@ -24,7 +24,6 @@ class PropertiesTableSeeder extends Seeder
                     'business_id' => 1, // Change if needed
                     'agent' => $userId,
                     'sku' => 'PROP' . $userId . '-' . $i, // Unique SKU
-                    'email' => "property{$i}@mail.com",
                     'address' => $faker->address,
                     'price' => $faker->randomFloat(2, 50000, 1000000),
                     'expiration_date' => $faker->dateTimeBetween('now', '+2 years')->format('Y-m-d'),

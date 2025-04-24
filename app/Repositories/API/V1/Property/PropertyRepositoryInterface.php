@@ -14,10 +14,18 @@ interface PropertyRepositoryInterface
     public function propertiesOftheBusiness(int $businessId, int $perPage);
 
     /**
-     * properties Of The Agent
-     * @param int $userId
+     * searchPropertiesOfBusiness
+     * @param int $businessId
+     * @param string $searchKey
      */
-    public function propertiesOfTheAgent(int $userId);
+    public function searchPropertiesOfBusiness(int $businessId, string $searchKey);
+
+    /**
+     * searchPropertiesOfTheAgent
+     * @param int $userId
+     * @param string $searchKey
+     */
+    public function searchPropertiesOfTheAgent(int $userId, string $searchKey);
 
     /**
      * Creating a property

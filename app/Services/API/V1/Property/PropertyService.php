@@ -58,11 +58,14 @@ class PropertyService
     public function showDropdown()
     {
         try {
+            $searchKey = request()->query('search') ?? '';
+            if ($searchKey == '')
+                return [];
             $properties = null;
             if ($this->user->role->id == 2) {
-                $properties = $this->propertyRepository->propertiesOftheBusiness($this->user->business()->id);
+                $properties = $this->propertyRepository->searchPropertiesOfBusiness($this->user->business()->id, $searchKey);
             }else {
-                $properties = $this->propertyRepository->propertiesOfTheAgent($this->user->id);
+                $properties = $this->propertyRepository->searchPropertiesOfTheAgent($this->user->id, $searchKey);
             }
             return $properties;
         } catch (Exception $e) {

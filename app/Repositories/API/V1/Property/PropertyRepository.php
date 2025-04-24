@@ -53,7 +53,6 @@ class PropertyRepository implements PropertyRepositoryInterface
                 'business_id'        => $businessId,
                 'agent'              => $userId,
                 'sku'                => Helper::generateUniqueId('properties', 'sku'),
-                'email'              => $credentials['email'],
                 'address'            => $credentials['address'],
                 'price'              => $credentials['price'],
                 'expiration_date'    => $credentials['expiration_date'],
@@ -88,7 +87,6 @@ class PropertyRepository implements PropertyRepositoryInterface
             return Property::select([
                 'id',
                 'sku',
-                'email',
                 'address',
                 'price',
                 'expiration_date',

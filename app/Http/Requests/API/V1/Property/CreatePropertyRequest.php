@@ -50,9 +50,6 @@ class CreatePropertyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Please provide an email address.',
-            'email.email'    => 'The email address must be in a valid email format.',
-
             'address.required' => 'The address field cannot be empty.',
 
             'price.required' => 'The price is required to complete this action.',
@@ -102,7 +99,6 @@ class CreatePropertyRequest extends FormRequest
         $errors = $validator->errors()->getMessages();
         $message = null;
         $fields = [
-            'email',
             'address',
             'price',
             'expiration_date',

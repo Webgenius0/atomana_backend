@@ -27,7 +27,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:expense_categories,name',
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 

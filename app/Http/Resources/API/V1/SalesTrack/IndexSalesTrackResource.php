@@ -17,6 +17,8 @@ class IndexSalesTrackResource extends JsonResource
     {
         $datas = parent::toArray($request);
 
+        $response = [];
+
         foreach ($datas['data'] as $data) {
             $response[] = [
                 'id'                  => $data['id'],

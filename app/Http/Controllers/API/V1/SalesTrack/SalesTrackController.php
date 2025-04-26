@@ -35,9 +35,9 @@ class SalesTrackController extends Controller
     {
         try {
             $response = $this->salesTrackService->getSalesTrack();
-            return $this->success(201, 'Sales Tracks of the Business', new IndexSalesTrackResource($response));
+            return $this->success(200, 'Sales Tracks of the Business', new IndexSalesTrackResource($response));
         } catch (Exception $e) {
-            Log::error('SalesTrackController::store', ['error' => $e->getMessage()]);
+            Log::error('SalesTrackController::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

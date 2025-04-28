@@ -1,4 +1,4 @@
-# Mirko86z
+# Atomana_backend
 
 ## Installation
 
@@ -7,13 +7,13 @@ To Install & Run This Project, Follow These Steps:
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/SoftVenceDev/mirko86z_backend.git
+    https://github.com/Webgenius0/atomana_backend.git
     ```
 
 2. Navigate to the project directory:
 
     ```sh
-    cd mirko86z_backend
+    cd atomana_backend
     ```
 
 3. Install project dependencies:

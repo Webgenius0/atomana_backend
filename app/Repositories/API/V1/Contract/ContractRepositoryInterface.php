@@ -1,8 +1,24 @@
 <?php
-    
+
 namespace App\Repositories\API\V1\Contract;
+
+use App\Models\Contract;
 
 interface ContractRepositoryInterface
 {
-    // Define the methods your repository should implement
+    /**
+     * get All Contracts By Business
+     * @param int $businessId
+     * @param mixed $perPage
+     */
+    public function getAllContractsByBusiness(int $businessId, $perPage = 25);
+
+    /**
+     * createContract
+     * @param array $data
+     * @param int $businessId
+     * @param int $userId
+     * @return Contract
+     */
+    public function createContract(array $data, int $businessId, int $userId): Contract;
 }

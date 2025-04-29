@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('agent');
             $table->string('sku')->unique();
             $table->string('address');
-            $table->decimal('price');
+            $table->decimal('price', 20, 2);
             $table->date('expiration_date');
             $table->boolean('is_development')->default(false);
             $table->boolean('add_to_website')->default(false);

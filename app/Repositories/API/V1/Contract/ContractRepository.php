@@ -8,9 +8,20 @@ use Illuminate\Support\Facades\Log;
 
 class ContractRepository implements ContractRepositoryInterface
 {
-    public function getAllContracts() {}
-
-    public function getContractById(int $id) {}
+    /**
+     * get All Contracts By Business
+     * @param int $businessId
+     * @param mixed $perPage
+     */
+    public function getAllContractsByBusiness(int $businessId, $perPage = 25)
+    {
+        try {
+            return Contract::whereBusinessId($businessId)->paginate($perPage);
+        } catch (Exception $e) {
+            Log::error('ContractRepository:createContract', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 
     /**
      * createContract
@@ -48,6 +59,4 @@ class ContractRepository implements ContractRepositoryInterface
     }
 
     public function updateContract(int $id, array $data) {}
-
-    public function deleteContract(int $id) {}
 }

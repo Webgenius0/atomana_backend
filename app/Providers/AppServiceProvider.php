@@ -24,6 +24,8 @@ use App\Repositories\API\V1\Auth\PasswordRepository;
 use App\Repositories\API\V1\Auth\PasswordRepositoryInterface;
 use App\Repositories\API\V1\Auth\UserRepository;
 use App\Repositories\API\V1\Auth\UserRepositoryInterface;
+use App\Repositories\API\V1\Contract\ContractRepository;
+use App\Repositories\API\V1\Contract\ContractRepositoryInterface;
 use App\Repositories\API\V1\Expense\Catetory\ExpenseCategoryRepository;
 use App\Repositories\API\V1\Expense\Catetory\ExpenseCategoryRepositoryInterface;
 use App\Repositories\API\V1\Expense\ExpenseRepository;
@@ -137,6 +139,10 @@ class AppServiceProvider extends ServiceProvider
 
         // ytc
         $this->app->bind(UserYTCRepositoryInterface::class, UserYTCRepository::class);
+
+        // contract
+        $this->app->bind(ContractRepositoryInterface::class, ContractRepository::class);
+
     }
 
     /**

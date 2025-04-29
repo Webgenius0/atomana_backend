@@ -32,7 +32,7 @@ class CreateExpenseRequest extends FormRequest
             'amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'payment_method_id' => 'nullable|exists:payment_methods,id',
             'payee' => 'nullable|string',
-            'recept' => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf',
+            'recept' => 'required|file|mimes:jpg,jpeg,png,webp,pdf',
             'user_id' => 'required|exists:users,id',
             'reimbursable' => 'nullable|boolean',
             'listing' => 'nullable|string',
@@ -68,7 +68,7 @@ class CreateExpenseRequest extends FormRequest
             // 'payee.required' => 'The vendor is required.',
             'payee.string' => 'The payee must be a string.',
 
-            // 'recept.required' => 'The receipt is required.',
+            'recept.required' => 'The receipt is required.',
             'recept.file' => 'The receipt must be a valid file.',
             'recept.mimes' => 'The receipt must be a JPG, JPEG, PNG, WEBP, or PDF file.',
 

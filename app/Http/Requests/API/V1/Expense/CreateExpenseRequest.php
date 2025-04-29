@@ -26,17 +26,17 @@ class CreateExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'expense_category_id' => 'nullable|exists:expense_categories,id',
+            'expense_category_id'     => 'nullable|exists:expense_categories,id',
             'expense_sub_category_id' => 'nullable|exists:expense_sub_categories,id',
-            'description' => 'nullable|string',
-            'amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'payment_method_id' => 'nullable|exists:payment_methods,id',
-            'payee' => 'nullable|string',
-            'recept' => 'required|file|mimes:jpg,jpeg,png,webp,pdf',
-            'user_id' => 'required|exists:users,id',
-            'reimbursable' => 'nullable|boolean',
-            'listing' => 'nullable|string',
-            'note' => 'nullable|string',
+            'description'             => 'nullable|string',
+            'amount'                  => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'payment_method_id'       => 'nullable|exists:payment_methods,id',
+            'payee'                   => 'nullable|string',
+            'recept'                  => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf',
+            'user_id'                 => 'required|exists:users,id',
+            'reimbursable'            => 'nullable|boolean',
+            'listing'                 => 'nullable|string',
+            'note'                    => 'nullable|string',
         ];
     }
 

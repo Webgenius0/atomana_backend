@@ -72,7 +72,7 @@ class ExpenseService extends ExpenseRepository
             $recetp = null;
             $recept_url = null;
 
-            if ($credentials['recept'] != null) {
+            if (isset($credentials['recept'])) {
                 $recept_url = Helper::uploadFile($credentials['recept'], 'business/' . $businessId . '/recept');
                 $recetp = $credentials['recept']->getClientOriginalName();
             }

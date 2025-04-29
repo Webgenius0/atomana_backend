@@ -54,7 +54,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
      * @param int $expenseForId
      * @return mixed
      */
-    public function createExpense(array $credentials, string $receptUrl, string $recept, int $businessId, int $expenseForId): mixed
+    public function createExpense(array $credentials, $receptUrl, $recept, int $businessId, int $expenseForId): mixed
     {
         try {
             $data = Expense::create([

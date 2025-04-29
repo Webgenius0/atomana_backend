@@ -247,4 +247,23 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(OpenHouseFeedback::class);
     }
+
+
+    /**
+     * contracts
+     * @return HasMany<Contract, User>
+     */
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class, 'agent');
+    }
+
+    /**
+     * coContracts
+     * @return HasMany<Contract, User>
+     */
+    public function coContracts(): HasMany
+    {
+        return $this->hasMany(Contract::class, 'co_agent');
+    }
 }

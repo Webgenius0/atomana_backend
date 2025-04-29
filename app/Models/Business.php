@@ -165,4 +165,13 @@ class Business extends Model
     {
         return $this->hasMany(OpenHouseFeedback::class);
     }
+
+    /**
+     * Summary of contracts
+     * @return HasMany<Contract, Business>
+     */
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
+    }
 }

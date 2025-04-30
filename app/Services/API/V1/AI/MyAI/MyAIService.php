@@ -51,14 +51,13 @@ class MyAIService
      * @throws Exception
      * @return array{message: mixed, message_id: mixed, new_chat_id: mixed, new_chat_name: mixed, response: mixed}
      */
-    public function createNewChat(string $message):array
+    public function createNewChat(string $message): array
     {
         try {
             $response = $this->openAIService->chat($message);
-            if (isset($response['id']))
-            {
+            if (isset($response['id'])) {
                 $responseMessage = $response['output'][0]['content'][0]['text'];
-                $newChat = $this->myAIRepository->createChat($this->user->id, substr($responseMessage, 0, 10). '...');
+                $newChat = $this->myAIRepository->createChat($this->user->id, substr($responseMessage, 0, 10) . '...');
                 $message = $this->myAIMessageRepository->saveChat($newChat->id, $message, $responseMessage,);
                 return [
                     $newChat,
@@ -93,12 +92,19 @@ class MyAIService
      * @throws \Exception
      * @return MyAIMessage
      */
-    public function saveChat(int $myAIId, string $message):MyAIMessage
+    public function saveChat(int $myAIId, string $message): MyAIMessage
     {
         try {
-            $response = $this->openAIService->chat($message);
-            if (isset($response['id']))
-            {
+            $history = $this->myAIMessageRepository->getChets($myAIId);
+            // Format the history
+            $messages = [];
+            foreach ($history as $item) {
+                $messages[] = ['role' => 'user', 'content' => $item->message];
+                $messages[] = ['role' => 'assistant', 'content' => $item->response];
+            }
+            $messages[] = ['role' => 'user', 'content' => $message];
+            $response = $this->openAIService->chat($messages);
+            if (isset($response['id'])) {
                 $responseMessage = $response['output'][0]['content'][0]['text'];
 
                 $message = $this->myAIMessageRepository->saveChat($myAIId, $message, $responseMessage,);

@@ -57,8 +57,7 @@ class MyAIService
             $response = $this->openAIService->chat($message);
             if (isset($response['id']))
             {
-                $responseMessage = $response['choices'][0]['message']['content'];
-
+                $responseMessage = $response['output'][0]['content'][0]['text'];
                 $newChat = $this->myAIRepository->createChat($this->user->id, substr($responseMessage, 0, 10). '...');
                 $message = $this->myAIMessageRepository->saveChat($newChat->id, $message, $responseMessage,);
                 return [
@@ -100,7 +99,7 @@ class MyAIService
             $response = $this->openAIService->chat($message);
             if (isset($response['id']))
             {
-                $responseMessage = $response['choices'][0]['message']['content'];
+                $responseMessage = $response['output'][0]['content'][0]['text'];
 
                 $message = $this->myAIMessageRepository->saveChat($myAIId, $message, $responseMessage,);
                 return $message;

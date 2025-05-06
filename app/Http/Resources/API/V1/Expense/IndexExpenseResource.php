@@ -17,6 +17,8 @@ class IndexExpenseResource extends JsonResource
     {
         $datas = parent::toArray($request);
 
+        return $datas;
+
         $modifyedData = [];
         foreach ($datas['data'] as $data) {
             $tempArray = [

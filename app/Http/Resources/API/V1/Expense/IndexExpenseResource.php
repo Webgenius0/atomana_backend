@@ -22,9 +22,12 @@ class IndexExpenseResource extends JsonResource
             $tempArray = [
                 'id'                      => $data['id'],
                 'expense_category_id'     => $data['expense_category_id'],
+                'expense_category'        => $data['category']['name'],
                 'expense_sub_category_id' => $data['expense_sub_category_id'],
+                'sub_category'            => $data['subCategory']['name'],
                 'amount'                  => $data['amount'],
                 'payment_method_id'       => $data['payment_method_id'],
+                'payment_method'          => $data['paymentMethord']['name'],
                 'payee'                   => $data['payee'],
                 'recept_name'             => $data['recept_name'],
                 'recept_url'              => $data['recept_url'],

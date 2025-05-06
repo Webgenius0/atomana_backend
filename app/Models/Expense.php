@@ -56,7 +56,7 @@ class Expense extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ExpenseCategory::class);
+        return $this->belongsTo(ExpenseCategory::class, 'expense_category_id');
     }
 
 
@@ -66,7 +66,7 @@ class Expense extends Model
      */
     public function subCategory(): BelongsTo
     {
-        return $this->belongsTo(ExpenseSubCategory::class);
+        return $this->belongsTo(ExpenseSubCategory::class, 'expense_sub_category_id');
     }
 
     /**
@@ -84,7 +84,7 @@ class Expense extends Model
      */
     public function paymentMethord(): BelongsTo
     {
-        return $this->belongsTo(PaymentMethod::class);
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
 
     /**

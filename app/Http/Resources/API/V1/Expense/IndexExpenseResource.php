@@ -17,29 +17,28 @@ class IndexExpenseResource extends JsonResource
     {
         $datas = parent::toArray($request);
 
-        return $datas;
-
         $modifyedData = [];
         foreach ($datas['data'] as $data) {
             $tempArray = [
-                'id'                      => $data['id'],
-                'expense_category_id'     => $data['expense_category_id'],
-                'expense_category'        => $data['category']['name'],
-                'expense_sub_category_id' => $data['expense_sub_category_id'],
-                'sub_category'            => $data['sub_category']['name'],
-                'amount'                  => $data['amount'],
-                'payment_method_id'       => $data['payment_method_id'],
-                'payment_method'          => $data['payment_methord']['name'],
-                'payee'                   => $data['payee'],
-                'recept_name'             => $data['recept_name'],
-                'recept_url'              => $data['recept_url'],
-                'owner'                   => $data['user']['handle'],
-                'reimbursable'            => $data['reimbursable'],
-                'listing'                 => $data['listing'],
-                'note'                    => $data['note'],
-                'description'             => $data['description'],
-                'date'                    => $data['created_at'],
+                'id'                      => $data['id'] ?? null,
+                'expense_category_id'     => $data['expense_category_id'] ?? null,
+                'expense_category'        => isset($data['category']) && isset($data['category']['name']) ? $data['category']['name'] : null,
+                'expense_sub_category_id' => $data['expense_sub_category_id'] ?? null,
+                'sub_category'            => isset($data['sub_category']) && isset($data['sub_category']['name']) ? $data['sub_category']['name'] : null,
+                'amount'                  => $data['amount'] ?? null,
+                'payment_method_id'       => $data['payment_method_id'] ?? null,
+                'payment_method'          => isset($data['payment_methord']) && isset($data['payment_methord']['name']) ? $data['payment_methord']['name'] : null,
+                'payee'                   => $data['payee'] ?? null,
+                'recept_name'             => $data['recept_name'] ?? null,
+                'recept_url'              => $data['recept_url'] ?? null,
+                'owner'                   => isset($data['user']) && isset($data['user']['handle']) ? $data['user']['handle'] : null,
+                'reimbursable'            => $data['reimbursable'] ?? null,
+                'listing'                 => $data['listing'] ?? null,
+                'note'                    => $data['note'] ?? null,
+                'description'             => $data['description'] ?? null,
+                'date'                    => $data['created_at'] ?? null,
             ];
+
 
             $modifyedData[] = $tempArray;
         }

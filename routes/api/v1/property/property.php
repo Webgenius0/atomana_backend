@@ -31,5 +31,6 @@ Route::prefix('v1/property')->name('property.')->middleware(['auth:api', 'verifi
         Route::get('/access-instruction', 'index');
         Route::post('/access-instruction', 'store');
         Route::get('/access-instruction/{propertyAccessInstruction}', 'show');
+        Route::delete('/access-instruction', 'bulkDelete');
     });
 });

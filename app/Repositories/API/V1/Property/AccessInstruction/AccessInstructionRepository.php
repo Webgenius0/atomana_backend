@@ -81,4 +81,19 @@ class AccessInstructionRepository implements AccessInstructionRepositoryInterfac
             throw $e;
         }
     }
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void
+    {
+        try {
+            PropertyAccessInstruction::destroy($ids);
+        } catch (Exception $e) {
+            Log::error('AccessInstructionRepository:bulkDelete', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

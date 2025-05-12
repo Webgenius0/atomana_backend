@@ -47,7 +47,7 @@ class AccessInstructionService
     {
         try {
             return $this->accessInstructionRepository->create($data);
-        }catch (PreconditionFailedHttpException $e) {
+        } catch (PreconditionFailedHttpException $e) {
             throw $e;
         } catch (Exception $e) {
             Log::error('AccessInstructionService::createAccessInstruction', ['error' => $e->getMessage()]);
@@ -66,6 +66,21 @@ class AccessInstructionService
             return $this->accessInstructionRepository->show($accessInstructionId);
         } catch (Exception $e) {
             Log::error('AccessInstructionService::showSingleAccessInstruction', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * bulkDestory
+     * @param array $ids
+     */
+    public function bulkDestory(array $ids)
+    {
+        try {
+            return $this->accessInstructionRepository->bulkDelete($ids);
+        } catch (Exception $e) {
+            Log::error('AccessInstructionService:bulkDestory', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

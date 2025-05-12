@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Property\AccessInstruction;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Property\AccessInstruction\CreateRequest;
+use App\Http\Requests\API\V1\Property\AccessInstruction\DeleteRequest;
 use App\Http\Resources\API\V1\Property\AccessInstruction\ShowResource;
 use App\Http\Resources\API\V1\Property\AccessInstruction\StoreResource;
 use App\Http\Resources\API\V1\Property\AccessInstruction\IndexResource;
@@ -32,12 +33,12 @@ class AccessInstructionController extends Controller
      * index
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index():JsonResponse
+    public function index(): JsonResponse
     {
         try {
             $response = $this->accessInstructionService->getIndex();
             return $this->success(200, 'List of Property Access Instruciton', new IndexResource($response));
-        }catch (Exception $e){
+        } catch (Exception $e) {
             Log::error('AccessInstructionController::index', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
@@ -48,15 +49,15 @@ class AccessInstructionController extends Controller
      * @param \App\Http\Requests\API\V1\Property\AccessInstruction\CreateRequest $createRequest
      * @return JsonResponse
      */
-    public function store(CreateRequest $createRequest):JsonResponse
+    public function store(CreateRequest $createRequest): JsonResponse
     {
         try {
             $validatedData = $createRequest->validated();
             $response = $this->accessInstructionService->createAccessInstruction($validatedData);
             return $this->success(200, 'Created Successfully.', new StoreResource($response));
-        }catch (PreconditionFailedHttpException $e) {
+        } catch (PreconditionFailedHttpException $e) {
             throw $e;
-        }catch (Exception $e){
+        } catch (Exception $e) {
             Log::error('AccessInstructionController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());
         }
@@ -67,14 +68,32 @@ class AccessInstructionController extends Controller
      * @param \App\Models\PropertyAccessInstruction $propertyAccessInstruction
      * @return JsonResponse
      */
-    public function show(PropertyAccessInstruction $propertyAccessInstruction):JsonResponse
+    public function show(PropertyAccessInstruction $propertyAccessInstruction): JsonResponse
     {
         try {
             $response = $this->accessInstructionService->showSingleAccessInstruction($propertyAccessInstruction->id);
             return $this->success(200, 'Created Successfully.', new ShowResource($response));
-        }catch (Exception $e){
+        } catch (Exception $e) {
             Log::error('AccessInstructionController::store', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error.', $e->getMessage());
+        }
+    }
+
+
+    /**
+     * bulkDelete
+     * @param \App\Http\Requests\API\V1\OpenHouse\DeleteRequest $deleteRequest
+     * @return JsonResponse
+     */
+    public function bulkDelete(DeleteRequest $deleteRequest)
+    {
+        try {
+            $ids = $deleteRequest->input('id');
+            $this->accessInstructionService->bulkDestory($ids);
+            return $this->success(201, 'deleted');
+        } catch (Exception $e) {
+            Log::error('AccessInstructionController::bulkDelete', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
 }

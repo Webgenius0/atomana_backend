@@ -26,4 +26,11 @@ interface AccessInstructionRepositoryInterface
      * @return PropertyAccessInstruction
      */
     public function show(int $accessInstructionId): PropertyAccessInstruction;
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void;
 }

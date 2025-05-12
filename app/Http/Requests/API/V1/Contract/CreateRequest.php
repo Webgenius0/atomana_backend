@@ -38,6 +38,8 @@ class CreateRequest extends FormRequest
             'price'                => 'required|numeric|min:0',
             'contract_data'        => 'nullable|date',
             'commision_percentage' => 'nullable|numeric|min:0|max:100',
+            'co_agent_percentage'  => 'nullable|numeric|min:0|max:100',
+            'referral_percentage'  => 'nullable|numeric|min:0|max:100',
             'property_source_id'   => 'required|exists:property_sources,id',
             'name'                 => 'required|string|max:255',
             'company'              => 'required|string|max:255',

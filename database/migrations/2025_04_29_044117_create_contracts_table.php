@@ -24,6 +24,8 @@ return new class extends Migration
             $table->decimal('price', 20, 2)->nullable();
             $table->date('contract_data')->nullable();
             $table->decimal('commision_percentage')->nullable();
+            $table->decimal('co_agent_percentage')->nullable();
+            $table->decimal('referral_percentage')->nullable();
             $table->foreignId('property_source_id')->nullable()->constrained('property_sources')->nullOnDelete();
             $table->string('name')->nullable();
             $table->string('company')->nullable();

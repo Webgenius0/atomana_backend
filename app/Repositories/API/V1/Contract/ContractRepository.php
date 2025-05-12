@@ -45,6 +45,8 @@ class ContractRepository implements ContractRepositoryInterface
                 'price'                => $data['price'],
                 'contract_data'        => $data['contract_data'],
                 'commision_percentage' => $data['commision_percentage'],
+                'co_agent_percentage'  => $data['co_agent_percentage'],
+                'referral_percentage'  => $data['referral_percentage'],
                 'property_source_id'   => $data['property_source_id'],
                 'name'                 => $data['name'],
                 'company'              => $data['company'],

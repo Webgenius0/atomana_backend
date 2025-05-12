@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -90,5 +91,25 @@ class Contract extends Model
     public function business(): BelongsTo
     {
         return $this->belongsTo(Business::class);
+    }
+
+    /**
+     * getClosingDataAttribute
+     * @param mixed $value
+     * @return string
+     */
+    public function getClosingDataAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    /**
+     * getDateListedAttribute
+     * @param mixed $value
+     * @return string
+     */
+    public function getDateListedAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y');
     }
 }

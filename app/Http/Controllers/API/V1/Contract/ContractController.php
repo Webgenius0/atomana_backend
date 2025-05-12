@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\Contract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Contract\CreateRequest;
 use App\Services\API\V1\Contract\ContractService;
+use App\Http\Resources\API\V1\Contract\StoreResource;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -35,7 +36,7 @@ class ContractController extends Controller
 
             $response = $this->contractService->createContract($validatedData);
 
-            return $this->success(201, 'contract created', $response);
+            return $this->success(201, 'contract created', new StoreResource($response));
         } catch (Exception $e) {
             Log::error('ContractController::store', ['message' => $e->getMessage()]);
             return $this->error(500, 'server error', $e->getMessage());

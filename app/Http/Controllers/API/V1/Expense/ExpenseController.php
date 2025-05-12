@@ -265,7 +265,7 @@ class ExpenseController extends Controller
     }
 
 
-        /**
+    /**
      * bulkDelete
      * @param \App\Http\Requests\API\V1\OpenHouse\DeleteRequest $deleteRequest
      * @return JsonResponse
@@ -274,7 +274,7 @@ class ExpenseController extends Controller
     {
         try {
             $ids = $deleteRequest->input('id');
-            $this->openHouseService->bulkDestory($ids);
+            $this->expenseService->bulkDestory($ids);
             return $this->success(201, 'deleted');
         } catch (Exception $e) {
             Log::error('ExpenseController::bulkDelete', ['error' => $e->getMessage()]);

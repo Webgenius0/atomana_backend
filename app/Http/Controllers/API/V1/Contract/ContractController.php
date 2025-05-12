@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Contract;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Contract\CreateRequest;
+use App\Http\Requests\API\V1\Contract\DeleteRequest;
 use App\Services\API\V1\Contract\ContractService;
 use App\Http\Resources\API\V1\Contract\StoreResource;
 use App\Models\Contract;
@@ -72,6 +73,24 @@ class ContractController extends Controller
         } catch (Exception $e) {
             Log::error('ContractController::store', ['message' => $e->getMessage()]);
             return $this->error(500, 'server error', $e->getMessage());
+        }
+    }
+
+
+        /**
+     * bulkDelete
+     * @param \App\Http\Requests\API\V1\OpenHouse\DeleteRequest $deleteRequest
+     * @return JsonResponse
+     */
+    public function bulkDelete(DeleteRequest $deleteRequest)
+    {
+        try {
+            $ids = $deleteRequest->input('id');
+            $this->contractService->bulkDestory($ids);
+            return $this->success(201, 'deleted');
+        } catch (Exception $e) {
+            Log::error('ContractController::bulkDelete', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
 }

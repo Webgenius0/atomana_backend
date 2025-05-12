@@ -10,5 +10,6 @@ Route::prefix('v1/contract')->middleware(['auth:api', 'verified', 'authorized'])
         Route::get('/', 'index');
         Route::get('/{contract}', 'show');
         Route::post('/', 'store');
+        Route::delete('/', 'bulkDelete');
     });
 });

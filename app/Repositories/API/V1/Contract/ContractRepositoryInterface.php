@@ -28,4 +28,11 @@ interface ContractRepositoryInterface
      * @return Contract
      */
     public function showContract(int $id): Contract;
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void;
 }

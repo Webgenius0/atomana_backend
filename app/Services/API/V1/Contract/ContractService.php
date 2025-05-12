@@ -73,4 +73,19 @@ class ContractService
             throw $e;
         }
     }
+
+
+    /**
+     * bulkDestory
+     * @param array $ids
+     */
+    public function bulkDestory(array $ids)
+    {
+        try {
+            return $this->contractRepository->bulkDelete($ids);
+        } catch (Exception $e) {
+            Log::error('ContractService:bulkDestory', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

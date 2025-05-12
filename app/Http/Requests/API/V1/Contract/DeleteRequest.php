@@ -27,7 +27,7 @@ class DeleteRequest extends FormRequest
     {
         return [
             'id' => ['required', 'array', 'min:1'],
-            'id.*' => ['integer', 'distinct', 'exists:open_houses,id'],
+            'id.*' => ['integer', 'distinct', 'exists:contracts,id'],
         ];
     }
 

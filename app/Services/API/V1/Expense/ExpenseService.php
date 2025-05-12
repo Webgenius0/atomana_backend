@@ -480,7 +480,7 @@ class ExpenseService extends ExpenseRepository
     }
 
 
-        /**
+    /**
      * bulkDestory
      * @param array $ids
      */
@@ -493,5 +493,4 @@ class ExpenseService extends ExpenseRepository
             throw $e;
         }
     }
-
 }

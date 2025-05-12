@@ -86,4 +86,19 @@ class ContractRepository implements ContractRepositoryInterface
     }
 
     public function updateContract(int $id, array $data) {}
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void
+    {
+        try {
+            Contract::destroy($ids);
+        } catch (Exception $e) {
+            Log::error('ContractRepository:bulkDelete', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

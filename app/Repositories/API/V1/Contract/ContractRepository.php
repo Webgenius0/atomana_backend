@@ -16,7 +16,11 @@ class ContractRepository implements ContractRepositoryInterface
     public function getAllContractsByBusiness(int $businessId, $perPage = 25)
     {
         try {
-            return Contract::whereBusinessId($businessId)->paginate($perPage);
+            return Contract::whereBusinessId($businessId)->with([
+                'agent:id,first_name,last_name',
+                'coAgent:id,first_name,last_name',
+                'propertySources:id,name'
+            ])->orderBy('id', 'desc')->paginate($perPage);
         } catch (Exception $e) {
             Log::error('ContractRepository:createContract', ['error' => $e->getMessage()]);
             throw $e;

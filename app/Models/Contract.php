@@ -94,6 +94,14 @@ class Contract extends Model
     }
 
     /**
+     * propertySources
+     * @return BelongsTo<PropertySource, Contract>
+     */
+    public function propertySources(): BelongsTo
+    {
+        return $this->belongsTo(PropertySource::class, 'property_source_id');
+    }
+    /**
      * getClosingDataAttribute
      * @param mixed $value
      * @return string

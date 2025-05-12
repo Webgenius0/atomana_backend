@@ -10,5 +10,6 @@ Route::prefix('v1/sales-track')->name('sales-track.')->middleware(['auth:api', '
         Route::get('/', 'index');
         Route::post('/store', 'store');
         Route::delete('/', 'bulkDelete');
+        Route::patch('/status/{SalesTrack}/{status}', 'statusChagne')->where('status', 'active|pending|close|expired');;
     });
 });

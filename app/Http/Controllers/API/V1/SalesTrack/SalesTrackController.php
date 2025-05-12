@@ -7,6 +7,7 @@ use App\Http\Requests\API\V1\SalesTrack\CreateSalesTrackRequest;
 use App\Http\Requests\API\V1\SalesTrack\DeleteRequest;
 use App\Http\Resources\API\V1\SalesTrack\CreateSalesTrackResource;
 use App\Http\Resources\API\V1\SalesTrack\IndexSalesTrackResource;
+use App\Models\SalesTrack;
 use App\Services\API\V1\SalesTrack\SalesTrackService;
 use App\Traits\V1\ApiResponse;
 use Exception;
@@ -70,9 +71,27 @@ class SalesTrackController extends Controller
         try {
             $ids = $deleteRequest->input('id');
             $this->salesTrackService->bulkDestory($ids);
-            return $this->success(201, 'deleted');
+            return $this->success(200, 'deleted');
         } catch (Exception $e) {
             Log::error('SalesTrackController::bulkDelete', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
+     * statusChagne
+     * @param \App\Models\SalesTrack $SalesTrack
+     * @param string $status
+     * @return JsonResponse
+     */
+    public function statusChagne(SalesTrack $SalesTrack, string $status)
+    {
+        try {
+            $SalesTrack->status = $status;
+            $SalesTrack->save();
+            return $this->success(200, 'status updatede');
+        }catch (Exception $e) {
+            Log::error('SalesTrackController::statusChagne', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

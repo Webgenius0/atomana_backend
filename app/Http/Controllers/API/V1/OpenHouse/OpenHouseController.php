@@ -100,7 +100,7 @@ class OpenHouseController extends Controller
         try {
             $ids = $deleteRequest->input('id');
             $this->openHouseService->bulkDestory($ids);
-            return $this->success(201, 'deleted');
+            return $this->success(200, 'deleted');
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\OpenHouse::bulkDelete', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

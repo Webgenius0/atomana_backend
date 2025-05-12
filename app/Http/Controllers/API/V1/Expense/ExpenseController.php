@@ -275,7 +275,7 @@ class ExpenseController extends Controller
         try {
             $ids = $deleteRequest->input('id');
             $this->expenseService->bulkDestory($ids);
-            return $this->success(201, 'deleted');
+            return $this->success(200, 'deleted');
         } catch (Exception $e) {
             Log::error('ExpenseController::bulkDelete', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

@@ -100,7 +100,7 @@ class PropertyController extends Controller
         try {
             $ids = $deleteRequest->input('id');
             $this->propertyService->bulkDestory($ids);
-            return $this->success(201, 'deleted');
+            return $this->success(200, 'deleted');
         } catch (Exception $e) {
             Log::error('PropertyController::bulkDelete', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());

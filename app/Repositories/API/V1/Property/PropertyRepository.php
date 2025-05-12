@@ -16,7 +16,7 @@ class PropertyRepository implements PropertyRepositoryInterface
     public function propertiesOftheBusiness(int $businessId, int $perPage)
     {
         try {
-            $properties = Property::select('id', 'address')->whereBusinessId($businessId)->paginate($perPage);
+            $properties = Property::select('id', 'address')->whereBusinessId($businessId)->orderBy('id', 'desc')->paginate($perPage);
             return $properties;
         } catch (Exception $e) {
             Log::error('PropertyRepository::propertiesOftheBusiness', ['error' => $e->getMessage()]);

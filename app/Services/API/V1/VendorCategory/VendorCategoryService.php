@@ -32,7 +32,7 @@ class VendorCategoryService
         $this->vendorCategoryRepository = $vendorCategoryRepository;
     }
 
- 
+
     /**
      * Get all vendor categories.
      *
@@ -59,6 +59,8 @@ class VendorCategoryService
         try {
             if (isset($categories['icon']) && $categories['icon'] instanceof \Illuminate\Http\UploadedFile) {
                 $categories['icon'] = Helper::uploadFile($categories['icon'], 'vendor_categories');
+            } else {
+                $categories['icon'] = null;
             }
             return $this->vendorCategoryRepository->create($categories, $this->businessId);
         } catch (Exception $e) {

@@ -77,7 +77,7 @@ class ContractController extends Controller
     }
 
 
-        /**
+    /**
      * bulkDelete
      * @param \App\Http\Requests\API\V1\OpenHouse\DeleteRequest $deleteRequest
      * @return JsonResponse

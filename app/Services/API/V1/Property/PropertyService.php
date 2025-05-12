@@ -28,10 +28,10 @@ class PropertyService
      */
     public function propertyesOfBusiness()
     {
-        try{
+        try {
             $perPage = request()->query('per_page', 25);
             return $this->propertyRepository->propertiesOftheBusiness($this->user->business()->id, $perPage);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('PropertyService::propertyesOfBusiness', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -46,7 +46,7 @@ class PropertyService
     {
         try {
             return $this->propertyRepository->showDetailsById($showById);
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('PropertyService::showPropertyDetails', ['error' => $e->getMessage()]);
             throw $e;
         }
@@ -64,7 +64,7 @@ class PropertyService
             $properties = null;
             if ($this->user->role->id == 2) {
                 $properties = $this->propertyRepository->searchPropertiesOfBusiness($this->user->business()->id, $searchKey);
-            }else {
+            } else {
                 $properties = $this->propertyRepository->searchPropertiesOfTheAgent($this->user->id, $searchKey);
             }
             return $properties;
@@ -79,13 +79,27 @@ class PropertyService
      * @param array $credentials
      * @return Property
      */
-    public function storeProperty(array $credentials):Property
+    public function storeProperty(array $credentials): Property
     {
         try {
             $property = $this->propertyRepository->createProperty($credentials, $this->user->id, $this->user->business()->id);
             return $property;
         } catch (Exception $e) {
             Log::error('PropertyService::storeProperty', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * bulkDestory
+     * @param array $ids
+     */
+    public function bulkDestory(array $ids)
+    {
+        try {
+            return $this->propertyRepository->bulkDelete($ids);
+        } catch (Exception $e) {
+            Log::error('PropertyService:bulkDestory', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

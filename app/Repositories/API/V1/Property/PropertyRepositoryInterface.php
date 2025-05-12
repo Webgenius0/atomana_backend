@@ -42,4 +42,11 @@ interface PropertyRepositoryInterface
      * @return Property
      */
     public function showDetailsById(int $propertyId): Property;
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void;
 }

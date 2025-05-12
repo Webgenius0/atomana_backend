@@ -33,7 +33,7 @@ class PropertyRepository implements PropertyRepositoryInterface
     public function searchPropertiesOfBusiness(int $businessId, string $searchKey)
     {
         try {
-            $properties = Property::select('id', 'address')->whereBusinessId($businessId)->where('address', 'like', '%' . $searchKey. '%')->get();;
+            $properties = Property::select('id', 'address')->whereBusinessId($businessId)->where('address', 'like', '%' . $searchKey . '%')->get();;
             return $properties;
         } catch (Exception $e) {
             Log::error('PropertyRepository::searchPropertiesOfBusiness', ['error' => $e->getMessage()]);
@@ -51,7 +51,7 @@ class PropertyRepository implements PropertyRepositoryInterface
     public function searchPropertiesOfTheAgent(int $userId, string $searchKey)
     {
         try {
-            $properties = Property::select('id', 'address')->whereAgent($userId)->where('address', 'like', '%' . $searchKey. '%')->get();
+            $properties = Property::select('id', 'address')->whereAgent($userId)->where('address', 'like', '%' . $searchKey . '%')->get();
             return $properties;
         } catch (Exception $e) {
             Log::error('PropertyRepository::searchPropertiesOfTheAgent', ['error' => $e->getMessage()]);
@@ -66,7 +66,7 @@ class PropertyRepository implements PropertyRepositoryInterface
      * @param int $businessId
      * @return Property
      */
-    public function createProperty(array $credentials, int $userId, int $businessId):Property
+    public function createProperty(array $credentials, int $userId, int $businessId): Property
     {
         try {
             return Property::create([
@@ -101,7 +101,7 @@ class PropertyRepository implements PropertyRepositoryInterface
      * @param int $propertyId
      * @return Property
      */
-    public function showDetailsById(int $propertyId):Property
+    public function showDetailsById(int $propertyId): Property
     {
         try {
             return Property::select([
@@ -123,11 +123,26 @@ class PropertyRepository implements PropertyRepositoryInterface
                 'size',
                 'link',
                 'note',
-                ])->
-            with(['agent:id,first_name,last_name,handle,avatar', 'coAgent:id,first_name,last_name,handle,avatar'])
-            ->findOrFail($propertyId);
-        }catch (Exception $e) {
+            ])->with(['agent:id,first_name,last_name,handle,avatar', 'coAgent:id,first_name,last_name,handle,avatar'])
+                ->findOrFail($propertyId);
+        } catch (Exception $e) {
             Log::error('PropertyRepository::createProperty', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void
+    {
+        try {
+            Property::destroy($ids);
+        } catch (Exception $e) {
+            Log::error('PropertyRepository:bulkDelete', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

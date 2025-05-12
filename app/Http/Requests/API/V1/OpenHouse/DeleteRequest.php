@@ -40,7 +40,7 @@ class DeleteRequest extends FormRequest
     protected function failedValidation(Validator $validator): never
     {
         $errors = $validator->errors()->getMessages();
-        $message = null;
+        $message = 'validation error';
         $fields = [
             'id',
         ];

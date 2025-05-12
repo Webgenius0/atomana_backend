@@ -35,5 +35,6 @@ Route::prefix('v1/expense')->name('expense.')->middleware(['auth:api', 'verified
         Route::post('/store/{expense_for}', 'store')->name('store');
         Route::get('/{expense_for}', 'index')->name('index');
 
+        Route::delete('/', 'bulkDelete');
     });
 });

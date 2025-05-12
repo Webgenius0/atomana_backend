@@ -69,13 +69,17 @@ class ContractRepository implements ContractRepositoryInterface
     /**
      * showContract
      * @param int $id
-     * @return void
+     * @return Contract
      */
-    public function showContract(int $id)
+    public function showContract(int $id): Contract
     {
         try {
-
-        }catch (Exception $e) {
+            return Contract::with([
+                'agent:id,first_name,last_name',
+                'coAgent:id,first_name,last_name',
+                'propertySources:id,name'
+            ])->findOrFail($id);
+        } catch (Exception $e) {
             Log::error('ContractRepository:showContract', ['error' => $e->getMessage()]);
             throw $e;
         }

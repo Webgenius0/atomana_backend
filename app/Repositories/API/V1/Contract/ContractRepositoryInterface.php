@@ -21,4 +21,11 @@ interface ContractRepositoryInterface
      * @return Contract
      */
     public function createContract(array $data, int $businessId, int $userId): Contract;
+
+    /**
+     * showContract
+     * @param int $id
+     * @return Contract
+     */
+    public function showContract(int $id): Contract;
 }

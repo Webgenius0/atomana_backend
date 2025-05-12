@@ -27,14 +27,12 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'business_id'          => 'required|exists:businesses,id',
-            'agent'                => 'required|integer|exists:users,id',
             'address'              => 'nullable|string|max:255',
             'closing_data'         => 'nullable|date',
             'is_co_listing'        => 'required|boolean',
             'co_agent'             => [new CoAgentNotAuthenticated],
             'represent'            => 'required|in:buyer,seller,both',
-            'date_listed'          => 'required_if:represent,seller,both|date',
+            'date_listed'          => 'required_if:represent,seller,both|nullable|date',
             'price'                => 'required|numeric|min:0',
             'contract_data'        => 'nullable|date',
             'commision_percentage' => 'nullable|numeric|min:0|max:100',

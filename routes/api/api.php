@@ -25,3 +25,4 @@ require 'v1/vendor_review/vendor_review.php';      // vendor_review
 require 'v1/ai/chat.php';                          // my-chat
 require 'v1/password_list/password_list.php';      // password_list
 require 'v1/shared_note/shared_note.php';          // shared_note
+require 'v1/contract/contract.php';                // contract

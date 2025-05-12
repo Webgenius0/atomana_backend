@@ -42,4 +42,11 @@ interface OpenHouseRepositoryInterface
      * @param int $businessId
      */
     public function getList(int $businessId): mixed;
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void;
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\OpenHouse;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\OpenHouse\CreateRequest;
+use App\Http\Requests\API\V1\OpenHouse\DeleteRequest;
 use App\Http\Resources\API\V1\OpenHouse\CreateResource;
 use App\Http\Resources\API\V1\OpenHouse\DropdownResource;
 use App\Http\Resources\API\V1\OpenHouse\IndexResource;
@@ -84,6 +85,24 @@ class OpenHouseController extends Controller
             return $this->success(201, 'Open House Created Successfully', new DropdownResource($response));
         } catch (Exception $e) {
             Log::error('App\Http\Controllers\API\V1\OpenHouse::dropdownIndex', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+
+    /**
+     * bulkDelete
+     * @param \App\Http\Requests\API\V1\OpenHouse\DeleteRequest $deleteRequest
+     * @return JsonResponse
+     */
+    public function bulkDelete(DeleteRequest $deleteRequest)
+    {
+        try {
+            $ids = $deleteRequest->input('id');
+            $this->openHouseService->bulkDestory($ids);
+            return $this->success(201, 'deleted');
+        } catch (Exception $e) {
+            Log::error('App\Http\Controllers\API\V1\OpenHouse::bulkDelete', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

@@ -5,6 +5,7 @@ namespace App\Repositories\API\V1\OpenHouse;
 use App\Models\OpenHouse;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use SebastianBergmann\Type\VoidType;
 
 class OpenHouseRepository implements OpenHouseRepositoryInterface
 {
@@ -18,7 +19,7 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
         try {
             return OpenHouse::select(['id', 'property_id'])->with([
                 'property:id,address',
-                ])->orderBy('created_at', 'desc')->whereBusinessId($businessId)->paginate($perPage);
+            ])->orderBy('created_at', 'desc')->whereBusinessId($businessId)->paginate($perPage);
         } catch (Exception $e) {
             Log::error('App\Repositories\API\V1\OpenHouse\OpenHouseRepository:listOfOpenHouseWithResponse', ['error' => $e->getMessage()]);
             throw $e;
@@ -90,6 +91,21 @@ class OpenHouseRepository implements OpenHouseRepositoryInterface
             return OpenHouse::select(['id', 'property_id'])->whereBusinessId($businessId)->with(['property:id,address'])->get();
         } catch (Exception $e) {
             Log::error('Repositories\API\V1\OpenHouse\OpenHouseRepository:getList', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void
+    {
+        try {
+            OpenHouse::destroy($ids);
+        } catch (Exception $e) {
+            Log::error('Repositories\API\V1\OpenHouse\OpenHouseRepository:bulkDelete', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

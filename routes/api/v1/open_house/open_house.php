@@ -10,6 +10,7 @@ Route::prefix('v1/open-house')->name('open.house.')->middleware(['auth:api', 've
         Route::post('/store', 'store')->name('store');
         Route::get('/dropdown', 'dropdownIndex')->name('dropdown');
         Route::get('/{openHouse}', 'show')->name('show');
+        Route::delete('/', 'bulkDelete');
     });
 
 

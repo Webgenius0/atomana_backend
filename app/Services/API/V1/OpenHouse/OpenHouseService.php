@@ -83,4 +83,19 @@ class OpenHouseService
             throw $e;
         }
     }
+
+
+    /**
+     * bulkDestory
+     * @param array $ids
+     */
+    public function bulkDestory(array $ids)
+    {
+        try {
+            return $this->openHouseRepository->bulkDelete($ids);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\OpenHouse\OpenHouseService:bulkDestory', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

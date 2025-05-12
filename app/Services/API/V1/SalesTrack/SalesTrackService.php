@@ -384,4 +384,19 @@ class SalesTrackService
             throw $e;
         }
     }
+
+
+    /**
+     * bulkDestory
+     * @param array $ids
+     */
+    public function bulkDestory(array $ids)
+    {
+        try {
+            return $this->salesTrackRepository->bulkDelete($ids);
+        } catch (Exception $e) {
+            Log::error('SalesTrackService:bulkDestory', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

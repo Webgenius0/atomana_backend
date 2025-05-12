@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\SalesTrack;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\SalesTrack\CreateSalesTrackRequest;
+use App\Http\Requests\API\V1\SalesTrack\DeleteRequest;
 use App\Http\Resources\API\V1\SalesTrack\CreateSalesTrackResource;
 use App\Http\Resources\API\V1\SalesTrack\IndexSalesTrackResource;
 use App\Services\API\V1\SalesTrack\SalesTrackService;
@@ -55,6 +56,23 @@ class SalesTrackController extends Controller
             return $this->success(201, 'Sales Track Created', new CreateSalesTrackResource($response));
         } catch (Exception $e) {
             Log::error('SalesTrackController::store', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
+     * bulkDelete
+     * @param \App\Http\Requests\API\V1\OpenHouse\DeleteRequest $deleteRequest
+     * @return JsonResponse
+     */
+    public function bulkDelete(DeleteRequest $deleteRequest)
+    {
+        try {
+            $ids = $deleteRequest->input('id');
+            $this->salesTrackService->bulkDestory($ids);
+            return $this->success(201, 'deleted');
+        } catch (Exception $e) {
+            Log::error('SalesTrackController::bulkDelete', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

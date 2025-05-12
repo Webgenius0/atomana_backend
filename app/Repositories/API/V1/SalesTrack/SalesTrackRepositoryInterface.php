@@ -121,4 +121,11 @@ interface SalesTrackRepositoryInterface
      * @return int
      */
     public function salesCountOnThatRange(int $businessId, string $start, string $end);
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void;
 }

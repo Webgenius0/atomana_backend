@@ -300,11 +300,26 @@ class SalesTrackRepository implements SalesTrackRepositoryInterface
     {
         try {
             return SalesTrackView::where('business_id', $businessId)
-            ->where('status', 'close')
-            ->whereBetween('closing_date', [$start, $end])
-            ->count();
-        }catch (Exception $e) {
+                ->where('status', 'close')
+                ->whereBetween('closing_date', [$start, $end])
+                ->count();
+        } catch (Exception $e) {
             Log::error('SalesTrackRepository::salesCountOnThatRange', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void
+    {
+        try {
+            SalesTrack::destroy($ids);
+        } catch (Exception $e) {
+            Log::error('SalesTrackRepository:bulkDelete', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

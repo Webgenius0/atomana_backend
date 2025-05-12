@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('business_id')->constrained('businesses')->cascadeOnDelete();
+            $table->string('uid')->unique();
             $table->unsignedBigInteger('agent');
             $table->string('address')->nullable();
             $table->date('closing_data')->nullable();

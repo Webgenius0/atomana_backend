@@ -19,6 +19,7 @@ class StoreResource extends JsonResource
 
         return [
             'id'                   => $data['id'],
+            'uid'                  => $data['uid'],
             'business_id'          => $data['business_id'],
             'agent'                => $data['agent'],
             'address'              => $data['address'],

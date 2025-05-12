@@ -2,6 +2,7 @@
 
 namespace App\Repositories\API\V1\Contract;
 
+use App\Helpers\Helper;
 use App\Models\Contract;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -39,6 +40,7 @@ class ContractRepository implements ContractRepositoryInterface
         try {
             return Contract::create([
                 'business_id'          => $businessId,
+                'uid'                  => Helper::generateUniqueId('contracts', 'uid'),
                 'agent'                => $userId,
                 'address'              => $data['address'],
                 'closing_data'         => $data['closing_data'],
@@ -60,6 +62,21 @@ class ContractRepository implements ContractRepositoryInterface
             ]);
         } catch (Exception $e) {
             Log::error('ContractRepository:createContract', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * showContract
+     * @param int $id
+     * @return void
+     */
+    public function showContract(int $id)
+    {
+        try {
+
+        }catch (Exception $e) {
+            Log::error('ContractRepository:showContract', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

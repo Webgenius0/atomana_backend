@@ -20,7 +20,6 @@ class ShowResource extends JsonResource
             'id' => $data['id'],
             'agent' => $data['user']['first_name']. ' '. $data['user']['last_name'],
             'sku' => $data['property']['sku'],
-            'email' => $data['property']['email'],
             'address' => $data['property']['address'],
             'price' => $data['property']['price'],
             'expiration_date' => $data['property']['expiration_date'],

@@ -48,7 +48,7 @@ class Property extends Model
             'beds'               => 'integer',
             'full_baths'         => 'integer',
             'half_baths'         => 'integer',
-            'size'               => 'decimal',
+            'size'               => 'decimal:2',
             'created_at'         => 'datetime',
             'updated_at'         => 'datetime',
         ];
@@ -145,7 +145,7 @@ class Property extends Model
      * openHouseFeedback
      * @return HasMany<OpenHouseFeedback, User>
      */
-    public function openHouseFeedback() : HasMany
+    public function openHouseFeedback(): HasMany
     {
         return $this->hasMany(OpenHouseFeedback::class);
     }
@@ -154,7 +154,7 @@ class Property extends Model
      * accessInstruction
      * @return HasOne<PropertyAccessInstruction, Property>
      */
-    public function accessInstruction():HasOne
+    public function accessInstruction(): HasOne
     {
         return $this->hasOne(PropertyAccessInstruction::class, 'property_id');
     }

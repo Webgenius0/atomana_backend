@@ -57,4 +57,20 @@ class ContractService
             throw $e;
         }
     }
+
+
+    /**
+     * showContract
+     * @param int $id
+     * @return Contract
+     */
+    public function showContract(int $id): Contract
+    {
+        try {
+            return $this->contractRepository->showContract($id);
+        } catch (Exception $e) {
+            Log::error('ContractService:createContract', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

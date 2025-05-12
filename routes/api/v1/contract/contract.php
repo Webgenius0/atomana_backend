@@ -8,6 +8,7 @@ Route::prefix('v1/contract')->middleware(['auth:api', 'verified', 'authorized'])
     // routes for ExpenseType controller
     Route::controller(ContractController::class)->group(function () {
         Route::get('/', 'index');
+        Route::get('/{contract}', 'show');
         Route::post('/', 'store');
     });
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Contract\CreateRequest;
 use App\Services\API\V1\Contract\ContractService;
 use App\Http\Resources\API\V1\Contract\StoreResource;
+use App\Models\Contract;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class ContractController extends Controller
         try {
             $response = $this->contractService->getAllContracts();
 
-            return $this->success(201, 'contract created', $response);
+            return $this->success(200, 'contract index', $response);
         } catch (Exception $e) {
             Log::error('ContractController::index', ['message' => $e->getMessage()]);
             return $this->error(500, 'server error', $e->getMessage());
@@ -52,6 +53,22 @@ class ContractController extends Controller
             $response = $this->contractService->createContract($validatedData);
 
             return $this->success(201, 'contract created', new StoreResource($response));
+        } catch (Exception $e) {
+            Log::error('ContractController::store', ['message' => $e->getMessage()]);
+            return $this->error(500, 'server error', $e->getMessage());
+        }
+    }
+
+    /**
+     * show
+     * @param \App\Models\Contract $contract
+     * @return JsonResponse
+     */
+    public function show(Contract $contract): JsonResponse
+    {
+        try {
+            $response = $this->contractService->showContract($contract->id);
+            return $this->success(200, 'contract', $response);
         } catch (Exception $e) {
             Log::error('ContractController::store', ['message' => $e->getMessage()]);
             return $this->error(500, 'server error', $e->getMessage());

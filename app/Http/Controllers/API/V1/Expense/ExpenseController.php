@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\Expense;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Expense\CreateExpenseRequest;
+use App\Http\Requests\API\V1\Expense\DeleteRequest;
 use App\Http\Requests\API\V1\Expense\UpdateAmountRequest;
 use App\Http\Requests\API\V1\Expense\UpdateCategoryRequest;
 use App\Http\Requests\API\V1\Expense\UpdateDescriptionRequest;
@@ -259,6 +260,24 @@ class ExpenseController extends Controller
             return $this->success(200, 'Note Updated Successfully');
         } catch (Exception $e) {
             Log::error('ExpenseController::updateNote', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+
+        /**
+     * bulkDelete
+     * @param \App\Http\Requests\API\V1\OpenHouse\DeleteRequest $deleteRequest
+     * @return JsonResponse
+     */
+    public function bulkDelete(DeleteRequest $deleteRequest)
+    {
+        try {
+            $ids = $deleteRequest->input('id');
+            $this->openHouseService->bulkDestory($ids);
+            return $this->success(201, 'deleted');
+        } catch (Exception $e) {
+            Log::error('ExpenseController::bulkDelete', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

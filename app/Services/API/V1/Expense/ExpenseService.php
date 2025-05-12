@@ -479,4 +479,19 @@ class ExpenseService extends ExpenseRepository
         }
     }
 
+
+        /**
+     * bulkDestory
+     * @param array $ids
+     */
+    public function bulkDestory(array $ids)
+    {
+        try {
+            return $this->expenseRepository->bulkDelete($ids);
+        } catch (Exception $e) {
+            Log::error('ExpenseService:bulkDestory', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
 }

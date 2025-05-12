@@ -34,7 +34,7 @@ class ExpenseRepository implements ExpenseRepositoryInterface
                 'listing',
                 'note',
                 'created_at',
-            ])->with(['user','category','subCategory','paymentMethord'])->whereBusinessId($businessId)
+            ])->with(['user', 'category', 'subCategory', 'paymentMethord'])->whereBusinessId($businessId)
                 ->whereExpenseForId($expenseForId)
                 ->whereArchive(false)
                 ->orderBy('created_at', 'desc')->paginate($perPage);
@@ -150,7 +150,6 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             ]);
 
             return true;
-
         } catch (Exception $e) {
             Log::error('ExpenseRepository::updateCategory', ['error' => $e->getMessage()]);
             throw $e;
@@ -297,6 +296,22 @@ class ExpenseRepository implements ExpenseRepositoryInterface
             ]);
         } catch (Exception $e) {
             Log::error('ExpenseRepository::updateNote', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void
+    {
+        try {
+            Expense::destroy($ids);
+        } catch (Exception $e) {
+            Log::error('ExpenseRepository:bulkDelete', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

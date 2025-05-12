@@ -119,4 +119,13 @@ interface ExpenseRepositoryInterface
      * @return bool
      */
     public function updateNote(int $id, string $note);
+
+
+
+    /**
+     * bulkDelete
+     * @param array $ids
+     * @return void
+     */
+    public function bulkDelete(array $ids): void;
 }

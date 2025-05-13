@@ -170,8 +170,8 @@ PROMPT;
     public function createNewChat(string $message): array
     {
         try {
-            $message = $this->systemPrompt. ' ' . $message;
-            $response = $this->openAIService->chat($message);
+            $newMessage = $this->systemPrompt. ' ' . $message;
+            $response = $this->openAIService->chat($newMessage);
             if (isset($response['id'])) {
                 $responseMessage = $response['output'][0]['content'][0]['text'];
                 $newChat = $this->myAIRepository->createChat($this->user->id, substr($responseMessage, 0, 10) . '...');

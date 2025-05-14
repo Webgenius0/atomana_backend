@@ -78,7 +78,7 @@ class OTPRepository implements OTPRepositoryInterface
             }
 
             // Check if OTP has expired (1 minute window)
-            if ($userOtp->created_at->diffInMinutes(now()) > 1) {
+            if ($userOtp->created_at->diffInMinutes(now()) > 5) {
                 throw new OTPExpiredException();
             }
 

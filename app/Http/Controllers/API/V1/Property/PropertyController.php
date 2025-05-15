@@ -106,12 +106,11 @@ class PropertyController extends Controller
             $validatedData = $updateRequest->validated();
             $this->propertyService->updateProperty($property, $validatedData);
             return $this->success(200, 'updated');
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error('PropertyController::update', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-
 
     /**
      * bulkDelete
@@ -129,5 +128,4 @@ class PropertyController extends Controller
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }
-
 }

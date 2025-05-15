@@ -15,8 +15,7 @@ Route::prefix('v1/property')->name('property.')->middleware(['auth:api', 'verifi
         Route::get('/dropdown', 'dropdown');
         Route::get('/show/{propertyId}', 'show');
         Route::get('/show/{propertyId}', 'show');
-
-
+        Route::put('/update/{property}', 'update');
         Route::delete('/', 'bulkDelete');
     });
 

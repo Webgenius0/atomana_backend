@@ -4,12 +4,14 @@ namespace App\Http\Requests\Api\V1\Property;
 
 use App\Rules\API\V1\Property\CoAgentNotAuthenticated;
 use App\Rules\API\V1\Property\CoAgentPercentage;
+use App\Traits\V1\ApiResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
 class UpdateRequest extends FormRequest
 {
+    use ApiResponse;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -28,11 +30,11 @@ class UpdateRequest extends FormRequest
         return [
             'address'            => 'required|string',
             'price'              => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'expiration_date'    => 'required|string',
-            'is_development'     => 'required|date|after:today',
+            'expiration_date'    => 'required|date',
+            'is_development'     => 'required|boolean',
             'add_to_website'     => 'nullable|boolean',
             'commission_rate'    => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/', 'max:100', 'min:0.01'],
-            'agent'              => 'required|boolean',
+            'agent'              => 'required|exists:users,id',
             'co_agent'           => [new CoAgentNotAuthenticated],
             'co_list_percentage' => [new CoAgentPercentage],
             'property_source_id' => 'required|exists:property_sources,id',

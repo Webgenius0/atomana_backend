@@ -103,4 +103,180 @@ class PropertyService
             throw $e;
         }
     }
+
+    /**
+     * editPrice
+     * @param \App\Models\Property $property
+     * @param mixed $price
+     * @return void
+     */
+    public function editPrice(Property $property, $price)
+    {
+        try {
+            $this->propertyRepository->updatePrice($property, $price);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editPrice', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editExpirationDate
+     * @param \App\Models\Property $property
+     * @param mixed $expiration_date
+     * @return void
+     */
+    public function editExpirationDate(Property $property, $expiration_date)
+    {
+        try {
+            $this->propertyRepository->updateExpirationDate($property, $expiration_date);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editExpirationDate', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editCommisionRate
+     * @param \App\Models\Property $property
+     * @param mixed $commission_rate
+     * @return void
+     */
+    public function editCommisionRate(Property $property, $commission_rate)
+    {
+        try {
+            $this->propertyRepository->updateCommisionRate($property, $commission_rate);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editCommisionRate', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editWebsite
+     * @param \App\Models\Property $property
+     * @param mixed $add_to_website
+     * @return void
+     */
+    public function editWebsite(Property $property, $add_to_website)
+    {
+        try {
+            $this->propertyRepository->updateWebsite($property, $add_to_website);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editWebsite', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editPropertySource
+     * @param \App\Models\Property $property
+     * @param mixed $property_source_id
+     * @return void
+     */
+    public function editPropertySource(Property $property, $property_source_id)
+    {
+        try {
+            $this->propertyRepository->updatePropertySource($property, $property_source_id);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editPropertySource', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editBed
+     * @param \App\Models\Property $property
+     * @param mixed $beds
+     * @return void
+     */
+    public function editBed(Property $property, $beds)
+    {
+        try {
+            $this->propertyRepository->updateBed($property, $beds);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editBed', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editHalfBed
+     * @param \App\Models\Property $property
+     * @param mixed $half_baths
+     * @return void
+     */
+    public function editHalfBed(Property $property, $half_baths)
+    {
+        try {
+            $this->propertyRepository->updateHalfBed($property, $half_baths);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editHalfBed', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editFullBed
+     * @param \App\Models\Property $property
+     * @param mixed $full_baths
+     * @return void
+     */
+    public function editFullBed(Property $property, $full_baths)
+    {
+        try {
+            $this->propertyRepository->updateFullBed($property, $full_baths);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editFullBed', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editSize
+     * @param \App\Models\Property $property
+     * @param mixed $size
+     * @return void
+     */
+    public function editSize(Property $property, $size)
+    {
+        try {
+            $this->propertyRepository->updateSize($property, $size);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editSize', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * editLink
+     * @param \App\Models\Property $property
+     * @param mixed $link
+     * @return void
+     */
+    public function editLink(Property $property, $link)
+    {
+        try {
+            $this->propertyRepository->updateLink($property, $link);
+        } catch (Exception $e) {
+            Log::error('PropertyService:editLink', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * eidtNote
+     * @param \App\Models\Property $property
+     * @param mixed $note
+     * @return void
+     */
+    public function eidtNote(Property $property, $note)
+    {
+        try {
+            $this->propertyRepository->updateNote($property, $note);
+        }catch(Exception $e) {
+            Log::error('PropertyService:eidtNote', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

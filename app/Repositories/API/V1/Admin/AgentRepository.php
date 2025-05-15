@@ -59,6 +59,7 @@ class AgentRepository implements AgentRepositoryInterface
                 'first_name' => $credentials['first_name'] ?? null,
                 'last_name' => $credentials['last_name'] ?? null,
                 'email' => $credentials['email'] ?? null,
+                'password' => $credentials['password'] ?? null,
             ]);
 
             Profile::whereUserId($userId)->update([

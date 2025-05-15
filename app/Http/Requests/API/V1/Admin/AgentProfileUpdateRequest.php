@@ -38,6 +38,7 @@ class AgentProfileUpdateRequest extends FormRequest
             'total_commission_this_contract_year' => 'required',
             'aggrement' => 'nullable|file|max:240000',
             'file' => 'nullable|file|max:240000',
+            'password' => 'required'
         ];
     }
 
@@ -53,7 +54,14 @@ class AgentProfileUpdateRequest extends FormRequest
         $errors = $validator->errors()->getMessages();
         $message = null;
         $fields = [
-            'message',
+            'first_name',
+            'last_name',
+            'email',
+            'contract_year_start',
+            'total_commission_this_contract_year',
+            'aggrement',
+            'file',
+            'password',
         ];
 
         foreach ($fields as $field) {

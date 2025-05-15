@@ -23,4 +23,6 @@ interface UserRepositoryInterface
 
     public function getCoListingAgents(int $userId, int $businessId);
 
+    public function updatePassword(int $userId, array $data);
+
 }

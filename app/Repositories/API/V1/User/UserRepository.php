@@ -4,6 +4,7 @@ namespace App\Repositories\API\V1\User;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserRepository implements UserRepositoryInterface
@@ -73,12 +74,30 @@ class UserRepository implements UserRepositoryInterface
     public function getCoListingAgents(int $userId, int $businessId)
     {
         try {
-            return User::select('id', 'first_name', 'last_name', 'handle')->where('id','!=', $userId)
+            return User::select('id', 'first_name', 'last_name', 'handle')->where('id', '!=', $userId)
                 ->wherehas('businesses', function ($query) use ($businessId) {
                     $query->where('businesses.id', $businessId);
                 })->whereRoleId(3)->get();
         } catch (Exception $e) {
             Log::error('UserRepository::getCoListingAgents', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
+     * updatePassword
+     * @param int $userId
+     * @param array $data
+     * @return void
+     */
+    public function updatePassword(int $userId, array $data)
+    {
+        try {
+            $user = User::find($userId);
+            $user->password = Hash::make($data['password']);
+            $user->save();
+        } catch (Exception $e) {
+            Log::error('UserRepository::updatePassword', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

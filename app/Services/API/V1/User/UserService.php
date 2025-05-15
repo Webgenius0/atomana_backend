@@ -41,4 +41,19 @@ class UserService
             throw $e;
         }
     }
+
+    /**
+     * updatePassword
+     * @param array $data
+     * @return void
+     */
+    public function updatePassword(array $data)
+    {
+        try {
+            $this->userRepository->updatePassword($this->user->id, $data);
+        }catch(Exception $e) {
+            Log::error('UserService::updatePassword', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
 }

@@ -91,6 +91,21 @@ class PropertyService
     }
 
     /**
+     * updateProperty
+     * @param \App\Models\Property $property
+     * @param array $data
+     */
+    public function updateProperty(Property $property, array $data)
+    {
+        try {
+            return $this->propertyRepository->updateProperty($property, $data);
+        } catch (Exception $e) {
+            Log::error('PropertyService:bulkDestory', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+    /**
      * bulkDestory
      * @param array $ids
      */

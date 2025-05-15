@@ -7,6 +7,7 @@ use App\Http\Requests\API\V1\Property\CreatePropertyRequest;
 use App\Http\Requests\API\V1\Property\DeleteRequest;
 use App\Http\Requests\API\V1\Property\UpdateCommisionRateRequest;
 use App\Http\Requests\API\V1\Property\UpdatePriceRequest;
+use App\Http\Requests\Api\V1\Property\UpdateRequest;
 use App\Http\Resources\API\V1\Property\CreatePropertyResource;
 use App\Models\Property;
 use App\Services\API\V1\Property\PropertyService;
@@ -89,6 +90,24 @@ class PropertyController extends Controller
             return $this->success(200, 'Property Details', $response);
         } catch (Exception $e) {
             Log::error('PropertyController::store', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
+     * update
+     * @param \App\Http\Requests\Api\V1\Property\UpdateRequest $updateRequest
+     * @param \App\Models\Property $property
+     * @return JsonResponse
+     */
+    public function update(UpdateRequest $updateRequest, Property $property): JsonResponse
+    {
+        try {
+            $validatedData = $updateRequest->validated();
+            $this->propertyService->updateProperty($property, $validatedData);
+            return $this->success(200, 'updated');
+        }catch (Exception $e) {
+            Log::error('PropertyController::update', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

@@ -10,9 +10,10 @@ Route::prefix('v1/user')->name('user.')->middleware(['auth:api', 'verified',])->
     // routes for bouth admin and agents
     Route::middleware(['authorized'])->group(function () {
         // landing page
-        Route::get('/data', [UserController::class, 'userData'])->name('data');
+        Route::get('/data', [UserController::class, 'userData']);
+        Route::patch('/password', [UserController::class, 'updatePassword']);
         // dropdown
-        Route::get('/agent/get-agent', [AgentController::class, 'getAgent'])->name('agent.get-agent');
-        Route::get('/agent/co-list', [AgentController::class, 'getCoList'])->name('agent.co-list');
+        Route::get('/agent/get-agent', [AgentController::class, 'getAgent']);
+        Route::get('/agent/co-list', [AgentController::class, 'getCoList']);
     });
 });

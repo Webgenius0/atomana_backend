@@ -131,6 +131,39 @@ class PropertyRepository implements PropertyRepositoryInterface
         }
     }
 
+    /**
+     * updateProperty
+     * @param \App\Models\Property $property
+     * @param array $data
+     * @return void
+     */
+    public function updateProperty(Property $property, array $data)
+    {
+        try {
+            $property->update([
+                'address' => $data['address'],
+                'price' => $data['price'],
+                'expiration_date' => $data['expiration_date'],
+                'is_development' => $data['is_development'],
+                'add_to_website' => $data['add_to_website'],
+                'commission_rate' => $data['commission_rate'],
+                'agent' => $data['agent'],
+                'co_agent' => $data['co_agent'],
+                'co_list_percentage' => $data['co_list_percentage'],
+                'property_source_id' => $data['property_source_id'],
+                'beds' => $data['beds'],
+                'full_baths' => $data['full_baths'],
+                'half_baths' => $data['half_baths'],
+                'size' => $data['size'],
+                'link' => $data['link'],
+                'note' => $data['note'],
+            ]);
+        } catch (Exception $e) {
+            Log::error('PropertyRepository:updateProperty', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
 
     /**
      * bulkDelete

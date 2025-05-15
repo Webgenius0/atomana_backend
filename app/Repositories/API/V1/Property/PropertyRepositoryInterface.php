@@ -36,6 +36,15 @@ interface PropertyRepositoryInterface
      */
     public function createProperty(array $credentials, int $userId, int $businessId): Property;
 
+
+    /**
+     * updateProperty
+     * @param \App\Models\Property $property
+     * @param array $data
+     * @return void
+     */
+    public function updateProperty(Property $property, array $data);
+
     /**
      * showById
      * @param int $propertyId
@@ -49,5 +58,4 @@ interface PropertyRepositoryInterface
      * @return void
      */
     public function bulkDelete(array $ids): void;
-
 }

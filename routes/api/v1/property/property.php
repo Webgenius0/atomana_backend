@@ -17,9 +17,6 @@ Route::prefix('v1/property')->name('property.')->middleware(['auth:api', 'verifi
         Route::get('/show/{propertyId}', 'show');
 
 
-        Route::patch('/{property}/price', 'updatePrice');
-        Route::patch('/{property}/commissionrate', 'updateCommisionRate');
-
         Route::delete('/', 'bulkDelete');
     });
 

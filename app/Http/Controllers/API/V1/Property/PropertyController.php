@@ -111,32 +111,4 @@ class PropertyController extends Controller
         }
     }
 
-    /**
-     * updatePrice
-     * @param \App\Http\Requests\API\V1\Property\UpdatePriceRequest $updatePriceRequest
-     * @param \App\Models\Property $property
-     * @return JsonResponse
-     */
-    public function updatePrice(UpdatePriceRequest $updatePriceRequest, Property $property)
-    {
-        try {
-            $this->propertyService->editPrice($property, $updatePriceRequest->input('price'));
-            return $this->success(200, 'updated');
-        }catch (Exception $e) {
-            Log::error('PropertyController::updatePrice', ['error' => $e->getMessage()]);
-            return $this->error(500, 'Server Error', $e->getMessage());
-        }
-    }
-
-
-    public function updateCommisionRate(UpdateCommisionRateRequest $updateCommisionRateRequest, Property $property)
-    {
-        try {
-            $this->propertyService->editCommisionRate($property, $updateCommisionRateRequest->input('commission_rate'));
-            return $this->success(200, 'updated');
-        }catch (Exception $e) {
-            Log::error('PropertyController::updateCommisionRate', ['error' => $e->getMessage()]);
-            return $this->error(500, 'Server Error', $e->getMessage());
-        }
-    }
 }

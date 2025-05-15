@@ -5,13 +5,16 @@ namespace App\Http\Controllers\API\V1\Property;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Property\CreatePropertyRequest;
 use App\Http\Requests\API\V1\Property\DeleteRequest;
+use App\Http\Requests\API\V1\Property\UpdatePriceRequest;
 use App\Http\Resources\API\V1\Property\CreatePropertyResource;
+use App\Models\Property;
 use App\Services\API\V1\Property\PropertyService;
 use App\Traits\V1\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class PropertyController extends Controller
 {
@@ -103,6 +106,23 @@ class PropertyController extends Controller
             return $this->success(200, 'deleted');
         } catch (Exception $e) {
             Log::error('PropertyController::bulkDelete', ['error' => $e->getMessage()]);
+            return $this->error(500, 'Server Error', $e->getMessage());
+        }
+    }
+
+    /**
+     * updatePrice
+     * @param \App\Http\Requests\API\V1\Property\UpdatePriceRequest $updatePriceRequest
+     * @param \App\Models\Property $property
+     * @return JsonResponse
+     */
+    public function updatePrice(UpdatePriceRequest $updatePriceRequest, Property $property)
+    {
+        try {
+            $this->propertyService->editPrice($property, $updatePriceRequest->input('price'));
+            return $this->success(200, 'updated');
+        }catch (Exception $e) {
+            Log::error('PropertyController::updatePrice', ['error' => $e->getMessage()]);
             return $this->error(500, 'Server Error', $e->getMessage());
         }
     }

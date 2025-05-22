@@ -10,19 +10,22 @@ use App\Models\MyAI;
 use App\Services\API\V1\AI\MyAI\MyAIService;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class MyAIController extends Controller
 {
     protected MyAIService $myaiService;
 
+
     /**
      * construct
      * @param \App\Services\API\V1\AI\MyAI\MYAIService $myaiService
      */
-    public function __construct(MyAIService $myaiService)
+    public function __construct(MyAIService $myaiService, )
     {
         $this->myaiService = $myaiService;
+
     }
 
     /**
@@ -92,4 +95,35 @@ class MyAIController extends Controller
             return $this->error(500, 'Server Error.', $e->getMessage());
         }
     }
+
+    /**
+     * askAI
+     * @param \App\Http\Requests\API\V1\AI\MessageRequest $messageRequest
+     * @return JsonResponse
+     */
+
+public function chat(MessageRequest $messageRequest)
+{
+    try {
+        $user = auth()->user();
+        if (!$user) {
+            return $this->error(401, 'Unauthorized');
+        }
+
+        $response = $this->myaiService->handleChatRequest($user, $messageRequest->validated()['message']);
+
+        return $this->success(200, 'Chat generated.', $response);
+
+    } catch (\Exception $e) {
+        Log::error('MyAIController::chat', ['error' => $e->getMessage()]);
+        return $this->error(500, 'Server Error.', $e->getMessage());
+    }
 }
+}
+
+
+
+
+
+
+

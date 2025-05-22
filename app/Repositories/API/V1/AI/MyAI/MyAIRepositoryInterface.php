@@ -2,6 +2,9 @@
 
 namespace App\Repositories\API\V1\AI\MyAI;
 
+use App\Models\MyAI;
+use App\Models\User;
+
 interface MyAIRepositoryInterface
 {
     /**
@@ -17,4 +20,9 @@ interface MyAIRepositoryInterface
      * @param int $user_id
      */
     public function getChats(int $user_id);
+
+
+     public function getMyAI(int $userId): MyAI;
+    public function buildUserContext(User $user): string;
+    public function saveChatMessage(int $myAIId, string $question, string $response): void;
 }

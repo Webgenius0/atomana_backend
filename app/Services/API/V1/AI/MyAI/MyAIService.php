@@ -4,8 +4,11 @@ namespace App\Services\API\V1\AI\MyAI;
 
 use App\Models\MyAI;
 use App\Models\MyAIMessage;
+use App\Models\User;
 use App\Repositories\API\V1\AI\MyAI\MyAIMessageRepositoryInterface;
 use App\Repositories\API\V1\AI\MyAI\MyAIRepositoryInterface;
+use App\Services\API\V1\AI\DatabaseAIService;
+use App\Services\API\V1\AI\EmonAIService;
 use App\Services\API\V1\AI\OpenAIService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +20,7 @@ class MyAIService
     protected MyAIMessageRepositoryInterface $myAIMessageRepository;
     protected OpenAIService $openAIService;
     protected $user;
+    protected DatabaseAIService $databaseAIService;
 
     protected string $systemPrompt = <<<PROMPT
 You are a controlled‑response assistant.
@@ -140,12 +144,13 @@ PROMPT;
      * @param \App\Repositories\API\V1\AI\MyAI\MyAIMessageRepositoryInterface $myAIMessageRepository
      * @param \App\Services\API\V1\AI\OpenAIService $openAIService
      */
-    public function __construct(MyAIRepositoryInterface $myAIRepository, MyAIMessageRepositoryInterface $myAIMessageRepository, OpenAIService $openAIService)
+    public function __construct(MyAIRepositoryInterface $myAIRepository, MyAIMessageRepositoryInterface $myAIMessageRepository, OpenAIService $openAIService,  DatabaseAIService $databaseAIService)
     {
         $this->myAIRepository = $myAIRepository;
         $this->myAIMessageRepository = $myAIMessageRepository;
         $this->openAIService = $openAIService;
         $this->user = Auth::user();
+        $this->databaseAIService = $databaseAIService;
     }
 
     /**
@@ -233,4 +238,47 @@ PROMPT;
             throw $e;
         }
     }
+
+public function askedAiFromDatabase(string $message): MyAIMessage
+    {
+        try {
+            $response = $this->openAIService->chat($message);
+            if (isset($response['id'])) {
+                $responseMessage = $response['output'][0]['content'][0]['text'];
+                $message = $this->myAIMessageRepository->saveChat($this->user->id, $message, $responseMessage);
+                return $message;
+            }
+            throw new Exception($response);
+        } catch (Exception $e) {
+            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::askedAiFromDatabase', ['error' => $e->getMessage()]);
+            throw $e;
+        }
+    }
+
+
+    public function handleChatRequest(User $user, string $message): array
+{
+    $context = $this->myAIRepository->buildUserContext($user);
+    $myAI = $this->myAIRepository->getMyAI($user->id);
+
+    $messages = [
+        ['role' => 'system', 'content' => "The following is the authenticated user's data:\n{$context}"],
+        ['role' => 'user', 'content' => $message]
+    ];
+
+    $response = $this->databaseAIService->askAI($messages, [], 'gpt-4');
+
+    if (isset($response['error'])) {
+        throw new \Exception($response['error']);
+    }
+
+    $this->myAIRepository->saveChatMessage($myAI->id, $message, $response['choices'][0]['message']['content'] ?? 'No response');
+
+    return [
+        'question' => $message,
+        'reply' => $response['choices'][0]['message']['content'] ?? 'No response'
+    ];
+}
+
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\V1\Property;
+namespace App\Http\Requests\API\V1\Property;
 
 use App\Rules\API\V1\Property\CoAgentNotAuthenticated;
 use App\Rules\API\V1\Property\CoAgentPercentage;

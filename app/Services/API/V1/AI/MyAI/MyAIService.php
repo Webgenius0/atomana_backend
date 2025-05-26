@@ -175,7 +175,7 @@ PROMPT;
     public function createNewChat(string $message): array
     {
         try {
-            $newMessage = $this->systemPrompt. ' ' . $message;
+            $newMessage = $this->systemPrompt . ' ' . $message;
             $response = $this->openAIService->chat($newMessage);
             if (isset($response['id'])) {
                 $responseMessage = $response['output'][0]['content'][0]['text'];
@@ -239,62 +239,61 @@ PROMPT;
         }
     }
 
-// public function askedAiFromDatabase(string $message): MyAIMessage
-//     {
-//         try {
-//             $response = $this->openAIService->chat($message);
-//             if (isset($response['id'])) {
-//                 $responseMessage = $response['output'][0]['content'][0]['text'];
-//                 $message = $this->myAIMessageRepository->saveChat($this->user->id, $message, $responseMessage);
-//                 return $message;
-//             }
-//             throw new Exception($response);
-//         } catch (Exception $e) {
-//             Log::error('App\Services\API\V1\AI\MyAI\MYAIService::askedAiFromDatabase', ['error' => $e->getMessage()]);
-//             throw $e;
-//         }
-//     }
+    // public function askedAiFromDatabase(string $message): MyAIMessage
+    //     {
+    //         try {
+    //             $response = $this->openAIService->chat($message);
+    //             if (isset($response['id'])) {
+    //                 $responseMessage = $response['output'][0]['content'][0]['text'];
+    //                 $message = $this->myAIMessageRepository->saveChat($this->user->id, $message, $responseMessage);
+    //                 return $message;
+    //             }
+    //             throw new Exception($response);
+    //         } catch (Exception $e) {
+    //             Log::error('App\Services\API\V1\AI\MyAI\MYAIService::askedAiFromDatabase', ['error' => $e->getMessage()]);
+    //             throw $e;
+    //         }
+    //     }
 
 
     public function handleChatRequest(User $user, string $message): array
-{
-    $context = $this->myAIRepository->buildUserContext($user);
-    $myAI = $this->myAIRepository->getMyAI($user->id);
+    {
+        try {
+            $context = $this->myAIRepository->buildUserContext($user);
+            $myAI = $this->myAIRepository->getMyAI($user->id);
 
-    $messages = [
-    [
-        'role' => 'system',
-        'content' => "You're an assistant that answers questions based on a user's profile, business, financial, and activity data. Only use the provided data to answer."
-    ],
-    [
-        'role' => 'system',
-        'content' => "The following is the authenticated user's data:\n{$context}"
-    ],
-    [
-        'role' => 'user',
-        'content' => $message
-    ]
-];
+            $messages = [
+                [
+                    'role' => 'system',
+                    'content' => "You're an assistant that answers questions based on a user's profile, business, financial, and activity data. Only use the provided data to answer."
+                ],
+                [
+                    'role' => 'system',
+                    'content' => "The following is the authenticated user's data:\n{$context}"
+                ],
+                [
+                    'role' => 'user',
+                    'content' => $message
+                ]
+            ];
 
-    $response = $this->databaseAIService->askAI($messages, [], 'gpt-4');
+            $response = $this->databaseAIService->askAI($messages, [], 'gpt-4');
 
-    if (isset($response['error'])) {
-        throw new \Exception($response['error']);
+            $this->myAIRepository->saveChatMessage(
+                $myAI->id,
+                $message,
+                $response['choices'][0]['message']['content'] ?? 'No response'
+            );
+
+            return [
+                'id' => $user->id,
+                'my_a_i_id' => $myAI->id,
+                'question' => $message,
+                'reply' => $response['choices'][0]['message']['content'] ?? 'No response'
+            ];
+        } catch (Exception $e) {
+            throw $e;
+            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::handleChatRequest', ['error' => $e->getMessage()]);
+        }
     }
-
-    $this->myAIRepository->saveChatMessage(
-        $myAI->id,
-        $message,
-        $response['choices'][0]['message']['content'] ?? 'No response'
-    );
-
-    return [
-        'id' => $user->id,
-        'my_a_i_id' => $myAI->id,
-        'question' => $message,
-        'reply' => $response['choices'][0]['message']['content'] ?? 'No response'
-    ];
-}
-
-
 }

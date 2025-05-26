@@ -111,10 +111,7 @@ public function storeChat(MessageRequest $messageRequest, MyAI $myAI): JsonRespo
             return $this->error(401, 'Unauthorized');
         }
 
-        $response = $this->myaiService->handleChatRequest(
-            $user,
-            $messageRequest->validated()['message'],
-            $myAI->id
+        $response = $this->myaiService->handleChatRequest($user,$messageRequest->validated()['message'],$myAI->id
         );
 
         // dd($response);

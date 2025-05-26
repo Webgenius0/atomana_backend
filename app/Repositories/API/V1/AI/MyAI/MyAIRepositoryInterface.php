@@ -22,7 +22,7 @@ interface MyAIRepositoryInterface
     public function getChats(int $user_id);
 
 
-     public function getMyAI(int $userId): MyAI;
+    public function getMyAI(int $userId): MyAI;
     public function buildUserContext(User $user): string;
     public function saveChatMessage(int $myAIId, string $question, string $response): void;
 }

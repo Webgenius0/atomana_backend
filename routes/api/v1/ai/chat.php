@@ -9,7 +9,7 @@ Route::prefix('/v1/my-ai')->name('my.ai.')->middleware('authorized')->controller
     Route::post('/chat', 'storeChat')->name('chat.store');
     Route::get('/chat/{myAI}', 'show')->name('chat.message.show');
     Route::post('/chat/{myAI}', 'message')->name('chat.message.store');
-    Route::post('/ask-ai',  'chat')->name('ask-ai');
+    // Route::post('/ask-ai',  'chat')->name('ask-ai');
 });
 
 Route::prefix('/v1/my-pr')->name('my.pr.')->middleware('authorized')->controller(MyPRController::class)->group(function () {

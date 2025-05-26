@@ -239,21 +239,21 @@ PROMPT;
         }
     }
 
-public function askedAiFromDatabase(string $message): MyAIMessage
-    {
-        try {
-            $response = $this->openAIService->chat($message);
-            if (isset($response['id'])) {
-                $responseMessage = $response['output'][0]['content'][0]['text'];
-                $message = $this->myAIMessageRepository->saveChat($this->user->id, $message, $responseMessage);
-                return $message;
-            }
-            throw new Exception($response);
-        } catch (Exception $e) {
-            Log::error('App\Services\API\V1\AI\MyAI\MYAIService::askedAiFromDatabase', ['error' => $e->getMessage()]);
-            throw $e;
-        }
-    }
+// public function askedAiFromDatabase(string $message): MyAIMessage
+//     {
+//         try {
+//             $response = $this->openAIService->chat($message);
+//             if (isset($response['id'])) {
+//                 $responseMessage = $response['output'][0]['content'][0]['text'];
+//                 $message = $this->myAIMessageRepository->saveChat($this->user->id, $message, $responseMessage);
+//                 return $message;
+//             }
+//             throw new Exception($response);
+//         } catch (Exception $e) {
+//             Log::error('App\Services\API\V1\AI\MyAI\MYAIService::askedAiFromDatabase', ['error' => $e->getMessage()]);
+//             throw $e;
+//         }
+//     }
 
 
     public function handleChatRequest(User $user, string $message): array
@@ -262,9 +262,19 @@ public function askedAiFromDatabase(string $message): MyAIMessage
     $myAI = $this->myAIRepository->getMyAI($user->id);
 
     $messages = [
-        ['role' => 'system', 'content' => "The following is the authenticated user's data:\n{$context}"],
-        ['role' => 'user', 'content' => $message]
-    ];
+    [
+        'role' => 'system',
+        'content' => "You're an assistant that answers questions based on a user's profile, business, financial, and activity data. Only use the provided data to answer."
+    ],
+    [
+        'role' => 'system',
+        'content' => "The following is the authenticated user's data:\n{$context}"
+    ],
+    [
+        'role' => 'user',
+        'content' => $message
+    ]
+];
 
     $response = $this->databaseAIService->askAI($messages, [], 'gpt-4');
 
@@ -272,9 +282,15 @@ public function askedAiFromDatabase(string $message): MyAIMessage
         throw new \Exception($response['error']);
     }
 
-    $this->myAIRepository->saveChatMessage($myAI->id, $message, $response['choices'][0]['message']['content'] ?? 'No response');
+    $this->myAIRepository->saveChatMessage(
+        $myAI->id,
+        $message,
+        $response['choices'][0]['message']['content'] ?? 'No response'
+    );
 
     return [
+        'id' => $user->id,
+        'my_a_i_id' => $myAI->id,
         'question' => $message,
         'reply' => $response['choices'][0]['message']['content'] ?? 'No response'
     ];

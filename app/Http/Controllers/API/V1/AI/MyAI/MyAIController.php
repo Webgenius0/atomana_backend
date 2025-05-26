@@ -48,18 +48,18 @@ class MyAIController extends Controller
      * @param \App\Http\Requests\API\V1\AI\MessageRequest $messageRequest
      * @return JsonResponse
      */
-    public function storeChat(MessageRequest $messageRequest)
-    {
-        try {
-            $validatedData = $messageRequest->validated();
-            $message = $validatedData['message'];
-            $response = $this->myaiService->createNewChat($message);
-            return $this->success(200,'Chat created successfully.', new CreateChatResource($response));
-        } catch (Exception $e) {
-            Log::error('App\Http\Controllers\API\V1\AI\MyAI\MyAIController::storeChat', ['error' => $e->getMessage()]);
-            return $this->error(500, 'Server Error.', $e->getMessage());
-        }
-    }
+    // public function storeChat(MessageRequest $messageRequest)
+    // {
+    //     try {
+    //         $validatedData = $messageRequest->validated();
+    //         $message = $validatedData['message'];
+    //         $response = $this->myaiService->createNewChat($message);
+    //         return $this->success(200,'Chat created successfully.', new CreateChatResource($response));
+    //     } catch (Exception $e) {
+    //         Log::error('App\Http\Controllers\API\V1\AI\MyAI\MyAIController::storeChat', ['error' => $e->getMessage()]);
+    //         return $this->error(500, 'Server Error.', $e->getMessage());
+    //     }
+    // }
 
     /**
      * show
@@ -102,23 +102,32 @@ class MyAIController extends Controller
      * @return JsonResponse
      */
 
-public function chat(MessageRequest $messageRequest)
+public function storeChat(MessageRequest $messageRequest, MyAI $myAI): JsonResponse
 {
     try {
         $user = auth()->user();
+        // dd($user);
         if (!$user) {
             return $this->error(401, 'Unauthorized');
         }
 
-        $response = $this->myaiService->handleChatRequest($user, $messageRequest->validated()['message']);
+        $response = $this->myaiService->handleChatRequest(
+            $user,
+            $messageRequest->validated()['message'],
+            $myAI->id
+        );
 
-        return $this->success(200, 'Chat generated.', $response);
+        // dd($response);
+
+        return $this->success(200, 'Chat generated.', new CreateChatMessageResource($response));
+        // return $this->success(200, 'Chat generated.',$response);
 
     } catch (\Exception $e) {
         Log::error('MyAIController::chat', ['error' => $e->getMessage()]);
         return $this->error(500, 'Server Error.', $e->getMessage());
     }
 }
+
 }
 
 

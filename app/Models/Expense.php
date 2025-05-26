@@ -133,4 +133,31 @@ class Expense extends Model
     {
         return Carbon::parse($value)->format('m/d/Y');
     }
+
+// Through business_user → business
+/**
+ * belongs to expenseFor
+ * @return BelongsTo<ExpenseFor, Expense>
+ */
+    public function expenseFor()
+    {
+        return $this->belongsTo(ExpenseFor::class, 'expense_for_id');
+    }
+    /**
+     * belongs to expenseCategory
+     * @return BelongsTo<ExpenseCategory, Expense>
+     */
+    public function expenseCategory()
+    {
+        return $this->belongsTo(ExpenseCategory::class, 'expense_category_id');
+    }
+    /**
+     * belongs to business
+     * @return BelongsTo<Business, Expense>
+     */
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class, 'business_id');
+    }
 }

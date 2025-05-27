@@ -67,14 +67,14 @@ class MyAIRepository implements MyAIRepositoryInterface
         }
 
         // Load all related data in one shot
-        $expenses = Expense::with('expenseFor', 'category', 'subCategory', 'paymentMethord', 'business')->where('user_id', $user->id)->get();
+        $expenses = Expense::with('expenseFor', 'category', 'subCategory', 'paymentMethord', 'business')->where('user_id', $user->id)->take(5)->get();
         $contracts = Contract::where('agent', $user->id)->get();
-        $properties = Property::with('business', 'openHouseFeedback', 'openHouses', 'accessInstruction', 'source')->whereIn('business_id', $user->businesses->pluck('id'))->get();
-        $salesTracks = SalesTrack::with('property')->where('user_id', $user->id)->latest()->get();
-        $targets = Target::where('user_id', $user->id)->get();
-        $notes = SharedNote::where('business_id', optional($user->businesses->first())->id)->latest()->get();
-        $vendor = Vendor::with('business', 'category')->whereIn('business_id', $user->businesses->pluck('id'))->get();
-        $vendorReview = $user->vendorReviews()->latest()->get();
+        $properties = Property::with('business', 'openHouseFeedback', 'openHouses', 'accessInstruction', 'source')->whereIn('business_id', $user->businesses->pluck('id'))->take(5)->get();
+        $salesTracks = SalesTrack::with('property')->where('user_id', $user->id)->latest()->take(5)->get();
+        $targets = Target::where('user_id', $user->id)->take(5)->get();
+        $notes = SharedNote::where('business_id', optional($user->businesses->first())->id)->latest()->take(5)->get();
+        $vendor = Vendor::with('business', 'category')->whereIn('business_id', $user->businesses->pluck('id'))->take(5)->get();
+        $vendorReview = $user->vendorReviews()->latest()->take(5)->get();
 
         // Expenses context
         if ($expenses->count()) {
